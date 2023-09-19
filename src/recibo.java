@@ -1,4 +1,4 @@
-public class recibo {
+public class Recibo {
     int idCliente;
     int idRecibo;
     float precioTotal;
