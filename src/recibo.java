@@ -5,6 +5,14 @@ public class Recibo {
     float precioFinal;
     float descuento;
 
+    public Recibo(int idCliente, int idRecibo, float precioTotal, float descuento) {
+        this.idCliente = idCliente;
+        this.idRecibo = idRecibo;
+        this.precioTotal = precioTotal;
+        this.descuento = descuento;
+        this.precioFinal = precioTotal * (1 - descuento);
+    }
+
     public float getPrecioTotal() {
         return precioTotal;
     }
