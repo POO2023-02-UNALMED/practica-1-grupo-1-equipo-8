@@ -1,22 +1,30 @@
 package humanos;
+import java.util.Random;
 
-public class Cocinero extends Persona{
-    private int experiencia;
+public class Cocinero extends Persona {
+    private double experiencia;
     private int salario;
-    private int papaya;
+    private double papaya;
     private boolean disponibilidad;
 
-    public Cocinero() {}
-
-    public Cocinero(String nombre, String apellido, int dinero, int experiencia, int salario, int papaya, boolean disponibilidad) {
-        super(nombre, apellido, dinero);
-        this.experiencia = experiencia;
-        this.salario = salario;
-        this.papaya = papaya;
-        this.disponibilidad = disponibilidad;
+    public Cocinero() {
+        Random random = new Random();
+        this.experiencia = random.nextDouble();
+        this.papaya = random.nextDouble();
     }
 
-    public int getExperiencia() {
+    public Cocinero(String nombre, String apellido, int dinero, int salario, boolean disponibilidad) {
+        super(nombre, apellido, dinero);
+        
+        this.salario = salario;
+        this.disponibilidad = disponibilidad;
+
+        Random random = new Random();
+        this.experiencia = random.nextDouble();
+        this.papaya = random.nextDouble();
+    }
+
+    public double getExperiencia() {
         return experiencia;
     }
 
@@ -36,7 +44,7 @@ public class Cocinero extends Persona{
         }
     }
 
-    public int getPapaya() {
+    public double getPapaya() {
         return papaya;
     }
 
