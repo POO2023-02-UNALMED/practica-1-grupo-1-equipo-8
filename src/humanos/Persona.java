@@ -33,5 +33,7 @@ public class Persona {
         return dinero;
     }
 
-    
+    public void setDinero(int dinero) {
+        this.dinero = dinero;
+    }
 }
