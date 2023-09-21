@@ -8,6 +8,7 @@ public class Cocinero extends Persona {
     private boolean disponibilidad;
 
     public Cocinero() {
+        super();
         Random random = new Random();
         this.experiencia = random.nextDouble();
         this.papaya = random.nextDouble();
@@ -15,7 +16,7 @@ public class Cocinero extends Persona {
 
     public Cocinero(String nombre, String apellido, int dinero, int salario, boolean disponibilidad) {
         super(nombre, apellido, dinero);
-        
+
         this.salario = salario;
         this.disponibilidad = disponibilidad;
 
