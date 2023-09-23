@@ -1,3 +1,4 @@
+package gestion;
 public class Recibo {
     int idCliente;
     int idRecibo;
