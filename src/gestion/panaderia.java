@@ -1,5 +1,7 @@
 import humanos.Cocinero;
 import humanos.Cliente;
+import comida.Ingrediente;
+import comida.Producto;
 
 public class Panaderia {
     Ingrediente[] invIngredientes;
