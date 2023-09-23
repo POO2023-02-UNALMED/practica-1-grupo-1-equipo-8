@@ -1,7 +1,8 @@
 package gestion;
 import comida.Ingrediente;
 import comida.Producto;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Canasta {
   private Map<Producto, Integer> productos = new HashMap<Producto, Integer>();
@@ -17,29 +18,33 @@ public class Canasta {
   public void setCosto(double costo) {this.costo = costo;}
 
   //Metodos para agregar y eliminar productos a los maps de la canasta
-  public void agregarProducto(Producto producto){gestionAgregar(producto);}
+  public void agregarProducto(Producto producto){gestionAgregar(producto,1);}
   public void eliminarProducto(Producto producto){productos.remove(producto);}
-  public void agregarIngrediente(Ingrediente ingrediente){gestionAgregar(ingrediente);}
+  public void agregarIngrediente(Ingrediente ingrediente){gestionAgregar(ingrediente,1);}
   public void eliminarIngrediente(Ingrediente ingrediente){ingredientes.remove(ingrediente);}
-  public void agregarKit(Producto producto){}
-  public void eliminarKit(Producto producto){}
+  public void agregarKit(Producto producto){
+    Map<Ingrediente,Integer> ingrdtsProducto=producto.ingredientes;
+    ingrdtsProducto.forEach((ingrdts,cantidad)-> gestionAgregar(ingrdts,cantidad));
+  }
+  //No veo positivo la funcion de eliminarKit, de la manera como está planteado generaría demasiados problemas
+  //public void eliminarKit(Producto producto){}
 
   //Metodos que gestionan correctamente la modificacion de los maps
   //Verifican que efectivamente el elemento no exista en el map antes de agregarlo, en el caso de que si, simplemente agrega una unidad más
-  public void gestionAgregar(Producto producto){
+  public void gestionAgregar(Producto producto,int elementNum){
     if ((producto != null) && (!productos.containsKey(producto))){
-      productos.put(producto,1);
+      productos.put(producto,elementNum);
     } else if((producto != null)){
-      productos.put(producto,productos.get(producto)+1);
+      productos.put(producto,productos.get(producto)+elementNum);
     } else{
       System.out.println("Hay un problema, no se puede añadir un objeto nulo");
     }
   }
-  public void gestionAgregar(Ingrediente ingrediente){
+  public void gestionAgregar(Ingrediente ingrediente,int elementNum){
     if ((ingrediente != null) && (!ingredientes.containsKey(ingrediente))){
-      ingredientes.put(ingrediente,1);
+      ingredientes.put(ingrediente,elementNum);
     } else if((ingrediente != null)){
-      ingredientes.put(ingrediente,ingredientes.get(ingrediente)+1);
+      ingredientes.put(ingrediente,ingredientes.get(ingrediente)+elementNum);
     } else{
       System.out.println("Hay un problema, no se puede añadir un objeto nulo");
     }
