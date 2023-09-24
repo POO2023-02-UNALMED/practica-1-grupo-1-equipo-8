@@ -5,6 +5,7 @@ import gestion.Panaderia;
 import comida.Ingrediente;
 import comida.Producto;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Cocinero extends Trabajador {
@@ -28,40 +29,15 @@ public class Cocinero extends Trabajador {
 
     public void setEspecialidad(String especialidad) {this.especialidad = especialidad;}
 
-    @Override
+    //@Override
     public void laborParticular(Producto producto, int cantidadDeseada) {
-        Random rand = new Random();
-
-        int cantidadCocinada = 0;
-
-        while (cantidadCocinada < cantidadDeseada) {
+        for (int i = 0; i < cantidadDeseada; i++) {
+            List<String> ingredientesFaltantes = new ArrayList<>();
             Map<String, Integer> ingredientesRequeridos = producto.getIngredientes();
-            for (String nombreIngrediente : ingredientesRequeridos.keySet()) {
-                int cantidadRequerida = ingredientesRequeridos.get(nombreIngrediente);
-                for (Ingrediente ingrediente : inventario) {
-                    if (ingrediente.getNombre().equals(nombreIngrediente) && ingrediente.getCantidad() >= cantidadRequerida) {
-                        ingrediente.restarIngrediente(cantidadRequerida);
-                    } /*else {
-                        puedeCocinar = false;
-                        break;
-                    }
-                }
-                if (!puedeCocinar) {
-                    System.out.println("No se pueden cocinar más productos debido a la falta de ingredientes.");
-                    break;
+    
+            for (String ingrediente : ingredientesRequeridos.keySet()) {
+                if (ingredientesRequeridos.get(ingrediente) > Panaderia.getInvIngredientes().get(ingrediente)) {
+                    ingredientesFaltantes.add(ingrediente);
                 }
             }
-            if (!puedeCocinar) {
-                break;
-            }
-            double quemar = rand.nextDouble() * 10;
-            if (quemar <= probabilidadQuemar) {
-                System.out.println("El cocinero se quemó. Deteniendo la cocción.");
-                break;
-            }
-            cantidadCocinada++;
-        }
-        System.out.println("El cocinero ha cocinado " + cantidadCocinada + " unidades de " + producto.getNombre());
-    }
 }
-*/
