@@ -1,4 +1,4 @@
-## Structura de carpetas
+## Estructura de carpetas
 
 El espacio de trabajo contiene dos carpetas de forma predeterminada, donde:
 
