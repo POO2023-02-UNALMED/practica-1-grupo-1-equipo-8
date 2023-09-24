@@ -35,6 +35,7 @@ public class Cocinero extends Trabajador {
         // si no se quema, se agrega el producto
         // se suman el producto al inventario
         // repetir tantas veces como cantidad
+        // si no hay ingredientes toca pedir plata e ir a comprar
     }
 }
 
