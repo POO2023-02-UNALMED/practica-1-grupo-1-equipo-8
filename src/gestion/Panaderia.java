@@ -61,5 +61,44 @@ public class Panaderia {
     }
 
     // otros metodos:
+    public void agregarIngrediente(Ingrediente ingrediente) {
+        invIngredientes.add(ingrediente);
+    }
 
-}
+    public void agregarProducto(Producto producto) {
+        invProductos.add(producto);
+    }
+
+    public void agregarCocinero(Cocinero cocinero) {
+        cocineros.add(cocinero);
+    }
+
+    public void agregarCliente(Cliente cliente) {
+        clientes.add(cliente);
+    }
+
+    public void eliminarIngrediente(Ingrediente ingrediente) {
+        invIngredientes.remove(ingrediente);
+    }
+
+    public void eliminarProducto(Producto producto) {
+        invProductos.remove(producto);
+    }
+
+    public void eliminarCocinero(Cocinero cocinero) {
+        cocineros.remove(cocinero);
+    }
+
+    public void eliminarCliente(Cliente cliente) {
+        clientes.remove(cliente);
+    }
+
+    public void agregarDinero(float dinero) {
+        this.dinero += dinero;
+    }
+
+    public void restarDinero(float dinero) {
+        this.dinero -= dinero;
+    }
+
+
