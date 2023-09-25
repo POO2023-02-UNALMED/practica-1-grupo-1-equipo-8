@@ -2,7 +2,11 @@ package humanos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import comida.Ingrediente;
+import comida.Producto;
 import gestion.Canasta;
+import gestion.Panaderia;
 import gestion.Recibo;
 
 public class Cliente {
@@ -13,10 +17,11 @@ public class Cliente {
 	private float presupuesto;
 	private ArrayList<Canasta> canastas;
 	private ArrayList<Recibo> recibos;
+	private Panaderia panaderia;
 	
 	//crear cliente con todos los atributos
 	
-	public Cliente(String nombre, Integer id, String tipoDescuento, float presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
+	public Cliente(String nombre, Integer id, String tipoDescuento, float presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos, Panaderia panaderia) {
 		
 		this.nombre = nombre;
 		this.id = id;
@@ -24,22 +29,23 @@ public class Cliente {
 		this.presupuesto = presupuesto;
 		this.canastas = canastas;
 		this.recibos = recibos;
+		this.panaderia = panaderia;
 		
 	}
 	
 	//crear un cliente sin pasarles listas de canastas y recibos (constructor estandar)
 	
-	public Cliente(String nombre, Integer id, String tipoDescuento, float presupuesto) {
+	public Cliente(String nombre, Integer id, String tipoDescuento, float presupuesto, Panaderia panaderia) {
 		
-		this(nombre, id, tipoDescuento, presupuesto, null, null); //cambiar esos null por listas vacías
+		this(nombre, id, tipoDescuento, presupuesto, null, null, panaderia); //cambiar esos null por listas vacías
 			
 	}
 	
 	//crear un cliente el cual no tiene ningún descuento
 	
-	public Cliente(String nombre, Integer id, float presupuesto) {
+	public Cliente(String nombre, Integer id, float presupuesto, Panaderia panaderia) {
 		
-		this(nombre, id, "ninguno", presupuesto, null, null); //cambiar esos null por listas vacías
+		this(nombre, id, "ninguno", presupuesto, null, null, panaderia); //cambiar esos null por listas vacías
 		
 	}
 	
@@ -92,6 +98,14 @@ public class Cliente {
 		this.recibos = recibos;
 	}
 	
+	public Panaderia getPanaderia() {
+		return panaderia;
+	}
+
+	public void setPanaderia(Panaderia panaderia) {
+		this.panaderia = panaderia;
+	}
+
 	public void crearCanasta() {
 		
 		Canasta canasta = new Canasta(null, null);
