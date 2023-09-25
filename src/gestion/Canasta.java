@@ -10,7 +10,8 @@ public class Canasta {
   private float costo;
 
   //Constructor  Canasta
-  public Canasta(Map<Producto,Integer> productos, Map<Ingrediente,Integer> ingredientes) {
+  public Canasta(Map<Producto,Integer> productos, Map<Ingrediente,Integer> ingredientes) { //agregar String nombre al constructor (si quieren)
+	//this.nombre = nombre  //descomentar esto para añadir nombre
     this.productos=productos;
     this.ingredientes=ingredientes;
     this.costo=generarCosto();
@@ -23,6 +24,8 @@ public class Canasta {
   public void setIngredientes(Map<Ingrediente, Integer> ingredientes) {this.ingredientes = ingredientes;}
   public double getCosto() {return costo;}
   public void setCosto(float costo) {this.costo = costo;}
+  //public String getNombre() {return nombre;}
+  //public void setNombre(String nombre) {this.nombre = nombre}
 
   //Metodos para agregar y eliminar productos a los maps de la canasta
   public void agregarProducto(Producto producto){gestionAgregar(producto,1);}
