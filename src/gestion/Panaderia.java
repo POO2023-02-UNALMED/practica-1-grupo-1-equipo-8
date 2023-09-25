@@ -27,7 +27,7 @@ public class Panaderia {
     }
 
     // metodos get:
-    public List<Ingrediente> getInvIngredientes() {return invIngredientes;}
+    //public List<Ingrediente> getInvIngredientes() {return invIngredientes;}
 
     public List<Producto> getInvProductos() {return invProductos;}
 
@@ -40,9 +40,9 @@ public class Panaderia {
     public static List<Producto> getProductosEnDescuento() {return productosEnDescuento;}
 
     // metodos set:
-    public void setInvIngredientes(List<Ingrediente> invIngredientes) {
-        this.invIngredientes = invIngredientes;
-    }
+    //public void setInvIngredientes(List<Ingrediente> invIngredientes) {
+    //    this.invIngredientes = invIngredientes;
+    //}
 
     public void setInvProductos(List<Producto> invProductos) {
         this.invProductos = invProductos;
@@ -62,9 +62,9 @@ public class Panaderia {
     public static void setProductosEnDescuento(List<Producto> productos){productosEnDescuento=productos;}
 
     // otros metodos:
-    public void agregarIngrediente(Ingrediente ingrediente) {
-        invIngredientes.add(ingrediente);
-    }
+    //public void agregarIngrediente(Ingrediente ingrediente) {
+    //    invIngredientes.add(ingrediente);
+    //}
 
     public void agregarProducto(Producto producto) {
         invProductos.add(producto);
@@ -101,6 +101,7 @@ public class Panaderia {
     public void restarDinero(float dinero) {
         this.dinero -= dinero;
     }
+    
 
     // Método para agregar un ingrediente al inventario
     public void agregarIngrediente(String nombre, int cantidad) {

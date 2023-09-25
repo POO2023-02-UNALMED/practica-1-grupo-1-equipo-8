@@ -7,7 +7,7 @@ public class Trabajador {
     double dineroEnMano;
 
     public Trabajador() {
-        this("Sin nombre", 0, 0);
+        this("John Doe", 0, 0);
     }
 
     public Trabajador(String nombre) {
@@ -35,5 +35,5 @@ public class Trabajador {
 
     public void setDineroEnMano(double dineroEnMano) {this.dineroEnMano = dineroEnMano;}
 
-    public String laborParticular() {return "No hay labor particular definida";}
+    public void laborParticular() {this.habilidad += 0.5;}
 }
