@@ -31,13 +31,4 @@ public class Cocinero extends Trabajador {
 
     //@Override
     public void laborParticular(Producto producto, int cantidadDeseada) {
-        for (int i = 0; i < cantidadDeseada; i++) {
-            List<String> ingredientesFaltantes = new ArrayList<>();
-            Map<String, Integer> ingredientesRequeridos = producto.getIngredientes();
-    
-            for (String ingrediente : ingredientesRequeridos.keySet()) {
-                if (ingredientesRequeridos.get(ingrediente) > Panaderia.getInvIngredientes().get(ingrediente)) {
-                    ingredientesFaltantes.add(ingrediente);
-                }
-            }
-}
+        //use hasmaps y sale facil get datos
