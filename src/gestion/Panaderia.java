@@ -1,4 +1,6 @@
 package gestion;
+import java.util.HashMap;
+import java.util.Map;
 
 import humanos.Cocinero;
 import humanos.Cliente;
@@ -8,7 +10,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Panaderia {
-    private List<Ingrediente> invIngredientes = new ArrayList<Ingrediente>();
+    private Map<String, Integer> invIngredientes;
+
     private List<Producto> invProductos = new ArrayList<Producto>();
     private List<Cocinero> cocineros = new ArrayList<Cocinero>();
     private List<Cliente> clientes = new ArrayList<Cliente>();
@@ -98,5 +101,35 @@ public class Panaderia {
     public void restarDinero(float dinero) {
         this.dinero -= dinero;
     }
-}
 
+    // Método para agregar un ingrediente al inventario
+    public void agregarIngrediente(String nombre, int cantidad) {
+        if (invIngredientes.containsKey(nombre)) {
+            // Si el ingrediente ya existe, actualiza la cantidad
+            int cantidadExistente = invIngredientes.get(nombre);
+            invIngredientes.put(nombre, cantidadExistente + cantidad);
+        } else {
+            // Si el ingrediente no existe, agrégalo al inventario
+            invIngredientes.put(nombre, cantidad);
+        }
+    }
+
+    // Método para obtener la cantidad de un ingrediente en el inventario
+    public int obtenerCantidadIngrediente(String nombre) {
+        if (invIngredientes.containsKey(nombre)) {
+            return invIngredientes.get(nombre);
+        }
+        // Si el ingrediente no está en el inventario, la cantidad es 0
+        return 0;
+    }
+
+    public void restarIngrediente(String nombre, int cantidad) {
+        if (invIngredientes.containsKey(nombre)) {
+            int cantidadExistente = invIngredientes.get(nombre);
+            if (cantidadExistente >= cantidad) {
+                // Si hay suficiente cantidad del ingrediente, resta la cantidad especificada
+                invIngredientes.put(nombre, cantidadExistente - cantidad);
+            }
+        }
+    }
+}
