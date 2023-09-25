@@ -1,25 +1,29 @@
 package gestion;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 import humanos.Cocinero;
 import humanos.Cliente;
 import comida.Ingrediente;
 import comida.Producto;
-import java.util.List;
-import java.util.ArrayList;
+
+
 
 public class Panaderia {
     private Map<String, Integer> invIngredientes;
-
     private List<Producto> invProductos = new ArrayList<Producto>();
     private List<Cocinero> cocineros = new ArrayList<Cocinero>();
     private List<Cliente> clientes = new ArrayList<Cliente>();
     private float dinero;
     private static List<Producto> productosEnDescuento = new ArrayList<Producto>();
+    private static Canasta canastaDelDia;
     static{
         //Agregar lista de productos en descuento para la canasta
         productosEnDescuento.add(0, null);;
+        //Agregar lista de productos de la canasta del dia
+        canastaDelDia= new Canasta(null, null);
     }
 
     public Panaderia() {
@@ -37,7 +41,11 @@ public class Panaderia {
 
     public float getDinero() {return dinero;}
 
+    public Map<String, Integer> getInvIngredientes() {return invIngredientes;}
+
     public static List<Producto> getProductosEnDescuento() {return productosEnDescuento;}
+
+    public static Canasta getCanastaDelDia() {return canastaDelDia;}
 
     // metodos set:
     //public void setInvIngredientes(List<Ingrediente> invIngredientes) {
@@ -47,6 +55,8 @@ public class Panaderia {
     public void setInvProductos(List<Producto> invProductos) {
         this.invProductos = invProductos;
     }
+
+    public void setInvIngredientes(Map<String, Integer> invIngredientes) {this.invIngredientes=invIngredientes;}
 
     public void setCocineros(List<Cocinero> cocineros) {
         this.cocineros = cocineros;
@@ -60,6 +70,8 @@ public class Panaderia {
         this.dinero = dinero;
     }
     public static void setProductosEnDescuento(List<Producto> productos){productosEnDescuento=productos;}
+
+    public static void setCanastaDelDia(Canasta canasta){canastaDelDia=canasta;}
 
     // otros metodos:
     //public void agregarIngrediente(Ingrediente ingrediente) {

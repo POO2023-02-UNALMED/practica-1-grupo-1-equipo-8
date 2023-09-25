@@ -9,6 +9,13 @@ public class Canasta {
   private Map<Ingrediente, Integer> ingredientes = new HashMap<Ingrediente, Integer>();
   private float costo;
 
+  //Constructor  Canasta
+  public Canasta(Map<Producto,Integer> productos, Map<Ingrediente,Integer> ingredientes) {
+    this.productos=productos;
+    this.ingredientes=ingredientes;
+    this.costo=generarCosto();
+  }
+
   //getters y setters de los atributos
   public Map<Producto, Integer> getProductos() {return productos;}
   public void setProductos(Map<Producto, Integer> productos) {this.productos = productos;}
@@ -23,7 +30,7 @@ public class Canasta {
   public void agregarIngrediente(Ingrediente ingrediente){gestionAgregar(ingrediente,1);}
   public void eliminarIngrediente(Ingrediente ingrediente){ingredientes.remove(ingrediente);}
   public void agregarKit(Producto producto){
-    Map<Ingrediente,Integer> ingrdtsProducto=producto.ingredientes;
+    Map<Ingrediente,Integer> ingrdtsProducto=producto.getIngredientes();
     ingrdtsProducto.forEach((ingrdts,cantidad)-> gestionAgregar(ingrdts,cantidad));
   }
   //No veo positivo la funcion de eliminarKit, de la manera como está planteado generaría demasiados problemas
@@ -102,5 +109,7 @@ public class Canasta {
   }
 
   //Método para productos personalizados
-  public void crearProductoPersonalizado(){}
+  public void crearProductoPersonalizado(String nombreProducto, Map<Ingrediente, Integer> ingredientes){
+    new Producto(nombreProducto,ingredientes);
+  }
 }
