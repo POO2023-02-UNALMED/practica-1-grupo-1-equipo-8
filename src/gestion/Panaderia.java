@@ -13,31 +13,28 @@ public class Panaderia {
     private List<Cocinero> cocineros = new ArrayList<Cocinero>();
     private List<Cliente> clientes = new ArrayList<Cliente>();
     private float dinero;
+    private static List<Producto> productosEnDescuento = new ArrayList<Producto>();
+    static{
+        //Agregar lista de productos en descuento para la canasta
+        productosEnDescuento.add(0, null);;
+    }
 
     public Panaderia() {
 
     }
 
     // metodos get:
-    public List<Ingrediente> getInvIngredientes() {
-        return invIngredientes;
-    }
+    public List<Ingrediente> getInvIngredientes() {return invIngredientes;}
 
-    public List<Producto> getInvProductos() {
-        return invProductos;
-    }
+    public List<Producto> getInvProductos() {return invProductos;}
 
-    public List<Cocinero> getCocineros() {
-        return cocineros;
-    }
+    public List<Cocinero> getCocineros() {return cocineros;}
 
-    public List<Cliente> getClientes() {
-        return clientes;
-    }
+    public List<Cliente> getClientes() {return clientes;}
 
-    public float getDinero() {
-        return dinero;
-    }
+    public float getDinero() {return dinero;}
+
+    public static List<Producto> getProductosEnDescuento() {return productosEnDescuento;}
 
     // metodos set:
     public void setInvIngredientes(List<Ingrediente> invIngredientes) {
@@ -59,6 +56,7 @@ public class Panaderia {
     public void setDinero(float dinero) {
         this.dinero = dinero;
     }
+    public static void setProductosEnDescuento(List<Producto> productos){productosEnDescuento=productos;}
 
     // otros metodos:
     public void agregarIngrediente(Ingrediente ingrediente) {
