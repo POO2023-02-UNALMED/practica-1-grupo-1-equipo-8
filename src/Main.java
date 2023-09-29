@@ -12,18 +12,25 @@ public class Main {
                 "2. Agregar productos a la canasta de compras" +
                 "3. Ver las facturas de mis compras";
         System.out.println(strOpciones);
-        int eleccion = input.nextInt();
+        int IntEleccion = input.nextInt();
         boolean eleccionValida = true;
 
         do {
-            switch (eleccion) {
+            switch (IntEleccion) {
+                // codigo que hace que se muestren opciones disponibles
                 case 1:
-                    // necesitamos un metodo de la clase comida que muestre las opciones disponibles
                     break;
+
+                // codigo que crea canasta y permite agregar productos
                 case 2:
                     break;
+
+                // codigo que le pide al cliente su identificación y le muestra sus opciones
                 case 3:
+                    String identificacion = input.nextLine();
                     break;
+
+                // caso donde el cliente elije una opcion no valida
                 default:
                     System.out.println("Usted escogio una opción que no estaba en la lista, ");
                     eleccionValida = false;
