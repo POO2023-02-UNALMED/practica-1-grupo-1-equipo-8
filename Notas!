@@ -10,13 +10,13 @@ tipo huevos:3, que son los que se usan para hacer un flan por ejemplo, pero creo
 
 Está de acuerdo con que se quite el atributo cantidad de la clase Ingrediente? (añada su nombre en su decisión)
 
-De acuerdo:
+De acuerdo: Richard
 En desacuerdo: Sahely 
 
 Está de acuerdo que ahora los ingredientes del producto se trabajen como diccionario el cuál indica la cantidad de ingredientes que se usa cada uno?
 Ej: {Harina: 3, Huevos: 2, Leche: 5} (Tenga en cuenta que esto enredaría un poquito mas a la hora de cocinar y de comprar pero le daría mas realismo)
 
-De acuerdo: Sahely
+De acuerdo: Sahely Richard
 En desacuerdo: 
 
 Hice el método crearProducto en la clase producto el cuál será usado por la clase canasta para hacer una nuevo producto con los pedidos personalizados, pero para que funcione bien se necesita que la canasta tenga dueño

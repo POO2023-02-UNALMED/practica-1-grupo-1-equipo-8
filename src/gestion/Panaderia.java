@@ -1,4 +1,5 @@
 package gestion;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -9,8 +10,6 @@ import humanos.Cliente;
 import comida.Ingrediente;
 import comida.Producto;
 
-
-
 public class Panaderia {
     private Map<String, Integer> invIngredientes;
     private List<Producto> invProductos = new ArrayList<Producto>();
@@ -19,11 +18,12 @@ public class Panaderia {
     private float dinero;
     private static List<Producto> productosEnDescuento = new ArrayList<Producto>();
     private static Canasta canastaDelDia;
-    static{
-        //Agregar lista de productos en descuento para la canasta
-        productosEnDescuento.add(0, null);;
-        //Agregar lista de productos de la canasta del dia
-        canastaDelDia= new Canasta(null, null);
+    static {
+        // Agregar lista de productos en descuento para la canasta
+        productosEnDescuento.add(0, null);
+        ;
+        // Agregar lista de productos de la canasta del dia
+        canastaDelDia = new Canasta(null, null);
     }
 
     public Panaderia() {
@@ -31,32 +31,48 @@ public class Panaderia {
     }
 
     // metodos get:
-    //public List<Ingrediente> getInvIngredientes() {return invIngredientes;}
+    // public List<Ingrediente> getInvIngredientes() {return invIngredientes;}
 
-    public List<Producto> getInvProductos() {return invProductos;}
+    public List<Producto> getInvProductos() {
+        return invProductos;
+    }
 
-    public List<Cocinero> getCocineros() {return cocineros;}
+    public List<Cocinero> getCocineros() {
+        return cocineros;
+    }
 
-    public List<Cliente> getClientes() {return clientes;}
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
 
-    public float getDinero() {return dinero;}
+    public float getDinero() {
+        return dinero;
+    }
 
-    public Map<String, Integer> getInvIngredientes() {return invIngredientes;}
+    public Map<String, Integer> getInvIngredientes() {
+        return invIngredientes;
+    }
 
-    public static List<Producto> getProductosEnDescuento() {return productosEnDescuento;}
+    public static List<Producto> getProductosEnDescuento() {
+        return productosEnDescuento;
+    }
 
-    public static Canasta getCanastaDelDia() {return canastaDelDia;}
+    public static Canasta getCanastaDelDia() {
+        return canastaDelDia;
+    }
 
     // metodos set:
-    //public void setInvIngredientes(List<Ingrediente> invIngredientes) {
-    //    this.invIngredientes = invIngredientes;
-    //}
+    // public void setInvIngredientes(List<Ingrediente> invIngredientes) {
+    // this.invIngredientes = invIngredientes;
+    // }
 
     public void setInvProductos(List<Producto> invProductos) {
         this.invProductos = invProductos;
     }
 
-    public void setInvIngredientes(Map<String, Integer> invIngredientes) {this.invIngredientes=invIngredientes;}
+    public void setInvIngredientes(Map<String, Integer> invIngredientes) {
+        this.invIngredientes = invIngredientes;
+    }
 
     public void setCocineros(List<Cocinero> cocineros) {
         this.cocineros = cocineros;
@@ -69,14 +85,19 @@ public class Panaderia {
     public void setDinero(float dinero) {
         this.dinero = dinero;
     }
-    public static void setProductosEnDescuento(List<Producto> productos){productosEnDescuento=productos;}
 
-    public static void setCanastaDelDia(Canasta canasta){canastaDelDia=canasta;}
+    public static void setProductosEnDescuento(List<Producto> productos) {
+        productosEnDescuento = productos;
+    }
+
+    public static void setCanastaDelDia(Canasta canasta) {
+        canastaDelDia = canasta;
+    }
 
     // otros metodos:
-    //public void agregarIngrediente(Ingrediente ingrediente) {
-    //    invIngredientes.add(ingrediente);
-    //}
+    // public void agregarIngrediente(Ingrediente ingrediente) {
+    // invIngredientes.add(ingrediente);
+    // }
 
     public void agregarProducto(Producto producto) {
         invProductos.add(producto);
@@ -113,7 +134,6 @@ public class Panaderia {
     public void restarDinero(float dinero) {
         this.dinero -= dinero;
     }
-    
 
     // Método para agregar un ingrediente al inventario
     public void agregarIngrediente(String nombre, int cantidad) {

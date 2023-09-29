@@ -1,4 +1,5 @@
 package humanos;
+
 import java.util.Map;
 import java.util.Random;
 
@@ -22,11 +23,15 @@ public class Domiciliario extends Trabajador {
         this.licencia = licencia;
     }
 
-    public Boolean isLicencia() {return licencia;}
+    public Boolean isLicencia() {
+        return licencia;
+    }
 
-    public void setLicencia(Boolean licencia) {this.licencia = licencia;}
+    public void setLicencia(Boolean licencia) {
+        this.licencia = licencia;
+    }
 
-    //@Override
+    // @Override
     // Método para conseguir ingredientes de la Panaderia
     public void conseguirIngrediente(Panaderia panaderia, Map<String, Integer> ingredientesAComprar) {
         // Calcular el costo total de los ingredientes
