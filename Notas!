@@ -21,3 +21,5 @@ En desacuerdo:
 
 Hice el método crearProducto en la clase producto el cuál será usado por la clase canasta para hacer una nuevo producto con los pedidos personalizados, pero para que funcione bien se necesita que la canasta tenga dueño
 Debido a que se necesita que se le dé una panadería a la cual añadirle el producto, el calcularcosto de adentro lo arreglaré después de solucionar esto (Sahely)
+
+Crear clase Cupon para administrar descuentos con métodos y el enum
