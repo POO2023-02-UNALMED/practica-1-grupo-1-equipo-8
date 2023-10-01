@@ -11,7 +11,8 @@ tipo huevos:3, que son los que se usan para hacer un flan por ejemplo, pero creo
 Está de acuerdo con que se quite el atributo cantidad de la clase Ingrediente? (añada su nombre en su decisión)
 
 De acuerdo: Richard
-En desacuerdo: Sahely 
+En desacuerdo: Sahely
+Casi de acuerdo: Mateo
 
 Está de acuerdo que ahora los ingredientes del producto se trabajen como diccionario el cuál indica la cantidad de ingredientes que se usa cada uno?
 Ej: {Harina: 3, Huevos: 2, Leche: 5} (Tenga en cuenta que esto enredaría un poquito mas a la hora de cocinar y de comprar pero le daría mas realismo)
@@ -22,4 +23,6 @@ En desacuerdo:
 Hice el método crearProducto en la clase producto el cuál será usado por la clase canasta para hacer una nuevo producto con los pedidos personalizados, pero para que funcione bien se necesita que la canasta tenga dueño
 Debido a que se necesita que se le dé una panadería a la cual añadirle el producto, el calcularcosto de adentro lo arreglaré después de solucionar esto (Sahely)
 
-Crear clase Cupon para administrar descuentos con métodos y el enum
+Creé clase Cupon para administrar descuentos con métodos y el enum
+
+El método para recibir orden de la canasta se encuentra creado en la canasta, para que no vayan a recrear su funcionalidad en la clase main

@@ -11,8 +11,8 @@ import comida.Ingrediente;
 import comida.Producto;
 
 public class Panaderia {
-    private Map<String, Integer> invIngredientes;
-    private List<Producto> invProductos = new ArrayList<Producto>();
+    private static Map<Ingrediente, Integer> invIngredientes= new HashMap<Ingrediente, Integer>();
+    private static Map<Producto,Integer> invProductos = new HashMap<Producto,Integer>();
     private List<Cocinero> cocineros = new ArrayList<Cocinero>();
     private List<Cliente> clientes = new ArrayList<Cliente>();
     private float dinero;
@@ -33,8 +33,20 @@ public class Panaderia {
     // metodos get:
     // public List<Ingrediente> getInvIngredientes() {return invIngredientes;}
 
-    public List<Producto> getInvProductos() {
+    public static Map<Producto,Integer> getInvProductos() {
         return invProductos;
+    }
+
+    public static Map<Ingrediente, Integer> getInvIngredientes() {
+        return invIngredientes;
+    }
+
+    public static List<Producto> getProductosEnDescuento() {
+        return productosEnDescuento;
+    }
+
+    public static Canasta getCanastaDelDia() {
+        return canastaDelDia;
     }
 
     public List<Cocinero> getCocineros() {
@@ -49,29 +61,17 @@ public class Panaderia {
         return dinero;
     }
 
-    public Map<String, Integer> getInvIngredientes() {
-        return invIngredientes;
-    }
-
-    public static List<Producto> getProductosEnDescuento() {
-        return productosEnDescuento;
-    }
-
-    public static Canasta getCanastaDelDia() {
-        return canastaDelDia;
-    }
-
     // metodos set:
     // public void setInvIngredientes(List<Ingrediente> invIngredientes) {
     // this.invIngredientes = invIngredientes;
     // }
 
-    public void setInvProductos(List<Producto> invProductos) {
-        this.invProductos = invProductos;
+    public static void setInvProductos(Map<Producto,Integer> newInvProductos) {
+        invProductos = newInvProductos;
     }
 
-    public void setInvIngredientes(Map<String, Integer> invIngredientes) {
-        this.invIngredientes = invIngredientes;
+    public static void setInvIngredientes(Map<Ingrediente, Integer> newInvIngredientes) {
+        invIngredientes = newInvIngredientes;
     }
 
     public void setCocineros(List<Cocinero> cocineros) {
@@ -99,8 +99,8 @@ public class Panaderia {
     // invIngredientes.add(ingrediente);
     // }
 
-    public void agregarProducto(Producto producto) {
-        invProductos.add(producto);
+    public void agregarProducto(Producto producto, int cantidad) {
+        invProductos.put(producto, cantidad);
     }
 
     public void agregarCocinero(Cocinero cocinero) {
@@ -135,15 +135,55 @@ public class Panaderia {
         this.dinero -= dinero;
     }
 
+    /**
+     * Verifica si existe un producto con el nombre de pila en el inventario de lapanadería.
+     * @param prdct el nombre del producto a buscar
+     * @return verdadero si existe un producto con el nombre de pila, falso en casocontrario
+     */
+    public static boolean verificarExistenciaProductoPorNombre(String prdct){
+        for (Map.Entry<Producto, Integer> productoEntry : invProductos.entrySet()) {
+            Producto producto = productoEntry.getKey();
+            if (producto.getNombre().equalsIgnoreCase(prdct)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verifica si un ingrediente existe en el inventario por su nombre.
+     * @param ingrd el nombre del ingrediente a verificar
+     * @return verdadero si el ingrediente existe, falso en caso contrario
+     */
+    public static boolean verificarExistenciaIngredientePorNombre(String ingrd){
+        for (Map.Entry<Ingrediente, Integer> ingredienteEntry : invIngredientes.entrySet()) {
+            Ingrediente ingrediente = ingredienteEntry.getKey();
+            if (ingrediente.getNombre().equalsIgnoreCase(ingrd)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Método para agregar un ingrediente al inventario
-    public void agregarIngrediente(String nombre, int cantidad) {
-        if (invIngredientes.containsKey(nombre)) {
+    public void agregarIngrediente(Ingrediente ingrediente, int cantidad) {
+        if (invIngredientes.containsKey(ingrediente)) {
             // Si el ingrediente ya existe, actualiza la cantidad
-            int cantidadExistente = invIngredientes.get(nombre);
-            invIngredientes.put(nombre, cantidadExistente + cantidad);
+            int cantidadExistente = invIngredientes.get(ingrediente);
+            invIngredientes.put(ingrediente, cantidadExistente + cantidad);
         } else {
             // Si el ingrediente no existe, agrégalo al inventario
-            invIngredientes.put(nombre, cantidad);
+            invIngredientes.put(ingrediente, cantidad);
+        }
+    }
+
+    public void restarIngrediente(Ingrediente ingrediente, int cantidad) {
+        if (invIngredientes.containsKey(ingrediente)) {
+            int cantidadExistente = invIngredientes.get(ingrediente);
+            if (cantidadExistente >= cantidad) {
+                // Si hay suficiente cantidad del ingrediente, resta la cantidad especificada
+                invIngredientes.put(ingrediente, cantidadExistente - cantidad);
+            }
         }
     }
 
@@ -156,17 +196,25 @@ public class Panaderia {
         return 0;
     }
 
-    public void restarIngrediente(String nombre, int cantidad) {
-        if (invIngredientes.containsKey(nombre)) {
-            int cantidadExistente = invIngredientes.get(nombre);
-            if (cantidadExistente >= cantidad) {
-                // Si hay suficiente cantidad del ingrediente, resta la cantidad especificada
-                invIngredientes.put(nombre, cantidadExistente - cantidad);
-            }
-        }
-    }
-
     public void prestarDinero(double cantidad){
         
+    }
+
+    //TODO: METODOS DE MATEO, NO TOCAR
+    // Método para productos personalizados
+    public static void crearProductoPersonalizado(String nombreProducto, Map<String, Integer> ingredientes) {
+        //TODO: Desarrollar este metodo para crear producto personalizado
+    }
+
+    public static Map<Producto, Integer> cocinar(Map<String, Integer> productos){
+        //TODO: Desarrollar este metodo para crear producto enviados por canasta
+        Map<Producto, Integer> productosCocinados = new HashMap<Producto, Integer>();
+        return productosCocinados;
+    }
+
+    public static Map<Ingrediente, Integer> agregarIngredientesACanasta(Map<String, Integer> ingredientes){
+        //TODO: Desarrollar este metodo para agregar ingredientes a la canasta
+        Map<Ingrediente, Integer> ingredientesCocinados = new HashMap<Ingrediente, Integer>();
+        return ingredientesCocinados;
     }
 }
