@@ -1,4 +1,5 @@
 package humanos;
+
 import java.lang.reflect.Array;
 import java.util.Random;
 import gestion.Panaderia;
@@ -25,10 +26,14 @@ public class Cocinero extends Trabajador {
         this.especialidad = especialidad;
     }
 
-    public String getEspecialidad() {return especialidad;}
+    public String getEspecialidad() {
+        return especialidad;
+    }
 
-    public void setEspecialidad(String especialidad) {this.especialidad = especialidad;}
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
 
-    //@Override
-    public void laborParticular(Producto producto, int cantidadDeseada) {
-        //use hasmaps y sale facil get datos
+    // @Override
+public void laborParticular(Producto producto, int cantidadDeseada) {}
+// use hasmaps y sale facil get datos

@@ -1,4 +1,5 @@
 package humanos;
+
 import java.util.Random;
 
 public class Trabajador {
@@ -23,17 +24,31 @@ public class Trabajador {
         this.dineroEnMano = dineroEnMano;
     }
 
-    public String getNombre() {return nombre;}
+    public String getNombre() {
+        return nombre;
+    }
 
-    public void setNombre(String nombre) {this.nombre = nombre;}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public double getHabilidad() {return habilidad;}
+    public double getHabilidad() {
+        return habilidad;
+    }
 
-    public void setHabilidad(double habilidad) {this.habilidad = habilidad;}
+    public void setHabilidad(double habilidad) {
+        this.habilidad = habilidad;
+    }
 
-    public double getDineroEnMano() {return dineroEnMano;}
+    public double getDineroEnMano() {
+        return dineroEnMano;
+    }
 
-    public void setDineroEnMano(double dineroEnMano) {this.dineroEnMano = dineroEnMano;}
+    public void setDineroEnMano(double dineroEnMano) {
+        this.dineroEnMano = dineroEnMano;
+    }
 
-    public void laborParticular() {this.habilidad += 0.5;}
+    public void laborParticular() {
+        this.habilidad += 0.5;
+    }
 }

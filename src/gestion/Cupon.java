@@ -1,13 +1,16 @@
 package gestion;
 
 /**
- * Esta clase representa un cupón que se puede utilizar para aplicar descuentos a productos.
- * Contiene tres enumeraciones: DescuentoBasico, DescuentoPorTipo y DescuentoProducto.
+ * Esta clase representa un cupón que se puede utilizar para aplicar descuentos
+ * a productos.
+ * Contiene tres enumeraciones: DescuentoBasico, DescuentoPorTipo y
+ * DescuentoProducto.
  */
 public class Cupon {
 
   /**
-   * Este enum representa los diferentes valores de descuento que se pueden aplicar a un cupón.
+   * Este enum representa los diferentes valores de descuento que se pueden
+   * aplicar a un cupón.
    * Cada valor de descuento está asociado con un porcentaje.
    */
   public enum DescuentoBasico {
@@ -29,8 +32,10 @@ public class Cupon {
   }
 
   /**
-   * Este enum representa los diferentes tipos de descuentos que se pueden aplicar a un cupón.
-   * Los tipos disponibles son ESTUDIANTE y PROFESOR, cada uno con un valor de descuento correspondiente.
+   * Este enum representa los diferentes tipos de descuentos que se pueden aplicar
+   * a un cupón.
+   * Los tipos disponibles son ESTUDIANTE y PROFESOR, cada uno con un valor de
+   * descuento correspondiente.
    */
   public enum DescuentoPorTipo {
     ESTUDIANTE(0.1),
@@ -48,7 +53,8 @@ public class Cupon {
   }
 
   /**
-   * Este enum representa los diferentes productos y sus valores de descuento correspondientes.
+   * Este enum representa los diferentes productos y sus valores de descuento
+   * correspondientes.
    */
   public enum DescuentoProducto {
     PRODUCTO_A("Producto A", 0.1),

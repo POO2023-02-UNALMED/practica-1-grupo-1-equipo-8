@@ -19,12 +19,12 @@ public class Main {
             switch (IntEleccion) {
                 // codigo que hace que se muestren opciones disponibles
                 case 1:
-                    opciones();
+
                     break;
 
                 // codigo que crea canasta y permite agregar productos
                 case 2:
-                    compras();
+
                     break;
 
                 // codigo que le pide al cliente su identificación y le muestra sus opciones
@@ -41,4 +41,5 @@ public class Main {
             }
         } while (eleccionValida == false);
     }
+
 }

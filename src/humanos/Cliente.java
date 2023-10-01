@@ -16,7 +16,7 @@ public class Cliente {
 	private String tipoDescuento;
 	private float presupuesto;
 	private ArrayList<Canasta> canastas;
-	private ArrayList<Recibo> recibos;
+	private ArrayList<Recibo> recibos; //Esto hay que trabajarlo con serialización
 	private Panaderia panaderia;
 
 	// crear cliente con todos los atributos
