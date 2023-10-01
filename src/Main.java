@@ -11,7 +11,7 @@ public class Main {
         String strOpciones = "Escriba el numero correspondiente a la opcion que quiere elejir" +
                 "1. Ver productos disponibles para comprar" +
                 "2. Agregar productos a la canasta de compras" +
-                "3. Ver las facturas de mis compras";
+                "3. Ver las facturas de mis compras pasadas";
         System.out.println(strOpciones);
         int IntEleccion = input.nextInt();
         boolean eleccionValida = true;

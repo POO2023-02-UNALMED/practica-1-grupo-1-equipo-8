@@ -7,6 +7,7 @@ import humanos.Cliente;
 import java.util.List; //Libreria para listas
 import java.util.ArrayList; //Libreria para listas
 import java.util.Date; //Libreria para manejar fechas
+import java.io.EOFException;
 import java.time.Instant; //Libreria para obterer la fecha actual
 import java.util.Random; //Libreria para sacar numeros aleatorios (pensaba en premiar un cliente aleatorio volviendo su factura gratis)
 import java.util.HashMap;
@@ -105,20 +106,24 @@ public class Recibo {
      * texto
      */
     public ArrayList<String> imprimirFactura() {
-        factura.add("           _____");
-        factura.add("  _..--'''@   @'''--.._");
-        factura.add( ".'   @_/-//- />/>'/ @  '");
-        factura.add("(  @  /_<//<'/----------^-)");
-        factura.add("|'._  @     //|###########|");
-        factura.add("|~  ''--..@|',|}}}}}}}}}}}|");
-        factura.add("|  ~   ~   |/ |###########|");
-        factura.add("| ~~  ~   ~|./|{{{{{{{{{{{|");
-        factura.add("'._ ~ ~ ~ |,/`````````````");
-        factura.add(" ''--.~.|/");
-        factura.add(String.format("DOMICILIOS 24 HORAS"));
+        factura.add("    ____                                    ?~~bL");
+        factura.add("    z@~ b                                    |  `U,");
+        factura.add("]@[  |                                   ]'  z@'");
+        factura.add("d@~' `|, .__     _----L___----, __, .  _t'   `@j");
+        factura.add("`@L_,   \"-~ `--\"~-a,           `C.  ~\"\"O_    ._`@");
+        factura.add("q@~'   ]P       ]@[            `Y=,   `H+z_  `a@");
+        factura.add("`@L  _z@        d@               Ya     `-@b,_a'");
+        factura.add("    `-@d@a'       )@[               `VL      `a@@'");
+        factura.add("    aa~'   ],  .a@'                qqL  ), ./~");
+        factura.add("    @@_  _z~  _d@[                 .V@  .L_d'");
+        factura.add("    \"~@@@'  ]@@@'        __      )@n@bza@-\"");
+        factura.add("        `-@zzz@@@L        )@@z     ]@@=%-\"");
+        factura.add("        \"~~@@@@@bz_    _a@@@@z___a@K");
+        factura.add("            \"~-@@@@@@@@@@@@@@@@@@~\"");
+        factura.add("                `~~~-@~~-@@~~~~~'");
+        factura.add(String.format(""));
+;       factura.add(String.format("DOMICILIOS 24 HORAS"));
         factura.add(String.format("PANADERIA POO"));
-        
-        factura.add(String.format("FACULTAD DE MINAS"));
         factura.add(String.format(""));
         factura.add("-".repeat(40));
         factura.add(String.format("Factura Nro: %s", idRecibo));
@@ -136,12 +141,6 @@ public class Recibo {
             for(Map.Entry<Producto,Integer> item: canasta.getProductos().entrySet()){
                 factura.add(String.format("%s %d %f", item.getKey(), item.getValue(), item.getKey().getCosto()*item.getValue()));
         }
-        factura.add(String.format(""));
-        factura.add(String.format(""));
-        factura.add(String.format(""));
-        factura.add(String.format(""));
-        factura.add(String.format(""));
-        factura.add(String.format(""));
         factura.add(String.format(""));
         factura.add("▄▄▄▄▄▄▄  ▄ ▄▄ ▄▄▄▄▄▄▄"); 
         factura.add("█ ▄▄▄ █ ██ ▀▄ █ ▄▄▄ █"); 
