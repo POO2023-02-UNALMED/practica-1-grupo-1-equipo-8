@@ -165,4 +165,8 @@ public class Panaderia {
             }
         }
     }
+
+    public void prestarDinero(double cantidad){
+        
+    }
 }

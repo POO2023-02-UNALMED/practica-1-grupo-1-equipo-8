@@ -105,7 +105,7 @@ public class Recibo {
      * estaba pensando en que se podria guardar cada factura en un documento de
      * texto
      */
-    public ArrayList<String> imprimirFactura() {
+    public void imprimirFactura() {
         factura.add("    ____                                    ?~~bL");
         factura.add("    z@~ b                                    |  `U,");
         factura.add("]@[  |                                   ]'  z@'");
@@ -153,10 +153,9 @@ public class Recibo {
         factura.add("█ ▄▄▄ █   ██▀▀▄▄█   █"); 
         factura.add("█ ███ █ ▀▄ ▀▄  ██▄█▀█"); 
         factura.add("█▄▄▄▄▄█ █▀▀▄▄▀▀▀█  ▄ "); 
+        }
 
-        return factura;
     }
-
 }
 
 
