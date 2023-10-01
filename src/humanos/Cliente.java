@@ -13,10 +13,10 @@ public class Cliente {
 
 	private String nombre;
 	private Integer id;
-	private String tipoDescuento;
-	private float presupuesto;
-	private ArrayList<Canasta> canastas;
-	private ArrayList<Recibo> recibos; //Esto hay que trabajarlo con serialización
+	private String tipoDescuento; // Cuando finalice la compra hay que reiniciar este valor
+	private float presupuesto; // Cuando finalice la compra hay que reiniciar este valor
+	private ArrayList<Canasta> canastas; // Cuando finalize la compra hay que colocar canastas = null;
+	private ArrayList<Recibo> recibos; // Esto hay que trabajarlo con serialización, puede que sea mejor quitar este atributo despues.
 	private Panaderia panaderia;
 
 	// crear cliente con todos los atributos
@@ -44,7 +44,6 @@ public class Cliente {
 	}
 
 	// crear un cliente el cual no tiene ningún descuento
-
 	public Cliente(String nombre, Integer id, float presupuesto, Panaderia panaderia) {
 
 		this(nombre, id, "ninguno", presupuesto, null, null, panaderia); // cambiar esos null por listas vacías

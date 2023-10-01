@@ -3,6 +3,7 @@ import comida.*;
 import gestion.*;
 import humanos.*;
 
+//Esta clase la he estado modificando yo (Richard), cualquier sugerencia me pueden escribir aqui
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
