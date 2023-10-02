@@ -13,16 +13,16 @@ public class Cliente {
 
 	private String nombre;
 	private Integer id;
-	private String tipoDescuento; // Cuando finalice la compra hay que reiniciar este valor
-	private float presupuesto; // Cuando finalice la compra hay que reiniciar este valor
-	private ArrayList<Canasta> canastas; // Cuando finalize la compra hay que colocar canastas = null;
-	private ArrayList<Recibo> recibos; // Esto hay que trabajarlo con serialización, puede que sea mejor quitar este atributo despues.
+	private String tipoDescuento;
+	private float presupuesto;
+	private List<Canasta> canastas = new ArrayList<Canasta>();
+	private List<Recibo> recibos = new ArrayList<Recibo>();
 	private Panaderia panaderia;
 
 	// crear cliente con todos los atributos
 
-	public Cliente(String nombre, Integer id, String tipoDescuento, float presupuesto, ArrayList<Canasta> canastas,
-			ArrayList<Recibo> recibos, Panaderia panaderia) {
+	public Cliente(String nombre, Integer id, String tipoDescuento, float presupuesto, List<Canasta> canastas,
+			List<Recibo> recibos, Panaderia panaderia) {
 
 		this.nombre = nombre;
 		this.id = id;
@@ -38,15 +38,34 @@ public class Cliente {
 	// estandar)
 
 	public Cliente(String nombre, Integer id, String tipoDescuento, float presupuesto, Panaderia panaderia) {
+		
+		List<Canasta> list1 = new ArrayList<Canasta>();
+    	List<Recibo> list2 = new ArrayList<Recibo>();
 
-		this(nombre, id, tipoDescuento, presupuesto, null, null, panaderia); // cambiar esos null por listas vacías
+    	this.nombre = nombre;
+		this.id = id;
+		this.tipoDescuento = tipoDescuento;
+		this.presupuesto = presupuesto;
+		this.canastas = list1;
+		this.recibos = list2;
+		this.panaderia = panaderia;
 
 	}
 
 	// crear un cliente el cual no tiene ningún descuento
+
 	public Cliente(String nombre, Integer id, float presupuesto, Panaderia panaderia) {
 
-		this(nombre, id, "ninguno", presupuesto, null, null, panaderia); // cambiar esos null por listas vacías
+		List<Canasta> list1 = new ArrayList<Canasta>();
+    	List<Recibo> list2 = new ArrayList<Recibo>();
+
+    	this.nombre = nombre;
+		this.id = id;
+		this.tipoDescuento = "ninguno";
+		this.presupuesto = presupuesto;
+		this.canastas = list1;
+		this.recibos = list2;
+		this.panaderia = panaderia;
 
 	}
 
@@ -82,7 +101,7 @@ public class Cliente {
 		this.presupuesto = presupuesto;
 	}
 
-	public ArrayList<Canasta> getCanastas() {
+	public List<Canasta> getCanastas() {
 		return canastas;
 	}
 
@@ -90,7 +109,7 @@ public class Cliente {
 		this.canastas = canastas;
 	}
 
-	public ArrayList<Recibo> getRecibos() {
+	public List<Recibo> getRecibos() {
 		return recibos;
 	}
 

@@ -217,4 +217,34 @@ public class Panaderia {
         Map<Ingrediente, Integer> ingredientesCocinados = new HashMap<Ingrediente, Integer>();
         return ingredientesCocinados;
     }
+    
+    public String registrarCliente(String nombre, Integer id, String tipoDescuento, float presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
+    	
+    	Cliente cliente = new Cliente(nombre, id, tipoDescuento, presupuesto, canastas, recibos, this);
+    	
+    	this.clientes.add(cliente);
+    	
+    	return "Ha sido registrado como cliente con exito bajo el nombre: " + cliente.getNombre();
+    	
+    }
+    
+    public String registrarCliente(String nombre, Integer id, String tipoDescuento, float presupuesto, Panaderia panaderia) {
+    	
+    	Cliente cliente = new Cliente(nombre, id, tipoDescuento, presupuesto, this);
+    	
+    	this.clientes.add(cliente);
+    	
+    	return "Ha sido registrado como cliente con exito bajo el nombre: " + cliente.getNombre();
+    
+    }
+    
+    public String registrarCliente(String nombre, Integer id, float presupuesto, Panaderia panaderia) {
+    	
+    	Cliente cliente = new Cliente(nombre, id, presupuesto, this);
+    	
+    	this.clientes.add(cliente);
+    	
+    	return "Ha sido registrado como cliente con exito bajo el nombre: " + cliente.getNombre();
+    
+    }
 }
