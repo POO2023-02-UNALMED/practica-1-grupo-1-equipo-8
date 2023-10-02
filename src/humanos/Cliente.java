@@ -17,12 +17,11 @@ public class Cliente {
 	private float presupuesto;
 	private List<Canasta> canastas = new ArrayList<Canasta>();
 	private List<Recibo> recibos = new ArrayList<Recibo>();
-	private Panaderia panaderia;
 
 	// crear cliente con todos los atributos
 
 	public Cliente(String nombre, Integer id, String tipoDescuento, float presupuesto, List<Canasta> canastas,
-			List<Recibo> recibos, Panaderia panaderia) {
+			List<Recibo> recibos) {
 
 		this.nombre = nombre;
 		this.id = id;
@@ -30,14 +29,13 @@ public class Cliente {
 		this.presupuesto = presupuesto;
 		this.canastas = canastas;
 		this.recibos = recibos;
-		this.panaderia = panaderia;
-
+		
 	}
 
 	// crear un cliente sin pasarles listas de canastas y recibos (constructor
 	// estandar)
 
-	public Cliente(String nombre, Integer id, String tipoDescuento, float presupuesto, Panaderia panaderia) {
+	public Cliente(String nombre, Integer id, String tipoDescuento, float presupuesto) {
 		
 		List<Canasta> list1 = new ArrayList<Canasta>();
     	List<Recibo> list2 = new ArrayList<Recibo>();
@@ -48,13 +46,12 @@ public class Cliente {
 		this.presupuesto = presupuesto;
 		this.canastas = list1;
 		this.recibos = list2;
-		this.panaderia = panaderia;
 
 	}
 
 	// crear un cliente el cual no tiene ningún descuento
 
-	public Cliente(String nombre, Integer id, float presupuesto, Panaderia panaderia) {
+	public Cliente(String nombre, Integer id, float presupuesto) {
 
 		List<Canasta> list1 = new ArrayList<Canasta>();
     	List<Recibo> list2 = new ArrayList<Recibo>();
@@ -65,7 +62,6 @@ public class Cliente {
 		this.presupuesto = presupuesto;
 		this.canastas = list1;
 		this.recibos = list2;
-		this.panaderia = panaderia;
 
 	}
 
@@ -115,14 +111,6 @@ public class Cliente {
 
 	public void setRecibos(ArrayList<Recibo> recibos) {
 		this.recibos = recibos;
-	}
-
-	public Panaderia getPanaderia() {
-		return panaderia;
-	}
-
-	public void setPanaderia(Panaderia panaderia) {
-		this.panaderia = panaderia;
 	}
 
 	public void crearCanasta() {
