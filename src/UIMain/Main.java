@@ -1,3 +1,4 @@
+package UIMain;
 import java.util.Scanner;
 import comida.*;
 import gestion.*;
