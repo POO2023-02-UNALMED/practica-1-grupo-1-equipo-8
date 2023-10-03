@@ -1,4 +1,3 @@
-package UIMain;
 import java.util.Scanner;
 import comida.*;
 import gestion.*;
@@ -7,9 +6,6 @@ import humanos.*;
 //Esta clase la he estado modificando yo (Richard), cualquier sugerencia me pueden escribir aqui
 public class Main {
     public static void main(String[] args) {
-    	
-    	registroCliente();
-    	
         Scanner input = new Scanner(System.in);
         titulo();
         String strOpciones = "Escriba el numero correspondiente a la opcion que quiere elejir\n" +
@@ -74,40 +70,6 @@ public class Main {
         System.out.println("88            `\"Y8888Y\"'     `\"Y8888Y\"'      88888888P\"  `\"8bbdP\"Y8 88   `Y8a `\"Ybbd8\"' 88             Y88'");
         System.out.println("                                                                                                       d8'     ");
         System.out.println("                                                                                                      d8'      ");
-    }
-    
-    public static void registroCliente() {
-    	
-    	Scanner input = new Scanner(System.in);
-    	
-    	System.out.println("Bienvenido a POO Bakery si desea registrarse como usuario escriba si, si ya tiene un usuario registrado escriba no");
-    	String eleccion = input.nextLine();
-    	
-    	if (eleccion == "si") {
-    	
-    		System.out.println("Por favor ingrese, su nombre, su id y su presupuesto");
-    		
-    		String nombre = input.nextLine();
-    		int id = input.nextInt();
-    		float presupuesto = input.nextFloat();
-    	
-    		Panaderia.registrarCliente(nombre, id, presupuesto);
-    		
-    	}
-    	
-    	if (eleccion == "no") {
-    		
-    		System.out.println("Por favor ingrese su nombre y su contraseña"); // a definir si se hace el cambio de la contraseña
-    		
-    	}
-    	
-    	else {
-    		
-    		System.out.println("Ha escogido una opción invalida, por favor vuelva a intentarlo");
-    		
-    		registroCliente();
-    		
-    	}
     }
 
 }
