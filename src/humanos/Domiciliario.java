@@ -2,8 +2,10 @@ package humanos;
 
 import java.util.Map;
 import java.util.Random;
+import java.util.ArrayList;
 
 import gestion.Panaderia;
+import gestion.Canasta;
 
 public class Domiciliario extends Trabajador {
     Boolean licencia;
@@ -13,13 +15,13 @@ public class Domiciliario extends Trabajador {
         this.licencia = false;
     }
 
-    public Domiciliario(String nombre, Boolean licencia) {
-        super(nombre);
+    public Domiciliario(String nombre, Panaderia panaderia, Boolean licencia) {
+        super(nombre, panaderia);
         this.licencia = licencia;
     }
 
-    public Domiciliario(String nombre, double habilidad, double dineroEnMano, Boolean licencia) {
-        super(nombre, habilidad, dineroEnMano);
+    public Domiciliario(String nombre, double habilidad, double dineroEnMano, Panaderia panaderia, Boolean licencia) {
+        super(nombre, habilidad, dineroEnMano, panaderia);
         this.licencia = licencia;
     }
 
@@ -53,5 +55,9 @@ public class Domiciliario extends Trabajador {
             int cantidadAComprar = entry.getValue();
             panaderia.agregarIngrediente(nombreIngrediente, cantidadAComprar);
         }
+    }
+
+    public boolean laborParticular(ArrayList<Canasta> canastas, Cliente cliente){
+        
     }
 }
