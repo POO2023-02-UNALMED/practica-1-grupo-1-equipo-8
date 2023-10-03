@@ -2,6 +2,8 @@ package gestion;
 
 import comida.Ingrediente;
 import comida.Producto;
+import gestion.Cupon.DescuentoPorCantidad;
+import gestion.Cupon.DescuentoProducto;
 import humanos.Cliente;
 
 import java.util.HashMap;
@@ -17,6 +19,7 @@ public class Canasta {
 
   private String identificador;
   private float costo;
+  private float descuento;
 
   // Constructor Canasta
   public Canasta(String identificador, Map<Producto, Integer> productos, Map<Ingrediente, Integer> ingredientes) { 
@@ -64,35 +67,49 @@ public class Canasta {
     this.identificador = identificador;
   }
 
-  //TODO organizar la interaccion entre los metodos de agregarProducto y los de gestionAgregar
+  public float getDescuento() {
+    return descuento;
+  }
+
+  public void setDescuento(float descuento) {
+    this.descuento = descuento;
+  }
+
   // Metodos para agregar y eliminar productos a los maps de la canasta
   public void agregarProducto(Producto producto) {
     gestionAgregar(producto, 1);
+    this.costo=generarCosto();
   }
 
   public void agregarProducto(Producto producto, int cantidad) {
     gestionAgregar(producto, cantidad);
+    this.costo=generarCosto();
   }
 
   public void eliminarProducto(Producto producto) {
     gestionEliminar(producto);
+    this.costo=generarCosto();
   }
 
   public void agregarIngrediente(Ingrediente ingrediente) {
     gestionAgregar(ingrediente, 1);
+    this.costo=generarCosto();
   }
 
   public void agregarIngrediente(Ingrediente ingrediente, int cantidad) {
     gestionAgregar(ingrediente, cantidad);
+    this.costo=generarCosto();
   }
 
   public void eliminarIngrediente(Ingrediente ingrediente) {
     gestionEliminar(ingrediente);
+    this.costo=generarCosto();
   }
 
   public void agregarKit(Producto producto) {
     Map<Ingrediente, Integer> ingrdtsProducto = producto.getIngredientes();
     ingrdtsProducto.forEach((ingrdts, cantidad) -> gestionAgregar(ingrdts, cantidad));
+    this.costo=generarCosto();
   }
   // No veo positivo la funcion de eliminarKit, de la manera como está planteado
   // generaría demasiados problemas
@@ -101,46 +118,44 @@ public class Canasta {
   // Metodos que gestionan correctamente la modificacion de los maps
   // Verifican que efectivamente el elemento no exista en el map antes de
   // agregarlo, en el caso de que si, simplemente agrega una unidad más
+
+  //Para productos
   private void gestionAgregar(Producto producto, int elementNum) {
     if ((producto != null) && (!productos.containsKey(producto))) {
       productos.put(producto, elementNum);
     } else if ((producto != null)) {
       productos.put(producto, productos.get(producto) + elementNum);
-    } else {
-      System.out.println("Hay un problema, no pudo añadir el objeto");
-    }
+    } 
   }
 
+  //Para ingredientes
   private void gestionAgregar(Ingrediente ingrediente, int elementNum) {
     if ((ingrediente != null) && (!ingredientes.containsKey(ingrediente))) {
       ingredientes.put(ingrediente, elementNum);
     } else if ((ingrediente != null)) {
       ingredientes.put(ingrediente, ingredientes.get(ingrediente) + elementNum);
-    } else {
-      System.out.println("Hay un problema, no pudo añadir el objeto");
-    }
+    } 
   }
 
+  //Para productos en lista
   private void gestionAgregar(String prdct, int elementNum,String iD) {
     if ((prdct != null) && (!productosEnLista.containsKey(prdct))) {
       productosEnLista.put(prdct, elementNum);
     } else if ((prdct != null)) {
       productosEnLista.put(prdct, productosEnLista.get(prdct) + elementNum);
-    } else {
-      System.out.println("Hay un problema, no pudo añadir el objeto");
-    }
+    } 
   }
 
+  //Para ingredientes en lista
   private void gestionAgregar(String ingrd, int elementNum,int iD) {
     if ((ingrd != null) && (!ingredientesEnLista.containsKey(ingrd))) {
       ingredientesEnLista.put(ingrd, elementNum);
     } else if ((ingrd != null)) {
       ingredientesEnLista.put(ingrd, ingredientesEnLista.get(ingrd) + elementNum);
-    } else {
-      System.out.println("Hay un problema, no pudo añadir el objeto");
-    }
+    } 
   }
 
+  //Para agregar strings a una lista enviada
   private Map<String, Integer> gestionAgregar(String ingrd, int elementNum,Map<String, Integer> lista) {
     if ((ingrd != null) && (!lista.containsKey(ingrd))) {
       lista.put(ingrd, elementNum);
@@ -152,61 +167,92 @@ public class Canasta {
 
   // Verifican que efectivamente el elemento exista en el map antes de eliminarlo,
   // en el caso de que no, avisa al cliente
-  private void gestionEliminar(Ingrediente ingrediente) {
+  //Para productos
+  private boolean gestionEliminar(Ingrediente ingrediente) {
     if ((ingrediente != null) && (ingredientes.containsKey(ingrediente))) {
       ingredientes.remove(ingrediente);
-    } else if ((ingrediente != null)) {
-      System.out.println("El elemento no está en la canasta");
-    } else {
-      System.out.println("Hay un problema, no se puede eliminar un objeto nulo");
-    }
+      return true;
+    } else {return false;}
   }
 
-  private void gestionEliminar(Producto producto) {
+  //Para ingredientes
+  private boolean gestionEliminar(Producto producto) {
     if ((producto != null) && (productos.containsKey(producto))) {
       productos.remove(producto);
-    } else if ((producto != null)) {
-      System.out.println("El elemento no está en la canasta");
-    } else {
-      System.out.println("Hay un problema, no se puede eliminar un objeto nulo");
-    }
+      return true;
+    } else {return false;}
   }
 
-  // Método para calcular el costo de la canasta
-  //TODO modificar el cuponProductos para que interactúe con los cupones de la clase Cupon
-  public float cuponProductos(Producto prdcto, int cnt) {
-    float multiplicadorDescuento = 1.0f;
-    // Si la cantidad es mayor a 3 se aplica descuento del 10%
-    if (cnt >= 3) {
-      multiplicadorDescuento = multiplicadorDescuento - 0.1f;
+  //Para productos en lista
+  private boolean gestionEliminar(String prdct, String iD) {
+    if ((prdct != null) && (productosEnLista.containsKey(prdct))) {
+      productosEnLista.remove(prdct);
+      return true;
+    } else{return false;}
+  }
+
+  //Para ingredientes en lista
+  private boolean gestionEliminar(String ingrd, int iD) {
+    if ((ingrd != null) && (ingredientesEnLista.containsKey(ingrd))) {
+      ingredientesEnLista.remove(ingrd);
+      return true;
+    } else {return false;}
+  }
+
+  /**
+   * Calcula el multiplicador de descuento para un producto y cantidad determinados en función de las reglas de descuento definidas en los enums DescuentoPorCantidad y DescuentoProducto.
+   * @param prdcto el producto para el cual se está calculando el multiplicador de descuento
+   * @param cnt la cantidad del producto para la cual se está calculando el multiplicador de descuento
+   * @return el multiplicador de descuento que se aplicará al precio del producto
+   */
+  public double cuponProductos(Producto prdcto, int cnt) {
+    double multiplicadorDescuento = 1.0;
+    // Si la cantidad cumple los requisitos se le aplica el descuento del enum
+    if (cnt >= 8) {
+      multiplicadorDescuento-=DescuentoPorCantidad.OCHO.getValor();
     }
-    // si el producto se encuentra en el array de productos con descuento de
-    // Panadería se le hace descuento del 20%
-    if (Panaderia.getProductosEnDescuento().contains(prdcto)) {
-      multiplicadorDescuento = multiplicadorDescuento - 0.2f;
+    else if (cnt >= 5) {
+      multiplicadorDescuento-=DescuentoPorCantidad.CINCO.getValor();
+    }
+    else if (cnt >= 3) {
+      multiplicadorDescuento-=DescuentoPorCantidad.TRES.getValor();
+    }
+
+    // si el producto se encuentra dentro de los productos en oferta del enum se aplica el descuento
+    for (DescuentoProducto producto : DescuentoProducto.values()) {
+      if (producto.getProducto().equals(prdcto.getNombre())) {
+        multiplicadorDescuento-=producto.getValor();
+      }
     }
     return multiplicadorDescuento;
   }
 
-  // Método para generar el costo de la canasta, verifica el precio de cada
-  // producto y los suma
+  /**
+   * Calcula el costo total de la canasta, teniendo en cuenta cualquier descuento aplicado por cupones.
+   * El costo se calcula sumando el costo de todos los productos en la canasta, multiplicado por su cantidad y cualquier descuento aplicable,
+   * y sumando el costo de todos los ingredientes en la canasta, multiplicado por su cantidad.
+   * @return el costo total de la canasta
+   */
   public float generarCosto() {
     float costoCanasta = 0;
+    float descuentoCanasta = 0.0f;
     for (Map.Entry<Producto, Integer> productoEntry : productos.entrySet()) {
       Producto producto = productoEntry.getKey();
       Integer cantidad = productoEntry.getValue();
-      float descuento = cuponProductos(producto, cantidad);
-      costoCanasta += producto.getCosto() * cantidad * descuento;
+      double descuento = cuponProductos(producto, cantidad);
+      costoCanasta+= producto.getCosto() * cantidad * descuento;
+      descuentoCanasta+= producto.getCosto()*cantidad *(1-descuento);
     }
     for (Map.Entry<Ingrediente, Integer> ingredienteEntry : ingredientes.entrySet()) {
       Ingrediente ingrediente = ingredienteEntry.getKey();
       Integer cantidad = ingredienteEntry.getValue();
       costoCanasta += ingrediente.getPrecio() * cantidad;
     }
-    this.costo = costoCanasta;
-    return this.costo;
+    this.descuento=descuentoCanasta;
+    return costoCanasta;
   }
 
+  //TODO: Reorganizar recibirOrdenCanasta y mostrarCanasta para que se usen desde la clase main
   /**
    * Este método recibe pedidos de una canasta de productos o ingredientes. 
    * Solicita al usuario que ingrese el nombre y la cantidad de cada artículo que se agregará a la cesta. Si el artículo es un producto o ingrediente que ya existe en el inventario de la panadería, se agrega a la cesta. Si el artículo no se encuentra en el inventario, se le solicita al usuario que ingrese los ingredientes necesarios para preparar el artículo y el artículo se agrega al inventario como un producto personalizado. 
@@ -332,6 +378,6 @@ public class Canasta {
       System.out.println(ingrediente.getNombre() + " x" + cantidad);
     }
     System.out.println("Costo: " + costo);
-    //TODO: mostrar el costo de rebaja por cupones
+    System.out.println("Descuento efectuado: " + descuento);
   }
 }
