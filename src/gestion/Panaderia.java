@@ -18,7 +18,7 @@ public class Panaderia {
     private List<Trabajador> trabajadores = new ArrayList<Trabajador>();
     private List<Cocinero> cocineros = new ArrayList<Cocinero>();
     private List<Domiciliario> domiciliarios = new ArrayList<Domiciliario>();
-    private List<Cliente> clientes = new ArrayList<Cliente>();
+    private static List<Cliente> clientes = new ArrayList<Cliente>();
     private float dinero;
     private static List<Producto> productosEnDescuento = new ArrayList<Producto>();
     private static Canasta canastaDelDia;
@@ -65,7 +65,7 @@ public class Panaderia {
 		return domiciliarios;
 	}
 
-	public List<Cliente> getClientes() {
+	public static List<Cliente> getClientes() {
         return clientes;
     }
 
@@ -86,8 +86,8 @@ public class Panaderia {
         invIngredientes = newInvIngredientes;
     }
 
-    public void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
+    public static void setClientes(List<Cliente> clientes) {
+        Panaderia.clientes = clientes;
     }
 
     public void setDinero(float dinero) {
@@ -98,19 +98,7 @@ public class Panaderia {
         productosEnDescuento = productos;
     }
 
-    public void setTrabajadores(List<Trabajador> trabajadores) {
-		this.trabajadores = trabajadores;
-	}
-
-	public void setCocineros(List<Cocinero> cocineros) {
-		this.cocineros = cocineros;
-	}
-
-	public void setDomiciliarios(List<Domiciliario> domiciliarios) {
-		this.domiciliarios = domiciliarios;
-	}
-
-	public static void setCanastaDelDia(Canasta canasta) {
+    public static void setCanastaDelDia(Canasta canasta) {
         canastaDelDia = canasta;
     }
 
@@ -240,31 +228,31 @@ public class Panaderia {
     
     //Método sobrevargado registrarCliente
     
-    public String registrarCliente(String nombre, Integer id, String tipoDescuento, float presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
+    public static String registrarCliente(String nombre, Integer id, String tipoDescuento, float presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
     	
-    	Cliente cliente = new Cliente(nombre, id, tipoDescuento, presupuesto, canastas, recibos, this);
+    	Cliente cliente = new Cliente(nombre, id, tipoDescuento, presupuesto, canastas, recibos);
     	
-    	this.clientes.add(cliente);
+    	Panaderia.clientes.add(cliente);
     	
     	return "Ha sido registrado como cliente con exito bajo el nombre: " + cliente.getNombre();
     	
     }
     
-    public String registrarCliente(String nombre, Integer id, String tipoDescuento, float presupuesto, Panaderia panaderia) {
+    public static String registrarCliente(String nombre, Integer id, String tipoDescuento, float presupuesto) {
     	
-    	Cliente cliente = new Cliente(nombre, id, tipoDescuento, presupuesto, this);
+    	Cliente cliente = new Cliente(nombre, id, tipoDescuento, presupuesto);
     	
-    	this.clientes.add(cliente);
+    	Panaderia.clientes.add(cliente);
     	
     	return "Ha sido registrado como cliente con exito bajo el nombre: " + cliente.getNombre();
     
     }
     
-    public String registrarCliente(String nombre, Integer id, float presupuesto, Panaderia panaderia) {
+    public static String registrarCliente(String nombre, Integer id, float presupuesto) {
     	
-    	Cliente cliente = new Cliente(nombre, id, presupuesto, this);
+    	Cliente cliente = new Cliente(nombre, id, presupuesto);
     	
-    	this.clientes.add(cliente);
+    	Panaderia.clientes.add(cliente);
     	
     	return "Ha sido registrado como cliente con exito bajo el nombre: " + cliente.getNombre();
     
