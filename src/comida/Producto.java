@@ -81,12 +81,12 @@ public class Producto {
 	
 	public static Producto crearProducto(Panaderia panaderia, String nombre, Map<Ingrediente,Integer> ingredientes, String sabor) {
 		
-		float calculotiempo = 0;
-		float calculocosto = 0;
+		float calculotiempo = 0; //usar al alateaoridad para esto
+		float calculocosto = 0; //crear estos métodos usando el map
 		
 		Producto postre = new Producto(nombre, ingredientes, calculocosto, sabor, calculotiempo, 0);
 		
-		panaderia.agregarProducto(postre);
+		panaderia.agregarProducto(postre, 0);
 		
 		return postre;
 		
