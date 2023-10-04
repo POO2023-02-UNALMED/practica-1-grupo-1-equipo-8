@@ -120,4 +120,22 @@ public class Cliente {
 
 	}
 
+	public enum Direccion {
+		MEDELLIN("Cerca"),
+		BOGOTA("Lejos"),
+		ENVIGADO("Medio"),
+		ITAGUI("Cerca");
+	
+		private final String distancia;
+	
+		Direccion(String distancia) {
+			this.distancia = distancia;
+		}
+	
+		public String getDistancia() {
+			return distancia;
+		}
+	}
+	
+
 }
