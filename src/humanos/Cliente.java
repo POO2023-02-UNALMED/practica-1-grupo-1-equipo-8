@@ -1,5 +1,6 @@
 package humanos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,7 @@ import gestion.Canasta;
 import gestion.Panaderia;
 import gestion.Recibo;
 
-public class Cliente {
+public class Cliente implements Serializable{
 
 	private String nombre;
 	private Integer id;

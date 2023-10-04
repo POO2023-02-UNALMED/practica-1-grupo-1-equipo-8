@@ -3,6 +3,7 @@ package gestion;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import humanos.Cliente;
@@ -12,7 +13,8 @@ import humanos.Trabajador;
 import humanos.Cocinero;
 import humanos.Domiciliario;
 
-public class Panaderia {
+public class Panaderia implements Serializable {
+    priavte static final long serialVersionUID = 1L;
     private static Map<Ingrediente, Integer> invIngredientes= new HashMap<Ingrediente, Integer>();
     private static Map<Producto,Integer> invProductos = new HashMap<Producto,Integer>();
     private List<Trabajador> trabajadores = new ArrayList<Trabajador>();

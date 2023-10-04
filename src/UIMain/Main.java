@@ -1,4 +1,5 @@
 package UIMain;
+import java.io.*;
 import java.util.Scanner;
 import comida.*;
 import gestion.*;
@@ -6,8 +7,22 @@ import humanos.*;
 
 //Esta clase la he estado modificando yo (Richard), cualquier sugerencia me pueden escribir aqui
 public class Main {
+    //estoy implementado serializacion, si algo se borra
     public static void main(String[] args) {
-    	
+    /*Panaderia panaderia = new Panaderia();
+    	FileOutputStream fileOutputStream = new FileOutputStream("panaderia.txt");
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(panaderia);
+        objectOutputStream.close();
+
+        FileInputStream fileInputStream = new FileInputStream("panaderia.txt");
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        objectInputStream.readObject();
+        Panaderia panaderia2 = (Panaderia) objectInputStream.readObject();
+        objectInputStream.close();*/
+
+
+
     	registroCliente();
     	
         Scanner input = new Scanner(System.in);
