@@ -61,5 +61,5 @@ public abstract class Trabajador {
         this.panaderia = panaderia;
     }
 
-    public abstract void laborParticular();
+    public abstract boolean laborParticular();
 }

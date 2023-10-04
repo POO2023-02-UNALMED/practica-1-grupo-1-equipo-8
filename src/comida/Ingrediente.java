@@ -5,20 +5,24 @@ import java.util.Random;
 public class Ingrediente {
 	private String nombre;
 	// int cantidad;
-	private float precio;
+	private double PrecioDeVenta;
+	private double PrecioDeCompra;
 
 	// constructores sobrecargados
 
-	public Ingrediente(String nombre1, float precio1) {
+	public Ingrediente(String nombre1, double PrecioDeVenta,double PrecioDeCompra) {
 		this.nombre = nombre1;
-		this.precio = precio1;
+		this.PrecioDeVenta = PrecioDeVenta;
+		this.PrecioDeCompra = PrecioDeCompra;
 	}
 
 	public Ingrediente(String nombre1) {
 		this.nombre = nombre1;
 		Random aleatorio = new Random();
-		int numeroAleatorio = aleatorio.nextInt(2701) + 300; // Genera un entero entre 0 y 100 (ambos inclusive).
-		this.precio = numeroAleatorio;
+		double numeroAleatorio = aleatorio.nextDouble(2701) + 300; // Genera un entero entre 0 y 100 (ambos inclusive).
+		this.PrecioDeVenta = numeroAleatorio;
+		double numeroAleatorioCompra = numeroAleatorio*(2.0/3.0);
+		this.PrecioDeCompra =  Math.ceil(numeroAleatorioCompra);
 	}
 	// getters y setters de los atributos
 
@@ -32,18 +36,29 @@ public class Ingrediente {
 
 	// public int getCantidad() {return cantidad;}
 	// public void setCantidad(int Newcantidad) {this.cantidad = Newcantidad;}
-	public double getPrecio() {
-		return precio;
+
+	
+
+	public double getPrecioDeVenta() {
+		return PrecioDeVenta;
 	}
 
-	public void setPrecio(float Newprecio) {
-		this.precio = Newprecio;
+	public void setPrecioDeVenta(double precioDeVenta) {
+		PrecioDeVenta = precioDeVenta;
 	}
 
+	public double getPrecioDeCompra() {
+		return PrecioDeCompra;
+	}
+
+	public void setPrecioDeCompra(double precioDeCompra) {
+		PrecioDeCompra = precioDeCompra;
+	}
+	
 	// metodos para crear
-
-	public static Ingrediente crearIngrediente(String Nnombre, float Nprecio) {
-		return new Ingrediente(Nnombre, Nprecio);
+	
+	public static Ingrediente crearIngrediente(String Nnombre, double NPrecioDeVenta,double NPrecioDeCompra) {
+		return new Ingrediente(Nnombre, NPrecioDeVenta,NPrecioDeCompra);
 	}
 
 	public static Ingrediente crearIngrediente(String Nnombre) {
