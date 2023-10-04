@@ -18,8 +18,8 @@ public class Canasta {
   private Map<String, Integer> ingredientesEnLista = new HashMap<String, Integer>();
 
   private String identificador;
-  private float costo;
-  private float descuento;
+  private double costo;
+  private double descuento;
 
   // Constructor Canasta
   public Canasta(String identificador, Map<Producto, Integer> productos, Map<Ingrediente, Integer> ingredientes) { 
@@ -67,7 +67,7 @@ public class Canasta {
     this.identificador = identificador;
   }
 
-  public float getDescuento() {
+  public double getDescuento() {
     return descuento;
   }
 
@@ -156,7 +156,7 @@ public class Canasta {
   }
 
   //Para agregar strings a una lista enviada
-  private Map<String, Integer> gestionAgregar(String ingrd, int elementNum,Map<String, Integer> lista) {
+  public Map<String, Integer> gestionAgregar(String ingrd, int elementNum,Map<String, Integer> lista) {
     if ((ingrd != null) && (!lista.containsKey(ingrd))) {
       lista.put(ingrd, elementNum);
     } else if ((ingrd != null)) {
@@ -233,9 +233,9 @@ public class Canasta {
    * y sumando el costo de todos los ingredientes en la canasta, multiplicado por su cantidad.
    * @return el costo total de la canasta
    */
-  public float generarCosto() {
-    float costoCanasta = 0;
-    float descuentoCanasta = 0.0f;
+  public double generarCosto() {
+    double costoCanasta = 0;
+    double descuentoCanasta = 0.0f;
     for (Map.Entry<Producto, Integer> productoEntry : productos.entrySet()) {
       Producto producto = productoEntry.getKey();
       Integer cantidad = productoEntry.getValue();
@@ -252,99 +252,44 @@ public class Canasta {
     return costoCanasta;
   }
 
-  //TODO: Reorganizar recibirOrdenCanasta y mostrarCanasta para que se usen desde la clase main
   /**
-   * Este método recibe pedidos de una canasta de productos o ingredientes. 
-   * Solicita al usuario que ingrese el nombre y la cantidad de cada artículo que se agregará a la cesta. Si el artículo es un producto o ingrediente que ya existe en el inventario de la panadería, se agrega a la cesta. Si el artículo no se encuentra en el inventario, se le solicita al usuario que ingrese los ingredientes necesarios para preparar el artículo y el artículo se agrega al inventario como un producto personalizado. 
-   * El método utiliza el método gestionAgregar para agregar artículos a la cesta y la clase Panaderia para gestionar el inventario.
+   * Recibe una orden para un producto o ingrediente y lo agrega a la canasta.
+   * @param objetoEntrante el nombre del producto o ingrediente a agregar.
+   * @param cantidad la cantidad del producto o ingrediente a agregar.
+   * @return true si el producto o ingrediente se agregó correctamente, false en caso contrario.
    */
-  public void recibirOrdenCanasta() {
-    Scanner scanner = new Scanner(System.in);
-    String objetoEntrante;
-    String cantidad;
-    boolean continuar = true;
+  public boolean recibirOrden(String objetoEntrante, String cantidad) {
+    if (Panaderia.verificarExistenciaProductoPorNombre(objetoEntrante)) {
+      gestionAgregar(objetoEntrante, Integer.parseInt(cantidad), "1");
+      return true;
+    } else if (Panaderia.verificarExistenciaIngredientePorNombre(objetoEntrante)) {
+      gestionAgregar(objetoEntrante, Integer.parseInt(cantidad), 1);
+      return true;
+    } 
+    return false;
+  }
 
-    while (continuar) {
-      //Se pueden cambiar luego estos print
-      System.out.println("Ingrese el nombre del producto o ingrediente (Escriba 'salir' para terminar): ");
-      objetoEntrante = scanner.nextLine();
-      if (objetoEntrante.equalsIgnoreCase("salir")) {
-        continuar = false;
-        break;
-      }
-
-      System.out.println("Ingrese la cantidad: ");
-      cantidad = scanner.nextLine();
-      if (cantidad.equalsIgnoreCase("salir")) {
-        continuar = false;
-        break;
-      }
-
-      if (Panaderia.verificarExistenciaProductoPorNombre(objetoEntrante)) {
-        gestionAgregar(objetoEntrante, Integer.parseInt(cantidad),"1");
-      }
-      else if (Panaderia.verificarExistenciaIngredientePorNombre(objetoEntrante)) {
-        gestionAgregar(objetoEntrante, Integer.parseInt(cantidad),1);
-      }
-      else {
-        String entrada;
-        int cantidadIngrediente;
-        Map<String, Integer> ingredientesNecesarios= new HashMap<String, Integer>();
-        System.out.println("No manejamos el producto que ingresó");
-        System.out.println("Indiquenos los ingredientes necesarios para su preparacion y se lo cocinaremos");
-        while (true) {
-          System.out.println("Ingrese los ingredientes (Escriba 'ya' cuando termine con el listado): ");
-          while (true){
-            System.out.println("Ingresa el nombre del ingrediente: ");
-            entrada = scanner.nextLine();
-            if (entrada.equalsIgnoreCase("ya")&ingredientesNecesarios.isEmpty()) {
-              System.out.println("Necesitas al menos un ingrediente");
-            }
-            else{
-              break;
-            }
-          }
-
-          if (entrada.equalsIgnoreCase("ya")) {
-            break;
-          }
-
-          while(true){
-            System.out.println("Ingrese la cantidad: ");
-            try {
-              cantidadIngrediente = scanner.nextInt();
-              if (cantidadIngrediente<=0) {
-              System.out.println("La cantidad debe ser mayor a 0");
-              }
-              else{
-                break;
-              }
-            } catch (Exception e) {
-              System.out.println("Debes ingresar un numero");
-            }
-          }
-
-          ingredientesNecesarios=gestionAgregar(entrada, cantidadIngrediente,ingredientesNecesarios);
-          System.out.println("Desea agregar otro ingrediente? (Escriba 'ya' cuando termine con el listado):");
-          entrada = scanner.nextLine();
-          if (entrada.equalsIgnoreCase("ya")) {
-            break;
-          }
-        }
-        Panaderia.crearProductoPersonalizado(objetoEntrante,ingredientesNecesarios);
-        if (Panaderia.verificarExistenciaProductoPorNombre(objetoEntrante)) {
-          gestionAgregar(objetoEntrante, Integer.parseInt(cantidad),"1");
-        }
-        System.out.println("Listo, producto registrado");
-      }
-      System.out.println("Desea agregar más productos? (Escriba 'salir' para terminar):");
-      objetoEntrante = scanner.nextLine();
-      if (objetoEntrante.equalsIgnoreCase("salir")) {
-        continuar = false;
-        break;
-      }
+  /**
+   * Recibe una orden personalizada y la agrega a la canasta si el producto existe.
+   * @param objetoEntrante El nombre del producto personalizado.
+   * @param ingredientesNecesarios Un mapa que contiene los ingredientes necesarios y sus cantidades para el producto personalizado.
+   * @param cantidad La cantidad del producto personalizado que se agregará a la canasta.
+   * @return True si el producto personalizado se agregó a la canasta, false en caso contrario.
+   */
+  public boolean recibirOrdenPersonalizada(String objetoEntrante,  Map<String, Integer> ingredientesNecesarios, String cantidad) {
+    try {
+      Panaderia.crearProductoPersonalizado(objetoEntrante, ingredientesNecesarios);
     }
-    scanner.close();
+    catch (Exception e){
+      return false;
+    }
+    if (Panaderia.verificarExistenciaProductoPorNombre(objetoEntrante)) {
+        gestionAgregar(objetoEntrante, Integer.parseInt(cantidad), "1");
+        return true;
+      }
+      else{
+        return false;
+      }
   }
 
   /**
@@ -359,25 +304,5 @@ public class Canasta {
     ingredientesCocinados.forEach((ingrediente, cantidad) -> agregarIngrediente(ingrediente, cantidad));
     productosEnLista=null;
     ingredientesEnLista=null;
-  }
-
-  /**
-   * Muestra el contenido de la cesta de la compra, incluidos productos, ingredientes y coste total.
-   */
-  public void mostrarCanasta() {
-    System.out.println("Productos:");
-    for (Map.Entry<Producto, Integer> productoEntry : productos.entrySet()) {
-      Producto producto = productoEntry.getKey();
-      Integer cantidad = productoEntry.getValue();
-      System.out.println(producto.getNombre() + " x" + cantidad);
-    }
-    System.out.println("Ingredientes:");
-    for (Map.Entry<Ingrediente, Integer> ingredienteEntry : ingredientes.entrySet()) {
-      Ingrediente ingrediente = ingredienteEntry.getKey();
-      Integer cantidad = ingredienteEntry.getValue();
-      System.out.println(ingrediente.getNombre() + " x" + cantidad);
-    }
-    System.out.println("Costo: " + costo);
-    System.out.println("Descuento efectuado: " + descuento);
   }
 }
