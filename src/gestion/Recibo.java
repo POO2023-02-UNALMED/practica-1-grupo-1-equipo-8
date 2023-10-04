@@ -18,13 +18,13 @@ public class Recibo {
     private Cliente cliente;
     private int idRecibo;
     private static int totalFacturas;
-    private float precioTotal;
-    private float precioFinal;
-    private float descuento;
+    private double precioTotal;
+    private double precioFinal;
+    private double descuento;
     private Date fecha = new Date();
     ArrayList<String> factura = new ArrayList<String>();
 
-    public Recibo(Cliente cliente, int idRecibo, float precioTotal, float descuento) {
+    public Recibo(Cliente cliente, int idRecibo, double precioTotal, double descuento) {
         this.cliente = cliente;
         this.idRecibo = idRecibo;
         this.precioTotal = precioTotal;
@@ -34,7 +34,7 @@ public class Recibo {
         totalFacturas++;
     }
 
-    public float getPrecioTotal() {
+    public double getPrecioTotal() {
         return precioTotal;
     }
 
@@ -58,15 +58,15 @@ public class Recibo {
         Recibo.totalFacturas = totalFacturas;
     }
 
-    public void setPrecioTotal(float precioTotal) {
+    public void setPrecioTotal(double precioTotal) {
         this.precioTotal = precioTotal;
     }
 
-    public void setPrecioFinal(float precioFinal) {
+    public void setPrecioFinal(double precioFinal) {
         this.precioFinal = precioFinal;
     }
 
-    public void setDescuento(float descuento) {
+    public void setDescuento(double descuento) {
         this.descuento = descuento;
     }
 
@@ -86,11 +86,11 @@ public class Recibo {
         return fecha;
     }
 
-    public float getPrecioFinal() {
+    public double getPrecioFinal() {
         return precioFinal;
     }
 
-    public float getDescuento() {
+    public double getDescuento() {
         return descuento;
     }
 

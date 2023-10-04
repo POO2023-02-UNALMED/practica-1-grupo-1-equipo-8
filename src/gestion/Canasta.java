@@ -305,4 +305,5 @@ public class Canasta {
     productosEnLista=null;
     ingredientesEnLista=null;
   }
+
 }

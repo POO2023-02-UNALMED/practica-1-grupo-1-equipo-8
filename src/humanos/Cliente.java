@@ -13,18 +13,20 @@ public class Cliente {
 
 	private String nombre;
 	private Integer id;
+	private Direccion direccion;
 	private String tipoDescuento;
-	private float presupuesto;
+	private double presupuesto;
 	private List<Canasta> canastas = new ArrayList<Canasta>();
 	private List<Recibo> recibos = new ArrayList<Recibo>();
 
 	// crear cliente con todos los atributos
 
-	public Cliente(String nombre, Integer id, String tipoDescuento, float presupuesto, List<Canasta> canastas,
+	public Cliente(String nombre, Integer id, Direccion direccion ,String tipoDescuento, float presupuesto, List<Canasta> canastas,
 			List<Recibo> recibos) {
 
 		this.nombre = nombre;
 		this.id = id;
+		this.direccion = direccion;
 		this.tipoDescuento = tipoDescuento;
 		this.presupuesto = presupuesto;
 		this.canastas = canastas;
@@ -35,13 +37,14 @@ public class Cliente {
 	// crear un cliente sin pasarles listas de canastas y recibos (constructor
 	// estandar)
 
-	public Cliente(String nombre, Integer id, String tipoDescuento, float presupuesto) {
+	public Cliente(String nombre, Integer id, Direccion direccion, String tipoDescuento, float presupuesto) {
 		
 		List<Canasta> list1 = new ArrayList<Canasta>();
     	List<Recibo> list2 = new ArrayList<Recibo>();
 
     	this.nombre = nombre;
 		this.id = id;
+		this.direccion = direccion;
 		this.tipoDescuento = tipoDescuento;
 		this.presupuesto = presupuesto;
 		this.canastas = list1;
@@ -51,13 +54,14 @@ public class Cliente {
 
 	// crear un cliente el cual no tiene ningún descuento
 
-	public Cliente(String nombre, Integer id, float presupuesto) {
+	public Cliente(String nombre, Integer id, Direccion direccion, float presupuesto) {
 
 		List<Canasta> list1 = new ArrayList<Canasta>();
     	List<Recibo> list2 = new ArrayList<Recibo>();
 
     	this.nombre = nombre;
 		this.id = id;
+		this.direccion = direccion;
 		this.tipoDescuento = "ninguno";
 		this.presupuesto = presupuesto;
 		this.canastas = list1;
@@ -81,6 +85,14 @@ public class Cliente {
 		this.id = id;
 	}
 
+	public Direccion getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(Direccion direccion) {
+		this.direccion= direccion;
+	}
+
 	public String getTipoDescuento() {
 		return tipoDescuento;
 	}
@@ -89,11 +101,11 @@ public class Cliente {
 		this.tipoDescuento = tipoDescuento;
 	}
 
-	public float getPresupuesto() {
+	public double getPresupuesto() {
 		return presupuesto;
 	}
 
-	public void setPresupuesto(float presupuesto) {
+	public void setPresupuesto(double presupuesto) {
 		this.presupuesto = presupuesto;
 	}
 
