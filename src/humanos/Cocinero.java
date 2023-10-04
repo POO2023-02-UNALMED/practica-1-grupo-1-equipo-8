@@ -38,5 +38,11 @@ public class Cocinero extends Trabajador {
 public void laborParticular(Producto producto, int cantidadDeseada) {
 	
 }
+
+@Override
+public boolean laborParticular() {
+	// TODO Auto-generated method stub
+	
+}
 }
 // use hasmaps y sale facil get datos
