@@ -77,11 +77,11 @@ public class Domiciliario extends Trabajador {
             // Se le paga al domiciliario
             dineroEnMano += costoTotal;
             // Se le agrega el recibo al cliente
-            Recibo recibo = new Recibo(canastas, direccion, this);
+            Recibo recibo = new Recibo(canastas, direccion, cliente);
             cliente.getRecibos().add(recibo);
             // Se le agrega el recibo al domiciliario
-            recibos.add(recibo);
+            cliente.getRecibos().add(recibo);
             return true;
         }
     }
-}
+}6

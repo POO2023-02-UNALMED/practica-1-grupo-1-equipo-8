@@ -13,6 +13,10 @@ import java.util.Random; //Libreria para sacar numeros aleatorios (pensaba en pr
 import java.util.HashMap;
 import java.util.Map;
 import comida.Producto;
+import comida.Ingrediente;
+import humanos.Cliente.Descuento;
+import humanos.Cliente.Direccion;
+import java.util.Random;
 
 public class Recibo {
     private Cliente cliente;
@@ -20,16 +24,61 @@ public class Recibo {
     private static int totalFacturas;
     private double precioTotal;
     private double precioFinal;
-    private double descuento;
+    private Descuento descuento;
     private Date fecha = new Date();
     ArrayList<String> factura = new ArrayList<String>();
 
-    public Recibo(Cliente cliente, int idRecibo, double precioTotal, double descuento) {
+    public Recibo(Cliente cliente, int idRecibo, double precioTotal, Descuento descuento) {
         this.cliente = cliente;
         this.idRecibo = idRecibo;
         this.precioTotal = precioTotal;
         this.descuento = descuento;
-        this.precioFinal = precioTotal * (1 - descuento);
+        this.precioFinal = precioTotal * (1 - descuento.getDescuento()); 
+        this.fecha = Date.from(Instant.now());
+        totalFacturas++;
+    }
+
+    public Recibo(Cliente cliente, int idRecibo, double precioTotal) {
+        this.cliente = cliente;
+        this.idRecibo = idRecibo;
+        this.precioTotal = precioTotal;
+        this.descuento = Descuento.NINGUNO;
+        this.precioFinal = precioTotal; 
+        this.fecha = Date.from(Instant.now());
+        totalFacturas++;
+    }
+
+    public Recibo(Cliente cliente, int idRecibo) {
+        this.cliente = cliente;
+        this.idRecibo = idRecibo;
+        this.precioTotal = 0;
+        this.descuento = Descuento.NINGUNO;
+        this.precioFinal = precioTotal; 
+        this.fecha = Date.from(Instant.now());
+        totalFacturas++;
+    }
+
+    public Recibo(Canasta canasta, Direccion direccion, Cliente cliente){
+        Random rand = new Random();
+        this.cliente = cliente;
+        this.idRecibo = rand.nextInt(1000);
+        this.precioTotal = canasta.generarCosto();
+        this.descuento = cliente.getTipoDescuento();
+        this.precioFinal = precioTotal; 
+        this.fecha = Date.from(Instant.now());
+        totalFacturas++;
+    }
+
+    public Recibo(ArrayList<Canasta> canastas, Direccion direccion, Cliente cliente){
+        Random rand = new Random();
+        this.cliente = cliente;
+        this.idRecibo = rand.nextInt(1000);
+        this.precioTotal = 0;
+        for(Canasta canasta: canastas){
+            this.precioTotal += canasta.generarCosto();
+        }
+        this.descuento = cliente.getTipoDescuento();
+        this.precioFinal = precioTotal; 
         this.fecha = Date.from(Instant.now());
         totalFacturas++;
     }
@@ -66,7 +115,7 @@ public class Recibo {
         this.precioFinal = precioFinal;
     }
 
-    public void setDescuento(double descuento) {
+    public void setDescuento(Descuento descuento) {
         this.descuento = descuento;
     }
 
@@ -90,7 +139,7 @@ public class Recibo {
         return precioFinal;
     }
 
-    public double getDescuento() {
+    public Descuento getDescuento() {
         return descuento;
     }
 

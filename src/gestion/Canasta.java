@@ -5,10 +5,13 @@ import comida.Producto;
 import gestion.Cupon.DescuentoPorCantidad;
 import gestion.Cupon.DescuentoProducto;
 import humanos.Cliente;
+import humanos.Cliente.Direccion;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Canasta {
   private Map<Producto, Integer> productos = new HashMap<Producto, Integer>();
@@ -32,6 +35,19 @@ public class Canasta {
     this.productos = productos;
     this.ingredientes = ingredientes;
     this.costo = generarCosto();
+  }
+
+  public Canasta(ArrayList<Canasta> canastas, Direccion direccion, Cliente cliente) {
+    double costo = 0;
+    for (Canasta canasta : canastas) {
+      costo += canasta.getCosto();
+    }
+    Random rand = new Random();
+    this.identificador = Integer.toString(rand.nextInt(1000));
+    this.productosEnLista = new HashMap<String, Integer>();
+    this.ingredientesEnLista = new HashMap<String, Integer>();
+    this.costo = costo;
+    this.descuento = cliente.getTipoDescuento().getDescuento();
   }
 
   // getters y setters de los atributos

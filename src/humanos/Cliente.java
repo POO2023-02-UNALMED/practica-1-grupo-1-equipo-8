@@ -14,14 +14,14 @@ public class Cliente {
 	private String nombre;
 	private Integer id;
 	private Direccion direccion;
-	private String tipoDescuento;
+	private Descuento tipoDescuento;
 	private double presupuesto;
 	private List<Canasta> canastas = new ArrayList<Canasta>();
 	private List<Recibo> recibos = new ArrayList<Recibo>();
 
 	// crear cliente con todos los atributos
 
-	public Cliente(String nombre, Integer id, Direccion direccion ,String tipoDescuento, float presupuesto, List<Canasta> canastas,
+	public Cliente(String nombre, Integer id, Direccion direccion ,Descuento tipoDescuento, float presupuesto, List<Canasta> canastas,
 			List<Recibo> recibos) {
 
 		this.nombre = nombre;
@@ -37,7 +37,7 @@ public class Cliente {
 	// crear un cliente sin pasarles listas de canastas y recibos (constructor
 	// estandar)
 
-	public Cliente(String nombre, Integer id, Direccion direccion, String tipoDescuento, float presupuesto) {
+	public Cliente(String nombre, Integer id, Direccion direccion, Descuento tipoDescuento, float presupuesto) {
 		
 		List<Canasta> list1 = new ArrayList<Canasta>();
     	List<Recibo> list2 = new ArrayList<Recibo>();
@@ -62,7 +62,7 @@ public class Cliente {
     	this.nombre = nombre;
 		this.id = id;
 		this.direccion = direccion;
-		this.tipoDescuento = "ninguno";
+		this.tipoDescuento = Descuento.NINGUNO;
 		this.presupuesto = presupuesto;
 		this.canastas = list1;
 		this.recibos = list2;
@@ -93,11 +93,11 @@ public class Cliente {
 		this.direccion= direccion;
 	}
 
-	public String getTipoDescuento() {
+	public Descuento getTipoDescuento() {
 		return tipoDescuento;
 	}
 
-	public void setTipoDescuento(String tipoDescuento) {
+	public void setTipoDescuento(Descuento tipoDescuento) {
 		this.tipoDescuento = tipoDescuento;
 	}
 
@@ -149,5 +149,23 @@ public class Cliente {
 		}
 	}
 	
+		public enum Descuento {
+			NINGUNO(0),
+			ESTUDIANTE(0.1),
+			SENIOR(0.2),
+			EMPLEADO(0.3);
+		
+			private final double descuento;
+		
+			Descuento(double descuento) {
+				this.descuento = descuento;
+			}
+		
+			public double getDescuento() {
+				return descuento;
+			}
+		}
+
+		
 
 }
