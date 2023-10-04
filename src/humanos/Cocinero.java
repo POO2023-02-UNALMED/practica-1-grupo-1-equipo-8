@@ -35,6 +35,8 @@ public class Cocinero extends Trabajador {
     }
 
     // @Override
-public void laborParticular(Producto producto, int cantidadDeseada) {}
+public void laborParticular(Producto producto, int cantidadDeseada) {
+	
+}
 }
 // use hasmaps y sale facil get datos
