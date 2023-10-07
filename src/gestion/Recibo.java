@@ -1,5 +1,6 @@
 package gestion;
 
+import UIMain.Texto;
 import humanos.Cliente;
 //Esta clase la he estado modificando yo (Richard), cualquier sugerencia me pueden escribir aqui
 //IMPORTANTE hay que crear un historial de facturas, esto involucra serializacion.
@@ -183,12 +184,12 @@ public class Recibo {
         factura.add(String.format("Identificacion: %s", cliente.getId()));
         factura.add(String.format(""));
         factura.add(String.format("DETALLE DE VENTA"));
-        factura.add("DESCRIPCION" + "".repeat(20) + "CANTIDAD" + "".repeat(20) + "VALOR");
-        factura.add("-".repeat(64));
+        factura.add(Texto.alinear("Descripcion", "Cantidad", "Precio"));
+        factura.add("-".repeat(111));
 
         for(Canasta canasta: cliente.getCanastas()){
             for(Map.Entry<Producto,Integer> item: canasta.getProductos().entrySet()){
-                factura.add(String.format("%s %d %f", item.getKey(), item.getValue(), item.getKey().getCosto()*item.getValue()));
+                factura.add(Texto.alinear(item.getKey().getNombre(), item.getValue(), item.getKey().getCosto()*item.getValue()));
         }
         factura.add(String.format(""));
         factura.add("▄▄▄▄▄▄▄  ▄ ▄▄ ▄▄▄▄▄▄▄"); 

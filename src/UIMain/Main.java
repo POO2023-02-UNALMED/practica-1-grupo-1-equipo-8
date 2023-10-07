@@ -9,21 +9,7 @@ import humanos.*;
 public class Main {
     //estoy implementado serializacion, si algo se borra
     public static void main(String[] args) {
-    /*Panaderia panaderia = new Panaderia();
-    	FileOutputStream fileOutputStream = new FileOutputStream("panaderia.txt");
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-        objectOutputStream.writeObject(panaderia);
-        objectOutputStream.close();
 
-        FileInputStream fileInputStream = new FileInputStream("panaderia.txt");
-        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        objectInputStream.readObject();
-        Panaderia panaderia2 = (Panaderia) objectInputStream.readObject();
-        objectInputStream.close();*/
-
-
-
-    	registroCliente();
     	
         Scanner input = new Scanner(System.in);
         titulo();
@@ -89,6 +75,8 @@ public class Main {
         System.out.println("88            `\"Y8888Y\"'     `\"Y8888Y\"'      88888888P\"  `\"8bbdP\"Y8 88   `Y8a `\"Ybbd8\"' 88             Y88'");
         System.out.println("                                                                                                       d8'     ");
         System.out.println("                                                                                                      d8'      ");
+        System.out.println(Texto.centrar("Hola usuario, bienvenido a nuestra Panaderia POO Bakery"));
+        System.out.println("");
     }
     
     public static void registroCliente() {
