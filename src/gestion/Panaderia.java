@@ -16,7 +16,7 @@ import humanos.Cocinero;
 import humanos.Domiciliario;
 
 public class Panaderia implements Serializable {
-    priavte static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private static Map<Ingrediente, Integer> invIngredientes= new HashMap<Ingrediente, Integer>();
     private static Map<Producto,Integer> invProductos = new HashMap<Producto,Integer>();
     private static ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
