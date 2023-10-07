@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.List;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Collections;
 
 import humanos.Cliente;
 import comida.Ingrediente;
@@ -17,13 +19,15 @@ public class Panaderia implements Serializable {
     priavte static final long serialVersionUID = 1L;
     private static Map<Ingrediente, Integer> invIngredientes= new HashMap<Ingrediente, Integer>();
     private static Map<Producto,Integer> invProductos = new HashMap<Producto,Integer>();
-    private List<Trabajador> trabajadores = new ArrayList<Trabajador>();
-    private List<Cocinero> cocineros = new ArrayList<Cocinero>();
-    private List<Domiciliario> domiciliarios = new ArrayList<Domiciliario>();
-    private static List<Cliente> clientes = new ArrayList<Cliente>();
-    private float dinero;
+    private static ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
+    private static ArrayList<Cocinero> cocineros = new ArrayList<Cocinero>();
+    private static ArrayList<Domiciliario> domiciliarios = new ArrayList<Domiciliario>();
+    private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+    private static float dinero;
     private static List<Producto> productosEnDescuento = new ArrayList<Producto>();
     private static Canasta canastaDelDia;
+    private static float valorDeudas;
+    private static boolean enQuiebra = false;
     static {
         // Agregar lista de productos en descuento para la canasta
         productosEnDescuento.add(0, null);
@@ -71,7 +75,7 @@ public class Panaderia implements Serializable {
         return clientes;
     }
 
-    public float getDinero() {
+    public static float getDinero() {
         return dinero;
     }
 
@@ -88,12 +92,12 @@ public class Panaderia implements Serializable {
         invIngredientes = newInvIngredientes;
     }
 
-    public static void setClientes(List<Cliente> clientes) {
+    public static void setClientes(ArrayList<Cliente> clientes) {
         Panaderia.clientes = clientes;
     }
 
-    public void setDinero(float dinero) {
-        this.dinero = dinero;
+    public static void setDinero(float dinero) {
+        Panaderia.dinero = dinero;
     }
 
     public static void setProductosEnDescuento(List<Producto> productos) {
@@ -138,11 +142,50 @@ public class Panaderia implements Serializable {
     }
 
     public void agregarDinero(float dinero) {
-        this.dinero += dinero;
+        Panaderia.dinero += dinero;
     }
 
     public void restarDinero(float dinero) {
-        this.dinero -= dinero;
+        Panaderia.dinero -= dinero;
+    }
+
+    public static boolean saldarDeudas(){
+
+        if (Panaderia.valorDeudas < Panaderia.dinero){
+
+            Panaderia.dinero = Panaderia.dinero-Panaderia.valorDeudas;
+            Panaderia.valorDeudas = 0;
+            Panaderia.enQuiebra = false;
+            return Panaderia.enQuiebra;
+        }
+
+        else {
+            
+            Panaderia.enQuiebra = true;
+            Panaderia.dinero = 10000000;
+            return Panaderia.enQuiebra;
+            Panaderia.saldarDeudas();
+        }
+
+    }
+
+    public static void conseguirPrestamo(float valorNecesitado) {
+
+        if (Panaderia.valorDeudas == 0){
+
+            Panaderia.dinero += valorNecesitado;
+            Panaderia.valorDeudas = valorNecesitado;
+
+        }
+
+        else{
+
+            Panaderia.saldarDeudas();
+            Panaderia.dinero += valorNecesitado;
+            Panaderia.valorDeudas = valorNecesitado;
+
+        }
+
     }
 
     /**
@@ -176,7 +219,7 @@ public class Panaderia implements Serializable {
     }
 
     // Método para agregar un ingrediente al inventario
-    public void agregarIngrediente(Ingrediente ingrediente, int cantidad) {
+    public static void agregarIngrediente(Ingrediente ingrediente, int cantidad) {
         if (invIngredientes.containsKey(ingrediente)) {
             // Si el ingrediente ya existe, actualiza la cantidad
             int cantidadExistente = invIngredientes.get(ingrediente);
@@ -259,10 +302,50 @@ public class Panaderia implements Serializable {
     	return "Ha sido registrado como cliente con exito bajo el nombre: " + cliente.getNombre();
     
     }
+
+    public static Trabajador trabajadorAleatorio(){
+
+        ArrayList<Trabajador> x = (ArrayList<Trabajador>) Panaderia.trabajadores.clone();
+        
+        Collections.shuffle(x);
+
+        Trabajador elegido = x.get(0);
+
+        return elegido;
+
+    }
+
+    public static Cocinero CocineroAleatorio(){
+
+        ArrayList<Cocinero> x = (ArrayList<Cocinero>) Panaderia.cocineros.clone();
+        
+        Collections.shuffle(x);
+
+        Cocinero elegido = x.get(0);
+
+        return elegido;
+
+    }
+
+    public static Domiciliario DomiciliarioAleatorio(){
+
+        ArrayList<Domiciliario> x = (ArrayList<Domiciliario>) Panaderia.domiciliarios.clone();
+        
+        Collections.shuffle(x);
+
+        Domiciliario elegido = x.get(0);
+
+        return elegido;
+
+    }
     
-    public void comprarIngredientes(List<Ingrediente> listingredientes) {
+    public static boolean comprarIngredientes(Map<Ingrediente, Integer> listingredientes) {
     	
-    	
+    	Trabajador elegido = Panaderia.trabajadorAleatorio();
+
+        boolean x = elegido.conseguirIngredientes(listingredientes);
+
+        return x;
     	
     }
 }

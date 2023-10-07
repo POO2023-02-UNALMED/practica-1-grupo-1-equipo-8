@@ -1,32 +1,37 @@
 package humanos;
 
 import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import gestion.Panaderia;
+import comida.Ingrediente;
 
 public abstract class Trabajador {
     String nombre;
     double habilidad;
     double dineroEnMano;
-    Panaderia panaderia;
+    boolean robado;
 
     public Trabajador() {
-        this("John Doe", 0, 0, null);
+        this("John Doe", 0, 0);
     }
 
-    public Trabajador(String nombre, Panaderia panaderia) {
+    public Trabajador(String nombre) {
         Random rand = new Random();
         this.nombre = nombre;
         this.habilidad = rand.nextDouble() * 10; // 0 <= habilidad <= 10
         this.dineroEnMano = 0;
-        this.panaderia = panaderia;
+        this.robado = false;
     }
 
-    public Trabajador(String nombre, double habilidad, double dineroEnMano, Panaderia panaderia) {
+    public Trabajador(String nombre, double habilidad, double dineroEnMano) {
         this.nombre = nombre;
         this.habilidad = habilidad;
         this.dineroEnMano = dineroEnMano;
-        this.panaderia = panaderia;
+        this.robado = false;
     }
 
     public String getNombre() {
@@ -41,10 +46,6 @@ public abstract class Trabajador {
         return dineroEnMano;
     }
 
-    public Panaderia getPanaderia() {
-        return panaderia;
-    }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -57,9 +58,8 @@ public abstract class Trabajador {
         this.dineroEnMano = dineroEnMano;
     }
 
-    public void setPanaderia(Panaderia panaderia) {
-        this.panaderia = panaderia;
-    }
-
     public abstract boolean laborParticular();
+
+    public abstract boolean conseguirIngredientes(Map<Ingrediente, Integer> listaingredientes);
+
 }
