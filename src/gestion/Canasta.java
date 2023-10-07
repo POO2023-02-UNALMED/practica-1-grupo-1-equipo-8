@@ -9,10 +9,17 @@ import humanos.Cliente.Direccion;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Esta clase representa una canasta que puede contener productos e ingredientes.
+ * Tiene métodos para agregar y eliminar productos e ingredientes, así como para calcular su costo.
+ * También tiene atributos para un identificador único, costo y descuento.
+ * La clase tiene tres constructores, uno que recibe un identificador, un mapa de productos y un mapa de ingredientes,
+ * otro que recibe solo un mapa de productos y un mapa de ingredientes, y un tercero que recibe una lista de canastas,
+ * un cliente y una dirección de entrega para calcular el costo total y aplicar un descuento.
+ */
 public class Canasta {
   private Map<Producto, Integer> productos = new HashMap<Producto, Integer>();
   private Map<Ingrediente, Integer> ingredientes = new HashMap<Ingrediente, Integer>();
@@ -36,7 +43,9 @@ public class Canasta {
     this.ingredientes = ingredientes;
     this.costo = generarCosto();
   }
-
+  
+  // Este constructor está malo xd, así no debería funcionar la canasta, nota:
+  // hablar con Nico
   public Canasta(ArrayList<Canasta> canastas, Direccion direccion, Cliente cliente) {
     double costo = 0;
     for (Canasta canasta : canastas) {
@@ -262,7 +271,7 @@ public class Canasta {
     for (Map.Entry<Ingrediente, Integer> ingredienteEntry : ingredientes.entrySet()) {
       Ingrediente ingrediente = ingredienteEntry.getKey();
       Integer cantidad = ingredienteEntry.getValue();
-      costoCanasta += ingrediente.getPrecio() * cantidad;
+      costoCanasta += ingrediente.getPrecioDeVenta() * cantidad;
     }
     this.descuento=descuentoCanasta;
     return costoCanasta;
