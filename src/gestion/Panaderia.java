@@ -503,13 +503,17 @@ public class Panaderia implements Serializable {
 
     }
     
-    public static boolean comprarIngredientes(Map<Ingrediente, Integer> listingredientes) {
+    public static void comprarIngredientes(Map<Ingrediente, Integer> listingredientes) {
     	
     	Trabajador elegido = Panaderia.trabajadorAleatorio();
 
         boolean x = elegido.conseguirIngredientes(listingredientes);
 
-        return x;
+        if (x == true){
+
+            Panaderia.comprarIngredientes(listingredientes);
+
+        }
     	
     }
 }
