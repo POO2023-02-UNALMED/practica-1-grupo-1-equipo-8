@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import gestion.Canasta;
 import gestion.Panaderia;
 import comida.Ingrediente;
 
@@ -58,7 +59,7 @@ public abstract class Trabajador {
         this.dineroEnMano = dineroEnMano;
     }
 
-    public abstract boolean laborParticular();
+    public abstract boolean laborParticular(Canasta canasta);
 
     public abstract boolean conseguirIngredientes(Map<Ingrediente, Integer> listaingredientes);
 

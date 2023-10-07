@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import gestion.Panaderia;
 import comida.Ingrediente;
 import comida.Producto;
+import gestion.Canasta;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,13 +36,8 @@ public class Cocinero extends Trabajador {
         this.especialidad = especialidad;
     }
 
-    // @Override
-public void laborParticular(Producto producto, int cantidadDeseada) {
-	
-}
-
 @Override
-public boolean laborParticular() {
+public boolean laborParticular(Canasta canasta) {
 	// TODO Auto-generated method stub
 	
 }
