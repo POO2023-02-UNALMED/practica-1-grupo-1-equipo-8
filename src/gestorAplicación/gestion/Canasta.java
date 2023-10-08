@@ -7,6 +7,7 @@ import gestorAplicación.gestion.Cupon.DescuentoProducto;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  * otro que recibe solo un mapa de productos y un mapa de ingredientes, y un tercero que recibe una lista de canastas,
  * un cliente y una dirección de entrega para calcular el costo total y aplicar un descuento.
  */
-public class Canasta {
+public class Canasta implements Serializable {
   private Map<Producto, Integer> productos = new HashMap<Producto, Integer>();
   private Map<Ingrediente, Integer> ingredientes = new HashMap<Ingrediente, Integer>();
   private Map<String, ArrayList<Object>> kits = new HashMap<String, ArrayList<Object>>();

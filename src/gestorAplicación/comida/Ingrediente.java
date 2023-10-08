@@ -1,8 +1,9 @@
 package gestorAplicación.comida;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Ingrediente {
+public class Ingrediente implements Serializable{
 	private String nombre;
 	// int cantidad;
 	private double PrecioDeVenta;

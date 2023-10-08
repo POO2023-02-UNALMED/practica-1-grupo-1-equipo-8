@@ -1,5 +1,6 @@
 package gestorAplicación.humanos;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 
 import gestorAplicación.comida.Ingrediente;
@@ -13,7 +14,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Cocinero extends Trabajador {
+public class Cocinero extends Trabajador implements Serializable{
     private String especialidad;
     private boolean quemado = false;
 

@@ -4,10 +4,11 @@ import java.util.Map;
 
 import gestorAplicación.gestion.Panaderia;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Producto {
+public class Producto implements Serializable{
 	
 	private String nombre;
 	private Map<Ingrediente,Integer> ingredientes = new HashMap<Ingrediente,Integer>();

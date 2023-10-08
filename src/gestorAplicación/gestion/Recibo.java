@@ -11,13 +11,14 @@ import java.util.List; //Libreria para listas
 import java.util.ArrayList; //Libreria para listas
 import java.util.Date; //Libreria para manejar fechas
 import java.io.EOFException;
+import java.io.Serializable;
 import java.time.Instant; //Libreria para obterer la fecha actual
 import java.util.Random; //Libreria para sacar numeros aleatorios (pensaba en premiar un cliente aleatorio volviendo su factura gratis)
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class Recibo {
+public class Recibo implements Serializable{
     private Cliente cliente;
     private int idRecibo;
     private static int totalFacturas;

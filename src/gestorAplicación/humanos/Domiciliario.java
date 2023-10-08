@@ -9,10 +9,11 @@ import gestorAplicación.gestion.Panaderia;
 import gestorAplicación.gestion.Recibo;
 import gestorAplicación.humanos.Cliente.Direccion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.ArrayList;
 
-public class Domiciliario extends Trabajador {
+public class Domiciliario extends Trabajador implements Serializable{
     Boolean licencia;
 
     public Domiciliario() {

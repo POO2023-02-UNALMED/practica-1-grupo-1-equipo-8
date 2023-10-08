@@ -1,12 +1,14 @@
 package gestorAplicación.gestion;
 
+import java.io.Serializable;
+
 /**
  * Esta clase representa un cupón que se puede utilizar para aplicar descuentos
  * a productos.
  * Contiene tres enumeraciones: DescuentoBasico, DescuentoPorTipo y
  * DescuentoProducto.
  */
-public class Cupon {
+public class Cupon implements Serializable{
 
   /**
    * Este enum representa los diferentes valores de descuento que se pueden

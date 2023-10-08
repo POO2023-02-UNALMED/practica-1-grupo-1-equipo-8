@@ -2,6 +2,7 @@ package gestorAplicación.humanos;
 
 import java.util.Random;
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +11,7 @@ import gestorAplicación.comida.Ingrediente;
 import gestorAplicación.gestion.Canasta;
 import gestorAplicación.gestion.Panaderia;
 
-public abstract class Trabajador {
+public abstract class Trabajador implements Serializable{
     String nombre;
     double habilidad;
     double habilidadParticular;
