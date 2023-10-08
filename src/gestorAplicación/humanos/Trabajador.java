@@ -60,8 +60,6 @@ public abstract class Trabajador {
         this.dineroEnMano = dineroEnMano;
     }
 
-    public abstract boolean laborParticular(Canasta canasta);
-
-    public abstract boolean conseguirIngredientes(Map<Ingrediente, Integer> listaingredientes);
+    public abstract boolean laborParticular(Canasta canasta, Cliente cliente);
 
 }

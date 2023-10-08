@@ -62,24 +62,24 @@ public class Domiciliario extends Trabajador {
         }
     }*/
 
-    public boolean laborParticular(ArrayList<Canasta> canastas, Cliente cliente){
+    
+
+    public boolean laborParticular(Canasta canasta, Cliente cliente){
         Direccion direccion = cliente.getDireccion();
         Random rand = new Random();
         int probabilidad = rand.nextInt(100);
         if (probabilidad > habilidad){
+            this.habilidad++;
             return false;
         }
         else{
             // Se le cobra al cliente
-            double costoTotal = 0.0;
-            for (Canasta canasta : canastas) {
-                costoTotal += canasta.generarCosto();
-            }
+            double costoTotal = canasta.generarCosto();
             cliente.setPresupuesto(cliente.getPresupuesto() - costoTotal);
             // Se le paga al domiciliario
             dineroEnMano += costoTotal;
             // Se le agrega el recibo al cliente
-            Recibo recibo = new Recibo(canastas, direccion, cliente);
+            Recibo recibo = new Recibo(canasta, direccion, cliente);
             cliente.getRecibos().add(recibo);
             // Se le agrega el recibo al domiciliario
             cliente.getRecibos().add(recibo);
