@@ -71,6 +71,28 @@ public class Cliente implements Serializable{
 
 	}
 
+	public Cliente(String nombre, int id, Descuento tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
+		this.nombre = nombre;
+		this.id = id;
+		this.tipoDescuento = tipoDescuento;
+		this.presupuesto = presupuesto;
+		this.canastas = canastas;
+		this.recibos = recibos;
+	}
+
+	public Cliente(String nombre,int id,Descuento tipoDescuento, double presupuesto){
+		this.nombre = nombre;
+		this.id = id;
+		this.tipoDescuento = tipoDescuento;
+		this.presupuesto = presupuesto;
+	}
+
+	public Cliente (String nombre, int id, double presupuesto){
+		this.nombre = nombre;
+		this.id = id;
+		this.presupuesto = presupuesto;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}

@@ -13,6 +13,8 @@ import gestorAplicación.humanos.Cliente;
 import gestorAplicación.humanos.Cocinero;
 import gestorAplicación.humanos.Domiciliario;
 import gestorAplicación.humanos.Trabajador;
+import gestorAplicación.humanos.Cliente.Descuento;
+import gestorAplicación.humanos.Cliente.Direccion;
 
 import java.util.Collections;
 
@@ -24,10 +26,10 @@ public class Panaderia implements Serializable {
     private static ArrayList<Cocinero> cocineros = new ArrayList<Cocinero>();
     private static ArrayList<Domiciliario> domiciliarios = new ArrayList<Domiciliario>();
     private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-    private static float dinero;
+    private static double dinero;
     private static List<Producto> productosEnDescuento = new ArrayList<Producto>();
     private static Canasta canastaDelDia;
-    private static float valorDeudas;
+    private static double valorDeudas;
     private static boolean enQuiebra = false;
     static {
         // Agregar lista de productos en descuento para la canasta
@@ -76,7 +78,7 @@ public class Panaderia implements Serializable {
         return clientes;
     }
 
-    public static float getDinero() {
+    public static double getDinero() {
         return dinero;
     }
 
@@ -97,7 +99,7 @@ public class Panaderia implements Serializable {
         Panaderia.clientes = clientes;
     }
 
-    public static void setDinero(float dinero) {
+    public static void setDinero(double dinero) {
         Panaderia.dinero = dinero;
     }
 
@@ -142,11 +144,11 @@ public class Panaderia implements Serializable {
         clientes.remove(cliente);
     }
 
-    public void agregarDinero(float dinero) {
+    public void agregarDinero(double dinero) {
         Panaderia.dinero += dinero;
     }
 
-    public void restarDinero(float dinero) {
+    public void restarDinero(double dinero) {
         Panaderia.dinero -= dinero;
     }
 
@@ -165,12 +167,11 @@ public class Panaderia implements Serializable {
             Panaderia.enQuiebra = true;
             Panaderia.dinero = 10000000;
             return Panaderia.enQuiebra;
-            Panaderia.saldarDeudas();
         }
 
     }
 
-    public static void conseguirPrestamo(float valorNecesitado) {
+    public static void conseguirPrestamo(double valorNecesitado) {
 
         if (Panaderia.valorDeudas == 0){
 
@@ -474,7 +475,7 @@ public class Panaderia implements Serializable {
 
     //Método sobrevargado registrarCliente
     
-    public static String registrarCliente(String nombre, Integer id, String tipoDescuento, float presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
+    public static String registrarCliente(String nombre, Integer id, Descuento tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
     	
     	Cliente cliente = new Cliente(nombre, id, tipoDescuento, presupuesto, canastas, recibos);
     	
@@ -484,7 +485,7 @@ public class Panaderia implements Serializable {
     	
     }
     
-    public static String registrarCliente(String nombre, Integer id, String tipoDescuento, float presupuesto) {
+    public static String registrarCliente(String nombre, Integer id, Descuento tipoDescuento, double presupuesto) {
     	
     	Cliente cliente = new Cliente(nombre, id, tipoDescuento, presupuesto);
     	
@@ -494,7 +495,7 @@ public class Panaderia implements Serializable {
     
     }
     
-    public static String registrarCliente(String nombre, Integer id, float presupuesto) {
+    public static String registrarCliente(String nombre, Integer id, double presupuesto) {
     	
     	Cliente cliente = new Cliente(nombre, id, presupuesto);
     	
