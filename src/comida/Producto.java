@@ -9,10 +9,11 @@ public class Producto {
 	
 	private String nombre;
 	private Map<Ingrediente,Integer> ingredientes = new HashMap<Ingrediente,Integer>();
-    private float costo;
-    private String sabor;
-    private float tiempoProducción;
-    private Integer unidades;
+	private float costo;
+	private String sabor;
+	private float tiempoProducción;
+  private Integer unidades;
+	private List<String> procesoDeCocina = new ArrayList<String>();
 
 	//Constructores
 	public Producto(String nombre, Map<Ingrediente,Integer> ingredientes, float costo, String sabor, float tiempoProducción, Integer unidades) {

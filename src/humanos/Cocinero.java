@@ -12,7 +12,8 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Cocinero extends Trabajador {
-    String especialidad;
+    private String especialidad;
+    private boolean quemado = false;
 
     public Cocinero() {
         super();
@@ -36,10 +37,55 @@ public class Cocinero extends Trabajador {
         this.especialidad = especialidad;
     }
 
+    public boolean isQuemado(){
+        return quemado;
+    }
+
+    public void setQuemado(boolean quemado) {
+        this.quemado = quemado;
+    }
+
+public Map<Ingrediente, Integer> ingredientesCocinero (Producto producto) {
+    Map<Ingrediente,Integer> ingredientesNecesarios = producto.getIngredientes();
+    Map<Ingrediente, Integer> ingrFaltantes = Panaderia.revisarCantidadIngredientes(ingredientesNecesarios);
+    return ingrFaltantes;
+}
+public boolean productoQuemado(Producto producto){
+    Random numAleatorio = new Random();
+     double dificultadProducto = numAleatorio.nextDouble() * 10; //poner menos probabilidad
+     if(dificultadProducto > this.habilidadParticular){
+        setQuemado(true);
+        return isQuemado();
+     }
+     return isQuemado();
+}
+
+
 @Override
 public boolean laborParticular(Canasta canasta) {
-	// TODO Auto-generated method stub
-	
+    Map<Producto, Integer> productos = canasta.getProductos();
+	for (Map.Entry<Producto, Integer> product : productos.entrySet()) {
+        Producto producto = product.getKey();
+        Map<Ingrediente,Integer> ingrFaltantes= ingredientesCocinero(producto);
+        if(!ingrFaltantes.isEmpty()){
+            Panaderia.comprarIngredientes(ingrFaltantes);
+            for (Map.Entry<Ingrediente, Integer> faltante : ingrFaltantes.entrySet()){
+                Ingrediente ingFaltante = faltante.getKey();
+                String ingrfaltante = ingFaltante.getNombre();
+                Integer cantidad = faltante.getValue();
+                Panaderia.restarIngrediente(ingrfaltante,cantidad);
+            }
+            return false;
+        }
+    } 
+    for (Map.Entry<Producto, Integer> product : productos.entrySet()) {
+        Producto producto = product.getKey();
+        boolean cocinado = productoQuemado(producto); //hacer esto por cada metodo de cocinar y que se llame al cocinero con esa especialidad
+        if(!cocinado) {
+            return false;
+        }
+    }
+    return true;
 }
 
 public boolean conseguirIngredientes(Map<Ingrediente, Integer> listingredientes){

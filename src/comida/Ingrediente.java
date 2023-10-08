@@ -19,7 +19,7 @@ public class Ingrediente {
 	public Ingrediente(String nombre1) {
 		this.nombre = nombre1;
 		Random aleatorio = new Random();
-		double numeroAleatorio = aleatorio.nextDouble(2701) + 300; // Genera un entero entre 0 y 100 (ambos inclusive).
+		double numeroAleatorio = aleatorio.nextInt(2701) + 300; // Genera un entero entre 0 y 100 (ambos inclusive).
 		this.PrecioDeVenta = numeroAleatorio;
 		double numeroAleatorioCompra = numeroAleatorio*(2.0/3.0);
 		this.PrecioDeCompra =  Math.ceil(numeroAleatorioCompra);

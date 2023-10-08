@@ -13,6 +13,7 @@ import comida.Ingrediente;
 public abstract class Trabajador {
     String nombre;
     double habilidad;
+    double habilidadParticular;
     double dineroEnMano;
     boolean robado;
 
