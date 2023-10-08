@@ -376,9 +376,9 @@ public class Panaderia implements Serializable {
      */
     public static double obtenerPrecioVentaIngrediente(String ingrediente) {
         for (Map.Entry<Ingrediente, Integer> entry : invIngredientes.entrySet()) {
-            Ingrediente I = entry.getKey();
-            if (I.getNombre().equals(ingrediente)) {
-                return I.getPrecioDeVenta();
+            Ingrediente i = entry.getKey();
+            if (i.getNombre().equals(ingrediente)) {
+                return i.getPrecioDeVenta();
             }
         }
         return new Ingrediente(ingrediente).getPrecioDeVenta();
@@ -433,6 +433,42 @@ public class Panaderia implements Serializable {
             restarIngrediente(ingrediente, cantidad);
         }
         return ingredientesCanasta;
+    }
+
+    /**
+     * Agrega los kits de productos a la canasta y devuelve un mapa con los kits y sus ingredientes y cantidades correspondientes.
+     * @param kitsEnLista un mapa con los nombres de los kits y sus cantidades.
+     * @return un mapa con los nombres de los kits y sus ingredientes y cantidades correspondientes.
+     */
+    public static Map<String, ArrayList<Object>> agregarKitsACanasta(Map<String, Integer> kitsEnLista) {
+        Map<String, ArrayList<Object>> kitsCanasta = new HashMap<String, ArrayList<Object>>();
+        Map<Ingrediente, Integer> ingredientesProducto = new HashMap<Ingrediente, Integer>();
+        Map<String, Integer> productosKit = new HashMap<String, Integer>();
+        ArrayList<Object> kitsIngredienteCantidad = new ArrayList<Object>();
+        for (Map.Entry<String, Integer> kit : kitsEnLista.entrySet()) {
+            String nombreKit = kit.getKey();
+            Integer cantidad = kit.getValue();
+            for (Map.Entry<Producto, Integer> entry : Panaderia.getInvProductos().entrySet()) {
+                Producto p = entry.getKey();
+                if (p.getNombre().equals(nombreKit)) {
+                    ingredientesProducto = p.getIngredientes();
+                    for (Map.Entry<Ingrediente, Integer> ingredientesKit : p.getIngredientes().entrySet()){
+                        String nombreIngrediente = ingredientesKit.getKey().getNombre();
+                        Integer cantidadIngrediente = ingredientesKit.getValue();
+                        productosKit.put(nombreIngrediente, cantidadIngrediente*cantidad);
+                    }
+                }
+                agregarIngredientesACanasta(productosKit);
+                break;
+            }
+            kitsIngredienteCantidad.add(ingredientesProducto);
+            kitsIngredienteCantidad.add(cantidad);
+            kitsCanasta.put(nombreKit, kitsIngredienteCantidad);
+            ingredientesProducto= new HashMap<Ingrediente, Integer>();
+            productosKit = new HashMap<String, Integer>();
+            kitsIngredienteCantidad = new ArrayList<Object>();
+        }
+        return kitsCanasta;
     }
 
     //Método sobrevargado registrarCliente

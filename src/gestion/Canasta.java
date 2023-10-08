@@ -4,13 +4,10 @@ import comida.Ingrediente;
 import comida.Producto;
 import gestion.Cupon.DescuentoPorCantidad;
 import gestion.Cupon.DescuentoProducto;
-import humanos.Cliente;
-import humanos.Cliente.Direccion;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Esta clase representa una canasta que puede contener productos e ingredientes.
@@ -23,29 +20,44 @@ import java.util.Random;
 public class Canasta {
   private Map<Producto, Integer> productos = new HashMap<Producto, Integer>();
   private Map<Ingrediente, Integer> ingredientes = new HashMap<Ingrediente, Integer>();
-
+  private Map<String, ArrayList<Object>> kits = new HashMap<String, ArrayList<Object>>();
+  
   private Map<String, Integer> productosEnLista = new HashMap<String, Integer>();
   private Map<String, Integer> ingredientesEnLista = new HashMap<String, Integer>();
+  private Map<String, Integer> kitsEnLista = new HashMap<String, Integer>();
 
   private String identificador;
+  private int itemsTotalesEnCanasta;
+  private int itemsTotalesEnLista;
   private double costo;
   private double descuento;
 
   // Constructor Canasta
+  public Canasta() {
+    this.productos = new HashMap<Producto, Integer>();
+    this.ingredientes = new HashMap<Ingrediente, Integer>();
+    this.kits = new HashMap<String, ArrayList<Object>>();
+    this.identificador = "";
+    this.itemsTotalesEnCanasta = 0;
+    this.costo = 0;
+    this.descuento = 0;
+  }
   public Canasta(String identificador, Map<Producto, Integer> productos, Map<Ingrediente, Integer> ingredientes) { 
     this.identificador = identificador;
     this.productos = productos;
     this.ingredientes = ingredientes;
     this.costo = generarCosto();
+    calcularElementosCanasta();
   }
   public Canasta(Map<Producto, Integer> productos, Map<Ingrediente, Integer> ingredientes) { 
     this.productos = productos;
     this.ingredientes = ingredientes;
     this.costo = generarCosto();
+    calcularElementosCanasta();
   }
   
-  // Este constructor está malo xd, así no debería funcionar la canasta, nota:
-  // hablar con Nico
+  //TODO modificar el constructor, así no funciona canasta
+  /* 
   public Canasta(ArrayList<Canasta> canastas, Direccion direccion, Cliente cliente) {
     double costo = 0;
     for (Canasta canasta : canastas) {
@@ -58,7 +70,7 @@ public class Canasta {
     this.costo = costo;
     this.descuento = cliente.getTipoDescuento().getDescuento();
   }
-
+  */
   // getters y setters de los atributos
   public Map<Producto, Integer> getProductos() {
     return productos;
@@ -74,6 +86,14 @@ public class Canasta {
 
   public void setIngredientes(Map<Ingrediente, Integer> ingredientes) {
     this.ingredientes = ingredientes;
+  }
+
+  public Map<String, ArrayList<Object>> getKits() {
+    return kits;
+  }
+
+  public void setKits(Map<String, ArrayList<Object>> kits) {
+    this.kits = kits;
   }
 
   public double getCosto() {
@@ -100,45 +120,102 @@ public class Canasta {
     this.descuento = descuento;
   }
 
+  public int getitemsTotalesEnCanasta() {
+    return itemsTotalesEnCanasta;
+  }
+
+  public void setitemsTotalesEnCanasta(int itemsTotalesEnCanasta) {
+    this.itemsTotalesEnCanasta = itemsTotalesEnCanasta;
+  }
+
   // Metodos para agregar y eliminar productos a los maps de la canasta
   public void agregarProducto(Producto producto) {
     gestionAgregar(producto, 1);
+    calcularElementosCanasta();
     this.costo=generarCosto();
   }
 
   public void agregarProducto(Producto producto, int cantidad) {
     gestionAgregar(producto, cantidad);
+    calcularElementosCanasta();
     this.costo=generarCosto();
   }
 
   public void eliminarProducto(Producto producto) {
     gestionEliminar(producto);
+    calcularElementosCanasta();
     this.costo=generarCosto();
   }
 
   public void agregarIngrediente(Ingrediente ingrediente) {
     gestionAgregar(ingrediente, 1);
+    calcularElementosCanasta();
     this.costo=generarCosto();
   }
 
   public void agregarIngrediente(Ingrediente ingrediente, int cantidad) {
     gestionAgregar(ingrediente, cantidad);
+    calcularElementosCanasta();
     this.costo=generarCosto();
   }
 
   public void eliminarIngrediente(Ingrediente ingrediente) {
     gestionEliminar(ingrediente);
+    calcularElementosCanasta();
     this.costo=generarCosto();
   }
 
-  public void agregarKit(Producto producto) {
-    Map<Ingrediente, Integer> ingrdtsProducto = producto.getIngredientes();
-    ingrdtsProducto.forEach((ingrdts, cantidad) -> gestionAgregar(ingrdts, cantidad));
+  public void agregarKit(String nombreKit, int cantidad) {
+    Map<Ingrediente, Integer> productosKit = new HashMap<Ingrediente, Integer>();
+    ArrayList<Object> kitsIngredienteCantidad = new ArrayList<Object>();
+    for (Map.Entry<Producto, Integer> entry : Panaderia.getInvProductos().entrySet()) {
+      Producto p = entry.getKey();
+      if (p.getNombre().equals(nombreKit)) {
+        productosKit=p.getIngredientes();
+      }
+    }
+    if ((nombreKit != null) && (!kits.containsKey(nombreKit))) {
+      kitsIngredienteCantidad.add(productosKit);
+      kitsIngredienteCantidad.add(cantidad);
+      getKits().put(nombreKit, kitsIngredienteCantidad);
+    } else if ((nombreKit != null)) {
+      kitsIngredienteCantidad.add(productosKit);
+      kitsIngredienteCantidad.add(cantidad+(Integer)kits.get(nombreKit).get(1));
+      kits.put(nombreKit, kitsIngredienteCantidad);
+    } 
+    calcularElementosCanasta();
+    this.costo=generarCosto();
+  } 
+
+  public void agregarKit(String nombreKit, ArrayList<Object> listaIngredienteCantidad){
+    if ((nombreKit != null) && (!kits.containsKey(nombreKit))) {
+      getKits().put(nombreKit, listaIngredienteCantidad);
+    } else if ((nombreKit != null)) {
+      listaIngredienteCantidad.set(1, (Integer)listaIngredienteCantidad.get(1)+(Integer)kits.get(nombreKit).get(1));
+      kits.put(nombreKit, listaIngredienteCantidad);
+    } 
+    calcularElementosCanasta();
     this.costo=generarCosto();
   }
-  // No veo positivo la funcion de eliminarKit, de la manera como está planteado
-  // generaría demasiados problemas
-  // public void eliminarKit(Producto producto){}
+
+  public void eliminarKit(String nombreKit, int cantidad) {
+    for (Map.Entry<String, ArrayList<Object>> entry : getKits().entrySet()) {
+      String nombre = entry.getKey();
+      ArrayList<Object> valor = entry.getValue();
+      int cantidadActual = 0;
+      if (nombre.equals(nombreKit)) {
+        cantidadActual = (Integer) valor.get(1);
+      }
+      if(cantidadActual-cantidad>0 && cantidadActual!=0){
+        valor.set(1, cantidadActual-cantidad);
+      }
+      else if(cantidadActual-cantidad==0 && cantidadActual!=0){
+        getKits().remove(nombreKit);
+      }
+    }
+    calcularElementosCanasta();
+    this.costo=generarCosto();
+  }
 
   // Metodos que gestionan correctamente la modificacion de los maps
   // Verifican que efectivamente el elemento no exista en el map antes de
@@ -180,6 +257,14 @@ public class Canasta {
     } 
   }
 
+  private void gestionAgregar(String kits, int elementNum,boolean iD) {
+    if ((kits != null) && (!kitsEnLista.containsKey(kits))) {
+      kitsEnLista.put(kits, elementNum);
+    } else if ((kits != null)) {
+      kitsEnLista.put(kits, kitsEnLista.get(kits) + elementNum);
+    } 
+  }
+
   //Para agregar strings a una lista enviada
   public Map<String, Integer> gestionAgregar(String ingrd, int elementNum,Map<String, Integer> lista) {
     if ((ingrd != null) && (!lista.containsKey(ingrd))) {
@@ -193,6 +278,7 @@ public class Canasta {
   // Verifican que efectivamente el elemento exista en el map antes de eliminarlo,
   // en el caso de que no, avisa al cliente
   //Para productos
+  //TODO: cambiar para que pueda eliminar una cierta cantidad
   private boolean gestionEliminar(Ingrediente ingrediente) {
     if ((ingrediente != null) && (ingredientes.containsKey(ingrediente))) {
       ingredientes.remove(ingrediente);
@@ -222,6 +308,35 @@ public class Canasta {
       ingredientesEnLista.remove(ingrd);
       return true;
     } else {return false;}
+  }
+
+  public void calcularElementosCanasta() {
+    int elementos = 0;
+    for (Map.Entry<Producto, Integer> productoEntry :this.productos.entrySet()) {
+      elementos+=productoEntry.getValue();
+    }
+    for (Map.Entry<Ingrediente, Integer> ingredienteEntry : this.ingredientes.entrySet()) {
+      elementos+=ingredienteEntry.getValue();
+    }
+    for (Map.Entry<String, ArrayList<Object>> entry : this.kits.entrySet()) {
+      ArrayList<Object> valor = entry.getValue();
+      elementos+=(Integer)valor.get(1);
+    }
+    this.itemsTotalesEnCanasta=elementos;
+  }
+
+  public void calcularElementosLista() {
+    int elementos = 0;
+    for (Map.Entry<String, Integer> productoEntry :this.productosEnLista.entrySet()) {
+      elementos+=productoEntry.getValue();
+    }
+    for (Map.Entry<String, Integer> ingredienteEntry : this.ingredientesEnLista.entrySet()) {
+      elementos+=ingredienteEntry.getValue();
+    }
+    for (Map.Entry<String, Integer> entry : this.kitsEnLista.entrySet()) {
+      elementos+=entry.getValue();
+    }
+    this.itemsTotalesEnLista=elementos;
   }
 
   /**
@@ -283,12 +398,19 @@ public class Canasta {
    * @param cantidad la cantidad del producto o ingrediente a agregar.
    * @return true si el producto o ingrediente se agregó correctamente, false en caso contrario.
    */
-  public boolean recibirOrden(String objetoEntrante, String cantidad) {
+  public boolean recibirOrden(String objetoEntrante, String cantidad, boolean receta) {
     if (Panaderia.verificarExistenciaProductoPorNombre(objetoEntrante)) {
-      gestionAgregar(objetoEntrante, Integer.parseInt(cantidad), "1");
+      if (receta){
+        gestionAgregar(objetoEntrante, Integer.parseInt(cantidad), true);
+        calcularElementosLista();
+      } else{
+        gestionAgregar(objetoEntrante, Integer.parseInt(cantidad), "1");
+        calcularElementosLista();
+      }
       return true;
-    } else if (Panaderia.verificarExistenciaIngredientePorNombre(objetoEntrante)) {
+    } else if (Panaderia.verificarExistenciaIngredientePorNombre(objetoEntrante) && !receta) {
       gestionAgregar(objetoEntrante, Integer.parseInt(cantidad), 1);
+      calcularElementosLista();
       return true;
     } 
     return false;
@@ -301,7 +423,7 @@ public class Canasta {
    * @param cantidad La cantidad del producto personalizado que se agregará a la canasta.
    * @return True si el producto personalizado se agregó a la canasta, false en caso contrario.
    */
-  public boolean recibirOrdenPersonalizada(String objetoEntrante,  Map<String, Integer> ingredientesNecesarios, String cantidad) {
+  public boolean recibirOrdenPersonalizada(String objetoEntrante,  Map<String, Integer> ingredientesNecesarios, String cantidad, boolean receta) {
     try {
       Panaderia.crearProductoPersonalizado(objetoEntrante, ingredientesNecesarios);
     }
@@ -309,12 +431,18 @@ public class Canasta {
       return false;
     }
     if (Panaderia.verificarExistenciaProductoPorNombre(objetoEntrante)) {
+      if (receta){
+        gestionAgregar(objetoEntrante, Integer.parseInt(cantidad), true);
+        calcularElementosLista();
+      } else{
         gestionAgregar(objetoEntrante, Integer.parseInt(cantidad), "1");
+        calcularElementosLista();
+      }
         return true;
-      }
-      else{
-        return false;
-      }
+    } 
+    else{
+      return false;
+    }
   }
 
   /**
@@ -325,10 +453,12 @@ public class Canasta {
   public void enviarOrdenCanasta() {
     Map<Producto, Integer> productosCocinados = Panaderia.cocinar(productosEnLista);
     Map<Ingrediente, Integer> ingredientesCocinados = Panaderia.agregarIngredientesACanasta(ingredientesEnLista);
+    Map<String, ArrayList<Object>> kitsCocinados = Panaderia.agregarKitsACanasta(kitsEnLista);
     productosCocinados.forEach((producto, cantidad) -> agregarProducto(producto, cantidad));
     ingredientesCocinados.forEach((ingrediente, cantidad) -> agregarIngrediente(ingrediente, cantidad));
+    kitsCocinados.forEach((nombre, ingredienteCantidad) -> agregarKit(nombre, ingredienteCantidad));
     productosEnLista=null;
     ingredientesEnLista=null;
+    kitsCocinados=null;
   }
-
 }
