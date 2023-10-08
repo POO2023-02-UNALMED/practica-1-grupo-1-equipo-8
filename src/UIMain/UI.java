@@ -2,7 +2,7 @@ package UIMain;
 
 import java.util.Scanner;
 
-import gestion.Panaderia;
+import gestorAplicación.gestion.Panaderia;
 
 public class UI {
 

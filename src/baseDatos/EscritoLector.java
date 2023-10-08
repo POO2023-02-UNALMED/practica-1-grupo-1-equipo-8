@@ -1,6 +1,7 @@
 package baseDatos;
 import java.io.*;
-import gestion.Panaderia;
+
+import gestorAplicación.gestion.Panaderia;
 
 public class EscritoLector {
     static File archivo = new File("panaderia.txt");
