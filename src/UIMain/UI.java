@@ -41,14 +41,14 @@ public class UI {
     }
 
      public static void titulo(){ //tuve que agregar el simbolo \ antes de cada comilla para que java ignore los caracteres especiales, al final se vera diferente
-        System.out.println("                                    ____                                    ?~~bL");
-        System.out.println("                                    z@~ b                                    |  `U,");
+        System.out.println("                                   ____                                    ?~~bL");
+        System.out.println("                                 z@~ b                                    |  `U,");
         System.out.println("                                ]@[  |                                   ]'  z@'");
         System.out.println("                                d@~' `|, .__     _----L___----, __, .  _t'   `@j");
         System.out.println("                                `@L_,   \"-~ `--\"~-a,           `C.  ~\"\"O_    ._`@");
         System.out.println("                                q@~'   ]P       ]@[            `Y=,   `H+z_  `a@");
         System.out.println("                                `@L  _z@        d@               Ya     `-@b,_a'");
-        System.out.println("                                    `-@d@a'       )@[               `VL      `a@@'");
+        System.out.println("                                  `-@d@a'       )@[               `VL      `a@@'");
         System.out.println("                                    aa~'   ],  .a@'                qqL  ), ./~");
         System.out.println("                                    @@_  _z~  _d@[                 .V@  .L_d'");
         System.out.println("                                    \"~@@@'  ]@@@'        __      )@n@bza@-\"");
@@ -67,7 +67,6 @@ public class UI {
         System.out.println("88            `\"Y8888Y\"'     `\"Y8888Y\"'      88888888P\"  `\"8bbdP\"Y8 88   `Y8a `\"Ybbd8\"' 88             Y88'");
         System.out.println("                                                                                                       d8'     ");
         System.out.println("                                                                                                      d8'      ");
-        System.out.println(Texto.centrar("Hola usuario, bienvenido a nuestra Panaderia POO Bakery"));
         System.out.println("");
     }
   

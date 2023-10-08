@@ -156,56 +156,65 @@ public class Recibo {
      * texto
      */
     public void imprimirFactura() {
-        factura.add("    ____                                    ?~~bL");
-        factura.add("    z@~ b                                    |  `U,");
-        factura.add("]@[  |                                   ]'  z@'");
-        factura.add("d@~' `|, .__     _----L___----, __, .  _t'   `@j");
-        factura.add("`@L_,   \"-~ `--\"~-a,           `C.  ~\"\"O_    ._`@");
-        factura.add("q@~'   ]P       ]@[            `Y=,   `H+z_  `a@");
-        factura.add("`@L  _z@        d@               Ya     `-@b,_a'");
-        factura.add("    `-@d@a'       )@[               `VL      `a@@'");
-        factura.add("    aa~'   ],  .a@'                qqL  ), ./~");
-        factura.add("    @@_  _z~  _d@[                 .V@  .L_d'");
-        factura.add("    \"~@@@'  ]@@@'        __      )@n@bza@-\"");
-        factura.add("        `-@zzz@@@L        )@@z     ]@@=%-\"");
-        factura.add("        \"~~@@@@@bz_    _a@@@@z___a@K");
-        factura.add("            \"~-@@@@@@@@@@@@@@@@@@~\"");
-        factura.add("                `~~~-@~~-@@~~~~~'");
+        factura.add("                                   ____                                    ?~~bL");
+        factura.add("                                 z@~ b                                    |  `U,");
+        factura.add("                                ]@[  |                                   ]'  z@'");
+        factura.add("                                d@~' `|, .__     _----L___----, __, .  _t'   `@j");
+        factura.add("                                `@L_,   \"-~ `--\"~-a,           `C.  ~\"\"O_    ._`@");
+        factura.add("                                q@~'   ]P       ]@[            `Y=,   `H+z_  `a@");
+        factura.add("                                `@L  _z@        d@               Ya     `-@b,_a'");
+        factura.add("                                  `-@d@a'       )@[               `VL      `a@@'");
+        factura.add("                                    aa~'   ],  .a@'                qqL  ), ./~");
+        factura.add("                                    @@_  _z~  _d@[                 .V@  .L_d'");
+        factura.add("                                    \"~@@@'  ]@@@'        __      )@n@bza@-\"");
+        factura.add("                                        `-@zzz@@@L        )@@z     ]@@=%-\"");
+        factura.add("                                        \"~~@@@@@bz_    _a@@@@z___a@K");
+        factura.add("                                            \"~-@@@@@@@@@@@@@@@@@@~\"");
+        factura.add("                                                `~~~-@~~-@@~~~~~'");
+        factura.add("");
         factura.add(String.format(""));
-;       factura.add(String.format("DOMICILIOS 24 HORAS"));
-        factura.add(String.format("PANADERIA POO"));
+        factura.add(String.format(Texto.centrar("POO Bakery")));
+        factura.add(String.format(Texto.centrar("DOMICILIOS 24 HORAS")));
         factura.add(String.format(""));
-        factura.add("-".repeat(40));
-        factura.add(String.format("Factura Nro: %s", idRecibo));
-        factura.add(String.format("Fecha y hora: "));
-        factura.add(String.format("Panadero que atendio su pedido: "));
-        factura.add(String.format("Ciudad: Medellin"));
-        factura.add(String.format("Cliente: %s", cliente.getNombre()));
-        factura.add(String.format("Identificacion: %s", cliente.getId()));
-        factura.add(String.format(""));
-        factura.add(String.format("DETALLE DE VENTA"));
-        factura.add(Texto.alinear("Descripcion", "Cantidad", "Precio"));
+        factura.add(Texto.centrar(String.format("Factura Nro: %s", idRecibo)));
+        factura.add(Texto.centrar(String.format("Fecha y hora: ")));
+        factura.add(Texto.centrar(String.format("Panadero que atendio su pedido: Mateo")));
+        factura.add(Texto.centrar(String.format("Ciudad: Medellin")));
+        factura.add(Texto.centrar(String.format("Cliente: %s", cliente.getNombre())));
+        factura.add(Texto.centrar(String.format("Identificacion: %s", cliente.getId())));
+        factura.add(Texto.centrar(String.format("")));
+        factura.add(Texto.centrar(String.format(Texto.centrar("DETALLE DE VENTA"))));
+        factura.add(" ");
+        /*factura.add(Texto.alinear("Descripcion", "Cantidad", "Precio")); //Reutilizar aqui la funcion de mateo
         factura.add("-".repeat(111));
 
+        int contador = 0; //aqui tendre que reutilizar el codigo de mateo en gestionCompraMain
         for(Canasta canasta: cliente.getCanastas()){
             for(Map.Entry<Producto,Integer> item: canasta.getProductos().entrySet()){
+                contador ++;
                 factura.add(Texto.alinear(item.getKey().getNombre(), item.getValue(), item.getKey().getCosto()*item.getValue()));
-        }
+        }*/
+        factura.add(Texto.centrar("POO Bakery"));
+        factura.add(Texto.centrar("solo calidad"));
+        factura.add(Texto.centrar("Gracias por elegirnos"));
         factura.add(String.format(""));
-        factura.add("▄▄▄▄▄▄▄  ▄ ▄▄ ▄▄▄▄▄▄▄"); 
-        factura.add("█ ▄▄▄ █ ██ ▀▄ █ ▄▄▄ █"); 
-        factura.add("█ ███ █ ▄▀ ▀▄ █ ███ █"); 
-        factura.add("█▄▄▄▄▄█ █ ▄▀█ █▄▄▄▄▄█"); 
-        factura.add("▄▄ ▄  ▄▄▀██▀▀ ▄▄▄ ▄▄ "); 
-        factura.add("▄   ▀█▄▀ ▄█ ▄▄▀▀ █▄ █"); 
-        factura.add("██▄ █▄▄ ▄██▀▄ ▄▀ █ ▄█"); 
-        factura.add("▄▄▄▄▄▄▄ █▄▀▀ ▄  ▄ ▄▄▀"); 
-        factura.add("█ ▄▄▄ █   ██▀▀▄▄█   █"); 
-        factura.add("█ ███ █ ▀▄ ▀▄  ██▄█▀█"); 
-        factura.add("█▄▄▄▄▄█ █▀▀▄▄▀▀▀█  ▄ "); 
+        factura.add(Texto.centrar("▄▄▄▄▄▄▄  ▄ ▄▄ ▄▄▄▄▄▄▄")); 
+        factura.add(Texto.centrar("█ ▄▄▄ █ ██ ▀▄ █ ▄▄▄ █")); 
+        factura.add(Texto.centrar("█ ███ █ ▄▀ ▀▄ █ ███ █")); 
+        factura.add(Texto.centrar("█▄▄▄▄▄█ █ ▄▀█ █▄▄▄▄▄█")); 
+        factura.add(Texto.centrar("▄▄ ▄  ▄▄▀██▀▀ ▄▄▄ ▄▄ ")); 
+        factura.add(Texto.centrar("▄   ▀█▄▀ ▄█ ▄▄▀▀ █▄ █")); 
+        factura.add(Texto.centrar("██▄ █▄▄ ▄██▀▄ ▄▀ █ ▄█")); 
+        factura.add(Texto.centrar("▄▄▄▄▄▄▄ █▄▀▀ ▄  ▄ ▄▄▀")); 
+        factura.add(Texto.centrar("█ ▄▄▄ █   ██▀▀▄▄█   █")); 
+        factura.add(Texto.centrar("█ ███ █ ▀▄ ▀▄  ██▄█▀█")); 
+        factura.add(Texto.centrar("█▄▄▄▄▄█ █▀▀▄▄▀▀▀█  ▄ "));
+        factura.add(String.format(""));
+
+
         }
 
     }
-}
+
 
 

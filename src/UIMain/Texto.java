@@ -26,9 +26,9 @@ public class Texto {
     }
 
     //Metodo alinear sobrecargado necesario para clase recibo
-    public static String alinear(String s1, Integer i1, float f1){
+    public static String alinear(String s1, Integer i1, double d1){
         String s2 = i1.toString();
-        String s3 = String.valueOf(f1);
+        String s3 = String.valueOf(d1);
         List <String> textos = new ArrayList<String>();
         List <Integer> espaciados = new ArrayList<Integer>();
         String s = "";
@@ -43,6 +43,10 @@ public class Texto {
             s += textos.get(i)+" ".repeat(espaciados.get(i)-textos.get(i).length());
         }
         return s;
+    }
+
+    public static String alinear(String s1, double d1){
+        return alinear(s1, " ", String.valueOf(d1));
     }
 
     //Este metodo sirve para centrar texto
