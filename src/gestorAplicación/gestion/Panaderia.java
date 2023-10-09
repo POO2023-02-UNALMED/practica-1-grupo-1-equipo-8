@@ -15,6 +15,7 @@ import gestorAplicación.humanos.Domiciliario;
 import gestorAplicación.humanos.Trabajador;
 import gestorAplicación.humanos.Cliente.Descuento;
 import gestorAplicación.humanos.Cliente.Direccion;
+import UIMain.GestionCompraMain;
 
 import java.util.Collections;
 
@@ -149,6 +150,12 @@ public class Panaderia implements Serializable {
 
     //Métodos para saldar las deudas de la panadería
     
+    //Este método se encarga de saldar las deudas de la panadería
+    //No tiene parámetros ya que trabaja con los atributos de esta
+    //Devuelve un booleano que será true si la panadería quebró y false si no lo hizo
+    //Este booleano quedará guardado en el atributo enQuiebra de la panadería 
+    //Para evitar el fin del programa, siempre que la panadería quiebre la comprará una franquicia más grande y le dará dinero 
+    
     public static boolean saldarDeudas(){
 
         if (Panaderia.valorDeudas < Panaderia.dinero){
@@ -167,6 +174,11 @@ public class Panaderia implements Serializable {
         }
 
     }
+    
+  //Este método se encarga de pedir un prestamo cuando la panadería no tenga suficiente dinero para comprar ingredientes
+  //El parámetro double es el valor de la compra que necesita hacer la panadería
+  //No devolverá nada ya que agregará el dinero que necesite la panadería una vez se acepte el prestamo
+  //El prestamo será aceptado solamente si la panadería no tiene deudas
 
     public static void conseguirPrestamo(double valorNecesitado) {
 
@@ -179,19 +191,21 @@ public class Panaderia implements Serializable {
 
         else{
 
-            boolean z = Panaderia.saldarDeudas();
+            Panaderia.saldarDeudas();
             
-            while (z == true) {
+            while (Panaderia.enQuiebra == true) {
             	
-            	z = Panaderia.saldarDeudas();
-            	//llamar al lecor del true que dirá que la panadería quebró
-            	
+            	GestionCompraMain.lecturaQuiebra(Panaderia.enQuiebra);
+            	Panaderia.saldarDeudas();
+         
             }
             
             Panaderia.dinero += valorNecesitado;
             Panaderia.valorDeudas = valorNecesitado;
 
         }
+        
+        GestionCompraMain.lecturaQuiebra(Panaderia.enQuiebra);
 
     }
 
@@ -694,7 +708,7 @@ public class Panaderia implements Serializable {
 
     }
 
-    public static Domiciliario domiciliarioAleatorio(){
+	public static Domiciliario domiciliarioAleatorio(){
 
         ArrayList<Domiciliario> x = (ArrayList<Domiciliario>) Panaderia.domiciliarios.clone();
         
@@ -708,6 +722,8 @@ public class Panaderia implements Serializable {
     
     public static void comprarIngredientes(Map<Ingrediente, Integer> listingredientes) {
     	
+    	GestionCompraMain.lecturaCompra();
+    	
     	Trabajador elegido = Panaderia.trabajadorAleatorio();
 
         boolean x = elegido.conseguirIngredientes(listingredientes);
@@ -715,9 +731,9 @@ public class Panaderia implements Serializable {
         while (x == true){
 
             Panaderia.comprarIngredientes(listingredientes);
-            //llamar al lecor del true que dirá que robaron al trabajador
-
+            GestionCompraMain.lecturaRobo(x);
         }
-    	
+        
+        GestionCompraMain.lecturaRobo(x);
     }
 }
