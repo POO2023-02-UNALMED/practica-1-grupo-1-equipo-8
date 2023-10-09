@@ -175,7 +175,63 @@ public class Canasta implements Serializable {
     this.descuentoEnLista = descuentoEnLista;
   }
 
-  // Metodos para agregar items a la canasta
+  public Map<String, Integer> getProductosEnLista() {
+	return productosEnLista;
+  }
+  
+  public void setProductosEnLista(Map<String, Integer> productosEnLista) {
+	this.productosEnLista = productosEnLista;
+  }
+  
+  public Map<String, Integer> getIngredientesEnLista() {
+	return ingredientesEnLista;
+  }
+
+  public void setIngredientesEnLista(Map<String, Integer> ingredientesEnLista) {
+	this.ingredientesEnLista = ingredientesEnLista;
+  }
+
+  public Map<String, Integer> getKitsEnLista() {
+	return kitsEnLista;
+  }
+
+  public void setKitsEnLista(Map<String, Integer> kitsEnLista) {
+	this.kitsEnLista = kitsEnLista;
+  }
+
+  public int getItemsTotalesEnCanasta() {
+	return itemsTotalesEnCanasta;
+  }
+
+  public void setItemsTotalesEnCanasta(int itemsTotalesEnCanasta) {
+	this.itemsTotalesEnCanasta = itemsTotalesEnCanasta;
+  }
+
+  public int getItemsTotalesEnLista() {
+	return itemsTotalesEnLista;
+  }
+
+  public void setItemsTotalesEnLista(int itemsTotalesEnLista) {
+	this.itemsTotalesEnLista = itemsTotalesEnLista;
+  }
+
+  public double getCostoTotal() {
+	return costoTotal;
+  }
+
+  public void setCostoTotal(double costoTotal) {
+	this.costoTotal = costoTotal;
+  }
+
+  public void setCostoTrasDescuento(double costoTrasDescuento) {
+	this.costoTrasDescuento = costoTrasDescuento;
+  }
+
+  public void setDescuento(double descuento) {
+	this.descuento = descuento;
+  }
+  
+// Metodos para agregar items a la canasta
   public void agregarProducto(Producto producto, int cantidad) {
     gestionAgregar(producto, cantidad);
     calcularElementosCanasta();

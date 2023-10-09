@@ -75,7 +75,8 @@ public class Domiciliario extends Trabajador implements Serializable{
         }
         else{
             // Se le cobra al cliente
-            double costoTotal = canasta.generarCosto();
+        	canasta.generarCosto();
+            double costoTotal = canasta.getCostoTotal();
             cliente.setPresupuesto(cliente.getPresupuesto() - costoTotal);
             // Se le paga al domiciliario
             dineroEnMano += costoTotal;

@@ -62,7 +62,8 @@ public class Recibo implements Serializable{
         Random rand = new Random();
         this.cliente = cliente;
         this.idRecibo = rand.nextInt(1000);
-        this.precioTotal = canasta.generarCosto();
+        canasta.generarCosto();
+        this.precioTotal = canasta.getCostoTotal();
         this.descuento = cliente.getTipoDescuento();
         this.precioFinal = precioTotal; 
         this.fecha = Date.from(Instant.now());
@@ -75,7 +76,8 @@ public class Recibo implements Serializable{
         this.idRecibo = rand.nextInt(1000);
         this.precioTotal = 0;
         for(Canasta canasta: canastas){
-            this.precioTotal += canasta.generarCosto();
+        	canasta.generarCosto();
+            this.precioTotal += canasta.getCostoTotal();
         }
         this.descuento = cliente.getTipoDescuento();
         this.precioFinal = precioTotal; 

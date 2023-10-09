@@ -715,7 +715,7 @@ public class Panaderia implements Serializable {
         while (x == true){
 
             Panaderia.comprarIngredientes(listingredientes);
-            //
+            //llamar al lecor del true que dirá que robaron al trabajador
 
         }
     	
