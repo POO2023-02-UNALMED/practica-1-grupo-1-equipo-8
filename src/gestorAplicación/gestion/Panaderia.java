@@ -148,6 +148,7 @@ public class Panaderia implements Serializable {
     }
 
     //Métodos para saldar las deudas de la panadería
+    
     public static boolean saldarDeudas(){
 
         if (Panaderia.valorDeudas < Panaderia.dinero){
@@ -178,7 +179,15 @@ public class Panaderia implements Serializable {
 
         else{
 
-            Panaderia.saldarDeudas();
+            boolean z = Panaderia.saldarDeudas();
+            
+            while (z == true) {
+            	
+            	z = Panaderia.saldarDeudas();
+            	//llamar al lecor del true que dirá que la panadería quebró
+            	
+            }
+            
             Panaderia.dinero += valorNecesitado;
             Panaderia.valorDeudas = valorNecesitado;
 
@@ -703,9 +712,10 @@ public class Panaderia implements Serializable {
 
         boolean x = elegido.conseguirIngredientes(listingredientes);
 
-        if (x == true){
+        while (x == true){
 
             Panaderia.comprarIngredientes(listingredientes);
+            //
 
         }
     	
