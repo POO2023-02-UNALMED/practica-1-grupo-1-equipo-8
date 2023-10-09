@@ -126,40 +126,40 @@ public class GestionCompraMain {
   
   //Este método se encarga de indicar si robaron al trabajador al ir a comprar los ingredientes
   
-  public static String lecturaRobo(boolean suceso) {
+  public static void lecturaRobo(boolean suceso) {
 	  
 	  if (suceso == true) {
 		  
-		  return "Han robado al trabajador que iba por los ingredientes para su pedido, pedimos disculpas por el atraso, enviaremos a alguien mas por la compra";
+		  System.out.println("Han robado al trabajador que iba por los ingredientes para su pedido, pedimos disculpas por el atraso, enviaremos a alguien mas por la compra");
 		  
 	  }
 	  
 	  else {
 		  
-		  return "El trabajador ha regresado con los ingredientes con su pedido, por favor espere a que preparemos su pedido";
+		  System.out.println("El trabajador ha regresado con los ingredientes con su pedido, por favor espere a que preparemos su pedido");
 		  
 	  } 
   }
   
-  public static String lecturaQuiebra(boolean suceso) {
+  public static void lecturaQuiebra(boolean suceso) {
 	  
 	  if (suceso == true) {
 		  
-		  return "La panadería no tenía dinero para realizar su pedido y ha entrado en quiebra :( , pero una franquicia más grande la ha comprado :D , podremos proseguir con su pedido";
+		  System.out.println("La panadería no tenía dinero para realizar su pedido y ha entrado en quiebra :( , pero una franquicia más grande la ha comprado :D , podremos proseguir con su pedido");
 		  
 	  }
 	  
 	  else {
 		  
-		  return "La panadería no tenía dinero para realizar su pedido :( , pero ha pedido un prestamo y ya puede comprar lo que necesita para preparar su pedido :D";
+		  System.out.println("La panadería no tenía dinero para realizar su pedido :( , pero ha pedido un prestamo y ya puede comprar lo que necesita para preparar su pedido :D");
 		  
     } 
 	  
   }
   
-  public static String lecturaCompra() {
+  public static void lecturaCompra() {
 	  
-	  return "No tenemos suficientes ingredientes para realizar su compra, por favor espere unos minutos mientras nos encargamos de ello.";
+	  System.out.println("No tenemos suficientes ingredientes para realizar su compra, por favor espere unos minutos mientras nos encargamos de ello.");
 		 
 	  }
 }
