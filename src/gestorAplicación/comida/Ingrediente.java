@@ -5,16 +5,18 @@ import java.util.Random;
 
 public class Ingrediente implements Serializable{
 	private String nombre;
-	// int cantidad;
+	private String id;
+	private static int cantidadIngredientes;
 	private double PrecioDeVenta;
 	private double PrecioDeCompra;
 
 	// constructores sobrecargados
-
 	public Ingrediente(String nombre1, double PrecioDeVenta,double PrecioDeCompra) {
 		this.nombre = nombre1;
 		this.PrecioDeVenta = PrecioDeVenta;
 		this.PrecioDeCompra = PrecioDeCompra;
+		cantidadIngredientes++;
+		this.id = String.valueOf(cantidadIngredientes+Producto.getCantidadProductos());
 	}
 
 	public Ingrediente(String nombre1) {
@@ -24,6 +26,8 @@ public class Ingrediente implements Serializable{
 		this.PrecioDeVenta = numeroAleatorio;
 		double numeroAleatorioCompra = numeroAleatorio*(2.0/3.0);
 		this.PrecioDeCompra =  Math.ceil(numeroAleatorioCompra);
+		cantidadIngredientes++;
+		this.id = String.valueOf(cantidadIngredientes+Producto.getCantidadProductos());
 	}
 	// getters y setters de los atributos
 
@@ -35,10 +39,21 @@ public class Ingrediente implements Serializable{
 		this.nombre = Newnombre;
 	}
 
-	// public int getCantidad() {return cantidad;}
-	// public void setCantidad(int Newcantidad) {this.cantidad = Newcantidad;}
+	public String getId() {
+		return id;
+	}
 
-	
+	public void setId(String Newid) {
+		this.id = Newid;
+	}
+
+	public static int getCantidadIngredientes() {
+		return cantidadIngredientes;
+	}
+
+	public static void setCantidadIngredientes(int NewcantidadIngredientes) {
+		cantidadIngredientes = NewcantidadIngredientes;
+	}
 
 	public double getPrecioDeVenta() {
 		return PrecioDeVenta;
@@ -57,7 +72,7 @@ public class Ingrediente implements Serializable{
 	}
 	
 	// metodos para crear
-	
+	//TODO agregarle funcionalidad xd
 	public static Ingrediente crearIngrediente(String Nnombre, double NPrecioDeVenta,double NPrecioDeCompra) {
 		return new Ingrediente(Nnombre, NPrecioDeVenta,NPrecioDeCompra);
 	}

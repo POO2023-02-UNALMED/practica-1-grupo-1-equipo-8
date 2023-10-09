@@ -17,6 +17,8 @@ public class Producto implements Serializable{
 	private float tiempoProducción;
   private Integer unidades;
 	private List<String> procesoDeCocina = new ArrayList<String>();
+	private String id;
+	private static int cantidadProductos;
 
 	//Constructores
 	public Producto(String nombre, Map<Ingrediente,Integer> ingredientes, float costo, String sabor, float tiempoProducción, Integer unidades) {
@@ -27,13 +29,18 @@ public class Producto implements Serializable{
 		this.sabor = sabor;
 		this.tiempoProducción = tiempoProducción;
 		this.unidades = unidades;
-		
+		cantidadProductos++;
+		this.id = String.valueOf(cantidadProductos + Ingrediente.getCantidadIngredientes());
 	}
 	
 	public Producto(String nombre,Map<Ingrediente,Integer> ingredientes){
 		this.nombre=nombre;
 		this.ingredientes=ingredientes;
+		cantidadProductos++;
+		this.id = String.valueOf(cantidadProductos + Ingrediente.getCantidadIngredientes());
 	}
+
+	//Getters y Setters
 
 	public float getCosto(){
 		return costo;
@@ -90,6 +97,24 @@ public class Producto implements Serializable{
 	public void setProcesoDeCocina(List<String> procesoDeCocina) {
 		this.procesoDeCocina = procesoDeCocina;
 	}
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public static int getCantidadProductos() {
+		return cantidadProductos;
+	}
+
+	public static void setCantidadProductos(int cantidadProductos) {
+		Producto.cantidadProductos = cantidadProductos;
+	}
+
+	//Métodos
 
 	public static Producto crearProducto(Panaderia panaderia, String nombre, Map<Ingrediente,Integer> ingredientes, String sabor) {
 		

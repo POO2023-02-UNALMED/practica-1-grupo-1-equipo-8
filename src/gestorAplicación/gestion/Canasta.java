@@ -11,14 +11,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Esta clase representa una canasta que puede contener productos e ingredientes.
- * Tiene métodos para agregar y eliminar productos e ingredientes, así como para calcular su costo.
- * También tiene atributos para un identificador único, costo y descuento.
- * La clase tiene tres constructores, uno que recibe un identificador, un mapa de productos y un mapa de ingredientes,
- * otro que recibe solo un mapa de productos y un mapa de ingredientes, y un tercero que recibe una lista de canastas,
- * un cliente y una dirección de entrega para calcular el costo total y aplicar un descuento.
- */
+ * Esta clase representa una canasta de compras que puede contener productos, ingredientes y kits.
+ * También realiza un seguimiento del costo total, descuento y número de elementos en la canasta.
+ * Además, también puede funcionar como una lista de compras, realizando un seguimiento de los elementos a comprar.
+ * La clase proporciona métodos para agregar elementos a la canasta y lista, así como getters y setters para sus atributos.
+**/
 public class Canasta implements Serializable {
+
   private Map<Producto, Integer> productos = new HashMap<Producto, Integer>();
   private Map<Ingrediente, Integer> ingredientes = new HashMap<Ingrediente, Integer>();
   private Map<String, ArrayList<Object>> kits = new HashMap<String, ArrayList<Object>>();
@@ -30,30 +29,37 @@ public class Canasta implements Serializable {
   private String identificador;
   private int itemsTotalesEnCanasta;
   private int itemsTotalesEnLista;
-  private double costo;
+  private double costoTotal;
+  private double costoTrasDescuento;
   private double descuento;
+  private double costoTotalEnLista;
+  private double costoTrasDescuentoEnLista;
+  private double descuentoEnLista;
 
-  // Constructor Canasta
+  // Constructores Canasta
   public Canasta() {
     this.productos = new HashMap<Producto, Integer>();
     this.ingredientes = new HashMap<Ingrediente, Integer>();
     this.kits = new HashMap<String, ArrayList<Object>>();
     this.identificador = "";
     this.itemsTotalesEnCanasta = 0;
-    this.costo = 0;
+    this.costoTotal = 0;
+    this.costoTrasDescuento = 0;
     this.descuento = 0;
+    generarCosto();
+    calcularElementosCanasta();
   }
   public Canasta(String identificador, Map<Producto, Integer> productos, Map<Ingrediente, Integer> ingredientes) { 
     this.identificador = identificador;
     this.productos = productos;
     this.ingredientes = ingredientes;
-    this.costo = generarCosto();
+    generarCosto();
     calcularElementosCanasta();
   }
   public Canasta(Map<Producto, Integer> productos, Map<Ingrediente, Integer> ingredientes) { 
     this.productos = productos;
     this.ingredientes = ingredientes;
-    this.costo = generarCosto();
+    generarCosto();
     calcularElementosCanasta();
   }
   
@@ -98,11 +104,19 @@ public class Canasta implements Serializable {
   }
 
   public double getCosto() {
-    return costo;
+    return costoTotal;
   }
 
   public void setCosto(float costo) {
-    this.costo = costo;
+    this.costoTotal = costo;
+  }
+
+  public double getCostoTrasDescuento() {
+    return costoTrasDescuento;
+  }
+
+  public void setCostoTrasDescuento(float costoTrasDescuento) {
+    this.costoTrasDescuento = costoTrasDescuento;
   }
 
   public String getIdentificador() {
@@ -129,114 +143,165 @@ public class Canasta implements Serializable {
     this.itemsTotalesEnCanasta = itemsTotalesEnCanasta;
   }
 
-  // Metodos para agregar y eliminar productos a los maps de la canasta
-  public void agregarProducto(Producto producto) {
-    gestionAgregar(producto, 1);
-    calcularElementosCanasta();
-    this.costo=generarCosto();
+  public int getitemsTotalesEnLista() {
+    return itemsTotalesEnLista;
   }
 
+  public void setitemsTotalesEnLista(int itemsTotalesEnLista) {
+    this.itemsTotalesEnLista = itemsTotalesEnLista;
+  }
+
+  public double getCostoTotalEnLista() {
+    return costoTotalEnLista;
+  }
+
+  public void setCostoTotalEnLista(double costoTotalEnLista) {
+    this.costoTotalEnLista = costoTotalEnLista;
+  }
+
+  public double getCostoTrasDescuentoEnLista() {
+    return costoTrasDescuentoEnLista;
+  }
+
+  public void setCostoTrasDescuentoEnLista(double costoTrasDescuentoEnLista) {
+    this.costoTrasDescuentoEnLista = costoTrasDescuentoEnLista;
+  }
+
+  public double getDescuentoEnLista() {
+    return descuentoEnLista;
+  }
+
+  public void setDescuentoEnLista(double descuentoEnLista) {
+    this.descuentoEnLista = descuentoEnLista;
+  }
+
+  // Metodos para agregar items a la canasta
   public void agregarProducto(Producto producto, int cantidad) {
     gestionAgregar(producto, cantidad);
     calcularElementosCanasta();
-    this.costo=generarCosto();
-  }
-
-  public void eliminarProducto(Producto producto) {
-    gestionEliminar(producto);
-    calcularElementosCanasta();
-    this.costo=generarCosto();
-  }
-
-  public void agregarIngrediente(Ingrediente ingrediente) {
-    gestionAgregar(ingrediente, 1);
-    calcularElementosCanasta();
-    this.costo=generarCosto();
+    generarCosto();
   }
 
   public void agregarIngrediente(Ingrediente ingrediente, int cantidad) {
     gestionAgregar(ingrediente, cantidad);
     calcularElementosCanasta();
-    this.costo=generarCosto();
+    generarCosto();
   }
 
-  public void eliminarIngrediente(Ingrediente ingrediente) {
-    gestionEliminar(ingrediente);
+  public void agregarKit(String nombreKit, ArrayList<Object>listaIngredienteCantidad) {
+    gestionAgregar(nombreKit, listaIngredienteCantidad);
     calcularElementosCanasta();
-    this.costo=generarCosto();
+    generarCosto();
+  } 
+
+  //Metodos para agregar items a la lista
+  public void agregarProducto(String nombreProducto, int cantidad) {
+    gestionAgregar(nombreProducto, cantidad, "1");
+    calcularElementosLista();
+    generarCostoEnLista();
+  }
+
+  public void agregarIngrediente(String nombreIngrediente, int cantidad) {
+    gestionAgregar(nombreIngrediente, cantidad, 1);
+    calcularElementosLista();
+    generarCostoEnLista();
   }
 
   public void agregarKit(String nombreKit, int cantidad) {
-    Map<Ingrediente, Integer> productosKit = new HashMap<Ingrediente, Integer>();
-    ArrayList<Object> kitsIngredienteCantidad = new ArrayList<Object>();
-    for (Map.Entry<Producto, Integer> entry : Panaderia.getInvProductos().entrySet()) {
-      Producto p = entry.getKey();
-      if (p.getNombre().equals(nombreKit)) {
-        productosKit=p.getIngredientes();
-      }
-    }
-    if ((nombreKit != null) && (!kits.containsKey(nombreKit))) {
-      kitsIngredienteCantidad.add(productosKit);
-      kitsIngredienteCantidad.add(cantidad);
-      getKits().put(nombreKit, kitsIngredienteCantidad);
-    } else if ((nombreKit != null)) {
-      kitsIngredienteCantidad.add(productosKit);
-      kitsIngredienteCantidad.add(cantidad+(Integer)kits.get(nombreKit).get(1));
-      kits.put(nombreKit, kitsIngredienteCantidad);
-    } 
-    calcularElementosCanasta();
-    this.costo=generarCosto();
-  } 
-
-  public void agregarKit(String nombreKit, ArrayList<Object> listaIngredienteCantidad){
-    if ((nombreKit != null) && (!kits.containsKey(nombreKit))) {
-      getKits().put(nombreKit, listaIngredienteCantidad);
-    } else if ((nombreKit != null)) {
-      listaIngredienteCantidad.set(1, (Integer)listaIngredienteCantidad.get(1)+(Integer)kits.get(nombreKit).get(1));
-      kits.put(nombreKit, listaIngredienteCantidad);
-    } 
-    calcularElementosCanasta();
-    this.costo=generarCosto();
+    gestionAgregar(nombreKit, cantidad, true);
+    calcularElementosLista();
+    generarCostoEnLista();
   }
 
-  public void eliminarKit(String nombreKit, int cantidad) {
-    for (Map.Entry<String, ArrayList<Object>> entry : getKits().entrySet()) {
-      String nombre = entry.getKey();
-      ArrayList<Object> valor = entry.getValue();
-      int cantidadActual = 0;
-      if (nombre.equals(nombreKit)) {
-        cantidadActual = (Integer) valor.get(1);
-      }
-      if(cantidadActual-cantidad>0 && cantidadActual!=0){
-        valor.set(1, cantidadActual-cantidad);
-      }
-      else if(cantidadActual-cantidad==0 && cantidadActual!=0){
-        getKits().remove(nombreKit);
-      }
+  //Metodos para eliminar items de la canasta
+  public boolean eliminarProducto(Producto producto, int cantidad) {
+    if(gestionEliminar(producto, cantidad)){
+      calcularElementosCanasta();
+      generarCosto();
+      return true;
     }
-    calcularElementosCanasta();
-    this.costo=generarCosto();
+    else{return false;}
+  }
+
+  public boolean eliminarIngrediente(Ingrediente ingrediente, int cantidad) {
+    if(gestionEliminar(ingrediente, cantidad)){
+      calcularElementosCanasta();
+      generarCosto();
+      return true;
+    }
+    else{return false;}
+  }
+  
+  public boolean eliminarKit(String nombreKit, int cantidad) {
+    if(gestionEliminar(nombreKit, cantidad)){
+      calcularElementosCanasta();
+      generarCosto();
+      return true;
+    }
+    else{return false;}
+  }
+
+  //Metodos para eliminar items de la lista
+  public boolean eliminarProducto(String nombreProducto, int cantidad) {
+    if(gestionEliminar(nombreProducto, cantidad, "1")){
+      calcularElementosLista();
+      generarCostoEnLista();
+      return true;
+    }
+    else{return false;}
+  }
+
+  public boolean eliminarIngrediente(String nombreIngrediente, int cantidad) {
+    if(gestionEliminar(nombreIngrediente, cantidad, 1)){
+      calcularElementosLista();
+      generarCostoEnLista();
+      return true;
+    }
+    else{return false;}
+  }
+
+  public boolean eliminarKit(String nombreKit, int cantidad, boolean iD) {
+    if(gestionEliminar(nombreKit, cantidad, iD)){
+      calcularElementosLista();
+      generarCostoEnLista();
+      return true;
+    }
+    else{return false;}
   }
 
   // Metodos que gestionan correctamente la modificacion de los maps
   // Verifican que efectivamente el elemento no exista en el map antes de
-  // agregarlo, en el caso de que si, simplemente agrega una unidad más
+  // agregarlo, en el caso de que si, simplemente agrega la cantidad indicada a la que ya había
 
   //Para productos
   private void gestionAgregar(Producto producto, int elementNum) {
-    if ((producto != null) && (!productos.containsKey(producto))) {
-      productos.put(producto, elementNum);
-    } else if ((producto != null)) {
-      productos.put(producto, productos.get(producto) + elementNum);
-    } 
+    for(Map.Entry<Producto, Integer> entry : productos.entrySet()) {
+      Producto p = entry.getKey();
+      if (p.getId().equals(producto.getId())) {
+        productos.put(p, entry.getValue()+elementNum);
+      }
+    }
+    productos.put(producto, elementNum);
   }
 
   //Para ingredientes
   private void gestionAgregar(Ingrediente ingrediente, int elementNum) {
-    if ((ingrediente != null) && (!ingredientes.containsKey(ingrediente))) {
-      ingredientes.put(ingrediente, elementNum);
-    } else if ((ingrediente != null)) {
-      ingredientes.put(ingrediente, ingredientes.get(ingrediente) + elementNum);
+    for(Map.Entry<Ingrediente, Integer> entry : ingredientes.entrySet()) {
+      Ingrediente i = entry.getKey();
+      if (i.getId().equals(ingrediente.getId())) {
+        ingredientes.put(i, entry.getValue()+elementNum);
+      }
+    }
+    ingredientes.put(ingrediente, elementNum);
+  }
+
+  //Para kits
+  private void gestionAgregar(String kit, ArrayList<Object> listaIngredienteCantidad) {
+    if ((kit != null) && (!kits.containsKey(kit))) {
+      kits.put(kit, listaIngredienteCantidad);
+    } else if ((kit != null)) {
+      listaIngredienteCantidad.set(1, (Integer)listaIngredienteCantidad.get(1)+(Integer)kits.get(kit).get(1));
+      kits.put(kit, listaIngredienteCantidad);
     } 
   }
 
@@ -258,12 +323,13 @@ public class Canasta implements Serializable {
     } 
   }
 
-  private void gestionAgregar(String kits, int elementNum,boolean iD) {
-    if ((kits != null) && (!kitsEnLista.containsKey(kits))) {
-      kitsEnLista.put(kits, elementNum);
-    } else if ((kits != null)) {
-      kitsEnLista.put(kits, kitsEnLista.get(kits) + elementNum);
-    } 
+  //Para kits en lista
+  private void gestionAgregar(String kit, int elementNum, boolean iD) {
+    if ((kit != null) && (!kitsEnLista.containsKey(kit))) {
+      kitsEnLista.put(kit, elementNum);
+    } else if ((kit != null)) {
+      kitsEnLista.put(kit, kitsEnLista.get(kit) + elementNum);
+    }
   }
 
   //Para agregar strings a una lista enviada
@@ -276,41 +342,128 @@ public class Canasta implements Serializable {
     return lista;
   }
 
-  // Verifican que efectivamente el elemento exista en el map antes de eliminarlo,
-  // en el caso de que no, avisa al cliente
-  //Para productos
-  //TODO: cambiar para que pueda eliminar una cierta cantidad
-  private boolean gestionEliminar(Ingrediente ingrediente) {
-    if ((ingrediente != null) && (ingredientes.containsKey(ingrediente))) {
-      ingredientes.remove(ingrediente);
-      return true;
-    } else {return false;}
+  //Metodos que verifican que efectivamente el elemento exista en el map antes de eliminarlo,y que exista la cantidad suficiente para eliminarlo
+  //Para ingredientes
+  private boolean gestionEliminar(Ingrediente ingrediente,int cantidad) {
+    for(Map.Entry<Ingrediente, Integer> entry : ingredientes.entrySet()) {
+      Ingrediente i = entry.getKey();
+      if (i.getId().equals(ingrediente.getId())) {
+        if(entry.getValue()+cantidad>0){
+          ingredientes.put(i, entry.getValue()-cantidad);
+          return true;
+        }
+        else if(entry.getValue()+cantidad==0){
+          ingredientes.remove(ingrediente);
+          return true;
+        }
+        else if(entry.getValue()+cantidad<0){
+          return false;
+        }
+      }
+    }
+    return false;
   }
 
-  //Para ingredientes
-  private boolean gestionEliminar(Producto producto) {
-    if ((producto != null) && (productos.containsKey(producto))) {
-      productos.remove(producto);
-      return true;
-    } else {return false;}
+  //Para productos
+  private boolean gestionEliminar(Producto producto, int cantidad) {
+    for(Map.Entry<Producto, Integer> entry : productos.entrySet()) {
+      Producto p = entry.getKey();
+      if (p.getId().equals(producto.getId())) {
+        if(entry.getValue()+cantidad>0){
+          productos.put(p, entry.getValue()+cantidad);
+          return true;
+        }
+        else if(entry.getValue()+cantidad==0){
+          productos.remove(producto);
+          return true;
+        }
+        else if(entry.getValue()+cantidad<0){
+          return false;
+        }
+      }
+    }
+    return false;
+  }
+
+  //Para kits
+  private boolean gestionEliminar(String kit, int cantidad) {
+    for (Map.Entry<String, ArrayList<Object>> entry : getKits().entrySet()) {
+      String nombre = entry.getKey();
+      ArrayList<Object> valor = entry.getValue();
+      int cantidadActual = 0;
+      if (nombre.equals(kit)) {
+        cantidadActual = (Integer) valor.get(1);
+      }
+      if(cantidadActual+cantidad>0 && cantidadActual!=0){
+        valor.set(1, cantidadActual+cantidad);
+        return true;
+      }
+      else if(cantidadActual+cantidad==0 && cantidadActual!=0){
+        getKits().remove(kit);
+        return true;
+      }
+    }
+    return false;
   }
 
   //Para productos en lista
-  private boolean gestionEliminar(String prdct, String iD) {
+  private boolean gestionEliminar(String prdct, int cantidad, String iD) {
     if ((prdct != null) && (productosEnLista.containsKey(prdct))) {
-      productosEnLista.remove(prdct);
-      return true;
-    } else{return false;}
+      if(productosEnLista.get(prdct)+cantidad>0){
+        productosEnLista.put(prdct, productosEnLista.get(prdct)+cantidad);
+        return true;
+      }
+      else if(productosEnLista.get(prdct)+cantidad==0){
+        productosEnLista.remove(prdct);
+        return true;
+      }
+      else if(productosEnLista.get(prdct)+cantidad<0){
+        return false;
+      }
+    } else {return false;}
+    return false;
   }
 
   //Para ingredientes en lista
-  private boolean gestionEliminar(String ingrd, int iD) {
+  private boolean gestionEliminar(String ingrd, int cantidad, int iD) {
     if ((ingrd != null) && (ingredientesEnLista.containsKey(ingrd))) {
-      ingredientesEnLista.remove(ingrd);
-      return true;
+      if(ingredientesEnLista.get(ingrd)+cantidad>0){
+        ingredientesEnLista.put(ingrd, ingredientesEnLista.get(ingrd)+cantidad);
+        return true;
+      }
+      else if(ingredientesEnLista.get(ingrd)+cantidad==0){
+        ingredientesEnLista.remove(ingrd);
+        return true;
+      }
+      else if(ingredientesEnLista.get(ingrd)+cantidad<0){
+        return false;
+      }
     } else {return false;}
+    return false;
   }
 
+  //Para kits en lista
+  private boolean gestionEliminar(String kit, int cantidad, boolean iD) {
+    if ((kit != null) && (kitsEnLista.containsKey(kit))) {
+      if(kitsEnLista.get(kit)+cantidad>0){
+        kitsEnLista.put(kit, kitsEnLista.get(kit)+cantidad);
+        return true;
+      }
+      else if(kitsEnLista.get(kit)+cantidad==0){
+        kitsEnLista.remove(kit);
+        return true;
+      }
+      else if(kitsEnLista.get(kit)+cantidad<0){
+        return false;
+      }
+    } else {return false;}
+    return false;
+  }
+
+  /**
+   * Calcula el número total de elementos en la canasta sumando las cantidades de productos, ingredientes y kits.
+   * Actualiza el valor de itemsTotalesEnCanasta.
+   */
   public void calcularElementosCanasta() {
     int elementos = 0;
     for (Map.Entry<Producto, Integer> productoEntry :this.productos.entrySet()) {
@@ -326,6 +479,9 @@ public class Canasta implements Serializable {
     this.itemsTotalesEnCanasta=elementos;
   }
 
+  /**
+   * Calcula el número total de elementos en la canasta sumando las cantidades de productosEnLista, ingredientesEnLista y kitsEnLista.
+   */
   public void calcularElementosLista() {
     int elementos = 0;
     for (Map.Entry<String, Integer> productoEntry :this.productosEnLista.entrySet()) {
@@ -368,15 +524,18 @@ public class Canasta implements Serializable {
     return multiplicadorDescuento;
   }
 
+  
   /**
-   * Calcula el costo total de la canasta, teniendo en cuenta cualquier descuento aplicado por cupones.
-   * El costo se calcula sumando el costo de todos los productos en la canasta, multiplicado por su cantidad y cualquier descuento aplicable,
-   * y sumando el costo de todos los ingredientes en la canasta, multiplicado por su cantidad.
-   * @return el costo total de la canasta
+   * Calcula el costo total de la canasta, teniendo en cuenta los descuentos aplicados a los productos y los ingredientes.
+   * El costo total se calcula sumando el costo de todos los productos e ingredientes en la canasta y restando el descuento aplicado a cada producto.
+   * El descuento se calcula utilizando el método cuponProductos.
+   * El costo final se almacena en el atributo costoTotal del objeto Canasta.
+   * El costo antes del descuento se almacena en el atributo costoTrasDescuento del objeto Canasta.
+   * El descuento total aplicado a la canasta se almacena en el atributo descuento del objeto Canasta.
    */
-  public double generarCosto() {
+  public void generarCosto() {
     double costoCanasta = 0;
-    double descuentoCanasta = 0.0f;
+    double descuentoCanasta=0.0;
     for (Map.Entry<Producto, Integer> productoEntry : productos.entrySet()) {
       Producto producto = productoEntry.getKey();
       Integer cantidad = productoEntry.getValue();
@@ -389,40 +548,121 @@ public class Canasta implements Serializable {
       Integer cantidad = ingredienteEntry.getValue();
       costoCanasta += ingrediente.getPrecioDeVenta() * cantidad;
     }
+    for (Map.Entry<String, ArrayList<Object>> entry : kits.entrySet()) {
+      ArrayList<Object> valor = entry.getValue();
+      Map<Ingrediente, Integer> ingredientesKit = (Map<Ingrediente, Integer>)valor.get(0);
+      double costoIngredientesKit = 0;
+      for (Map.Entry<Ingrediente, Integer> ingredienteEntry : ingredientesKit.entrySet()) {
+        Ingrediente ingrediente = ingredienteEntry.getKey();
+        Integer cantidad = ingredienteEntry.getValue();
+        costoIngredientesKit += ingrediente.getPrecioDeVenta() * cantidad;
+      }
+      costoCanasta += costoIngredientesKit * (Integer)valor.get(1);
+    }
     this.descuento=descuentoCanasta;
-    return costoCanasta;
+    this.costoTotal=costoCanasta+descuentoCanasta;
+    this.costoTrasDescuento=costoCanasta;
   }
 
   /**
-   * Recibe una orden para un producto o ingrediente y lo agrega a la canasta.
-   * @param objetoEntrante el nombre del producto o ingrediente a agregar.
-   * @param cantidad la cantidad del producto o ingrediente a agregar.
-   * @return true si el producto o ingrediente se agregó correctamente, false en caso contrario.
+   * Calcula el costo total de los elementos en la canasta de compras, incluyendo cualquier descuento aplicado.
+   * El costo se calcula en función de la cantidad de cada producto, ingrediente o kit en la canasta.
+   * El descuento se calcula en función de los cupones aplicables para cada producto en la canasta.
+   * El costo final se almacena en las variables de instancia costoTotalEnLista, costoTrasDescuentoEnLista y descuentoEnLista.
+   * @return void
+   */
+  public void generarCostoEnLista(){
+    double costoCanasta = 0;
+    double descuentoCanasta=0.0;
+    for (Map.Entry<String, Integer> productoEntry : productosEnLista.entrySet()) {
+      Producto producto = Panaderia.buscarProductoPorId(productoEntry.getKey());
+      Integer cantidad = productoEntry.getValue();
+      double descuento = cuponProductos(producto, cantidad);
+      costoCanasta+= producto.getCosto() * cantidad * descuento;
+      descuentoCanasta+= producto.getCosto()*cantidad *(1-descuento);
+    }
+    for (Map.Entry<String, Integer> ingredienteEntry : ingredientesEnLista.entrySet()) {
+      Ingrediente ingrediente = Panaderia.buscarIngredientePorId(ingredienteEntry.getKey());
+      Integer cantidad = ingredienteEntry.getValue();
+      costoCanasta += ingrediente.getPrecioDeVenta() * cantidad;
+    }
+    for (Map.Entry<String, Integer> entry : kitsEnLista.entrySet()) {
+      String productoReceta = entry.getKey();
+      Producto producto = Panaderia.buscarProductoPorId(productoReceta);
+      Map<Ingrediente, Integer> ingredientesKit = producto.getIngredientes();
+      double costoIngredientesKit = 0;
+      for (Map.Entry<Ingrediente, Integer> ingredienteEntry : ingredientesKit.entrySet()) {
+        Ingrediente ingrediente = ingredienteEntry.getKey();
+        Integer cantidad = ingredienteEntry.getValue();
+        costoIngredientesKit += ingrediente.getPrecioDeVenta() * cantidad;
+      }
+      costoCanasta += costoIngredientesKit * (Integer)entry.getValue();
+    }
+    this.costoTotalEnLista=costoCanasta+descuentoCanasta;
+    this.costoTrasDescuentoEnLista=costoCanasta;
+    this.descuentoEnLista=descuentoCanasta;
+  }
+
+  /**
+   * Este método recibe una orden para un producto o ingrediente y lo agrega a la canasta si la cantidad es positiva, o lo elimina si la cantidad es negativa.
+   * @param objetoEntrante El id del producto o ingrediente que se va a agregar o eliminar.
+   * @param cantidad La cantidad del producto o ingrediente que se va a agregar o eliminar.
+   * @param receta Un booleano que indica si la orden es para un kit de receta o no.
+   * @return Un booleano que indica si la orden se agregó o eliminó correctamente de la canasta.
    */
   public boolean recibirOrden(String objetoEntrante, String cantidad, boolean receta) {
-    if (Panaderia.verificarExistenciaProductoPorNombre(objetoEntrante)) {
-      if (receta){
-        gestionAgregar(objetoEntrante, Integer.parseInt(cantidad), true);
-        calcularElementosLista();
-      } else{
-        gestionAgregar(objetoEntrante, Integer.parseInt(cantidad), "1");
-        calcularElementosLista();
+    if (Integer.parseInt(cantidad) < 0) {
+      boolean estado;
+      if (Panaderia.verificarExistenciaProductoPorId(objetoEntrante)) {
+        if (receta){
+          estado = eliminarKit(objetoEntrante, Integer.parseInt(cantidad), true);
+        } 
+        else{
+          estado = eliminarProducto(objetoEntrante, Integer.parseInt(cantidad));
+        }
+        if (estado){
+          return true;
+        }
+        else{
+          return false;
+        }
+      } 
+      else if (Panaderia.verificarExistenciaIngredientePorId(objetoEntrante) && !receta) {
+        estado=eliminarIngrediente(objetoEntrante, Integer.parseInt(cantidad));
+        if (estado){
+          return true;
+        }
+        else{
+          return false;
+        }
       }
-      return true;
-    } else if (Panaderia.verificarExistenciaIngredientePorNombre(objetoEntrante) && !receta) {
-      gestionAgregar(objetoEntrante, Integer.parseInt(cantidad), 1);
-      calcularElementosLista();
-      return true;
-    } 
+      return false;
+    }
+    else{
+      if (Panaderia.verificarExistenciaProductoPorId(objetoEntrante)) {
+        if (receta){
+          agregarKit(objetoEntrante, Integer.parseInt(cantidad));
+        } 
+        else{
+          agregarProducto(objetoEntrante, Integer.parseInt(cantidad));
+        }
+        return true;
+      } 
+      else if (Panaderia.verificarExistenciaIngredientePorId(objetoEntrante) && !receta) {
+        agregarIngrediente(objetoEntrante, Integer.parseInt(cantidad));
+        return true;
+      } 
+    }
     return false;
   }
 
   /**
-   * Recibe una orden personalizada y la agrega a la canasta si el producto existe.
-   * @param objetoEntrante El nombre del producto personalizado.
+   * Recibe una orden personalizada para un producto y sus ingredientes necesarios, y lo agrega a la canasta.
+   * @param objetoEntrante El id del producto personalizado.
    * @param ingredientesNecesarios Un mapa que contiene los ingredientes necesarios y sus cantidades para el producto personalizado.
-   * @param cantidad La cantidad del producto personalizado que se agregará a la canasta.
-   * @return True si el producto personalizado se agregó a la canasta, false en caso contrario.
+   * @param cantidad La cantidad del producto personalizado a agregar a la canasta.
+   * @param receta Un booleano que indica si el producto personalizado es un kit (true) o un producto individual (false).
+   * @return Un booleano que indica si el producto personalizado se agregó correctamente a la canasta.
    */
   public boolean recibirOrdenPersonalizada(String objetoEntrante,  Map<String, Integer> ingredientesNecesarios, String cantidad, boolean receta) {
     try {
@@ -431,13 +671,11 @@ public class Canasta implements Serializable {
     catch (Exception e){
       return false;
     }
-    if (Panaderia.verificarExistenciaProductoPorNombre(objetoEntrante)) {
+    if (Panaderia.verificarExistenciaProductoPorId(objetoEntrante)) {
       if (receta){
-        gestionAgregar(objetoEntrante, Integer.parseInt(cantidad), true);
-        calcularElementosLista();
+        agregarKit(objetoEntrante, Integer.parseInt(cantidad));
       } else{
-        gestionAgregar(objetoEntrante, Integer.parseInt(cantidad), "1");
-        calcularElementosLista();
+        agregarProducto(objetoEntrante, Integer.parseInt(cantidad));
       }
         return true;
     } 
@@ -446,20 +684,23 @@ public class Canasta implements Serializable {
     }
   }
 
+  
   /**
-   * Envía el pedido de la canasta a panadería para cocinar los productos y agregar los ingredientes.
-   * Luego se añaden a la cesta los productos cocinados y los ingredientes añadidos.
-   * Por último, las listas de productos e ingredientes se establecen como nulas.
+   * Envía la orden de los productos, ingredientes y kits en la canasta a la panadería para ser cocinados y preparados.
+   * Los productos, ingredientes y kits cocinados son luego agregados a la canasta.
+   * Finalmente, las listas de productos, ingredientes y kits en la canasta se establecen en nulo.
    */
   public void enviarOrdenCanasta() {
-    Map<Producto, Integer> productosCocinados = Panaderia.cocinar(productosEnLista);
-    Map<Ingrediente, Integer> ingredientesCocinados = Panaderia.agregarIngredientesACanasta(ingredientesEnLista);
-    Map<String, ArrayList<Object>> kitsCocinados = Panaderia.agregarKitsACanasta(kitsEnLista);
-    productosCocinados.forEach((producto, cantidad) -> agregarProducto(producto, cantidad));
-    ingredientesCocinados.forEach((ingrediente, cantidad) -> agregarIngrediente(ingrediente, cantidad));
-    kitsCocinados.forEach((nombre, ingredienteCantidad) -> agregarKit(nombre, ingredienteCantidad));
-    productosEnLista=null;
-    ingredientesEnLista=null;
-    kitsCocinados=null;
+  Map<Producto, Integer> productosCocinados = Panaderia.agregarProductosACanasta(productosEnLista);
+  Map<Ingrediente, Integer> ingredientesCocinados = Panaderia.agregarIngredientesACanasta(ingredientesEnLista);
+  Map<String, ArrayList<Object>> kitsCocinados = Panaderia.agregarKitsACanasta(kitsEnLista);
+
+  productosCocinados.forEach((producto, cantidad) -> agregarProducto(producto, cantidad));
+  ingredientesCocinados.forEach((ingrediente, cantidad) -> agregarIngrediente(ingrediente, cantidad));
+  kitsCocinados.forEach((nombre, ingredienteCantidad) -> agregarKit(nombre, ingredienteCantidad));
+
+  productosEnLista=null;
+  ingredientesEnLista=null;
+  kitsCocinados=null;
   }
 }
