@@ -83,6 +83,14 @@ public class Producto implements Serializable{
 		this.unidades = unidades;
 	}
 	
+	public List<String> getProcesoDeCocina() {
+		return procesoDeCocina;
+	}
+
+	public void setProcesoDeCocina(List<String> procesoDeCocina) {
+		this.procesoDeCocina = procesoDeCocina;
+	}
+
 	public static Producto crearProducto(Panaderia panaderia, String nombre, Map<Ingrediente,Integer> ingredientes, String sabor) {
 		
 		float calculotiempo = 0; //usar al alateaoridad para esto

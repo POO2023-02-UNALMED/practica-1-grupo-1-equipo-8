@@ -61,6 +61,6 @@ public abstract class Trabajador implements Serializable{
         this.dineroEnMano = dineroEnMano;
     }
 
-    public abstract boolean laborParticular(Canasta canasta, Cliente cliente);
+    public abstract boolean laborParticular(Canasta canasta, Cliente cliente); //no deberia recibir parametro cliente
 
 }
