@@ -1,10 +1,10 @@
-package main.java.UIMain;
+package UIMain;
 import java.io.*;
 import java.util.Scanner;
 
-import main.java.gestorAplicación.comida.*;
-import main.java.gestorAplicación.gestion.*;
-import main.java.gestorAplicación.humanos.*;
+import gestorAplicación.comida.*;
+import gestorAplicación.gestion.*;
+import gestorAplicación.humanos.*;
 
 //Esta clase la he estado modificando yo (Richard), cualquier sugerencia me pueden escribir aqui
 public class Main {

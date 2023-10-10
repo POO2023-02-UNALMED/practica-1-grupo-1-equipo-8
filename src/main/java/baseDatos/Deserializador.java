@@ -1,4 +1,4 @@
-package main.java.baseDatos;
+package baseDatos;
 
 public class Deserializador {
     

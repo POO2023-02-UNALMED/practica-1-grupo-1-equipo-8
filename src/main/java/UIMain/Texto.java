@@ -1,4 +1,4 @@
-package main.java.UIMain;
+package UIMain;
 
 import java.util.ArrayList;
 import java.util.List;

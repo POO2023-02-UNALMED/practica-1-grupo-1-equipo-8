@@ -1,12 +1,12 @@
-package main.java.UIMain;
+package UIMain;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import main.java.gestorAplicación.comida.Ingrediente;
-import main.java.gestorAplicación.comida.Producto;
-import main.java.gestorAplicación.gestion.Canasta;
+import gestorAplicación.comida.Ingrediente;
+import gestorAplicación.comida.Producto;
+import gestorAplicación.gestion.Canasta;
 
 public class GestionCompraMain {
   public void gestionRecibirOrdenCanasta(Canasta canasta){
