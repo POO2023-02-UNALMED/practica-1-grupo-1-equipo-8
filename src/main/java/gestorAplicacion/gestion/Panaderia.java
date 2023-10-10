@@ -147,6 +147,11 @@ public class Panaderia implements Serializable {
     public static void restarDinero(double dinero) {
         Panaderia.dinero -= dinero;
     }
+    public static Cocinero contratarCocinero(String nombre, double habilidad, double dineroEnMano, String especialidad) {
+        Cocinero indicado = new Cocinero(nombre, habilidad, dineroEnMano, especialidad);
+        cocineros.add(indicado);
+        return indicado;
+    }
 
     //Métodos para saldar las deudas de la panadería
     

@@ -3,12 +3,15 @@ package gestorAplicacion.comida;
 import java.io.Serializable;
 import java.util.Random;
 
+import gestorAplicacion.gestion.Panaderia;
+
 public class Ingrediente implements Serializable{
 	private String nombre;
 	private String id;
 	private static int cantidadIngredientes;
 	private double PrecioDeVenta;
 	private double PrecioDeCompra;
+	public static final int probabilidadConstante =1;
 
 	// constructores sobrecargados
 	public Ingrediente(String nombre1, double PrecioDeVenta,double PrecioDeCompra) {
@@ -79,5 +82,13 @@ public class Ingrediente implements Serializable{
 
 	public static Ingrediente crearIngrediente(String Nnombre) {
 		return new Ingrediente(Nnombre);
+	}
+	public static void revisarCaducidad(Ingrediente ingrediente, int cantidad){
+		Random numAleatorio = new Random();
+	     int caducidad = numAleatorio.nextInt(30);
+	     if(caducidad == probabilidadConstante){
+	    	 String ingredienteId = ingrediente.getId();
+	    	 Panaderia.restarIngrediente(ingredienteId, cantidad);
+	     }
 	}
 }
