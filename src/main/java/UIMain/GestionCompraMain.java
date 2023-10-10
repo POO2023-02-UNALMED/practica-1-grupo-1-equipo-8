@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import gestorAplicación.comida.Ingrediente;
-import gestorAplicación.comida.Producto;
-import gestorAplicación.gestion.Canasta;
+import gestorAplicacion.comida.Ingrediente;
+import gestorAplicacion.comida.Producto;
+import gestorAplicacion.gestion.Canasta;
 
 public class GestionCompraMain {
   public void gestionRecibirOrdenCanasta(Canasta canasta){
