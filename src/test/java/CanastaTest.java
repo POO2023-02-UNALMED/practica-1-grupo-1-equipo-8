@@ -7,9 +7,10 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import gestorAplicación.comida.Ingrediente;
-import gestorAplicación.comida.Producto;
-import gestorAplicación.gestion.Canasta;
+import gestorAplicacion.comida.Ingrediente;
+import gestorAplicacion.comida.Producto;
+import gestorAplicacion.gestion.Canasta;
+import gestorAplicacion.gestion.Panaderia;
 
 class CanastaTest {
 
@@ -36,10 +37,10 @@ class CanastaTest {
     kit1 = "Kit 1";
     kit2 = "Kit 2";
     listaIngredienteCantidad1 = new ArrayList<Object>();
-    listaIngredienteCantidad1.add(ingrediente1);
+    listaIngredienteCantidad1.add(ingredientes1);
     listaIngredienteCantidad1.add(2);
     listaIngredienteCantidad2 = new ArrayList<Object>();
-    listaIngredienteCantidad2.add(ingrediente2);
+    listaIngredienteCantidad2.add(ingredientes1);
     listaIngredienteCantidad2.add(3);
   }
 

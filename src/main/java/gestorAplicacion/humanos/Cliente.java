@@ -1,15 +1,15 @@
-package gestorAplicación.humanos;
+package gestorAplicacion.humanos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import gestorAplicación.comida.Ingrediente;
-import gestorAplicación.comida.Producto;
-import gestorAplicación.gestion.Canasta;
-import gestorAplicación.gestion.Panaderia;
-import gestorAplicación.gestion.Recibo;
+import gestorAplicacion.comida.Ingrediente;
+import gestorAplicacion.comida.Producto;
+import gestorAplicacion.gestion.Canasta;
+import gestorAplicacion.gestion.Panaderia;
+import gestorAplicacion.gestion.Recibo;
 
 public class Cliente implements Serializable{
 

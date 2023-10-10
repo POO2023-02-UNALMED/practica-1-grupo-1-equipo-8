@@ -1,12 +1,12 @@
-package gestorAplicación.gestion;
+package gestorAplicacion.gestion;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import gestorAplicación.comida.Ingrediente;
-import gestorAplicación.comida.Producto;
-import gestorAplicación.gestion.Cupon.DescuentoPorCantidad;
-import gestorAplicación.gestion.Cupon.DescuentoProducto;
+import gestorAplicacion.comida.Ingrediente;
+import gestorAplicacion.comida.Producto;
+import gestorAplicacion.gestion.Cupon.DescuentoPorCantidad;
+import gestorAplicacion.gestion.Cupon.DescuentoProducto;
 
 import java.io.Serializable;
 import java.util.ArrayList;

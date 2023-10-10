@@ -1,13 +1,13 @@
-package gestorAplicación.humanos;
+package gestorAplicacion.humanos;
 
 import java.util.Map;
 import java.util.Random;
 
-import gestorAplicación.comida.Ingrediente;
-import gestorAplicación.gestion.Canasta;
-import gestorAplicación.gestion.Panaderia;
-import gestorAplicación.gestion.Recibo;
-import gestorAplicación.humanos.Cliente.Direccion;
+import gestorAplicacion.comida.Ingrediente;
+import gestorAplicacion.gestion.Canasta;
+import gestorAplicacion.gestion.Panaderia;
+import gestorAplicacion.gestion.Recibo;
+import gestorAplicacion.humanos.Cliente.Direccion;
 
 import java.io.Serializable;
 import java.util.ArrayList;

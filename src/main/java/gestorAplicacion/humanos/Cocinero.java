@@ -1,4 +1,4 @@
-package gestorAplicación.humanos;
+package gestorAplicacion.humanos;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -8,10 +8,10 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Random;
 
-import gestorAplicación.comida.Ingrediente;
-import gestorAplicación.comida.Producto;
-import gestorAplicación.gestion.Canasta;
-import gestorAplicación.gestion.Panaderia;
+import gestorAplicacion.comida.Ingrediente;
+import gestorAplicacion.comida.Producto;
+import gestorAplicacion.gestion.Canasta;
+import gestorAplicacion.gestion.Panaderia;
 
 public class Cocinero extends Trabajador implements Serializable{
     private String especialidad;

@@ -1,11 +1,11 @@
-package gestorAplicación.gestion;
+package gestorAplicacion.gestion;
 
-import gestorAplicación.comida.Ingrediente;
-import gestorAplicación.comida.Producto;
-import gestorAplicación.humanos.Cliente;
-import gestorAplicación.humanos.Cliente.Descuento;
-import gestorAplicación.humanos.Cliente.Direccion;
 import UIMain.Texto;
+import gestorAplicacion.comida.Ingrediente;
+import gestorAplicacion.comida.Producto;
+import gestorAplicacion.humanos.Cliente;
+import gestorAplicacion.humanos.Cliente.Descuento;
+import gestorAplicacion.humanos.Cliente.Direccion;
 
 import java.util.List; //Libreria para listas
 import java.util.ArrayList; //Libreria para listas

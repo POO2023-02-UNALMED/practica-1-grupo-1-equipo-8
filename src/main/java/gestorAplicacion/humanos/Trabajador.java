@@ -1,10 +1,10 @@
-package gestorAplicación.humanos;
+package gestorAplicacion.humanos;
 
 import java.util.Random;
 
-import gestorAplicación.comida.Ingrediente;
-import gestorAplicación.gestion.Canasta;
-import gestorAplicación.gestion.Panaderia;
+import gestorAplicacion.comida.Ingrediente;
+import gestorAplicacion.gestion.Canasta;
+import gestorAplicacion.gestion.Panaderia;
 
 import java.util.List;
 import java.io.Serializable;

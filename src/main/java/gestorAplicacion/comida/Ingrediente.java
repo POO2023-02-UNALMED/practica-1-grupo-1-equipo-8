@@ -1,4 +1,4 @@
-package gestorAplicación.comida;
+package gestorAplicacion.comida;
 
 import java.io.Serializable;
 import java.util.Random;

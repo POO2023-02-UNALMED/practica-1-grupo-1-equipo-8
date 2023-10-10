@@ -1,8 +1,8 @@
-package gestorAplicación.comida;
+package gestorAplicacion.comida;
 import java.util.HashMap;
 import java.util.Map;
 
-import gestorAplicación.gestion.Panaderia;
+import gestorAplicacion.gestion.Panaderia;
 
 import java.io.Serializable;
 import java.util.ArrayList;

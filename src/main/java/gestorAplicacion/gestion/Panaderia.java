@@ -1,4 +1,4 @@
-package gestorAplicación.gestion;
+package gestorAplicacion.gestion;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import UIMain.GestionCompraMain;
-import gestorAplicación.comida.Ingrediente;
-import gestorAplicación.comida.Producto;
-import gestorAplicación.humanos.Cliente;
-import gestorAplicación.humanos.Cocinero;
-import gestorAplicación.humanos.Domiciliario;
-import gestorAplicación.humanos.Trabajador;
-import gestorAplicación.humanos.Cliente.Descuento;
-import gestorAplicación.humanos.Cliente.Direccion;
+import gestorAplicacion.comida.Ingrediente;
+import gestorAplicacion.comida.Producto;
+import gestorAplicacion.humanos.Cliente;
+import gestorAplicacion.humanos.Cocinero;
+import gestorAplicacion.humanos.Domiciliario;
+import gestorAplicacion.humanos.Trabajador;
+import gestorAplicacion.humanos.Cliente.Descuento;
+import gestorAplicacion.humanos.Cliente.Direccion;
 
 import java.util.Collections;
 
