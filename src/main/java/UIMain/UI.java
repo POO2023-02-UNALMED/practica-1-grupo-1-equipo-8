@@ -70,6 +70,10 @@ public class UI {
         System.out.println("");
     }
 
-    public static void 
+    public static String mostrarOpciones(){
+      String mensaje = "";
+      return mensaje;
+      
+    }
   
 }
