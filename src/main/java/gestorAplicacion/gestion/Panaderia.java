@@ -31,6 +31,7 @@ public class Panaderia implements Serializable {
     private static Canasta canastaDelDia;
     private static double valorDeudas;
     private static boolean enQuiebra = false;
+    public static int fallosCocinando;
     static {
         // Agregar lista de productos de la canasta del dia
         canastaDelDia = new Canasta(null, null);
@@ -120,6 +121,14 @@ public class Panaderia implements Serializable {
 
     public static void setEnQuiebra(boolean enQuiebra) {
         Panaderia.enQuiebra = enQuiebra;
+    }
+
+    public static int getFallosCoinando(){
+        return fallosCocinando;
+    }
+
+    public static setFallosCocinando(int fallosCocinando){
+        Panaderia.fallosCocinando = fallosCocinando;
     }
 
 
@@ -585,6 +594,7 @@ public class Panaderia implements Serializable {
             if(cocinero.laborParticular(canastaDeProductosCocinar)){
                 break;
             }
+            Panaderia.fallosCocinando++;
         }
     }
 

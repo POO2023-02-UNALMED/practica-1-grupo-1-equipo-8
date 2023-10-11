@@ -15,7 +15,21 @@ import gestorAplicacion.gestion.Panaderia;
 
 public class Cocinero extends Trabajador implements Serializable{
     private String especialidad;
-    private boolean quemado = false;
+    private boolean fallado = false;
+
+    public enum FallosCocinando{
+        QUEMADO,
+        CRUDO,
+        INGREDIENTES_INSUFICIENTES,
+        CORTADO,
+        VENCIDO,
+        DEMASIADO_PICANTE,
+        DEMASIADO_SALADO,
+        MAL_OLOR,
+        INGREDIENTES_INCORRECTOS,
+        DIFICULTADES_INESPERADAS,
+        COCINEOR_DISTRAIDO
+    }
 
     public Cocinero() {
         super();
@@ -39,12 +53,12 @@ public class Cocinero extends Trabajador implements Serializable{
         this.especialidad = especialidad;
     }
 
-    public boolean isQuemado(){
-        return quemado;
+    public boolean isFallado(){
+        return fallado;
     }
 
-    public void setQuemado(boolean quemado) {
-        this.quemado = quemado;
+    public void setFallado(boolean quemado) {
+        this.fallado = quemado;
     }
     /**
      * Calcula los ingredientes faltantes necesarios para cocinar un producto específico.
@@ -68,18 +82,18 @@ public class Cocinero extends Trabajador implements Serializable{
      * @param cocinero El cocinero que cocina el producto.
      * @return true si el producto se quema, false en caso contrario.
      */
-    public boolean productoQuemado(Cocinero cocinero){
-        cocinero.setQuemado(false);
+    public boolean productoFallado(Cocinero cocinero){
+        cocinero.setFallado(false);
         // Genera un número aleatorio entre 0 y 19 (inclusive)
         Random numAleatorio = new Random();
          int dificultadProducto = numAleatorio.nextInt(20); 
          // Si la dificultad es igual a 1, se marca el producto como quemado por el cocinero.
          if(dificultadProducto == Ingrediente.probabilidadConstante){
-            cocinero.setQuemado(true);
-            return cocinero.isQuemado();
+            cocinero.setFallado(true);
+            return cocinero.isFallado();
          }
          // Si no se quema, se retorna el estado actual de quemado del cocinero.
-         return cocinero.isQuemado();
+         return false;
     }
     /**
      * Encuentra al cocinero ideal para un proceso de cocina específico.
@@ -101,6 +115,28 @@ public class Cocinero extends Trabajador implements Serializable{
         }
         Cocinero idealNew = Panaderia.contratarCocinero( nombre,  habilidad,  dineroEnMano,  proceso);
         return idealNew;
+    }
+
+    public void detenerCoccion(Producto producto){
+        Map<Ingrediente,Integer> ingredientesUsados = producto.getIngredientes();
+            for (Map.Entry<Ingrediente, Integer> usados : ingredientesUsados.entrySet()){
+                Ingrediente ingUsado = usados.getKey();
+                String ingrUsado = ingUsado.getId();
+                Integer cantidad = usados.getValue();
+                Panaderia.restarIngrediente(ingrUsado,cantidad);
+            }
+    }
+
+    public boolean procesoCocinar(Producto producto){
+        List<String> procesoCook= producto.getProcesoDeCocina();
+        for (String proceso : procesoCook){
+            Cocinero chefIdeal = cocineroIdeal(proceso);
+            boolean cookProducto = productoFallado(chefIdeal);
+            if (cookProducto){
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
@@ -129,19 +165,11 @@ public class Cocinero extends Trabajador implements Serializable{
          // Itera a través de los productos en la canasta nuevamente.
         for (Map.Entry<Producto, Integer> product : productos.entrySet()) {
             Producto producto = product.getKey();
-         // Obtiene los procesos de cocina para el producto.
-            List<String> procesoCook = producto.getProcesoDeCocina();
-         // Itera a través de los procesos de cocina.
-            for (String proceso : procesoCook) {
-                // Encuentra el cocinero ideal para el proceso.
-                Cocinero chefIdeal = cocineroIdeal(proceso);
-                // Verifica si el producto se quema durante la cocción.
-                boolean cookProducto = productoQuemado(chefIdeal);
-                if (cookProducto) {
-                    // Si el producto se quema, retorna falso, indicando que no se puede realizar la labor.
-                    return false;
-                }
-                
+            Cocinero cocinero = Panaderia.cocineroAleatorio();
+            boolean fallado = cocinero.procesoCocinar(producto);
+            if (fallado){
+            cocinero.detenerCoccion(producto);
+            return false;
             }
         }
         //verificar si hay un ingrediente caducado y si lo hay se elimina del inventario
@@ -158,15 +186,9 @@ public class Cocinero extends Trabajador implements Serializable{
      // Resta los ingredientes usados del inventario de la Panadería.
         for (Map.Entry<Producto, Integer> product : productos.entrySet()) {
             Producto producto = product.getKey();
-            Map<Ingrediente,Integer> ingredientesUsados = producto.getIngredientes();
-            for (Map.Entry<Ingrediente, Integer> usados : ingredientesUsados.entrySet()){
-                Ingrediente ingUsado = usados.getKey();
-                String ingrUsado = ingUsado.getId();
-                Integer cantidad = usados.getValue();
-                Panaderia.restarIngrediente(ingrUsado,cantidad);
-            }
+            Cocinero cocinero = Panaderia.cocineroAleatorio();
+            cocinero.detenerCoccion(producto);
         }
-         
         // Si todos los productos se cocinan con éxito, retorna verdadero.
         return true;
     }

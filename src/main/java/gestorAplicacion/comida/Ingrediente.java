@@ -101,7 +101,7 @@ public class Ingrediente implements Serializable{
 	}
 	public static void revisarCaducidad(Ingrediente ingrediente, int cantidad){
 		Random numAleatorio = new Random();
-	     int caducidad = numAleatorio.nextInt(30);
+	     int caducidad = numAleatorio.nextInt(20);
 	     if(caducidad == probabilidadConstante){
 	    	 String ingredienteId = ingrediente.getId();
 	    	 Panaderia.restarIngrediente(ingredienteId, cantidad);
