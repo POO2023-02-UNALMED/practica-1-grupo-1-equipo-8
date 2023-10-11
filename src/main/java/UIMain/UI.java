@@ -2,10 +2,21 @@ package UIMain;
 
 import java.util.Scanner;
 import gestorAplicacion.humanos.Cliente;
+import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Panaderia;
 
 public class UI {
+
+      public static final String BLACK = "\u001B[30m";
+      public static final String RED = "\u001B[31m";
+      public static final String GREEN = "\u001B[32m";
+      public static final String YELLOW = "\u001B[33m";
+      public static final String BLUE = "\u001B[34m";
+      public static final String PURPLE = "\u001B[35m";
+      public static final String CYAN = "\u001B[36m";
+      public static final String WHITE = "\u001B[37m";
+      public static final String RESET = "\u001B[0m";
 
       public static void registroCliente() {
     	
@@ -73,19 +84,22 @@ public class UI {
     //Este metodo muestra las opciones de todos los productos que puede comprar el cliente
     public static String mostrarOpciones() {
 
-      String mensaje = "";
+      String mensaje = Texto.centrar("PRODUCTOS\n");
 
       for (Producto producto : Producto.getProductos()) { //productos que le alcanza el dinero al cliente
         if (producto.getCosto() <= Cliente.getSesion().getPresupuesto()) {
-          mensaje += String.format("%s. %s", producto.getId(), producto.getNombre())+"\n";
+          mensaje += GREEN+String.format("%s. %s", producto.getId(), producto.getNombre())+RESET+"\n";
         }
       }
 
       for (Producto producto : Producto.getProductos()) { //productos que no le alcanza el dinero al cliente
         if(producto.getCosto() > Cliente.getSesion().getPresupuesto()){
-          mensaje += String.format("%s. %s", producto.getId(), producto.getNombre())+"\n";
+          mensaje += RED+String.format("%s. %s", producto.getId(), producto.getNombre())+RESET+"\n";
         }
-      
+      }
+
+      mensaje += Texto.centrar("INGREDIENTES\n");
+
       }
 
       return mensaje;

@@ -1,6 +1,22 @@
 import UIMain.Texto;
 public class MainPruebas {
     public static void main (String[] args){
+        //estos codigos ansi son para cambiar el color de la terminal
+
+        String BLACK = "\u001B[30m";
+        String RED = "\u001B[31m";
+        String GREEN = "\u001B[32m";
+        String YELLOW = "\u001B[33m";
+        String BLUE = "\u001B[34m";
+        String PURPLE = "\u001B[35m";
+        String CYAN = "\u001B[36m";
+        String WHITE = "\u001B[37m";
+        String RESET = "\u001B[0m";
+        String mensaje = "";
+        mensaje += GREEN+String.format("%s. %s", 3,3)+RESET+"\n";
+        System.out.println(mensaje);
+        
+
             /*Panaderia panaderia = new Panaderia();
     	FileOutputStream fileOutputStream = new FileOutputStream("panaderia.txt");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
