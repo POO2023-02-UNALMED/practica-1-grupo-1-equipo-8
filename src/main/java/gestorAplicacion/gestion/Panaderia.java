@@ -224,12 +224,12 @@ public class Panaderia implements Serializable {
     }
 
     //TODO Desarrollar el metodo cobrarCliente que recibe una lista de canastas y un recibo y cobra al cliente, además actualiza la plata de la panaderia
-    public static void cobrarCliente(List<Canasta> canastas, List<Recibo> recibo){
+    public static void cobrarCliente(List<Canasta> canastas, List<Recibo> recibo) {
 
     }
 
     //TODO Desarrollar el metodo enviarDomicilio que recibe una lista de canastas y las envia a domicilio
-    public static void enviarDomicilio(List<Canasta> canastas){
+    public static void enviarDomicilio(List<Canasta> canastas) {
 
     }
 

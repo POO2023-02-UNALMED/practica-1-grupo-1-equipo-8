@@ -131,15 +131,30 @@ public class Domiciliario extends Trabajador implements Serializable{
 
         this.dineroEnMano = 0;
 
-        for (Map.Entry<Ingrediente, Integer> ingrediente : listingredientes.entrySet()){
+        for (Map.Entry<Ingrediente, Integer> compras : listingredientes.entrySet()){
+        	
+        	int cantidad = compras.getValue()*2;
+            Ingrediente ingrediente = compras.getKey();
             
-            int cantidad = ingrediente.getValue();
-            Panaderia.agregarIngrediente(ingrediente.getKey(),(cantidad*2));
+            for (Map.Entry<Ingrediente, Integer> Inventario : Panaderia.getInvIngredientes().entrySet()) {
+            	
+            	String idInventario = Inventario.getKey().getId();
+            	
+            	if (ingrediente.getId() == idInventario) {
+            		
+            		Panaderia.getInvIngredientes().put(Inventario.getKey(), Inventario.getValue() + cantidad);
+            		break;
+            		
+            	}
+            	
+            }
+        	
         }
 
         return this.robado;
     
      }
-    }
+    
+   }
 
 }
