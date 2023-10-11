@@ -1,7 +1,8 @@
 package UIMain;
 
 import java.util.Scanner;
-
+import gestorAplicacion.humanos.Cliente;
+import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Panaderia;
 
 public class UI {
@@ -69,11 +70,26 @@ public class UI {
         System.out.println("                                                                                                      d8'      ");
         System.out.println("");
     }
+    //Este metodo muestra las opciones de todos los productos que puede comprar el cliente
+    public static String mostrarOpciones() {
 
-    public static String mostrarOpciones(){
       String mensaje = "";
-      return mensaje;
+
+      for (Producto producto : Producto.getProductos()) { //productos que le alcanza el dinero al cliente
+        if (producto.getCosto() <= Cliente.getSesion().getPresupuesto()) {
+          mensaje += String.format("%s. %s", producto.getId(), producto.getNombre())+"\n";
+        }
+      }
+
+      for (Producto producto : Producto.getProductos()) { //productos que no le alcanza el dinero al cliente
+        if(producto.getCosto() > Cliente.getSesion().getPresupuesto()){
+          mensaje += String.format("%s. %s", producto.getId(), producto.getNombre())+"\n";
+        }
       
+      }
+
+      return mensaje;
+
     }
-  
+
 }

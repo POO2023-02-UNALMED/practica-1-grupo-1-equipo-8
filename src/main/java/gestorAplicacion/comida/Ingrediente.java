@@ -1,6 +1,8 @@
 package gestorAplicacion.comida;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import gestorAplicacion.gestion.Panaderia;
@@ -12,6 +14,8 @@ public class Ingrediente implements Serializable{
 	private double PrecioDeVenta;
 	private double PrecioDeCompra;
 	public static final int probabilidadConstante =1;
+	public static List<Ingrediente> ingredientes = new ArrayList<Ingrediente>(); //lista de ingredientes totales necesaria para dar la lista de opciones y para procesar las ordenes facilmente
+
 
 	// constructores sobrecargados
 	public Ingrediente(String nombre1, double PrecioDeVenta,double PrecioDeCompra) {
@@ -20,6 +24,17 @@ public class Ingrediente implements Serializable{
 		this.PrecioDeCompra = PrecioDeCompra;
 		cantidadIngredientes++;
 		this.id = String.valueOf(cantidadIngredientes+Producto.getCantidadProductos());
+		Ingrediente.ingredientes.add(this);
+	}
+
+	public static List<Ingrediente> getIngredientes() {
+		return ingredientes;
+	}
+
+	
+
+	public static void setIngredientes(List<Ingrediente> ingredientes) {
+		Ingrediente.ingredientes = ingredientes;
 	}
 
 	public Ingrediente(String nombre1) {
@@ -90,5 +105,9 @@ public class Ingrediente implements Serializable{
 	    	 String ingredienteId = ingrediente.getId();
 	    	 Panaderia.restarIngrediente(ingredienteId, cantidad);
 	     }
+	}
+
+	public static int getProbabilidadconstante() {
+		return probabilidadConstante;
 	}
 }

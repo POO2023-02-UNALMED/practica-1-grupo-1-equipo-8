@@ -20,6 +20,7 @@ public class Cliente implements Serializable{
 	private double presupuesto;
 	private List<Canasta> canastas = new ArrayList<Canasta>();
 	private List<Recibo> recibos = new ArrayList<Recibo>();
+	private static Cliente sesion; //atributo estatico que almacena el cliente que ha iniciado sesion (necesario para parte funcional)
 	// crear cliente con todos los atributos
 
 	public Cliente(String nombre, Integer id, Direccion direccion ,Descuento tipoDescuento, float presupuesto, List<Canasta> canastas,
@@ -146,6 +147,23 @@ public class Cliente implements Serializable{
 
 	public void setRecibos(ArrayList<Recibo> recibos) {
 		this.recibos = recibos;
+	}
+
+	
+	public void setCanastas(List<Canasta> canastas) {
+		this.canastas = canastas;
+	}
+
+	public void setRecibos(List<Recibo> recibos) {
+		this.recibos = recibos;
+	}
+
+	public static Cliente getSesion() {
+		return sesion;
+	}
+
+	public static void setSesion(Cliente sesion) {
+		Cliente.sesion = sesion;
 	}
 
 	public void crearCanasta() {

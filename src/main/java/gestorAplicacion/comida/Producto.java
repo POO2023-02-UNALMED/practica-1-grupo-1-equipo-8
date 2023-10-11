@@ -15,10 +15,11 @@ public class Producto implements Serializable{
 	private float costo;
 	private String sabor;
 	private float tiempoProducción;
-  private Integer unidades;
+  	private Integer unidades;
 	private List<String> procesoDeCocina = new ArrayList<String>();
 	private String id;
 	private static int cantidadProductos;
+	private static List<Producto> productos = new ArrayList<Producto>(); //lista de productos necesaria para dar la lista de opciones y para procesar las ordenes facilmente
 
 	//Constructores
 	public Producto(String nombre, Map<Ingrediente,Integer> ingredientes, float costo, String sabor, float tiempoProducción, Integer unidades) {
@@ -29,8 +30,10 @@ public class Producto implements Serializable{
 		this.sabor = sabor;
 		this.tiempoProducción = tiempoProducción;
 		this.unidades = unidades;
+		//this.id = cantidadProductos //sugiero esto para asignar el id de los productos, el id debe coincidir con el indice del producto en la lista productos
 		cantidadProductos++;
 		this.id = String.valueOf(cantidadProductos + Ingrediente.getCantidadIngredientes());
+		Producto.productos.add(this);
 	}
 	
 	public Producto(String nombre,Map<Ingrediente,Integer> ingredientes){
@@ -61,7 +64,7 @@ public class Producto implements Serializable{
 	public String getNombre() {
 		return nombre;
 	}
-	
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -113,7 +116,14 @@ public class Producto implements Serializable{
 	public static void setCantidadProductos(int cantidadProductos) {
 		Producto.cantidadProductos = cantidadProductos;
 	}
+	
+	public static List<Producto> getProductos() {
+		return productos;
+	}
 
+	public static void setProductos(List<Producto> productos) {
+		Producto.productos = productos;
+	}
 	//Métodos
 
 	public static Producto crearProducto(Panaderia panaderia, String nombre, Map<Ingrediente,Integer> ingredientes, String sabor) {
@@ -128,6 +138,8 @@ public class Producto implements Serializable{
 		return postre;
 		
 	}
+
+
 	
 }
 //Nota para la persona que trabaje esta clase
