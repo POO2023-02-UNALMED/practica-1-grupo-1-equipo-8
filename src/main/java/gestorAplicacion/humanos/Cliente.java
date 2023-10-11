@@ -20,7 +20,6 @@ public class Cliente implements Serializable{
 	private double presupuesto;
 	private List<Canasta> canastas = new ArrayList<Canasta>();
 	private List<Recibo> recibos = new ArrayList<Recibo>();
-
 	// crear cliente con todos los atributos
 
 	public Cliente(String nombre, Integer id, Direccion direccion ,Descuento tipoDescuento, float presupuesto, List<Canasta> canastas,

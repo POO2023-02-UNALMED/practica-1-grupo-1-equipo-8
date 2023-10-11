@@ -98,30 +98,30 @@ public class GestionCompraMain {
    */
   public void mostrarCanasta(Canasta canasta) {
     System.out.println(Texto.centrar("PRODUCTOS"));
-    System.out.println("_".repeat(111));
+    System.out.println("_".repeat(55));
     System.out.println(Texto.alinear("Descripcion", "Cantidad", "Costo"));
-    System.out.println("_".repeat(111));
+    System.out.println("_".repeat(55));
     System.out.println("");
     for (Map.Entry<Producto, Integer> productoEntry : canasta.getProductos().entrySet()) {
       Producto producto = productoEntry.getKey();
       Integer cantidad = productoEntry.getValue();
       System.out.println(Texto.alinear(producto.getNombre(), cantidad, producto.getCosto()));
     }
-    System.out.println("_".repeat(111));
+    System.out.println("_".repeat(55));
     System.out.println("");
     System.out.println(Texto.centrar("INGREDIENTES"));
-    System.out.println("_".repeat(111));
+    System.out.println("_".repeat(55));
     System.out.println(Texto.alinear("Descripcion", "Cantidad", "Costo"));
-    System.out.println("_".repeat(111));
+    System.out.println("_".repeat(55));
     for (Map.Entry<Ingrediente, Integer> ingredienteEntry : canasta.getIngredientes().entrySet()) {
       Ingrediente ingrediente = ingredienteEntry.getKey();
       Integer cantidad = ingredienteEntry.getValue();
       System.out.println(Texto.alinear(ingrediente.getNombre(), cantidad, ingrediente.getPrecioDeVenta()));
     }
-    System.out.println("_".repeat(111));
+    System.out.println("_".repeat(55));
     System.out.println(Texto.alinear("Descuento efectuado: ",canasta.getDescuento()));
     System.out.println(Texto.alinear("**** SUBTOTAL/TOTAL *****",canasta.getCosto())); //el valor para i1 sera el total de productos comprados
-    System.out.println("_".repeat(111));
+    System.out.println("_".repeat(55));
   }
   
   //Este método se encarga de indicar si robaron al trabajador al ir a comprar los ingredientes

@@ -46,9 +46,9 @@ public class MainPruebas {
         System.out.println(Texto.centrar(String.format("")));
         System.out.println(Texto.centrar(String.format(Texto.centrar("DETALLE DE VENTA"))));
         System.out.println(" ");
-        System.out.println("_".repeat(111));
+        System.out.println("_".repeat(55));
         System.out.println(Texto.alinear("Nombre", "Cantidad", "Precio"));
-        System.out.println("_".repeat(111));
+        System.out.println("_".repeat(55));
         System.out.println(Texto.alinear("Pan de queso","2", "12500"));
         System.out.println(Texto.alinear("croasan","2", "7000"));
         System.out.println(Texto.alinear("Frijoles","2", "12000"));
@@ -57,7 +57,7 @@ public class MainPruebas {
         System.out.println(Texto.alinear("croasan","2", "7000"));
         System.out.println(Texto.alinear("Frijoles","2", "12000"));
         System.out.println(Texto.alinear("focache benovesa","35", "750000"));
-        System.out.println("_".repeat(111));
+        System.out.println("_".repeat(55));
         System.out.println(" ");
         System.out.println(Texto.centrar("POO Bakery"));
         System.out.println(Texto.centrar("solo calidad"));

@@ -28,14 +28,15 @@ public class Recibo implements Serializable{
     private Date fecha = new Date();
     ArrayList<String> factura = new ArrayList<String>();
 
-    public Recibo(Cliente cliente, int idRecibo, double precioTotal, Descuento descuento) {
+    //ESTE PRIMER CONSTRUCTOR ES EL UNICO QUE USARA LA CLASE RECIBO, LOS DEMAS CREO QUE SON PARA PRUEBAS DE NICOLAS
+    public Recibo(Cliente cliente, double precioTotal, Descuento descuento) {
+        totalFacturas++;
         this.cliente = cliente;
-        this.idRecibo = idRecibo;
+        this.idRecibo = totalFacturas;
         this.precioTotal = precioTotal;
         this.descuento = descuento;
         this.precioFinal = precioTotal * (1 - descuento.getDescuento()); 
         this.fecha = Date.from(Instant.now());
-        totalFacturas++;
     }
 
     public Recibo(Cliente cliente, int idRecibo, double precioTotal) {
@@ -199,6 +200,12 @@ public class Recibo implements Serializable{
                 contador ++;
                 factura.add(Texto.alinear(item.getKey().getNombre(), item.getValue(), item.getKey().getCosto()*item.getValue()));
         }*/
+        factura.add(Texto.centrar(String.format(Texto.centrar("DETALLE DE IMPUESTOS"))));//DESPUES TRABAJARE EN LA DEDUCCION DE IMPUESTOS
+        factura.add(Texto.centrar(String.format(Texto.centrar(""))));
+        factura.add(Texto.centrar(String.format("Total articulos comprados: %s", idRecibo)));
+        factura.add(Texto.centrar("EN POO BAKERY SOMOS EXPERTOS EN AHORRO:"));
+        factura.add(Texto.centrar(String.format("TU AHORRO HOY FUE DEL %s%", (descuento.getDescuento()*100))));
+        factura.add(Texto.centrar(String.format("EQUIVALENTE A: ")));
         factura.add(Texto.centrar("POO Bakery"));
         factura.add(Texto.centrar("solo calidad"));
         factura.add(Texto.centrar("Gracias por elegirnos"));
