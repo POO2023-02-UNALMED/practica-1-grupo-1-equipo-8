@@ -175,11 +175,13 @@ public class Cliente implements Serializable{
 
 	//TODO trabajar para enviar la canasta a pagar - Lo de abajo es solo una plantilla
 	public void enviarCanastasAFacturar() {
+		/* 
 		for (Canasta canasta : this.canastas) {
 			Recibo recibo = new Recibo(canasta, this);
 			this.recibos.add(recibo);
 		}
 		Panaderia.cobrarCliente(canastas,recibos);
+		*/
 	}
 
 	//TODO trabajar para enviar la canasta a domicilio - Lo de abajo es solo una plantilla

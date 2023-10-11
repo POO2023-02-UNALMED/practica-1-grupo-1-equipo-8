@@ -11,9 +11,11 @@ import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
+import gestorAplicacion.humanos.Cliente;
 
 class CanastaTest {
 
+  private Panaderia panaderia;
   private Canasta canasta;
   private Producto producto1;
   private Producto producto2;
@@ -26,7 +28,11 @@ class CanastaTest {
 
   @BeforeEach
   void setUp() throws Exception {
+    panaderia = new Panaderia();
     canasta = new Canasta();
+    Cliente cliente = new Cliente("Cliente 1", 1, 56.0f);
+    panaderia.getClientes().add(cliente);
+    Panaderia.getClientes().get(0).getCanastas().add(canasta);
     ingrediente1 = new Ingrediente("Ingrediente 1");
     ingrediente2 = new Ingrediente("Ingrediente 2");
     Map<Ingrediente, Integer> ingredientes1 = new HashMap<Ingrediente, Integer>();
@@ -36,6 +42,10 @@ class CanastaTest {
     producto2 = new Producto("Producto 2", ingredientes1);
     kit1 = "Kit 1";
     kit2 = "Kit 2";
+    Panaderia.getInvIngredientes().put(ingrediente1, 10);
+    Panaderia.getInvIngredientes().put(ingrediente2, 10);
+    Panaderia.getInvProductos().put(producto1, 10);
+    Panaderia.getInvProductos().put(producto2, 10);
     listaIngredienteCantidad1 = new ArrayList<Object>();
     listaIngredienteCantidad1.add(ingredientes1);
     listaIngredienteCantidad1.add(2);
@@ -130,7 +140,7 @@ class CanastaTest {
   void testEliminarKit() {
     canasta.agregarKit(kit1, listaIngredienteCantidad1);
     canasta.agregarKit(kit2, listaIngredienteCantidad2);
-    assertTrue(canasta.eliminarKit(kit1));
+    assertTrue(canasta.eliminarKit(kit1,1));
     Map<String, ArrayList<Object>> kitsEsperados = new HashMap<String, ArrayList<Object>>();
     kitsEsperados.put(kit2, listaIngredienteCantidad2);
     assertEquals(kitsEsperados, canasta.getKits());

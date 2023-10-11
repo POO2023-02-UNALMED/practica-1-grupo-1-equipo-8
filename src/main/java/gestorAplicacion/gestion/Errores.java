@@ -1,3 +1,4 @@
+package gestorAplicacion.gestion;
 public class Errores {
     public enum Error {
         ID_ERROR_1("Error 1: Se quemó el pedido"),

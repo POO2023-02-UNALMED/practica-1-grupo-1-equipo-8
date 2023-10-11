@@ -31,7 +31,7 @@ public class GestionCompraMain {
         break;
       }
 
-      if(canasta.recibirOrden(objetoEntrante, cantidad)){
+      if(canasta.recibirOrden(objetoEntrante, cantidad,true)){
         System.out.println("Se ha agregado el producto o ingrediente a la canasta.");
       } 
       else {
@@ -77,7 +77,7 @@ public class GestionCompraMain {
             break;
           }
         }
-        if(canasta.recibirOrdenPersonalizada(objetoEntrante, ingredientesNecesarios, cantidad)){
+        if(canasta.recibirOrdenPersonalizada(objetoEntrante, ingredientesNecesarios, cantidad,true)){
           System.out.println("Se ha agregado el nuevo producto a la canasta.");
         }
         else {

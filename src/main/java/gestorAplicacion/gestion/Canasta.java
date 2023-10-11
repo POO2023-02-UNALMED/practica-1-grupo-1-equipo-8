@@ -523,32 +523,42 @@ public class Canasta implements Serializable {
    */
   public void calcularElementosCanasta() {
     int elementos = 0;
-    for (Map.Entry<Producto, Integer> productoEntry :this.productos.entrySet()) {
-      elementos+=productoEntry.getValue();
+    if(productos!=null){
+      for (Map.Entry<Producto, Integer> productoEntry : productos.entrySet()) {
+        elementos+=productoEntry.getValue();
+      }
     }
-    for (Map.Entry<Ingrediente, Integer> ingredienteEntry : this.ingredientes.entrySet()) {
-      elementos+=ingredienteEntry.getValue();
+    if(ingredientes!=null){
+      for (Map.Entry<Ingrediente, Integer> ingredienteEntry : ingredientes.entrySet()) {
+        elementos+=ingredienteEntry.getValue();
+      }
     }
-    for (Map.Entry<String, ArrayList<Object>> entry : this.kits.entrySet()) {
-      ArrayList<Object> valor = entry.getValue();
-      elementos+=(Integer)valor.get(1);
+    if(kits!=null){
+      for (Map.Entry<String, ArrayList<Object>> entry : kits.entrySet()) {
+        elementos+=(Integer)entry.getValue().get(1);
+      }
     }
     this.itemsTotalesEnCanasta=elementos;
   }
-
   /**
    * Calcula el número total de elementos en la canasta sumando las cantidades de productosEnLista, ingredientesEnLista y kitsEnLista.
    */
   public void calcularElementosLista() {
     int elementos = 0;
-    for (Map.Entry<String, Integer> productoEntry :this.productosEnLista.entrySet()) {
-      elementos+=productoEntry.getValue();
+    if(productosEnLista!=null){
+      for (Map.Entry<String, Integer> productoEntry :this.productosEnLista.entrySet()) {
+        elementos+=productoEntry.getValue();
+      }
     }
-    for (Map.Entry<String, Integer> ingredienteEntry : this.ingredientesEnLista.entrySet()) {
-      elementos+=ingredienteEntry.getValue();
+    if(ingredientesEnLista!=null){
+      for (Map.Entry<String, Integer> ingredienteEntry : this.ingredientesEnLista.entrySet()) {
+        elementos+=ingredienteEntry.getValue();
+      }
     }
-    for (Map.Entry<String, Integer> entry : this.kitsEnLista.entrySet()) {
-      elementos+=entry.getValue();
+    if(kitsEnLista!=null){
+      for (Map.Entry<String, Integer> entry : this.kitsEnLista.entrySet()) {
+        elementos+=entry.getValue();
+      }
     }
     this.itemsTotalesEnLista=elementos;
   }
@@ -593,28 +603,34 @@ public class Canasta implements Serializable {
   public void generarCosto() {
     double costoCanasta = 0;
     double descuentoCanasta=0.0;
-    for (Map.Entry<Producto, Integer> productoEntry : productos.entrySet()) {
-      Producto producto = productoEntry.getKey();
-      Integer cantidad = productoEntry.getValue();
-      double descuento = cuponProductos(producto, cantidad);
-      costoCanasta+= producto.getCosto() * cantidad * descuento;
-      descuentoCanasta+= producto.getCosto()*cantidad *(1-descuento);
+    if(productos!=null){
+      for (Map.Entry<Producto, Integer> productoEntry : productos.entrySet()) {
+        Producto producto = productoEntry.getKey();
+        Integer cantidad = productoEntry.getValue();
+        double descuento = cuponProductos(producto, cantidad);
+        costoCanasta+= producto.getCosto() * cantidad * descuento;
+        descuentoCanasta+= producto.getCosto()*cantidad *(1-descuento);
+      }
     }
-    for (Map.Entry<Ingrediente, Integer> ingredienteEntry : ingredientes.entrySet()) {
-      Ingrediente ingrediente = ingredienteEntry.getKey();
-      Integer cantidad = ingredienteEntry.getValue();
-      costoCanasta += ingrediente.getPrecioDeVenta() * cantidad;
-    }
-    for (Map.Entry<String, ArrayList<Object>> entry : kits.entrySet()) {
-      ArrayList<Object> valor = entry.getValue();
-      Map<Ingrediente, Integer> ingredientesKit = (Map<Ingrediente, Integer>)valor.get(0);
-      double costoIngredientesKit = 0;
-      for (Map.Entry<Ingrediente, Integer> ingredienteEntry : ingredientesKit.entrySet()) {
+    if(ingredientes!=null){
+      for (Map.Entry<Ingrediente, Integer> ingredienteEntry : ingredientes.entrySet()) {
         Ingrediente ingrediente = ingredienteEntry.getKey();
         Integer cantidad = ingredienteEntry.getValue();
-        costoIngredientesKit += ingrediente.getPrecioDeVenta() * cantidad;
+        costoCanasta += ingrediente.getPrecioDeVenta() * cantidad;
       }
-      costoCanasta += costoIngredientesKit * (Integer)valor.get(1);
+    }
+    if(kits!=null){
+      for (Map.Entry<String, ArrayList<Object>> entry : kits.entrySet()) {
+        ArrayList<Object> valor = entry.getValue();
+        Map<Ingrediente, Integer> ingredientesKit = (Map<Ingrediente, Integer>)valor.get(0);
+        double costoIngredientesKit = 0;
+        for (Map.Entry<Ingrediente, Integer> ingredienteEntry : ingredientesKit.entrySet()) {
+          Ingrediente ingrediente = ingredienteEntry.getKey();
+          Integer cantidad = ingredienteEntry.getValue();
+          costoIngredientesKit += ingrediente.getPrecioDeVenta() * cantidad;
+        }
+        costoCanasta += costoIngredientesKit * (Integer)valor.get(1);
+      }
     }
     this.descuento=descuentoCanasta;
     this.costoTotal=costoCanasta+descuentoCanasta;
@@ -631,29 +647,35 @@ public class Canasta implements Serializable {
   public void generarCostoEnLista(){
     double costoCanasta = 0;
     double descuentoCanasta=0.0;
-    for (Map.Entry<String, Integer> productoEntry : productosEnLista.entrySet()) {
+    if(productosEnLista!=null){
+      for (Map.Entry<String, Integer> productoEntry : productosEnLista.entrySet()) {
       Producto producto = Panaderia.buscarProductoPorId(productoEntry.getKey());
       Integer cantidad = productoEntry.getValue();
       double descuento = cuponProductos(producto, cantidad);
       costoCanasta+= producto.getCosto() * cantidad * descuento;
       descuentoCanasta+= producto.getCosto()*cantidad *(1-descuento);
-    }
-    for (Map.Entry<String, Integer> ingredienteEntry : ingredientesEnLista.entrySet()) {
-      Ingrediente ingrediente = Panaderia.buscarIngredientePorId(ingredienteEntry.getKey());
-      Integer cantidad = ingredienteEntry.getValue();
-      costoCanasta += ingrediente.getPrecioDeVenta() * cantidad;
-    }
-    for (Map.Entry<String, Integer> entry : kitsEnLista.entrySet()) {
-      String productoReceta = entry.getKey();
-      Producto producto = Panaderia.buscarProductoPorId(productoReceta);
-      Map<Ingrediente, Integer> ingredientesKit = producto.getIngredientes();
-      double costoIngredientesKit = 0;
-      for (Map.Entry<Ingrediente, Integer> ingredienteEntry : ingredientesKit.entrySet()) {
-        Ingrediente ingrediente = ingredienteEntry.getKey();
-        Integer cantidad = ingredienteEntry.getValue();
-        costoIngredientesKit += ingrediente.getPrecioDeVenta() * cantidad;
       }
-      costoCanasta += costoIngredientesKit * (Integer)entry.getValue();
+    }
+    if(ingredientesEnLista!=null){
+      for (Map.Entry<String, Integer> ingredienteEntry : ingredientesEnLista.entrySet()) {
+        Ingrediente ingrediente = Panaderia.buscarIngredientePorId(ingredienteEntry.getKey());
+        Integer cantidad = ingredienteEntry.getValue();
+        costoCanasta += ingrediente.getPrecioDeVenta() * cantidad;
+      }
+    }
+    if(kitsEnLista!=null){
+      for (Map.Entry<String, Integer> entry : kitsEnLista.entrySet()) {
+        String productoReceta = entry.getKey();
+        Producto producto = Panaderia.buscarProductoPorId(productoReceta);
+        Map<Ingrediente, Integer> ingredientesKit = producto.getIngredientes();
+        double costoIngredientesKit = 0;
+        for (Map.Entry<Ingrediente, Integer> ingredienteEntry : ingredientesKit.entrySet()) {
+          Ingrediente ingrediente = ingredienteEntry.getKey();
+          Integer cantidad = ingredienteEntry.getValue();
+          costoIngredientesKit += ingrediente.getPrecioDeVenta() * cantidad;
+        }
+        costoCanasta += costoIngredientesKit * (Integer)entry.getValue();
+      }
     }
     this.costoTotalEnLista=costoCanasta+descuentoCanasta;
     this.costoTrasDescuentoEnLista=costoCanasta;
