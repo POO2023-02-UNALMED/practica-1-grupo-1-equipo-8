@@ -235,16 +235,30 @@ public boolean conseguirIngredientes(Map<Ingrediente, Integer> listingredientes)
 
         this.dineroEnMano = 0;
 
-        for (Map.Entry<Ingrediente, Integer> ingrediente : listingredientes.entrySet()){
+        for (Map.Entry<Ingrediente, Integer> compras : listingredientes.entrySet()){
             
-            int cantidad = ingrediente.getValue();
-            Panaderia.agregarIngrediente(ingrediente.getKey(),(cantidad*2));
+            int cantidad = compras.getValue()*2;
+            Ingrediente ingrediente = compras.getKey();
+            
+            for (Map.Entry<Ingrediente, Integer> Inventario : Panaderia.getInvIngredientes().entrySet()) {
+            	
+            	String idInventario = Inventario.getKey().getId();
+            	
+            	if (ingrediente.getId() == idInventario) {
+            		
+            		Panaderia.getInvIngredientes().put(Inventario.getKey(), Inventario.getValue() + cantidad);
+            		break;
+            		
+            	}
+            	
+            }
+            
         }
 
         return this.robado;
     
     }
-}
+  }
 }
 
 // use hasmaps y sale facil get datos

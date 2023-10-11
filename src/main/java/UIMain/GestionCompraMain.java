@@ -157,9 +157,19 @@ public class GestionCompraMain {
 	  
   }
   
-  public static void lecturaCompra() {
+  public static void lecturaCompra(boolean suceso) {
 	  
-	  System.out.println("No tenemos suficientes ingredientes para realizar su compra, por favor espere unos minutos mientras nos encargamos de ello.");
-		 
+	  if (suceso == false) { 
+		  
+		  System.out.println("No tenemos suficientes ingredientes para realizar su compra, por favor espere unos minutos mientras nos encargamos de ello.");
+		  
 	  }
+	  
+	  else {
+		  
+		  System.out.println("Estamos en proceso de conseguir los ingredientes para su pedido, lamentamos los inconvenientes");
+		  
+	  }
+		 
+   }
 }

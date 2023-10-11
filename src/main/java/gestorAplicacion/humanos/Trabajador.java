@@ -13,11 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Trabajador implements Serializable{
-    String nombre;
-    double habilidad;
-    double habilidadParticular;
-    double dineroEnMano;
-    boolean robado;
+    protected String nombre;
+    protected double habilidad;
+    protected double habilidadParticular;
+    protected double dineroEnMano;
+    protected boolean robado;
 
     public Trabajador() {
         this("John Doe", 0, 0);
@@ -59,10 +59,25 @@ public abstract class Trabajador implements Serializable{
     }
 
     public void setDineroEnMano(double dineroEnMano) {
-        this.dineroEnMano = dineroEnMano;
     }
 
-    public abstract boolean laborParticular(Canasta canasta); //no deberia recibir parametro cliente
+    public double getHabilidadParticular() {
+		return habilidadParticular;
+	}
+
+	public void setHabilidadParticular(double habilidadParticular) {
+		this.habilidadParticular = habilidadParticular;
+	}
+
+	public boolean isRobado() {
+		return robado;
+	}
+
+	public void setRobado(boolean robado) {
+		this.robado = robado;
+	}
+
+	public abstract boolean laborParticular(Canasta canasta); //no deberia recibir parametro cliente
 
 	public abstract boolean conseguirIngredientes(Map<Ingrediente, Integer> listingredientes);
 
