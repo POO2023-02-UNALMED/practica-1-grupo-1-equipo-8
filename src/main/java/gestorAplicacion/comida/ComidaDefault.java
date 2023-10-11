@@ -10,7 +10,7 @@ public interface ComidaDefault {
     }
 
     default public String getNutrientes(){
-        return
+        return "";
     }
 
 }

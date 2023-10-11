@@ -7,6 +7,7 @@ import java.util.Random;
 
 import gestorAplicacion.gestion.Panaderia;
 
+//necesito un metodo o un atributo que me de los ingredientes disponibles en bodega!!! (Richard)
 public class Ingrediente implements Serializable{
 	private String nombre;
 	private String id;

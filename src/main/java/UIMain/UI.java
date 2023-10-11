@@ -88,18 +88,28 @@ public class UI {
 
       for (Producto producto : Producto.getProductos()) { //productos que le alcanza el dinero al cliente
         if (producto.getCosto() <= Cliente.getSesion().getPresupuesto()) {
-          mensaje += GREEN+String.format("%s. %s", producto.getId(), producto.getNombre())+RESET+"\n";
+          mensaje += GREEN+Texto.alinear(String.format("%s. %s", producto.getId(), producto.getNombre()),producto.getUnidades(),producto.getCosto())+RESET+"\n";
         }
       }
 
       for (Producto producto : Producto.getProductos()) { //productos que no le alcanza el dinero al cliente
         if(producto.getCosto() > Cliente.getSesion().getPresupuesto()){
-          mensaje += RED+String.format("%s. %s", producto.getId(), producto.getNombre())+RESET+"\n";
+          mensaje += RED+Texto.alinear(String.format("%s. %s", producto.getId(), producto.getNombre()),producto.getUnidades(),producto.getCosto())+RESET+"\n";
+        }
+      }
+      
+      mensaje += Texto.centrar("INGREDIENTES\n");
+
+      for (Ingrediente ingrediente: Ingrediente.getIngredientes()){
+        if (ingrediente.getPrecioDeVenta()<Cliente.getSesion().getPresupuesto()){
+          mensaje += GREEN+Texto.alinear(String.format("%s. %s", ingrediente.getId(), ingrediente.getNombre()),0,ingrediente.getPrecioDeVenta())+RESET+"\n";
         }
       }
 
-      mensaje += Texto.centrar("INGREDIENTES\n");
-
+      for (Ingrediente ingrediente: Ingrediente.getIngredientes()){
+        if (ingrediente.getPrecioDeVenta()<Cliente.getSesion().getPresupuesto()){
+          mensaje += RED+Texto.alinear(String.format("%s. %s", ingrediente.getId(), ingrediente.getNombre()),0,ingrediente.getPrecioDeVenta())+RESET+"\n";
+        }
       }
 
       return mensaje;

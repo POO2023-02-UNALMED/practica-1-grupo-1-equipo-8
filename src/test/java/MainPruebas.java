@@ -13,7 +13,7 @@ public class MainPruebas {
         String WHITE = "\u001B[37m";
         String RESET = "\u001B[0m";
         String mensaje = "";
-        mensaje += GREEN+String.format("%s. %s", 3,3)+RESET+"\n";
+        mensaje += RED+String.format("%s. %s", 3,3)+RESET+"\n";
         System.out.println(mensaje);
         
 
