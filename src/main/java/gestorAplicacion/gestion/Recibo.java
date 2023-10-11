@@ -157,21 +157,25 @@ public class Recibo implements Serializable{
      * texto
      */
     public void imprimirFactura() {
-        factura.add("                                   ____                                    ?~~bL");
-        factura.add("                                 z@~ b                                    |  `U,");
-        factura.add("                                ]@[  |                                   ]'  z@'");
-        factura.add("                                d@~' `|, .__     _----L___----, __, .  _t'   `@j");
-        factura.add("                                `@L_,   \"-~ `--\"~-a,           `C.  ~\"\"O_    ._`@");
-        factura.add("                                q@~'   ]P       ]@[            `Y=,   `H+z_  `a@");
-        factura.add("                                `@L  _z@        d@               Ya     `-@b,_a'");
-        factura.add("                                  `-@d@a'       )@[               `VL      `a@@'");
-        factura.add("                                    aa~'   ],  .a@'                qqL  ), ./~");
-        factura.add("                                    @@_  _z~  _d@[                 .V@  .L_d'");
-        factura.add("                                    \"~@@@'  ]@@@'        __      )@n@bza@-\"");
-        factura.add("                                        `-@zzz@@@L        )@@z     ]@@=%-\"");
-        factura.add("                                        \"~~@@@@@bz_    _a@@@@z___a@K");
-        factura.add("                                            \"~-@@@@@@@@@@@@@@@@@@~\"");
-        factura.add("                                                `~~~-@~~-@@~~~~~'");
+        factura.add(Texto.centrar("                      ██████            "));
+        factura.add(Texto.centrar("          ████████████░░░░░░██          "));
+        factura.add(Texto.centrar("        ██░░░░░░░░░░░░██░░░░░░██████    "));
+        factura.add(Texto.centrar("      ██░░░░░░░░░░░░░░██░░░░░░██░░░░██  "));
+        factura.add(Texto.centrar("    ██░░░░░░░░░░░░░░░░░░██░░░░██░░░░░░██"));
+        factura.add(Texto.centrar("    ██░░░░░░░░░░░░░░░░░░░░██░░██░░░░░░██"));
+        factura.add(Texto.centrar("    ██░░░░░░░░░░░░░░░░░░░░██░░████████  "));
+        factura.add(Texto.centrar("  ██░░████░░░░░░░░░░░░░░░░██░░██        "));
+        factura.add(Texto.centrar("  ██░░░░░░████░░░░░░░░░░░░████          "));
+        factura.add(Texto.centrar("██░░░░░░░░░░░░████░░░░░░░░██            "));
+        factura.add(Texto.centrar("██░░░░░░░░░░░░░░░░██░░░░██              "));
+        factura.add(Texto.centrar("  ██░░░░░░░░░░░░░░██████                "));
+        factura.add(Texto.centrar("██░░████████░░░░░░██                    "));
+        factura.add(Texto.centrar("██░░░░░░░░░░██████                      "));
+        factura.add(Texto.centrar("  ██░░░░░░░░░░██                        "));
+        factura.add(Texto.centrar("██░░██████████                          "));
+        factura.add(Texto.centrar("██░░░░░░░░██                            "));
+        factura.add(Texto.centrar("  ██░░░░██                              "));
+        factura.add(Texto.centrar("    ████                                "));
         factura.add("");
         factura.add(String.format(""));
         factura.add(String.format(Texto.centrar("POO Bakery")));

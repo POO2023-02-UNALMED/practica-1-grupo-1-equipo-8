@@ -1,4 +1,3 @@
-
 import UIMain.Texto;
 public class MainPruebas {
     public static void main (String[] args){
@@ -14,23 +13,25 @@ public class MainPruebas {
         Panaderia panaderia2 = (Panaderia) objectInputStream.readObject();
         objectInputStream.close();*/
 
-        
-
-        System.out.println("                                   ____                                    ?~~bL");
-        System.out.println("                                 z@~ b                                    |  `U,");
-        System.out.println("                                ]@[  |                                   ]'  z@'");
-        System.out.println("                                d@~' `|, .__     _____L_______, __, .  _t'   `@j");
-        System.out.println("                                `@L_,   \"_~ `__\"~_a,           `C.  ~\"\"O_    ._`@");
-        System.out.println("                                q@~'   ]P       ]@[            `Y=,   `H+z_  `a@");
-        System.out.println("                                `@L  _z@        d@               Ya     `_@b,_a'");
-        System.out.println("                                  `_@d@a'       )@[               `VL      `a@@'");
-        System.out.println("                                    aa~'   ],  .a@'                qqL  ), ./~");
-        System.out.println("                                    @@_  _z~  _d@[                 .V@  .L_d'");
-        System.out.println("                                    \"~@@@'  ]@@@'        __      )@n@bza@_\"");
-        System.out.println("                                        `_@zzz@@@L        )@@z     ]@@=%_\"");
-        System.out.println("                                        \"~~@@@@@bz_    _a@@@@z___a@K");
-        System.out.println("                                            \"~_@@@@@@@@@@@@@@@@@@~\"");
-        System.out.println("                                                `~~~_@~~_@@~~~~~'");
+        System.out.println(Texto.centrar("                      ██████            "));
+        System.out.println(Texto.centrar("          ████████████░░░░░░██          "));
+        System.out.println(Texto.centrar("        ██░░░░░░░░░░░░██░░░░░░██████    "));
+        System.out.println(Texto.centrar("      ██░░░░░░░░░░░░░░██░░░░░░██░░░░██  "));
+        System.out.println(Texto.centrar("    ██░░░░░░░░░░░░░░░░░░██░░░░██░░░░░░██"));
+        System.out.println(Texto.centrar("    ██░░░░░░░░░░░░░░░░░░░░██░░██░░░░░░██"));
+        System.out.println(Texto.centrar("    ██░░░░░░░░░░░░░░░░░░░░██░░████████  "));
+        System.out.println(Texto.centrar("  ██░░████░░░░░░░░░░░░░░░░██░░██        "));
+        System.out.println(Texto.centrar("  ██░░░░░░████░░░░░░░░░░░░████          "));
+        System.out.println(Texto.centrar("██░░░░░░░░░░░░████░░░░░░░░██            "));
+        System.out.println(Texto.centrar("██░░░░░░░░░░░░░░░░██░░░░██              "));
+        System.out.println(Texto.centrar("  ██░░░░░░░░░░░░░░██████                "));
+        System.out.println(Texto.centrar("██░░████████░░░░░░██                    "));
+        System.out.println(Texto.centrar("██░░░░░░░░░░██████                      "));
+        System.out.println(Texto.centrar("  ██░░░░░░░░░░██                        "));
+        System.out.println(Texto.centrar("██░░██████████                          "));
+        System.out.println(Texto.centrar("██░░░░░░░░██                            "));
+        System.out.println(Texto.centrar("  ██░░░░██                              "));
+        System.out.println(Texto.centrar("    ████                                "));
         System.out.println("");
         System.out.println(String.format(""));
         System.out.println(String.format(Texto.centrar("POO Bakery")));
@@ -59,16 +60,6 @@ public class MainPruebas {
         System.out.println("_".repeat(111));
         System.out.println(" ");
         System.out.println(Texto.centrar("POO Bakery"));
-
-        /*System.out.println(Texto.alinear("Descripcion", "Cantidad", "Precio")); //Reutilizar aqui la funcion de mateo
-        System.out.println("_".repeat(111));
-
-        int contador = 0; //aqui tendre que reutilizar el codigo de mateo en gestionCompraMain
-        for(Canasta canasta: cliente.getCanastas()){
-            for(Map.Entry<Producto,Integer> item: canasta.getProductos().entrySet()){
-                contador ++;
-                System.out.println(Texto.alinear(item.getKey().getNombre(), item.getValue(), item.getKey().getCosto()*item.getValue()));
-        }*/
         System.out.println(Texto.centrar("solo calidad"));
         System.out.println(Texto.centrar("Gracias por elegirnos"));
         System.out.println(String.format(""));
@@ -85,5 +76,6 @@ public class MainPruebas {
         System.out.println(Texto.centrar("█ ███ █ ▀▄ ▀▄  ██▄█▀█")); 
         System.out.println(Texto.centrar("█▄▄▄▄▄█ █▀▀▄▄▀▀▀█  ▄ "));
         System.out.println(" ");
+
     }
 }

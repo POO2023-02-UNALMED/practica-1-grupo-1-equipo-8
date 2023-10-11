@@ -13,9 +13,9 @@ public class Texto {
         List <String> textos = new ArrayList<String>();
         List <Integer> espaciados = new ArrayList<Integer>();
         String s = "";
-        espaciados.add(50);
-        espaciados.add(30);
-        espaciados.add(30);
+        espaciados.add(35);
+        espaciados.add(10);
+        espaciados.add(10);
         textos.add(a1);
         textos.add(a2);
         textos.add(a3);
@@ -33,9 +33,9 @@ public class Texto {
         List <String> textos = new ArrayList<String>();
         List <Integer> espaciados = new ArrayList<Integer>();
         String s = "";
-        espaciados.add(50);
-        espaciados.add(30);
-        espaciados.add(30);
+        espaciados.add(35);
+        espaciados.add(10);
+        espaciados.add(10);
         textos.add(s1);
         textos.add(s2);
         textos.add(s3);
@@ -53,7 +53,7 @@ public class Texto {
     //Este metodo sirve para centrar texto
     public static String centrar(String a1){
         String s = "";
-        int espaciado = 111;
+        int espaciado = 55;
         s += " ".repeat((espaciado - a1.length())/2)+a1+" ".repeat((espaciado - a1.length())/2);
         return s;
     }
