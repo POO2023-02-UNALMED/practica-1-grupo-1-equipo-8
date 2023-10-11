@@ -63,7 +63,30 @@ public class Domiciliario extends Trabajador implements Serializable{
         }
     }*/
 
-    
+    public boolean laborParticular(Canasta canasta){
+        Direccion direccion = canasta.getDireccion();
+        Cliente cliente = canasta.getCliente();
+        Random rand = new Random();
+        int probabilidad = rand.nextInt(100);
+        if (probabilidad > habilidad){
+            this.habilidad++;
+            return false;
+        }
+        else{
+            // Se le cobra al cliente
+        	canasta.generarCosto();
+            double costoTotal = canasta.getCostoTotal();
+            cliente.setPresupuesto(cliente.getPresupuesto() - costoTotal);
+            // Se le paga al domiciliario
+            dineroEnMano += costoTotal;
+            // Se le agrega el recibo al cliente
+            Recibo recibo = new Recibo(canasta, direccion, cliente);
+            cliente.getRecibos().add(recibo);
+            // Se le agrega el recibo al domiciliario
+            cliente.getRecibos().add(recibo);
+            return true;
+        }
+    }
 
     public boolean laborParticular(Canasta canasta, Cliente cliente){
         Direccion direccion = cliente.getDireccion();
@@ -82,6 +105,33 @@ public class Domiciliario extends Trabajador implements Serializable{
             dineroEnMano += costoTotal;
             // Se le agrega el recibo al cliente
             Recibo recibo = new Recibo(canasta, direccion, cliente);
+            cliente.getRecibos().add(recibo);
+            // Se le agrega el recibo al domiciliario
+            cliente.getRecibos().add(recibo);
+            return true;
+        }
+    }
+
+    public boolean laborParticular(List<Canasta> canastas, Cliente cliente){
+        Direccion direccion = cliente.getDireccion();
+        Random rand = new Random();
+        int probabilidad = rand.nextInt(100);
+        if (probabilidad > habilidad){
+            this.habilidad++;
+            return false;
+        }
+        else{
+            // Se le cobra al cliente
+            double costoTotal = 0.0;
+            for (Canasta canasta : canastas) {
+                canasta.generarCosto();
+                costoTotal += canasta.getCostoTotal();
+            }
+            cliente.setPresupuesto(cliente.getPresupuesto() - costoTotal);
+            // Se le paga al domiciliario
+            dineroEnMano += costoTotal;
+            // Se le agrega el recibo al cliente
+            Recibo recibo = new Recibo(canastas, direccion, cliente);
             cliente.getRecibos().add(recibo);
             // Se le agrega el recibo al domiciliario
             cliente.getRecibos().add(recibo);

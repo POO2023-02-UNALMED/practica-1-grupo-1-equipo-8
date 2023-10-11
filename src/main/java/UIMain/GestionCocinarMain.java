@@ -17,7 +17,7 @@ public class GestionCocinarMain {
         Panaderia.cocinar(productosParaCocinar);
         }
     }
-}
+
     public void barrasCocinando(Producto producto){
         int 
         if(Panaderia.fallosCocinando == 1){

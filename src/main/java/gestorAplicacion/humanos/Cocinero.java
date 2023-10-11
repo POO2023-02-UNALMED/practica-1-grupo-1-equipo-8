@@ -13,7 +13,7 @@ import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
 
-public class Cocinero extends Trabajador implements Serializable{
+public class Cocinero extends Domiciliario implements Serializable{
     private String especialidad;
     private boolean fallado = false;
 

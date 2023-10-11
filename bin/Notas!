@@ -1,0 +1,28 @@
+Creé este archivo de notas para que vayamos leyendo notas que dejen el resto y podamos hacer preguntas (Sahely)
+Dejen su nombre después de cada cosa que escriban así sabemos quién lo dijo (Sahely)
+
+Con respecto a la clase cliente en los constructores debo cambiar esos null por listas vacías pero no sé cómo hacerlo (Sahely)
+En la clase canasta se me ocurrió que sería bueno que llevase nombre, dejé comentado lo que se debería implementar para agregar nombre es solo quitar los // (sahely)
+
+//Creo que es mejor trabajar los ingredientes del producto como diccionario para acceder a ellos mejor desde la clase canasta y así eliminar el atributo cantidad de la clase ingredientes, si hay algun cambio, me avisan para hacer el cambio en Canasta
+con respecto a la nota de arriba creo que es importante dejar el atributo cantidad ya que eso afecta a la hora de ir a comprar los ingredientes, sin embargo no sé si desean que los productos digan la cantidad que hay que usar en la receta
+tipo huevos:3, que son los que se usan para hacer un flan por ejemplo, pero creo que eso complicaría un poco el funcionamiento, sin embargo voy a dejar un espacio para preguntas y que decidamos esto (sahely)
+
+Está de acuerdo con que se quite el atributo cantidad de la clase Ingrediente? (añada su nombre en su decisión)
+
+De acuerdo: Richard
+En desacuerdo: Sahely
+Casi de acuerdo: Mateo
+
+Está de acuerdo que ahora los ingredientes del producto se trabajen como diccionario el cuál indica la cantidad de ingredientes que se usa cada uno?
+Ej: {Harina: 3, Huevos: 2, Leche: 5} (Tenga en cuenta que esto enredaría un poquito mas a la hora de cocinar y de comprar pero le daría mas realismo)
+
+De acuerdo: Sahely Richard
+En desacuerdo: 
+
+Hice el método crearProducto en la clase producto el cuál será usado por la clase canasta para hacer una nuevo producto con los pedidos personalizados, pero para que funcione bien se necesita que la canasta tenga dueño
+Debido a que se necesita que se le dé una panadería a la cual añadirle el producto, el calcularcosto de adentro lo arreglaré después de solucionar esto (Sahely)
+
+Creé clase Cupon para administrar descuentos con métodos y el enum
+
+El método para recibir orden de la canasta se encuentra creado en la canasta, para que no vayan a recrear su funcionalidad en la clase main

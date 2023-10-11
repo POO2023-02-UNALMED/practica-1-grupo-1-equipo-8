@@ -225,12 +225,22 @@ public class Panaderia implements Serializable {
 
     //TODO Desarrollar el metodo cobrarCliente que recibe una lista de canastas y un recibo y cobra al cliente, además actualiza la plata de la panaderia
     public static void cobrarCliente(List<Canasta> canastas, List<Recibo> recibo) {
-
+        
     }
 
     //TODO Desarrollar el metodo enviarDomicilio que recibe una lista de canastas y las envia a domicilio
-    public static void enviarDomicilio(List<Canasta> canastas) {
-
+    public static void enviarDomicilio(List<Canasta> canastas, Cliente cliente) {
+        int direccionCliente = cliente.getDireccion();
+        Descuento descuentoCliente = cliente.getDescuento();
+        int max = getDomiciliarios().size();
+        Random rand = new Random();
+        int domiciliario = rand.nextInt(max);
+        Domiciliario domiciliario1 = getDomiciliarios().get(domiciliario);
+        if (!domiciliario1.laborParticular(canastas, cliente)){
+            enviarDomicilio(canastas, cliente);
+        }
+        this.dinero += domiciliario1.getDineroEnMano();
+        domiciliario1.setDineroEnMano(0);
     }
 
     /**

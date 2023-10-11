@@ -184,7 +184,7 @@ public class Cliente implements Serializable{
 
 	//TODO trabajar para enviar la canasta a domicilio - Lo de abajo es solo una plantilla
 	public void enviarCanastasADomicilio(){
-		Panaderia.enviarDomicilio(canastas);
+		Panaderia.enviarDomicilio(canastas, this);
 	}
 
 	public enum Direccion {
