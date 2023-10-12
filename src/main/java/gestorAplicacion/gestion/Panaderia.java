@@ -31,7 +31,6 @@ public class Panaderia implements Serializable {
     private static Canasta canastaDelDia;
     private static double valorDeudas;
     private static boolean enQuiebra = false;
-    public static int fallosCocinando;
     static {
         // Agregar lista de productos de la canasta del dia
         canastaDelDia = new Canasta(null, null);
@@ -54,19 +53,19 @@ public class Panaderia implements Serializable {
         return canastaDelDia;
     }
 
-    public static List<Trabajador> getTrabajadores() {
+    public static ArrayList<Trabajador> getTrabajadores() {
 		return trabajadores;
 	}
 
-	public static List<Cocinero> getCocineros() {
+	public static ArrayList<Cocinero> getCocineros() {
 		return cocineros;
 	}
 
-	public static List<Domiciliario> getDomiciliarios() {
+	public static ArrayList<Domiciliario> getDomiciliarios() {
 		return domiciliarios;
 	}
 
-	public static List<Cliente> getClientes() {
+	public static ArrayList<Cliente> getClientes() {
         return clientes;
     }
 
@@ -122,15 +121,6 @@ public class Panaderia implements Serializable {
     public static void setEnQuiebra(boolean enQuiebra) {
         Panaderia.enQuiebra = enQuiebra;
     }
-
-    public static int getFallosCoinando(){
-        return fallosCocinando;
-    }
-
-    public static void setFallosCocinando(int fallosCocinando){
-        Panaderia.fallosCocinando = fallosCocinando;
-    }
-
 
     //Metodos para agregar elementos a las listas
     public static void agregarTrabajador(Trabajador cocinero) {
@@ -320,6 +310,30 @@ public class Panaderia implements Serializable {
         return null;
     }
 
+    // Método para agregar un ingrediente al inventario
+    /**
+     * Agrega una cantidad determinada de un ingrediente al inventario de la
+     * panadería.
+     * Si el ingrediente ya existe en el inventario, se suma la cantidad nueva a la
+     * existente.
+     * Si el ingrediente no existe en el inventario, se agrega con la cantidad
+     * especificada.
+     * 
+     * @param ingrediente el ingrediente a agregar al inventario
+     * @param cantidad    la cantidad del ingrediente a agregar
+     */
+    public static void agregarIngrediente(Ingrediente ingrediente, int cantidad) {
+        for (Map.Entry<Ingrediente, Integer> entry : invIngredientes.entrySet()) {
+            Ingrediente I = entry.getKey();
+            if (I.getId().equals(ingrediente.getId())) {
+                int cantidadExistente = entry.getValue();
+                invIngredientes.put(I, cantidadExistente + cantidad);
+                break;
+            }
+        }
+        invIngredientes.put(ingrediente, cantidad);
+    }
+
     /**
      * Agrega una cantidad determinada de un ingrediente al inventario de la panadería.
      * Si el ingrediente ya existe en el inventario, se actualiza la cantidad.
@@ -330,7 +344,7 @@ public class Panaderia implements Serializable {
     public static void agregarIngrediente(String ingrediente, int cantidad) {
         for(Map.Entry<Ingrediente, Integer> entry : invIngredientes.entrySet()) {
             Ingrediente I = entry.getKey();
-            if (I.getId().equals(ingrediente)) {
+            if (I.getNombre().equals(ingrediente)) {
                 int cantidadExistente = entry.getValue();
                 invIngredientes.put(I, cantidadExistente + cantidad);
                 break;
@@ -601,7 +615,6 @@ public class Panaderia implements Serializable {
             if(cocinero.laborParticular(canastaParaCocinar)){
                 break;
             }
-            Panaderia.fallosCocinando++;
         }
     }
 
