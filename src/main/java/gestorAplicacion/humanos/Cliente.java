@@ -10,24 +10,27 @@ import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
 import gestorAplicacion.gestion.Recibo;
+import gestorAplicacion.gestion.Cupon.DescuentoPorTipo;
 
 public class Cliente implements Serializable{
 
 	private String nombre;
 	private Integer id;
+	private String direccionTXT;
 	private Direccion direccion;
-	private Descuento tipoDescuento;
+	private DescuentoPorTipo tipoDescuento;
 	private double presupuesto;
 	private List<Canasta> canastas = new ArrayList<Canasta>();
 	private List<Recibo> recibos = new ArrayList<Recibo>();
 	private static Cliente sesion; //atributo estatico que almacena el cliente que ha iniciado sesion (necesario para parte funcional)
 	// crear cliente con todos los atributos
 
-	public Cliente(String nombre, Integer id, Direccion direccion ,Descuento tipoDescuento, float presupuesto, List<Canasta> canastas,
+	public Cliente(String nombre, Integer id, String direccionTXT, Direccion direccion ,DescuentoPorTipo tipoDescuento, double presupuesto, List<Canasta> canastas,
 			List<Recibo> recibos) {
 
 		this.nombre = nombre;
 		this.id = id;
+		this.direccionTXT = direccionTXT;
 		this.direccion = direccion;
 		this.tipoDescuento = tipoDescuento;
 		this.presupuesto = presupuesto;
@@ -39,7 +42,7 @@ public class Cliente implements Serializable{
 	// crear un cliente sin pasarles listas de canastas y recibos (constructor
 	// estandar)
 
-	public Cliente(String nombre, Integer id, Direccion direccion, Descuento tipoDescuento, float presupuesto) {
+	public Cliente(String nombre, Integer id, Direccion direccion, DescuentoPorTipo tipoDescuento, double presupuesto) {
 		
 		List<Canasta> list1 = new ArrayList<Canasta>();
     List<Recibo> list2 = new ArrayList<Recibo>();
@@ -56,7 +59,7 @@ public class Cliente implements Serializable{
 
 	// crear un cliente el cual no tiene ningún descuento
 
-	public Cliente(String nombre, Integer id, Direccion direccion, float presupuesto) {
+	public Cliente(String nombre, Integer id, Direccion direccion, double presupuesto) {
 
 		List<Canasta> list1 = new ArrayList<Canasta>();
     List<Recibo> list2 = new ArrayList<Recibo>();
@@ -64,14 +67,14 @@ public class Cliente implements Serializable{
     this.nombre = nombre;
 		this.id = id;
 		this.direccion = direccion;
-		this.tipoDescuento = Descuento.NINGUNO;
+		this.tipoDescuento = DescuentoPorTipo.NINGUNO;
 		this.presupuesto = presupuesto;
 		this.canastas = list1;
 		this.recibos = list2;
 
 	}
 
-	public Cliente(String nombre, int id, Descuento tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
+	public Cliente(String nombre, int id, DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
 		this.nombre = nombre;
 		this.id = id;
 		this.tipoDescuento = tipoDescuento;
@@ -80,7 +83,7 @@ public class Cliente implements Serializable{
 		this.recibos = recibos;
 	}
 
-	public Cliente(String nombre,int id,Descuento tipoDescuento, double presupuesto){
+	public Cliente(String nombre,int id,DescuentoPorTipo tipoDescuento, double presupuesto){
 		this.nombre = nombre;
 		this.id = id;
 		this.tipoDescuento = tipoDescuento;
@@ -91,6 +94,14 @@ public class Cliente implements Serializable{
 		this.nombre = nombre;
 		this.id = id;
 		this.presupuesto = presupuesto;
+	}
+
+	public Cliente(){
+		List<Canasta> list1 = new ArrayList<Canasta>();
+        List<Recibo> list2 = new ArrayList<Recibo>();
+		this.tipoDescuento = DescuentoPorTipo.NINGUNO;
+		this.canastas = list1;
+		this.recibos = list2;
 	}
 
 	public String getNombre() {
@@ -109,6 +120,14 @@ public class Cliente implements Serializable{
 		this.id = id;
 	}
 
+	public String getDireccionTXT() {
+		return direccionTXT;
+	}
+
+	public void setDireccionTXT(String direccionTXT) {
+		this.direccionTXT = direccionTXT;
+	}
+
 	public Direccion getDireccion() {
 		return direccion;
 	}
@@ -117,11 +136,11 @@ public class Cliente implements Serializable{
 		this.direccion= direccion;
 	}
 
-	public Descuento getTipoDescuento() {
+	public DescuentoPorTipo getTipoDescuento() {
 		return tipoDescuento;
 	}
 
-	public void setTipoDescuento(Descuento tipoDescuento) {
+	public void setTipoDescuento(DescuentoPorTipo tipoDescuento) {
 		this.tipoDescuento = tipoDescuento;
 	}
 
@@ -185,8 +204,9 @@ public class Cliente implements Serializable{
 	}
 
 	//TODO trabajar para enviar la canasta a domicilio - Lo de abajo es solo una plantilla
-	public void enviarCanastasADomicilio(){
+	public void enviarCanastasADomicilio(List<Canasta> canastas){
 		Panaderia.enviarDomicilio(canastas, this);
+		enviarCanastasAFacturar();
 	}
 
 	public enum Direccion {
@@ -205,24 +225,5 @@ public class Cliente implements Serializable{
 			return distancia;
 		}
 	}
-	
-		public enum Descuento {
-			NINGUNO(0),
-			ESTUDIANTE(0.1),
-			SENIOR(0.2),
-			EMPLEADO(0.3);
-		
-			private final double descuento;
-		
-			Descuento(double descuento) {
-				this.descuento = descuento;
-			}
-		
-			public double getDescuento() {
-				return descuento;
-			}
-		}
-
-		
 
 }

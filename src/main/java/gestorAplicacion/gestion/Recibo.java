@@ -4,8 +4,9 @@ import UIMain.Texto;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.humanos.Cliente;
-import gestorAplicacion.humanos.Cliente.Descuento;
+//import gestorAplicacion.humanos.Cliente.Descuento;
 import gestorAplicacion.humanos.Cliente.Direccion;
+import gestorAplicacion.gestion.Cupon.DescuentoPorTipo;
 
 import java.util.List; //Libreria para listas
 import java.util.ArrayList; //Libreria para listas
@@ -24,18 +25,18 @@ public class Recibo implements Serializable{
     private static int totalFacturas;
     private double precioTotal;
     private double precioFinal;
-    private Descuento descuento;
+    private DescuentoPorTipo descuento;
     private Date fecha = new Date();
     ArrayList<String> factura = new ArrayList<String>();
 
     //ESTE PRIMER CONSTRUCTOR ES EL UNICO QUE USARA LA CLASE RECIBO, LOS DEMAS CREO QUE SON PARA PRUEBAS DE NICOLAS
-    public Recibo(Cliente cliente, double precioTotal, Descuento descuento) {
+    public Recibo(Cliente cliente, double precioTotal, DescuentoPorTipo descuento) {
         totalFacturas++;
         this.cliente = cliente;
         this.idRecibo = totalFacturas;
         this.precioTotal = precioTotal;
         this.descuento = descuento;
-        this.precioFinal = precioTotal * (1 - descuento.getDescuento()); 
+        this.precioFinal = precioTotal * (1 - descuento.getValor()); 
         this.fecha = Date.from(Instant.now());
     }
 
@@ -43,7 +44,7 @@ public class Recibo implements Serializable{
         this.cliente = cliente;
         this.idRecibo = idRecibo;
         this.precioTotal = precioTotal;
-        this.descuento = Descuento.NINGUNO;
+        this.descuento = DescuentoPorTipo.NINGUNO;
         this.precioFinal = precioTotal; 
         this.fecha = Date.from(Instant.now());
         totalFacturas++;
@@ -53,7 +54,7 @@ public class Recibo implements Serializable{
         this.cliente = cliente;
         this.idRecibo = idRecibo;
         this.precioTotal = 0;
-        this.descuento = Descuento.NINGUNO;
+        this.descuento = DescuentoPorTipo.NINGUNO;
         this.precioFinal = precioTotal; 
         this.fecha = Date.from(Instant.now());
         totalFacturas++;
@@ -118,7 +119,7 @@ public class Recibo implements Serializable{
         this.precioFinal = precioFinal;
     }
 
-    public void setDescuento(Descuento descuento) {
+    public void setDescuento(DescuentoPorTipo descuento) {
         this.descuento = descuento;
     }
 
@@ -142,7 +143,7 @@ public class Recibo implements Serializable{
         return precioFinal;
     }
 
-    public Descuento getDescuento() {
+    public DescuentoPorTipo getDescuento() {
         return descuento;
     }
 
@@ -204,7 +205,7 @@ public class Recibo implements Serializable{
         factura.add(Texto.centrar(String.format(Texto.centrar(""))));
         factura.add(Texto.centrar(String.format("Total articulos comprados: %s", idRecibo)));
         factura.add(Texto.centrar("EN POO BAKERY SOMOS EXPERTOS EN AHORRO:"));
-        factura.add(Texto.centrar(String.format("TU AHORRO HOY FUE DEL %s%", (descuento.getDescuento()*100))));
+        factura.add(Texto.centrar(String.format("TU AHORRO HOY FUE DEL %s%", (descuento.getValor()*100))));
         factura.add(Texto.centrar(String.format("EQUIVALENTE A: ")));
         factura.add(Texto.centrar("POO Bakery"));
         factura.add(Texto.centrar("solo calidad"));

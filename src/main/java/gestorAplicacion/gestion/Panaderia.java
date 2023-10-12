@@ -10,11 +10,12 @@ import java.util.Random;
 import UIMain.GestionCompraMain;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
+import gestorAplicacion.gestion.Cupon.DescuentoPorTipo;
 import gestorAplicacion.humanos.Cliente;
 import gestorAplicacion.humanos.Cocinero;
 import gestorAplicacion.humanos.Domiciliario;
 import gestorAplicacion.humanos.Trabajador;
-import gestorAplicacion.humanos.Cliente.Descuento;
+import gestorAplicacion.humanos.Cliente.*;
 import gestorAplicacion.humanos.Cliente.Direccion;
 
 import java.util.Collections;
@@ -218,21 +219,28 @@ public class Panaderia implements Serializable {
         
     }
 
-    //TODO Desarrollar el metodo enviarDomicilio que recibe una lista de canastas y las envia a domicilio
     public static void enviarDomicilio(List<Canasta> canastas, Cliente cliente) {
-        /* 
-        int direccionCliente = cliente.getDireccion();
-        Descuento descuentoCliente = cliente.getDescuento();
-        int max = getDomiciliarios().size();
-        Random rand = new Random();
-        int domiciliario = rand.nextInt(max);
-        Domiciliario domiciliario1 = getDomiciliarios().get(domiciliario);
-        if (!domiciliario1.laborParticular(canastas, cliente)){
-            enviarDomicilio(canastas, cliente);
+        double precio = 0.0;
+        for (Canasta canasta : canastas){
+            precio += canasta.getCostoTotal();
         }
-        this.dinero += domiciliario1.getDineroEnMano();
-        domiciliario1.setDineroEnMano(0);
-        */
+
+        DescuentoPorTipo descuento = DescuentoPorTipo.NINGUNO;
+
+
+        Domiciliario domiciliario1 = domiciliarioAleatorio();
+        boolean licencia = domiciliario1.isLicencia();
+        while (licencia == false) {
+            domiciliario1 = domiciliarioAleatorio();
+            licencia = domiciliario1.isLicencia();
+        }
+        if (!domiciliario1.laborParticular(canastas)){
+            domiciliario1.setHabilidad(domiciliario1.getHabilidad()+1);
+            domiciliario1.laborParticular(canastas);
+        } else {
+            Recibo recibo = new Recibo(cliente, precio, descuento);
+            cliente.getRecibos().add(0, recibo);
+        }
     }
 
     /**
@@ -699,7 +707,7 @@ public class Panaderia implements Serializable {
 
     //Método sobrevargado registrarCliente
     
-    public static String registrarCliente(String nombre, Integer id, Descuento tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
+    public static String registrarCliente(String nombre, Integer id, DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
     	
     	Cliente cliente = new Cliente(nombre, id, tipoDescuento, presupuesto, canastas, recibos);
     	
@@ -709,7 +717,7 @@ public class Panaderia implements Serializable {
     	
     }
     
-    public static String registrarCliente(String nombre, Integer id, Descuento tipoDescuento, double presupuesto) {
+    public static String registrarCliente(String nombre, Integer id, DescuentoPorTipo tipoDescuento, double presupuesto) {
     	
     	Cliente cliente = new Cliente(nombre, id, tipoDescuento, presupuesto);
     	

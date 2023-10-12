@@ -41,7 +41,10 @@ public class Cupon implements Serializable{
    */
   public enum DescuentoPorTipo {
     ESTUDIANTE(0.1),
-    PROFESOR(0.1);
+    PROFESOR(0.1),
+    NINGUNO(0),
+    SENIOR(0.2),
+    EMPLEADO(0.3);
 
     private final double valor;
 
