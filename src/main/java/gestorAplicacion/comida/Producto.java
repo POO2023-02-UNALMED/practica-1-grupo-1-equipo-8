@@ -14,23 +14,22 @@ public class Producto implements Serializable{
 	private Map<Ingrediente,Integer> ingredientes = new HashMap<Ingrediente,Integer>();
 	private float costo;
 	private String sabor;
-	private float tiempoProducción;
-  	private Integer unidades;
+	private float tiempoProduccion;
+  private Integer unidades;
 	private List<String> procesoDeCocina = new ArrayList<String>();
 	private String id;
 	private static int cantidadProductos;
 	private static List<Producto> productos = new ArrayList<Producto>(); //lista de productos necesaria para dar la lista de opciones y para procesar las ordenes facilmente
 
 	//Constructores
-	public Producto(String nombre, Map<Ingrediente,Integer> ingredientes, float costo, String sabor, float tiempoProducción, Integer unidades) {
+	public Producto(String nombre, Map<Ingrediente,Integer> ingredientes, float costo, String sabor, float tiempoProduccion, Integer unidades) {
 		
 		this.nombre = nombre;
 		this.ingredientes=ingredientes;
 		this.costo=costo;
 		this.sabor = sabor;
-		this.tiempoProducción = tiempoProducción;
+		this.tiempoProduccion = tiempoProduccion;
 		this.unidades = unidades;
-		//this.id = cantidadProductos //sugiero esto para asignar el id de los productos, el id debe coincidir con el indice del producto en la lista productos
 		cantidadProductos++;
 		this.id = String.valueOf(cantidadProductos + Ingrediente.getCantidadIngredientes());
 		Producto.productos.add(this);
@@ -77,12 +76,12 @@ public class Producto implements Serializable{
 		this.sabor = sabor;
 	}
 
-	public float getTiempoProducción() {
-		return tiempoProducción;
+	public float gettiempoProduccion() {
+		return tiempoProduccion;
 	}
 
-	public void setTiempoProducción(float tiempoProducción) {
-		this.tiempoProducción = tiempoProducción;
+	public void settiempoProduccion(float tiempoProduccion) {
+		this.tiempoProduccion = tiempoProduccion;
 	}
 
 	public Integer getUnidades() {

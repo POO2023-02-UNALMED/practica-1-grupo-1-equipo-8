@@ -40,6 +40,7 @@ class CanastaTest {
     ingredientes1.put(ingrediente2, 4);
     producto1 = new Producto("Producto 1", ingredientes1);
     producto2 = new Producto("Producto 2", ingredientes1);
+    System.out.println(producto1.getId());
     kit1 = "Kit 1";
     kit2 = "Kit 2";
     Panaderia.getInvIngredientes().put(ingrediente1, 10);
@@ -48,7 +49,7 @@ class CanastaTest {
     Panaderia.getInvProductos().put(producto2, 10);
     listaIngredienteCantidad1 = new ArrayList<Object>();
     listaIngredienteCantidad1.add(ingredientes1);
-    listaIngredienteCantidad1.add(2);
+    listaIngredienteCantidad1.add(1);
     listaIngredienteCantidad2 = new ArrayList<Object>();
     listaIngredienteCantidad2.add(ingredientes1);
     listaIngredienteCantidad2.add(3);
@@ -86,31 +87,31 @@ class CanastaTest {
 
   @Test
   void testAgregarProductoEnLista() {
-    canasta.agregarProducto("Producto 1", 2);
-    canasta.agregarProducto("Producto 2", 1);
+    canasta.agregarProducto("3", 2);
+    canasta.agregarProducto("4", 1);
     Map<String, Integer> productosEnListaEsperados = new HashMap<String, Integer>();
-    productosEnListaEsperados.put("Producto 1", 2);
-    productosEnListaEsperados.put("Producto 2", 1);
+    productosEnListaEsperados.put("3", 2);
+    productosEnListaEsperados.put("4", 1);
     assertEquals(productosEnListaEsperados, canasta.getProductosEnLista());
   }
 
   @Test
   void testAgregarIngredienteEnLista() {
-    canasta.agregarIngrediente("Ingrediente 1", 3);
-    canasta.agregarIngrediente("Ingrediente 2", 1);
+    canasta.agregarIngrediente("1", 3);
+    canasta.agregarIngrediente("2", 1);
     Map<String, Integer> ingredientesEnListaEsperados = new HashMap<String, Integer>();
-    ingredientesEnListaEsperados.put("Ingrediente 1", 3);
-    ingredientesEnListaEsperados.put("Ingrediente 2", 1);
+    ingredientesEnListaEsperados.put("1", 3);
+    ingredientesEnListaEsperados.put("2", 1);
     assertEquals(ingredientesEnListaEsperados, canasta.getIngredientesEnLista());
   }
 
   @Test
   void testAgregarKitEnLista() {
-    canasta.agregarKit("Kit 1", 2);
-    canasta.agregarKit("Kit 2", 1);
+    canasta.agregarKit("3", 2);
+    canasta.agregarKit("4", 1);
     Map<String, Integer> kitsEnListaEsperados = new HashMap<String, Integer>();
-    kitsEnListaEsperados.put("Kit 1", 2);
-    kitsEnListaEsperados.put("Kit 2", 1);
+    kitsEnListaEsperados.put("3", 2);
+    kitsEnListaEsperados.put("4", 1);
     assertEquals(kitsEnListaEsperados, canasta.getKitsEnLista());
   }
 
@@ -118,7 +119,7 @@ class CanastaTest {
   void testEliminarProducto() {
     canasta.agregarProducto(producto1, 2);
     canasta.agregarProducto(producto2, 1);
-    assertTrue(canasta.eliminarProducto(producto1, 1));
+    assertTrue(canasta.eliminarProducto(producto1, -1));
     Map<Producto, Integer> productosEsperados = new HashMap<Producto, Integer>();
     productosEsperados.put(producto1, 1);
     productosEsperados.put(producto2, 1);
@@ -129,9 +130,8 @@ class CanastaTest {
   void testEliminarIngrediente() {
     canasta.agregarIngrediente(ingrediente1, 3);
     canasta.agregarIngrediente(ingrediente2, 1);
-    assertTrue(canasta.eliminarIngrediente(ingrediente1, 1));
+    assertTrue(canasta.eliminarIngrediente(ingrediente1, -3));
     Map<Ingrediente, Integer> ingredientesEsperados = new HashMap<Ingrediente, Integer>();
-    ingredientesEsperados.put(ingrediente1, 2);
     ingredientesEsperados.put(ingrediente2, 1);
     assertEquals(ingredientesEsperados, canasta.getIngredientes());
   }
@@ -140,7 +140,7 @@ class CanastaTest {
   void testEliminarKit() {
     canasta.agregarKit(kit1, listaIngredienteCantidad1);
     canasta.agregarKit(kit2, listaIngredienteCantidad2);
-    assertTrue(canasta.eliminarKit(kit1,1));
+    assertTrue(canasta.eliminarKit(kit1,-1));
     Map<String, ArrayList<Object>> kitsEsperados = new HashMap<String, ArrayList<Object>>();
     kitsEsperados.put(kit2, listaIngredienteCantidad2);
     assertEquals(kitsEsperados, canasta.getKits());

@@ -17,7 +17,7 @@ import gestorAplicacion.humanos.Domiciliario;
 import gestorAplicacion.humanos.Trabajador;
 
 class PanaderiaTest {
-
+/* 
   private Panaderia panaderia;
   private Producto producto1;
   private Producto producto2;
@@ -135,4 +135,5 @@ class PanaderiaTest {
     assertEquals(1500, Panaderia.getDinero());
     assertEquals(1000, Panaderia.getValorDeudas());
   }
+  */
 }

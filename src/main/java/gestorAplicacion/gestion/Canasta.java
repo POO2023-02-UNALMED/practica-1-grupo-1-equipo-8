@@ -104,14 +104,6 @@ public class Canasta implements Serializable {
     this.kits = kits;
   }
 
-  public double getCosto() {
-    return costoTotal;
-  }
-
-  public void setCosto(float costo) {
-    this.costoTotal = costo;
-  }
-
   public double getCostoTrasDescuento() {
     return costoTrasDescuento;
   }
@@ -406,7 +398,7 @@ public class Canasta implements Serializable {
       Ingrediente i = entry.getKey();
       if (i.getId().equals(ingrediente.getId())) {
         if(entry.getValue()+cantidad>0){
-          ingredientes.put(i, entry.getValue()-cantidad);
+          ingredientes.put(i, entry.getValue()+cantidad);
           return true;
         }
         else if(entry.getValue()+cantidad==0){
@@ -647,7 +639,7 @@ public class Canasta implements Serializable {
   public void generarCostoEnLista(){
     double costoCanasta = 0;
     double descuentoCanasta=0.0;
-    if(productosEnLista!=null){
+    if(productosEnLista!=null && Panaderia.getInvProductos()!=null){
       for (Map.Entry<String, Integer> productoEntry : productosEnLista.entrySet()) {
       Producto producto = Panaderia.buscarProductoPorId(productoEntry.getKey());
       Integer cantidad = productoEntry.getValue();
@@ -656,14 +648,14 @@ public class Canasta implements Serializable {
       descuentoCanasta+= producto.getCosto()*cantidad *(1-descuento);
       }
     }
-    if(ingredientesEnLista!=null){
+    if(ingredientesEnLista!=null && Panaderia.getInvIngredientes()!=null){
       for (Map.Entry<String, Integer> ingredienteEntry : ingredientesEnLista.entrySet()) {
         Ingrediente ingrediente = Panaderia.buscarIngredientePorId(ingredienteEntry.getKey());
         Integer cantidad = ingredienteEntry.getValue();
         costoCanasta += ingrediente.getPrecioDeVenta() * cantidad;
       }
     }
-    if(kitsEnLista!=null){
+    if(kitsEnLista!=null && Panaderia.getInvIngredientes()!=null){
       for (Map.Entry<String, Integer> entry : kitsEnLista.entrySet()) {
         String productoReceta = entry.getKey();
         Producto producto = Panaderia.buscarProductoPorId(productoReceta);
@@ -750,7 +742,7 @@ public class Canasta implements Serializable {
     catch (Exception e){
       return false;
     }
-    if (Panaderia.verificarExistenciaProductoPorId(objetoEntrante)) {
+    if (Panaderia.verificarExistenciaProductoPorNombre(objetoEntrante)) {
       if (receta){
         agregarKit(objetoEntrante, Integer.parseInt(cantidad));
       } else{

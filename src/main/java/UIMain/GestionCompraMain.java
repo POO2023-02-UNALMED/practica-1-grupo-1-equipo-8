@@ -120,7 +120,7 @@ public class GestionCompraMain {
     }
     System.out.println("_".repeat(55));
     System.out.println(Texto.alinear("Descuento efectuado: ",canasta.getDescuento()));
-    System.out.println(Texto.alinear("**** SUBTOTAL/TOTAL *****",canasta.getCosto())); //el valor para i1 sera el total de productos comprados
+    System.out.println(Texto.alinear("**** SUBTOTAL/TOTAL *****",canasta.getCostoTotalEnLista())); //el valor para i1 sera el total de productos comprados
     System.out.println("_".repeat(55));
   }
   

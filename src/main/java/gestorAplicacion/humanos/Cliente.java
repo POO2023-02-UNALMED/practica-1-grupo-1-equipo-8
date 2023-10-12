@@ -42,9 +42,9 @@ public class Cliente implements Serializable{
 	public Cliente(String nombre, Integer id, Direccion direccion, Descuento tipoDescuento, float presupuesto) {
 		
 		List<Canasta> list1 = new ArrayList<Canasta>();
-    	List<Recibo> list2 = new ArrayList<Recibo>();
+    List<Recibo> list2 = new ArrayList<Recibo>();
 
-    	this.nombre = nombre;
+    this.nombre = nombre;
 		this.id = id;
 		this.direccion = direccion;
 		this.tipoDescuento = tipoDescuento;
@@ -59,9 +59,9 @@ public class Cliente implements Serializable{
 	public Cliente(String nombre, Integer id, Direccion direccion, float presupuesto) {
 
 		List<Canasta> list1 = new ArrayList<Canasta>();
-    	List<Recibo> list2 = new ArrayList<Recibo>();
+    List<Recibo> list2 = new ArrayList<Recibo>();
 
-    	this.nombre = nombre;
+    this.nombre = nombre;
 		this.id = id;
 		this.direccion = direccion;
 		this.tipoDescuento = Descuento.NINGUNO;

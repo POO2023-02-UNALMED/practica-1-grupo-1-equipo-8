@@ -230,6 +230,7 @@ public class Panaderia implements Serializable {
 
     //TODO Desarrollar el metodo enviarDomicilio que recibe una lista de canastas y las envia a domicilio
     public static void enviarDomicilio(List<Canasta> canastas, Cliente cliente) {
+        /* 
         int direccionCliente = cliente.getDireccion();
         Descuento descuentoCliente = cliente.getDescuento();
         int max = getDomiciliarios().size();
@@ -241,6 +242,7 @@ public class Panaderia implements Serializable {
         }
         this.dinero += domiciliario1.getDineroEnMano();
         domiciliario1.setDineroEnMano(0);
+        */
     }
 
     /**
@@ -267,6 +269,21 @@ public class Panaderia implements Serializable {
         for (Map.Entry<Ingrediente, Integer> ingredienteEntry : invIngredientes.entrySet()) {
             Ingrediente ingrediente = ingredienteEntry.getKey();
             if (ingrediente.getId().equals(ingrd)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verifica si un producto con el nombre dado existe en el inventario.
+     * @param prdcto el nombre del producto a buscar
+     * @return verdadero si un producto con el nombre dado existe en el inventario, falso en caso contrario
+     */
+    public static boolean verificarExistenciaProductoPorNombre(String prdcto){
+        for (Map.Entry<Producto, Integer> productoEntry : invProductos.entrySet()) {
+            Producto producto = productoEntry.getKey();
+            if (producto.getNombre().equals(prdcto)) {
                 return true;
             }
         }
@@ -581,7 +598,7 @@ public class Panaderia implements Serializable {
         canastaParaCocinar.add(canastaDeProductosCocinar);
         while(true){
             Cocinero cocinero = cocineroAleatorio();
-            if(cocinero.laborParticular(canastaDeProductosCocinar)){
+            if(cocinero.laborParticular(canastaParaCocinar)){
                 break;
             }
             Panaderia.fallosCocinando++;
