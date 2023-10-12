@@ -77,7 +77,7 @@ public abstract class Trabajador implements Serializable{
 		this.robado = robado;
 	}
 
-	public abstract boolean laborParticular(Canasta canasta); //no deberia recibir parametro cliente
+	public abstract boolean laborParticular(ArrayList<Canasta> canasta); //no deberia recibir parametro cliente
 
 	public abstract boolean conseguirIngredientes(Map<Ingrediente, Integer> listingredientes);
 

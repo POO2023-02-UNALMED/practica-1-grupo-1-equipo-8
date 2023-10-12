@@ -21,9 +21,19 @@ public class Domiciliario extends Trabajador implements Serializable{
         this.licencia = false;
     }
 
+    public Domiciliario(String nombre) {
+        super(nombre);
+        this.licencia = false;
+    }
+
     public Domiciliario(String nombre, Boolean licencia) {
         super(nombre);
         this.licencia = licencia;
+    }
+
+    public Domiciliario(String nombre, double habilidad, double dineroEnMano) {
+        super(nombre, habilidad, dineroEnMano);
+        this.licencia = false;
     }
 
     public Domiciliario(String nombre, double habilidad, double dineroEnMano, Boolean licencia) {
@@ -63,7 +73,8 @@ public class Domiciliario extends Trabajador implements Serializable{
         }
     }*/
 
-    public boolean laborParticular(Canasta canasta){
+    public boolean laborParticular(ArrayList<Canasta> canasta){
+        /** 
         Direccion direccion = canasta.getDireccion();
         Cliente cliente = canasta.getCliente();
         Random rand = new Random();
@@ -86,6 +97,8 @@ public class Domiciliario extends Trabajador implements Serializable{
             cliente.getRecibos().add(recibo);
             return true;
         }
+        */
+        return true;
     }
 
     public boolean laborParticular(Canasta canasta, Cliente cliente){
@@ -111,7 +124,7 @@ public class Domiciliario extends Trabajador implements Serializable{
             return true;
         }
     }
-
+/** 
     public boolean laborParticular(List<Canasta> canastas, Cliente cliente){
         Direccion direccion = cliente.getDireccion();
         Random rand = new Random();
@@ -138,7 +151,7 @@ public class Domiciliario extends Trabajador implements Serializable{
             return true;
         }
     }
-
+*/
     public boolean conseguirIngredientes(Map<Ingrediente, Integer> listingredientes){
         
         double valorcompra = 0;

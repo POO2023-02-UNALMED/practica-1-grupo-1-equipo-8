@@ -1,6 +1,5 @@
 package gestorAplicacion.humanos;
 
-import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
 
-public class Cocinero extends Domiciliario implements Serializable{
+public class Cocinero extends Domiciliario{
     private String especialidad;
     private boolean fallado = false;
 
@@ -28,7 +27,7 @@ public class Cocinero extends Domiciliario implements Serializable{
         MAL_OLOR,
         INGREDIENTES_INCORRECTOS,
         DIFICULTADES_INESPERADAS,
-        COCINEOR_DISTRAIDO
+        COCINERO_DISTRAIDO
     }
 
     public Cocinero() {
@@ -67,9 +66,7 @@ public class Cocinero extends Domiciliario implements Serializable{
      * @return Un mapa que contiene los ingredientes necesarios y la cantidad faltante de cada uno.
      *         Si no faltan ingredientes, el mapa estará vacío.
      */
-    public Map<Ingrediente, Integer> ingredientesCocinero (Producto producto) {
-        // Obtiene la lista de ingredientes necesarios para el producto.
-        Map<Ingrediente,Integer> ingredientesNecesarios = producto.getIngredientes();
+    public Map<Ingrediente, Integer> ingredientesCocinero (Map<Ingrediente, Integer> ingredientesNecesarios) {
         // Revisa la cantidad de ingredientes disponibles en la panadería y calcula los faltantes.
         Map<Ingrediente, Integer> ingrFaltantes = Panaderia.revisarCantidadIngredientes(ingredientesNecesarios);
         // Retorna un mapa que contiene los ingredientes necesarios y la cantidad faltante de cada uno.
@@ -138,6 +135,27 @@ public class Cocinero extends Domiciliario implements Serializable{
         }
         return false;
     }
+
+    public Map<Ingrediente, Integer> unirMapasIngredientes(List<Map<Ingrediente, Integer>> listaDeMapas){
+        Map<Ingrediente, Integer> mapaAcumulativo = new HashMap<>();
+        for (Map<Ingrediente, Integer> mapa : listaDeMapas) {
+            mapa.forEach((clave, valor) -> mapaAcumulativo.merge(clave, valor, Integer::sum));
+        }
+        return mapaAcumulativo;
+    }
+
+    public Map<Ingrediente, Integer> multiplicarValoresEnMapa(Map<Ingrediente, Integer> mapa, int multiplicador) {
+        Map<Ingrediente, Integer> nuevoMapa = new HashMap<>();
+    
+        for (Map.Entry<Ingrediente, Integer> entry : mapa.entrySet()) {
+            Ingrediente ingrediente = entry.getKey();
+            int valorOriginal = entry.getValue();
+            int valorNuevo = valorOriginal * multiplicador;
+            nuevoMapa.put(ingrediente, valorNuevo);
+        }
+    
+        return nuevoMapa;
+    }
     
     /**
      * Realiza una labor específica relacionada con la preparación y cocción de productos de la canasta.
@@ -146,22 +164,27 @@ public class Cocinero extends Domiciliario implements Serializable{
      * @return true si la labor se realiza con éxito; false si no se puede realizar debido a la falta de ingredientes o problemas de cocción.
      */
     @Override
-    public boolean laborParticular(Canasta canastaTrabajar) {
+    public boolean laborParticular(ArrayList<Canasta> canastaTrabajar) {
+        Canasta canastaUnica = canastaTrabajar.get(0);
         // Obtiene los productos junto con sus cantidades de la canasta
-        Map<Producto, Integer> productos = canastaTrabajar.getProductos();
-     // Itera a través de los productos en la canasta.
+        Map<Producto, Integer> productos = canastaUnica.getProductos();
+        List<Map<Ingrediente, Integer>> listaDeMapas = new ArrayList<>();
         for (Map.Entry<Producto, Integer> product : productos.entrySet()) {
             Producto producto = product.getKey();
-            // Verifica si faltan ingredientes para cocinar el producto.
-            Map<Ingrediente,Integer> ingrFaltantes= ingredientesCocinero(producto);
-            // Si faltan ingredientes, realiza las siguientes acciones.
-            if(!ingrFaltantes.isEmpty()){
-                 // Compra los ingredientes faltantes en la Panadería.
-                Panaderia.comprarIngredientes(ingrFaltantes);
-             // Retorna falso, indicando que no se puede realizar la labor debido a la falta de ingredientes.
-                return false;
-            }
-        } 
+            Integer cantidad = product.getValue();
+            Map<Ingrediente,Integer> ingredientesNecesarios = producto.getIngredientes();
+            Map<Ingrediente,Integer> ingredientesAbsolutos = multiplicarValoresEnMapa(ingredientesNecesarios,cantidad);
+            listaDeMapas.add(ingredientesAbsolutos);
+        }
+        Map<Ingrediente, Integer> listaIngredientesTotales = unirMapasIngredientes(listaDeMapas);
+        Map<Ingrediente, Integer> ingrFaltantes = ingredientesCocinero(listaIngredientesTotales);
+        if(!ingrFaltantes.isEmpty()){
+            // Compra los ingredientes faltantes en la Panadería.
+        Panaderia.comprarIngredientes(ingrFaltantes);
+        // Retorna falso, indicando que no se puede realizar la labor debido a la falta de ingredientes.
+        return false;
+    }
+    
          // Itera a través de los productos en la canasta nuevamente.
         for (Map.Entry<Producto, Integer> product : productos.entrySet()) {
             Producto producto = product.getKey();
