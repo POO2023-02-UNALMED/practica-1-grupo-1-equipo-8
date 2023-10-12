@@ -20,12 +20,12 @@ public class Cliente implements Serializable{
 	private Direccion direccion;
 	private DescuentoPorTipo tipoDescuento;
 	private double presupuesto;
-	private List<Canasta> canastas = new ArrayList<Canasta>();
+	private ArrayList<Canasta> canastas = new ArrayList<Canasta>();
 	private List<Recibo> recibos = new ArrayList<Recibo>();
 	private static Cliente sesion; //atributo estatico que almacena el cliente que ha iniciado sesion (necesario para parte funcional)
 	// crear cliente con todos los atributos
 
-	public Cliente(String nombre, Integer id, String direccionTXT, Direccion direccion ,DescuentoPorTipo tipoDescuento, double presupuesto, List<Canasta> canastas,
+	public Cliente(String nombre, Integer id, String direccionTXT, Direccion direccion ,DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas,
 			List<Recibo> recibos) {
 
 		this.nombre = nombre;
@@ -44,7 +44,7 @@ public class Cliente implements Serializable{
 
 	public Cliente(String nombre, Integer id, Direccion direccion, DescuentoPorTipo tipoDescuento, double presupuesto) {
 		
-		List<Canasta> list1 = new ArrayList<Canasta>();
+		ArrayList<Canasta> list1 = new ArrayList<Canasta>();
     List<Recibo> list2 = new ArrayList<Recibo>();
 
     this.nombre = nombre;
@@ -61,7 +61,7 @@ public class Cliente implements Serializable{
 
 	public Cliente(String nombre, Integer id, Direccion direccion, double presupuesto) {
 
-		List<Canasta> list1 = new ArrayList<Canasta>();
+		ArrayList<Canasta> list1 = new ArrayList<Canasta>();
     List<Recibo> list2 = new ArrayList<Recibo>();
 
     this.nombre = nombre;
@@ -97,7 +97,7 @@ public class Cliente implements Serializable{
 	}
 
 	public Cliente(){
-		List<Canasta> list1 = new ArrayList<Canasta>();
+		ArrayList<Canasta> list1 = new ArrayList<Canasta>();
         List<Recibo> list2 = new ArrayList<Recibo>();
 		this.tipoDescuento = DescuentoPorTipo.NINGUNO;
 		this.canastas = list1;
@@ -152,7 +152,7 @@ public class Cliente implements Serializable{
 		this.presupuesto = presupuesto;
 	}
 
-	public List<Canasta> getCanastas() {
+	public ArrayList<Canasta> getCanastas() {
 		return canastas;
 	}
 
@@ -168,10 +168,6 @@ public class Cliente implements Serializable{
 		this.recibos = recibos;
 	}
 
-	
-	public void setCanastas(List<Canasta> canastas) {
-		this.canastas = canastas;
-	}
 
 	public void setRecibos(List<Recibo> recibos) {
 		this.recibos = recibos;
@@ -204,7 +200,7 @@ public class Cliente implements Serializable{
 	}
 
 	//TODO trabajar para enviar la canasta a domicilio - Lo de abajo es solo una plantilla
-	public void enviarCanastasADomicilio(List<Canasta> canastas){
+	public void enviarCanastasADomicilio(ArrayList<Canasta> canastas){
 		Panaderia.enviarDomicilio(canastas, this);
 		enviarCanastasAFacturar();
 	}

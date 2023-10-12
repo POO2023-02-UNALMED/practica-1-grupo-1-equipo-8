@@ -219,7 +219,7 @@ public class Panaderia implements Serializable {
         
     }
 
-    public static void enviarDomicilio(List<Canasta> canastas, Cliente cliente) {
+    public static void enviarDomicilio(ArrayList<Canasta> canastas, Cliente cliente) {
         double precio = 0.0;
         for (Canasta canasta : canastas){
             precio += canasta.getCostoTotal();

@@ -51,7 +51,7 @@ public class Domiciliario extends Trabajador implements Serializable{
     }
 
 
-    public boolean laborParticular(List<Canasta> canasta){
+    public boolean laborParticular(ArrayList<Canasta> canasta){
         Random rand = new Random();
         int probabilidad = rand.nextInt(10);
         if (probabilidad > habilidad){
