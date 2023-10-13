@@ -68,25 +68,28 @@ public class Cliente implements Serializable{
 
 	}
 
-	public Cliente(String nombre, Integer id, DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
+	public Cliente(String nombre, Integer id, String contrasena,  DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
 		this.nombre = nombre;
 		this.id = id;
+		this.contrasena  = contrasena;
 		this.tipoDescuento = tipoDescuento;
 		this.presupuesto = presupuesto;
 		this.canastas = canastas;
 		this.recibos = recibos;
 	}
 
-	public Cliente(String nombre,int id,DescuentoPorTipo tipoDescuento, double presupuesto){
+	public Cliente(String nombre,int id, String contrasena, DescuentoPorTipo tipoDescuento, double presupuesto){
 		this.nombre = nombre;
 		this.id = id;
+		this.contrasena = contrasena;
 		this.tipoDescuento = tipoDescuento;
 		this.presupuesto = presupuesto;
 	}
 
-	public Cliente (String nombre, int id, double presupuesto){
+	public Cliente (String nombre, int id, String contrasena, double presupuesto){
 		this.nombre = nombre;
 		this.id = id;
+		this.contrasena = contrasena;
 		this.presupuesto = presupuesto;
 	}
 
@@ -96,6 +99,7 @@ public class Cliente implements Serializable{
 		this.tipoDescuento = DescuentoPorTipo.NINGUNO;
 		this.canastas = list1;
 		this.recibos = list2;
+		this.contrasena = "1234";
 	}
 
 	public String getNombre() {

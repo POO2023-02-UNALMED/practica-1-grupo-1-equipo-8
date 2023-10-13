@@ -771,9 +771,9 @@ public class Panaderia implements Serializable {
      * @param recibos Los recibos que ha generado el cliente.
      * @return Un mensaje indicando que el cliente ha sido registrado con éxito.
      */
-    public static String registrarCliente(String nombre, int id, DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
+    public static String registrarCliente(String nombre, Integer id, String contrasena, DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
     	
-    	Cliente cliente = new Cliente(nombre, id, tipoDescuento, presupuesto, canastas, recibos);
+    	Cliente cliente = new Cliente(nombre, id, contrasena, tipoDescuento, presupuesto, canastas, recibos);
     	
     	Panaderia.clientes.add(cliente);
     	
@@ -789,9 +789,9 @@ public class Panaderia implements Serializable {
      * @param presupuesto El presupuesto del cliente.
      * @return Un mensaje indicando que el cliente ha sido registrado con éxito bajo el nombre proporcionado.
      */
-    public static String registrarCliente(String nombre, Integer id, DescuentoPorTipo tipoDescuento, double presupuesto) {
+    public static String registrarCliente(String nombre, Integer id, String contrasena, DescuentoPorTipo tipoDescuento, double presupuesto) {
     	
-    	Cliente cliente = new Cliente(nombre, id, tipoDescuento, presupuesto);
+    	Cliente cliente = new Cliente(nombre, id, contrasena, tipoDescuento, presupuesto);
     	
     	Panaderia.clientes.add(cliente);
     	
@@ -807,9 +807,9 @@ public class Panaderia implements Serializable {
      * @return Un mensaje indicando que el cliente ha sido registrado con éxito.
      * El mensaje incluye el nombre del cliente registrado.
      */
-    public static String registrarCliente(String nombre, Integer id, double presupuesto) {
+    public static String registrarCliente(String nombre, Integer id, String contrasena, double presupuesto) {
     	
-    	Cliente cliente = new Cliente(nombre, id, presupuesto);
+    	Cliente cliente = new Cliente(nombre, id, contrasena, presupuesto);
     	
     	Panaderia.clientes.add(cliente);
     	
