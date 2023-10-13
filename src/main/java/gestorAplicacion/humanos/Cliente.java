@@ -18,19 +18,20 @@ public class Cliente implements Serializable{
 	private int id;
 	private String contrasena;
 	private String direccionTXT;
-	private Direccion direccion;
-	private DescuentoPorTipo tipoDescuento;
-	private double presupuesto;
+	private Direccion direccion = null;
+	private DescuentoPorTipo tipoDescuento = null;
+	private double presupuesto = 0;
 	private ArrayList<Canasta> canastas = new ArrayList<Canasta>();
 	private List<Recibo> recibos = new ArrayList<Recibo>();
 	private static Cliente sesion; //atributo estatico que almacena el cliente que ha iniciado sesion (necesario para parte funcional)
 	// crear cliente con todos los atributos
 
-	public Cliente(String nombre, Integer id, String direccionTXT, Direccion direccion ,DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas,
+	public Cliente(String nombre, Integer id, String contrasena, String direccionTXT, Direccion direccion ,DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas,
 			List<Recibo> recibos) {
 
 		this.nombre = nombre;
 		this.id = id;
+		this.contrasena = contrasena;
 		this.direccionTXT = direccionTXT;
 		this.direccion = direccion;
 		this.tipoDescuento = tipoDescuento;
@@ -43,13 +44,14 @@ public class Cliente implements Serializable{
 	// crear un cliente sin pasarles listas de canastas y recibos (constructor
 	// estandar)
 
-	public Cliente(String nombre, Integer id, Direccion direccion, DescuentoPorTipo tipoDescuento, double presupuesto) {
+	public Cliente(String nombre, Integer id, String contrasena, Direccion direccion, DescuentoPorTipo tipoDescuento, double presupuesto) {
 		
 		ArrayList<Canasta> list1 = new ArrayList<Canasta>();
-    List<Recibo> list2 = new ArrayList<Recibo>();
+		List<Recibo> list2 = new ArrayList<Recibo>();
 
-    this.nombre = nombre;
+        this.nombre = nombre;
 		this.id = id;
+		this.contrasena = contrasena;
 		this.direccion = direccion;
 		this.tipoDescuento = tipoDescuento;
 		this.presupuesto = presupuesto;
@@ -60,22 +62,13 @@ public class Cliente implements Serializable{
 
 	// crear un cliente el cual no tiene ningún descuento
 
-	public Cliente(String nombre, Integer id, Direccion direccion, double presupuesto) {
+	public Cliente(String nombre, Integer id, String contrasena, Direccion direccion, double presupuesto) {
 
-		ArrayList<Canasta> list1 = new ArrayList<Canasta>();
-    List<Recibo> list2 = new ArrayList<Recibo>();
-
-    this.nombre = nombre;
-		this.id = id;
-		this.direccion = direccion;
-		this.tipoDescuento = DescuentoPorTipo.NINGUNO;
-		this.presupuesto = presupuesto;
-		this.canastas = list1;
-		this.recibos = list2;
+		this(nombre, id, contrasena, direccion, DescuentoPorTipo.NINGUNO, presupuesto);
 
 	}
 
-	public Cliente(String nombre, int id, DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
+	public Cliente(String nombre, Integer id, DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
 		this.nombre = nombre;
 		this.id = id;
 		this.tipoDescuento = tipoDescuento;
@@ -221,44 +214,114 @@ public class Cliente implements Serializable{
 
 	//Métodos para agregar la informacion faltante del cliente
 	//TODO trabajar los metodos de abajo(Sahely)
+	
+	/*
+	 * Esta función se encarga de gestionar los datos faltantes del cliente
+	 * Se encarga de ver si las tres funciones de abajo retornan true, es decir, si el cliente tiene direccion, presupuesto y descuento
+	 * Si alguna de las tres funciones retorna false, se le pide al cliente que ingrese la informacion faltante retornando un string que avise del problema
+	 * Si ya está todo completo se retorna un string vacío
+	 */
+	
 	public String gestionDatosFaltantes(){
-		/*
-		 * Esta función se encarga de gestionar los datos faltantes del cliente
-		 * Se encarga de ver si las tres funciones de abajo retornan true, es decir, si el cliente tiene direccion, presupuesto y descuento
-		 * Si alguna de las tres funciones retorna false, se le pide al cliente que ingrese la informacion faltante retornando un string que avise del problema
-		 * Si ya está todo completo se retorna un string vacío
-		 */
-		return "";
+		
+		boolean x = this.verificarDireccion();
+		boolean y = this.verificarPresupuesto();
+		boolean z = this.verificarDescuentoPorTipo();
+		
+		if (x == false & y == true & z == true) {
+			
+			return "Falta dirección";
+		}
+		
+		else if (x == false & y == false & z == true){
+			
+			return "Falta dirección y presupuesto";
+		}
+		
+		else if (x == false & y == true & z == false){
+			
+			return "Falta dirección y descuento";
+		}
+		
+		else if (x == true & y == false & z == true){
+			
+			return "Falta presupuesto";
+		}
+		
+		else if (x == true & y == false & z == false){
+			
+			return "Falta presupuesto y descuento";
+		}
+		
+		else if (x == true & y == true & z == false){
+			
+			return "Falta descuento";
+		}
+		
+		else {
+			
+			return "";
+		}
 	}
+	
+	/*
+	 * Esta función se encarga de verificar si el cliente que está en sesión tiene
+	 * direccion válida
+	 * Si tiene direccion válida, se devuelve true
+	 * Si no tiene direccion válida, se devuelve false
+	 */
 
 	public boolean verificarDireccion() {
-		/*
-		 * Esta función se encarga de verificar si el cliente que está en sesión tiene
-		 * direccion válida
-		 * Si tiene direccion válida, se devuelve true
-		 * Si no tiene direccion válida, se devuelve false
-		 */
-		return true;
+		
+		if (this.direccion == null) {
+			
+			return false;
+		}
+		
+		else {
+			
+			return true;
+		}		
 	}
+	
+	/*
+	 * Esta función se encarga de verificar si el cliente que está en sesión tiene
+	 * presupuesto
+	 * Si tiene presupuesto, se devuelve true
+	 * Si no tiene presupuesto, se devuelve false
+	 */
 
 	public boolean verificarPresupuesto() {
-		/*
-		 * Esta función se encarga de verificar si el cliente que está en sesión tiene
-		 * presupuesto
-		 * Si tiene presupuesto, se devuelve true
-		 * Si no tiene presupuesto, se devuelve false
-		 */
-		return true;
+		
+		if (this.presupuesto == 0) {
+			
+			return false;
+		}
+		
+		else {
+			
+			return true;
+		}	
 	}
+	
+	/*
+	 * Esta función se encarga de verificar si el cliente que está en sesión tiene
+	 * descuento
+	 * Si tiene descuento, se devuelve true
+	 * Si no tiene descuento, se devuelve false
+	 */
 
 	public boolean verificarDescuentoPorTipo() {
-		/*
-		 * Esta función se encarga de verificar si el cliente que está en sesión tiene
-		 * descuento
-		 * Si tiene descuento, se devuelve true
-		 * Si no tiene descuento, se devuelve false
-		 */
-		return true;
+		
+		if (this.tipoDescuento == null) {
+			
+			return false;
+		}
+		
+		else {
+			
+			return true;
+		}
 	}
 
 	public boolean establecerDomicilioValido(String direccion, String ciudad) {
