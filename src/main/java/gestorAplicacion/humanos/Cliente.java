@@ -222,10 +222,10 @@ public class Cliente implements Serializable{
 	 * Si ya está todo completo se retorna un string vacío
 	 */
 	
-	public String gestionDatosFaltantes(){
+	public String gestionDatosFaltantes(double valorCompra){
 		
 		boolean x = this.verificarDireccion();
-		boolean y = this.verificarPresupuesto();
+		boolean y = this.verificarPresupuesto(valorCompra);
 		boolean z = this.verificarDescuentoPorTipo();
 		
 		if (x == false & y == true & z == true) {
@@ -291,9 +291,9 @@ public class Cliente implements Serializable{
 	 * Si no tiene presupuesto, se devuelve false
 	 */
 
-	public boolean verificarPresupuesto() {
+	public boolean verificarPresupuesto(double valorCompra) {
 		
-		if (this.presupuesto == 0) {
+		if (this.presupuesto <= valorCompra) {
 			
 			return false;
 		}
@@ -323,34 +323,77 @@ public class Cliente implements Serializable{
 			return true;
 		}
 	}
+	
+	/*
+	 * Esta función se encarga de establecer el domicilio del cliente que está en
+	 * sesión
+	 * Se le pasa el domicilio, y se verifica que sea válido
+	 * Si es válido, se establece el domicilio y se devuelve true
+	 * Si no es válido, se devuelve false
+	 * También se debe hacer la logica para establecer la direccion del atributo de
+	 * tipo direccion, porque en el atributo que es direccionTXT se guarda la
+	 * direccion señuelo en formato de texto, y la idea es sacarle el
+	 * establecimiento al cliente con la ciudad a traves del enum Direccion de
+	 * cliente
+	 * Si no hay ciudad valida hay que printear que hasta allá no se tiene cobertura
+	 */
 
 	public boolean establecerDomicilioValido(String direccion, String ciudad) {
-		/*
-		 * Esta función se encarga de establecer el domicilio del cliente que está en
-		 * sesión
-		 * Se le pasa el domicilio, y se verifica que sea válido
-		 * Si es válido, se establece el domicilio y se devuelve true
-		 * Si no es válido, se devuelve false
-		 * También se debe hacer la logica para establecer la direccion del atributo de
-		 * tipo direccion, porque en el atributo que es direccionTXT se guarda la
-		 * direccion señuelo en formato de texto, y la idea es sacarle el
-		 * establecimiento al cliente con la ciudad a traves del enum Direccion de
-		 * cliente
-		 * Si no hay ciudad valida hay que printear que hasta allá no se tiene cobertura
-		 */
-		return true;
+		
+		boolean desicion = false; 
+		Direccion necesaria = null;
+		
+		Direccion[] DireccionesValidas = Direccion.values();
+		
+		for (Direccion i: DireccionesValidas) {
+			
+			if (ciudad.toUpperCase() == i.name()) {
+				
+				desicion = true;
+				necesaria = i;
+				break;
+			}		
+		}
+		
+		if (desicion == true) {
+			
+			this.direccionTXT = direccion;
+			this.direccion = necesaria;
+		}
+		
+		return desicion;
+		//tengo que hacer un método que lea esto para decir si sí fue valido o no 
 	}
+	
+	/*
+	 * Esta función se encarga de establecer el presupuesto del cliente que está en
+	 * sesión
+	 * Se le pasa el presupuesto, y se verifica que sea válido
+	 * Si es válido, se establece el presupuesto y se devuelve true
+	 * Si no es válido, se devuelve false
+	 */
 
-	public boolean establecerPresupuestoValido(double presupuesto) {
-		/*
-		 * Esta función se encarga de establecer el presupuesto del cliente que está en
-		 * sesión
-		 * Se le pasa el presupuesto, y se verifica que sea válido
-		 * Si es válido, se establece el presupuesto y se devuelve true
-		 * Si no es válido, se devuelve false
-		 */
-		return true;
+	public boolean establecerPresupuestoValido(double presupuesto, double valorCompra) {
+		
+		if (presupuesto < valorCompra) {
+			
+			return false;
+		}
+		
+		else {
+			
+			return true;
+		}
+		//tengo que hacer un método que lea esto para decir si sí fue valido o no 
 	}
+	
+	/*
+	 * Esta función se encarga de establecer el descuento del cliente que está en sesión
+	 * A esta funcion se le pasa lo de Estudiante, Empleado, Maestro o así para que compare con el enum y establezca el descuento
+	 * Se le pasa el descuento, y se verifica que sea válido
+	 * Si es válido, se establece el descuento y se devuelve true
+	 * Si no es válido, se devuelve false
+	 */
 
 	public boolean establecerDescuentoPorTipoValido(String descuento) {
 		/*
