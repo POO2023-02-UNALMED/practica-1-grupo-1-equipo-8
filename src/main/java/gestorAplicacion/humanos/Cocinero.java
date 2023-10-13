@@ -279,7 +279,6 @@ public boolean conseguirIngredientes(Map<Ingrediente, Integer> listingredientes)
         }
 
         return this.robado;
-    
     }
   }
 }
