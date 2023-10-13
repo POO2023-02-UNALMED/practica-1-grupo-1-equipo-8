@@ -705,9 +705,73 @@ public class Panaderia implements Serializable {
         return kitsCanasta;
     }
 
+    //Metodos para la gestion de cuentas de los clientes
+    // TODO trabajar los metodos de abajo(Sahely)
+    public static boolean inicioSesion(int id, String contrasena){
+            /* 
+            * Lo mismo que el método de abajo, podría cambiarse para que devuelva un string con el tipo de error en vez de booleano
+            */
+            for (Cliente cliente : Panaderia.clientes){
+    
+                if (cliente.getId() == id && cliente.getContrasena().equals(contrasena)){
+    
+                    Cliente.setSesion(cliente);
+                    return true;
+    
+                }
+    
+            }
+            return false;
+    
+    }
+
+
+    public static boolean crearCuenta(String nombre, int id, String contrasena, double presupuesto){
+        /* 
+         * Esta función se encarga de crear una cuenta de cliente, la idea es que solo pase los parametros nombre, id, contrasena y presupuesto (O tambien se puede plantear para que se pregunte por el presupuesto luego de crear la cuenta)
+         * si no existe un cliente con el mismo nombre e id, se crea un cliente con los parametros dados (Se manda a registro cliente)
+         * en caso contrario, si ya existe, se devuelve false, para que la capa funcional pueda hacer sus respectivas impresiones y volver a llamar el crear cuenta
+         * También se puede cambiar para devolver un String indicando el tipo de error en vez de un booleano, esa puede ser mejor opcion
+         * 
+         * También recomiendo plantear otra funcion (está abajo) que se encargue de verificar si la contraseña es valida, tipo poniendole una longitud minima y que deba incluir numeros o así, sería bacano
+         * claramente la info de esa funcion debería ser notificada a traves de retornos de strings para saver que está mal
+        */
+        return true;
+    }
+
+    public static String verificarContraseñaNueva(String Contraseña){
+        /* 
+         * Esta función se encarga de verificar si la contraseña nueva cumple con los requisitos de seguridad
+         * Si no cumple con los requisitos, devuelve un string indicando el tipo de error
+         * Si cumple con los requisitos, devuelve un string vacio
+        */
+        return "";
+    }
+
+    public static boolean cambiarContraseña(String contraseñaNueva){
+        /* 
+         * No sé si sea bueno plantear esta funcion, pero se podria hacer
+         * Esta función se encarga de cambiar la contraseña del cliente que está en sesión
+         * Se le pasa la contraseña nueva, y se verifica que cumpla con los requisitos de seguridad
+         * Si cumple con los requisitos, se cambia la contraseña y se devuelve true
+         * Si no cumple con los requisitos, se devuelve false
+        */
+        return true;
+    }
+
     //Método sobrevargado registrarCliente
     
-    public static String registrarCliente(String nombre, Integer id, DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
+    /**
+     * Registra un nuevo cliente en la panadería con la información proporcionada.
+     * @param nombre El nombre del cliente.
+     * @param id El identificador del cliente.
+     * @param tipoDescuento El tipo de descuento que se aplicará al cliente.
+     * @param presupuesto El presupuesto del cliente.
+     * @param canastas Las canastas que ha comprado el cliente.
+     * @param recibos Los recibos que ha generado el cliente.
+     * @return Un mensaje indicando que el cliente ha sido registrado con éxito.
+     */
+    public static String registrarCliente(String nombre, int id, DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
     	
     	Cliente cliente = new Cliente(nombre, id, tipoDescuento, presupuesto, canastas, recibos);
     	
@@ -717,6 +781,14 @@ public class Panaderia implements Serializable {
     	
     }
     
+    /**
+     * Registra un nuevo cliente en la panadería con los datos proporcionados.
+     * @param nombre El nombre del cliente.
+     * @param id El identificador del cliente.
+     * @param tipoDescuento El tipo de descuento que se aplicará al cliente.
+     * @param presupuesto El presupuesto del cliente.
+     * @return Un mensaje indicando que el cliente ha sido registrado con éxito bajo el nombre proporcionado.
+     */
     public static String registrarCliente(String nombre, Integer id, DescuentoPorTipo tipoDescuento, double presupuesto) {
     	
     	Cliente cliente = new Cliente(nombre, id, tipoDescuento, presupuesto);
@@ -727,6 +799,14 @@ public class Panaderia implements Serializable {
     
     }
     
+    /**
+     * Registra un nuevo cliente con el nombre, ID y presupuesto dados.
+     * @param nombre El nombre del cliente.
+     * @param id El ID del cliente.
+     * @param presupuesto El presupuesto del cliente.
+     * @return Un mensaje indicando que el cliente ha sido registrado con éxito.
+     * El mensaje incluye el nombre del cliente registrado.
+     */
     public static String registrarCliente(String nombre, Integer id, double presupuesto) {
     	
     	Cliente cliente = new Cliente(nombre, id, presupuesto);
