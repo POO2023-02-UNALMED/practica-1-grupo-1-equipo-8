@@ -16,19 +16,7 @@ public class Cocinero extends Domiciliario{
     private String especialidad;
     private boolean fallado = false;
 
-    public enum FallosCocinando{
-        QUEMADO,
-        CRUDO,
-        INGREDIENTES_INSUFICIENTES,
-        CORTADO,
-        VENCIDO,
-        DEMASIADO_PICANTE,
-        DEMASIADO_SALADO,
-        MAL_OLOR,
-        INGREDIENTES_INCORRECTOS,
-        DIFICULTADES_INESPERADAS,
-        COCINERO_DISTRAIDO
-    }
+
 
     public Cocinero() {
         super();
@@ -39,8 +27,8 @@ public class Cocinero extends Domiciliario{
         this.especialidad = especialidad;
     }
 
-    public Cocinero(String nombre, double habilidad, double dineroEnMano, String especialidad) {
-        super(nombre, habilidad, dineroEnMano);
+    public Cocinero(String nombre, double habilidad,double calificacion, double dineroEnMano, String especialidad) {
+        super(nombre, habilidad, calificacion,dineroEnMano);
         this.especialidad = especialidad;
     }
 

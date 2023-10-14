@@ -18,6 +18,10 @@ public abstract class Trabajador implements Serializable{
         this("John Doe", 0, 0, 1000000);
     }
 
+    public Trabajador(String nombre) {
+        this(nombre, 0, 0, 1000000);
+    }
+
     public Trabajador(String nombre, double calificacion, double dineroEnMano, double salario) {
         Random rand = new Random();
 

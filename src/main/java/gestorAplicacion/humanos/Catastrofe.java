@@ -6,6 +6,20 @@ public class Catastrofe {
     
     private int maldad;
 
+    public enum FallosCocinando{
+        QUEMADO,
+        CRUDO,
+        INGREDIENTES_INSUFICIENTES,
+        CORTADO,
+        VENCIDO,
+        DEMASIADO_PICANTE,
+        DEMASIADO_SALADO,
+        MAL_OLOR,
+        INGREDIENTES_INCORRECTOS,
+        DIFICULTADES_INESPERADAS,
+        COCINERO_DISTRAIDO
+    }
+
     public Catastrofe() {
         Random rand = new Random();
         this.maldad = rand.nextInt(10) + 1; // 1 <= maldad <= 10

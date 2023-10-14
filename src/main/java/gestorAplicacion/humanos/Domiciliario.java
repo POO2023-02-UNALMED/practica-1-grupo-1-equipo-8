@@ -22,6 +22,20 @@ public class Domiciliario extends Trabajador implements Serializable{
         this.canasta = null;
     }
 
+    public Domiciliario(String nombre) {
+        super(nombre);
+        this.licencia = false;
+        this.ocupado = false;
+        this.canasta = null;
+    }
+
+    public Domiciliario(String nombre, double habilidad, double calificacion, double dineroEnMano) {
+        super(nombre, habilidad, calificacion, dineroEnMano);
+        this.licencia = false;
+        this.ocupado = false;
+        this.canasta = null;
+    }
+
     public Domiciliario(String nombre, double habilidad, double calificacion, double dineroEnMano, Boolean licencia) {
         super(nombre, habilidad, calificacion, dineroEnMano);
         this.licencia = licencia;

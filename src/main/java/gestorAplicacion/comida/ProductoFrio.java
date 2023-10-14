@@ -14,7 +14,7 @@ public class ProductoFrio extends Producto{
     this.tiempoDeVida = tiempoDeVida;
   }
 
-  public ProductoFrio(String nombre, HashMap<String,Integer> ingredientes) {
+  public ProductoFrio(String nombre, HashMap<String,Integer> ingredientes,double tipoDeEnvase, int tiempoDeVida) {
     super(nombre, ingredientes);
     this.tipoDeEnvase = tipoDeEnvase;
     this.tiempoDeVida = tiempoDeVida;
