@@ -1,40 +1,31 @@
 package gestorAplicacion.humanos;
 
 import java.util.Random;
-
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.gestion.Canasta;
-import gestorAplicacion.gestion.Panaderia;
-
-import java.util.List;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Trabajador implements Serializable{
     protected String nombre;
     protected double habilidad;
-    protected double habilidadParticular;
+    protected double calificacion;
     protected double dineroEnMano;
+    protected double salario;
     protected boolean robado;
 
     public Trabajador() {
-        this("John Doe", 0, 0);
+        this("John Doe", 0, 0, 1000000);
     }
 
-    public Trabajador(String nombre) {
+    public Trabajador(String nombre, double calificacion, double dineroEnMano, double salario) {
         Random rand = new Random();
-        this.nombre = nombre;
-        this.habilidad = rand.nextDouble() * 10; // 0 <= habilidad <= 10
-        this.dineroEnMano = 0;
-        this.robado = false;
-    }
 
-    public Trabajador(String nombre, double habilidad, double dineroEnMano) {
         this.nombre = nombre;
-        this.habilidad = habilidad;
+        this.calificacion = calificacion;
+        this.habilidad = rand.nextInt(10) + 1; // 1 <= habilidad <= 10
         this.dineroEnMano = dineroEnMano;
+        this.salario = salario;
         this.robado = false;
     }
 
@@ -46,8 +37,16 @@ public abstract class Trabajador implements Serializable{
         return habilidad;
     }
 
+    public double getCalificacion() {
+        return calificacion;
+    }
+
     public double getDineroEnMano() {
         return dineroEnMano;
+    }
+
+    public double getSalario() {
+        return salario;
     }
 
     public void setNombre(String nombre) {
@@ -58,16 +57,17 @@ public abstract class Trabajador implements Serializable{
         this.habilidad = habilidad;
     }
 
-    public void setDineroEnMano(double dineroEnMano) {
+    public void setCalificacion(double calificacion) {
+        this.calificacion = calificacion;
     }
 
-    public double getHabilidadParticular() {
-		return habilidadParticular;
-	}
+    public void setDineroEnMano(double dineroEnMano) {
+        this.dineroEnMano = dineroEnMano;
+    }
 
-	public void setHabilidadParticular(double habilidadParticular) {
-		this.habilidadParticular = habilidadParticular;
-	}
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
 
 	public boolean isRobado() {
 		return robado;

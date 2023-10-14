@@ -2,31 +2,30 @@ package gestorAplicacion.humanos;
 
 import java.util.Map;
 import java.util.Random;
-import java.util.List;
 
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
-import gestorAplicacion.gestion.Recibo;
-import gestorAplicacion.humanos.Cliente.Direccion;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Domiciliario extends Trabajador implements Serializable{
     Boolean licencia;
     Boolean ocupado;
+    Canasta canasta;
 
     public Domiciliario() {
         super();
         this.licencia = false;
-        this.licencia = false;
+        this.ocupado = false;
+        this.canasta = null;
     }
 
-    public Domiciliario(String nombre, double habilidad, double dineroEnMano, Boolean licencia) {
-        super(nombre, habilidad, dineroEnMano);
+    public Domiciliario(String nombre, double habilidad, double calificacion, double dineroEnMano, Boolean licencia) {
+        super(nombre, habilidad, calificacion, dineroEnMano);
         this.licencia = licencia;
         this.ocupado = false;
+        this.canasta = null;
     }
 
     public Boolean isLicencia() {
@@ -45,18 +44,28 @@ public class Domiciliario extends Trabajador implements Serializable{
         this.ocupado = ocupado;
     }
 
-
-    public boolean laborParticular(ArrayList<Canasta> canasta){
-        Random rand = new Random();
-        int probabilidad = rand.nextInt(10);
-        if (probabilidad > habilidad){
-            this.habilidad++;
-            return false;
-        } 
-        return true;
+    public Canasta getCanasta() {
+        return canasta;
     }
 
-    
+    public void setCanasta(Canasta canasta) {
+        this.canasta = canasta;
+    }
+
+
+    public boolean laborParticular(Canasta canasta){
+        Catastrofe malechor = new Catastrofe();
+        if (malechor.pincharLLanta(this)){
+            return false;
+        }
+        else{
+            this.canasta = null;
+            this.ocupado = false;
+            return true;
+        }
+    }
+
+
     public boolean conseguirIngredientes(Map<Ingrediente, Integer> listingredientes){
         
         double valorcompra = 0;

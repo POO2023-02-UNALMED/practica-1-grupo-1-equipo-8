@@ -25,6 +25,7 @@ public class Cliente implements Serializable{
 	private List<Recibo> recibos = new ArrayList<Recibo>();
 	private static Cliente sesion; //atributo estatico que almacena el cliente que ha iniciado sesion (necesario para parte funcional)
 	// crear cliente con todos los atributos
+	private Domiciliario domiciliario;
 
 	public Cliente(String nombre, Integer id, String contrasena, String direccionTXT, Direccion direccion ,DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas,
 			List<Recibo> recibos) {
@@ -192,6 +193,14 @@ public class Cliente implements Serializable{
 		Cliente.sesion = sesion;
 	}
 
+	public Domiciliario getDomiciliario() {
+		return domiciliario;
+	}
+
+	public void setDomiciliario(Domiciliario domiciliario) {
+		this.domiciliario = domiciliario;
+	}
+
 	public void crearCanasta() {
 
 		Canasta canasta = new Canasta(null, null);
@@ -199,21 +208,25 @@ public class Cliente implements Serializable{
 
 	}
 
+	public void calificarDomiciliario(Domiciliario domiciliario, double calificacion){
+		double calificacionVieja = domiciliario.getCalificacion();
+		double calificacionNueva = (calificacionVieja + calificacion)/2;
+		domiciliario.setCalificacion(calificacionNueva);
+	}
+
+
 	//TODO trabajar para enviar la canasta a pagar - Lo de abajo es solo una plantilla
-	public void enviarCanastasAFacturar() {
-		/* 
-		for (Canasta canasta : this.canastas) {
-			Recibo recibo = new Recibo(canasta, this);
-			this.recibos.add(recibo);
-		}
-		Panaderia.cobrarCliente(canastas,recibos);
-		*/
+	public void enviarCanastasAFacturar(Canasta canastas) {
+		Panaderia.
 	}
 
 	//TODO trabajar para enviar la canasta a domicilio - Lo de abajo es solo una plantilla
-	public void enviarCanastasADomicilio(ArrayList<Canasta> canastas){
+	public void enviarCanastasADomicilio(Canasta canastas){
+		enviarCanastasAFacturar(canastas);
 		Panaderia.enviarDomicilio(canastas, this);
-		enviarCanastasAFacturar();
+		double calificacion = pedirCalificacion();
+		calificarDomiciliario(domiciliario, calificacion);
+		Panaderia.reviewDomiciliario(domiciliario);
 	}
 
 	//Métodos para agregar la informacion faltante del cliente
@@ -341,19 +354,6 @@ public class Cliente implements Serializable{
 	 * cliente
 	 * Si no hay ciudad valida hay que printear que hasta allá no se tiene cobertura
 	 */
-
-	public static boolean cambiarContrasena(String ContrasenaNueva) {
-		/*
-		 * No sé si sea bueno plantear esta funcion, pero se podria hacer
-		 * Esta función se encarga de cambiar la Contrasena del cliente que está en
-		 * sesión
-		 * Se le pasa la Contrasena nueva, y se verifica que cumpla con los requisitos
-		 * de seguridad
-		 * Si cumple con los requisitos, se cambia la Contrasena y se devuelve true
-		 * Si no cumple con los requisitos, se devuelve false
-		 */
-		return true;
-	}
 
 	public boolean establecerDomicilioValido(String direccion, String ciudad) {
 		

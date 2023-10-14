@@ -218,27 +218,28 @@ public class Panaderia implements Serializable {
         
     }
 
-    public static void enviarDomicilio(ArrayList<Canasta> canastas, Cliente cliente) {
-        double precio = 0.0;
-        for (Canasta canasta : canastas){
-            precio += canasta.getCostoTotal();
+    public static void enviarDomicilio(Canasta canasta, Cliente cliente) {
+        Domiciliario domiciliario = domiciliarioAleatorio();
+        if (!domiciliario.isLicencia()){
+            Panaderia.restarDinero(10000);
+            domiciliario.setLicencia(true);
         }
-
-        DescuentoPorTipo descuento = DescuentoPorTipo.NINGUNO;
-
-
-        Domiciliario domiciliario1 = domiciliarioAleatorio();
-        boolean licencia = domiciliario1.isLicencia();
-        while (licencia == false) {
-            domiciliario1 = domiciliarioAleatorio();
-            licencia = domiciliario1.isLicencia();
+        domiciliario.setCanasta(canasta);
+        domiciliario.setOcupado(true);
+        boolean logro = domiciliario.laborParticular(canasta);
+        while (!logro){
+            domiciliario.setHabilidad(domiciliario.getHabilidad()+1);
+            logro = domiciliario.laborParticular(canasta);
         }
-        if (!domiciliario1.laborParticular(canastas)){
-            domiciliario1.setHabilidad(domiciliario1.getHabilidad()+1);
-            domiciliario1.laborParticular(canastas);
-        } else {
-            Recibo recibo = new Recibo(cliente, precio, descuento);
-            cliente.getRecibos().add(0, recibo);
+        cliente.setDomiciliario(domiciliario);
+    }
+
+    public static void reviewDomiciliario(Domiciliario domiciliario){
+        double calificacion = domiciliario.getCalificacion();
+        if (calificacion < 3){
+            domiciliario.setSalario(domiciliario.getSalario()*0.9);
+        } else if (calificacion == 5){
+            domiciliario.setSalario(domiciliario.getSalario()*1.1);
         }
     }
 
