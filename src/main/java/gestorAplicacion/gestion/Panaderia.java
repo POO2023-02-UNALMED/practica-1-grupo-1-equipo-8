@@ -21,9 +21,8 @@ import gestorAplicacion.humanos.Cliente.Direccion;
 import java.util.Collections;
 
 public class Panaderia implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private static Map<Ingrediente, Integer> invIngredientes= new HashMap<Ingrediente, Integer>();
-    private static Map<Producto,Integer> invProductos = new HashMap<Producto,Integer>();
+    private static ArrayList<Ingrediente> invIngredientes= new ArrayList<Ingrediente>();
+    private static ArrayList<Producto> invProductos = new ArrayList<Producto>();
     private static ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
     private static ArrayList<Cocinero> cocineros = new ArrayList<Cocinero>();
     private static ArrayList<Domiciliario> domiciliarios = new ArrayList<Domiciliario>();
@@ -42,11 +41,11 @@ public class Panaderia implements Serializable {
     }
 
     // metodos get:
-    public static Map<Producto,Integer> getInvProductos() {
+    public static ArrayList<Producto> getInvProductos() {
         return invProductos;
     }
 
-    public static Map<Ingrediente, Integer> getInvIngredientes() {
+    public static ArrayList<Ingrediente> getInvIngredientes() {
         return invIngredientes;
     }
 
@@ -75,11 +74,11 @@ public class Panaderia implements Serializable {
     }
 
     // metodos set:
-    public static void setInvProductos(Map<Producto,Integer> newInvProductos) {
+    public static void setInvProductos(ArrayList<Producto> newInvProductos) {
         invProductos = newInvProductos;
     }
 
-    public static void setInvIngredientes(Map<Ingrediente, Integer> newInvIngredientes) {
+    public static void setInvIngredientes(ArrayList<Ingrediente> newInvIngredientes) {
         invIngredientes = newInvIngredientes;
     }
 
@@ -733,30 +732,19 @@ public class Panaderia implements Serializable {
          * en caso contrario, si ya existe, se devuelve false, para que la capa funcional pueda hacer sus respectivas impresiones y volver a llamar el crear cuenta
          * También se puede cambiar para devolver un String indicando el tipo de error en vez de un booleano, esa puede ser mejor opcion
          * 
-         * También recomiendo plantear otra funcion (está abajo) que se encargue de verificar si la contraseña es valida, tipo poniendole una longitud minima y que deba incluir numeros o así, sería bacano
+         * También recomiendo plantear otra funcion (está abajo) que se encargue de verificar si la Contrasena es valida, tipo poniendole una longitud minima y que deba incluir numeros o así, sería bacano
          * claramente la info de esa funcion debería ser notificada a traves de retornos de strings para saver que está mal
         */
         return true;
     }
 
-    public static String verificarContraseñaNueva(String Contraseña){
+    public static String verificarContrasenaNueva(String Contrasena){
         /* 
-         * Esta función se encarga de verificar si la contraseña nueva cumple con los requisitos de seguridad
+         * Esta función se encarga de verificar si la Contrasena nueva cumple con los requisitos de seguridad
          * Si no cumple con los requisitos, devuelve un string indicando el tipo de error
          * Si cumple con los requisitos, devuelve un string vacio
         */
         return "";
-    }
-
-    public static boolean cambiarContraseña(String contraseñaNueva){
-        /* 
-         * No sé si sea bueno plantear esta funcion, pero se podria hacer
-         * Esta función se encarga de cambiar la contraseña del cliente que está en sesión
-         * Se le pasa la contraseña nueva, y se verifica que cumpla con los requisitos de seguridad
-         * Si cumple con los requisitos, se cambia la contraseña y se devuelve true
-         * Si no cumple con los requisitos, se devuelve false
-        */
-        return true;
     }
 
     //Método sobrevargado registrarCliente

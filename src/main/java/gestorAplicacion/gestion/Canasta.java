@@ -19,9 +19,9 @@ import java.util.ArrayList;
 **/
 public class Canasta implements Serializable {
 
-  private Map<Producto, Integer> productos = new HashMap<Producto, Integer>();
-  private Map<Ingrediente, Integer> ingredientes = new HashMap<Ingrediente, Integer>();
-  private Map<String, ArrayList<Object>> kits = new HashMap<String, ArrayList<Object>>();
+  private ArrayList<Producto> productos = new ArrayList<Producto>();
+  private ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+  private ArrayList<HashMap<String,ArrayList<Ingrediente>>> kits = new ArrayList<HashMap<String,ArrayList<Ingrediente>>>();
   
   private Map<String, Integer> productosEnLista = new HashMap<String, Integer>();
   private Map<String, Integer> ingredientesEnLista = new HashMap<String, Integer>();
@@ -39,9 +39,9 @@ public class Canasta implements Serializable {
 
   // Constructores Canasta
   public Canasta() {
-    this.productos = new HashMap<Producto, Integer>();
-    this.ingredientes = new HashMap<Ingrediente, Integer>();
-    this.kits = new HashMap<String, ArrayList<Object>>();
+    this.productos = new ArrayList<Producto>();
+    this.ingredientes = new ArrayList<Ingrediente>();
+    this.kits = new ArrayList<HashMap<String,ArrayList<Ingrediente>>>();
     this.identificador = "";
     this.itemsTotalesEnCanasta = 0;
     this.costoTotal = 0;
@@ -50,57 +50,43 @@ public class Canasta implements Serializable {
     generarCosto();
     calcularElementosCanasta();
   }
-  public Canasta(String identificador, Map<Producto, Integer> productos, Map<Ingrediente, Integer> ingredientes) { 
-    this.identificador = identificador;
+  public Canasta(ArrayList<Producto> productos, ArrayList<Ingrediente> ingredientes, ArrayList<HashMap<String,ArrayList<Ingrediente>>> kits) { 
     this.productos = productos;
     this.ingredientes = ingredientes;
+    this.kits = kits;
     generarCosto();
     calcularElementosCanasta();
   }
-  public Canasta(Map<Producto, Integer> productos, Map<Ingrediente, Integer> ingredientes) { 
-    this.productos = productos;
-    this.ingredientes = ingredientes;
+
+  public Canasta(Map<String, Integer> productosEnLista, Map<String, Integer> ingredientesEnLista, Map<String, Integer> kitsEnLista) { 
+    this.productosEnLista = productosEnLista;
+    this.ingredientesEnLista = ingredientesEnLista;
     generarCosto();
     calcularElementosCanasta();
   }
   
-  //TODO modificar el constructor, así no funciona canasta
-  /* 
-  public Canasta(ArrayList<Canasta> canastas, Direccion direccion, Cliente cliente) {
-    double costo = 0;
-    for (Canasta canasta : canastas) {
-      costo += canasta.getCosto();
-    }
-    Random rand = new Random();
-    this.identificador = Integer.toString(rand.nextInt(1000));
-    this.productosEnLista = new HashMap<String, Integer>();
-    this.ingredientesEnLista = new HashMap<String, Integer>();
-    this.costo = costo;
-    this.descuento = cliente.getTipoDescuento().getDescuento();
-  }
-  */
   // getters y setters de los atributos
-  public Map<Producto, Integer> getProductos() {
+  public ArrayList<Producto> getProductos() {
     return productos;
   }
 
-  public void setProductos(Map<Producto, Integer> productos) {
+  public void setProductos(ArrayList<Producto> productos) {
     this.productos = productos;
   }
 
-  public Map<Ingrediente, Integer> getIngredientes() {
+  public ArrayList<Ingrediente> getIngredientes() {
     return ingredientes;
   }
 
-  public void setIngredientes(Map<Ingrediente, Integer> ingredientes) {
+  public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
     this.ingredientes = ingredientes;
   }
 
-  public Map<String, ArrayList<Object>> getKits() {
+  public ArrayList<HashMap<String,ArrayList<Ingrediente>>> getKits() {
     return kits;
   }
 
-  public void setKits(Map<String, ArrayList<Object>> kits) {
+  public void setKits(ArrayList<HashMap<String,ArrayList<Ingrediente>>> kits) {
     this.kits = kits;
   }
 
@@ -684,7 +670,7 @@ public class Canasta implements Serializable {
   public boolean recibirOrden(String objetoEntrante, String cantidad, boolean receta) {
     if (Integer.parseInt(cantidad) < 0) {
       boolean estado;
-      if (Panaderia.verificarExistenciaProductoPorId(objetoEntrante)) {
+      if (Producto.verificacionExistenciaPorId(objetoEntrante)) {
         if (receta){
           estado = eliminarKit(objetoEntrante, Integer.parseInt(cantidad), true);
         } 
@@ -698,7 +684,7 @@ public class Canasta implements Serializable {
           return false;
         }
       } 
-      else if (Panaderia.verificarExistenciaIngredientePorId(objetoEntrante) && !receta) {
+      else if (Ingrediente.verificacionExistenciaPorId(objetoEntrante) && !receta) {
         estado=eliminarIngrediente(objetoEntrante, Integer.parseInt(cantidad));
         if (estado){
           return true;

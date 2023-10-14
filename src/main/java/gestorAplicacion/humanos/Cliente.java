@@ -342,6 +342,19 @@ public class Cliente implements Serializable{
 	 * Si no hay ciudad valida hay que printear que hasta allá no se tiene cobertura
 	 */
 
+	public static boolean cambiarContrasena(String ContrasenaNueva) {
+		/*
+		 * No sé si sea bueno plantear esta funcion, pero se podria hacer
+		 * Esta función se encarga de cambiar la Contrasena del cliente que está en
+		 * sesión
+		 * Se le pasa la Contrasena nueva, y se verifica que cumpla con los requisitos
+		 * de seguridad
+		 * Si cumple con los requisitos, se cambia la Contrasena y se devuelve true
+		 * Si no cumple con los requisitos, se devuelve false
+		 */
+		return true;
+	}
+
 	public boolean establecerDomicilioValido(String direccion, String ciudad) {
 		
 		boolean desicion = false; 
