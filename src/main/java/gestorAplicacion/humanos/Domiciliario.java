@@ -12,34 +12,21 @@ import gestorAplicacion.humanos.Cliente.Direccion;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.ArrayList;
 
 public class Domiciliario extends Trabajador implements Serializable{
     Boolean licencia;
+    Boolean ocupado;
 
     public Domiciliario() {
         super();
         this.licencia = false;
-    }
-
-    public Domiciliario(String nombre) {
-        super(nombre);
-        this.licencia = false;
-    }
-
-    public Domiciliario(String nombre, Boolean licencia) {
-        super(nombre);
-        this.licencia = licencia;
-    }
-
-    public Domiciliario(String nombre, double habilidad, double dineroEnMano) {
-        super(nombre, habilidad, dineroEnMano);
         this.licencia = false;
     }
 
     public Domiciliario(String nombre, double habilidad, double dineroEnMano, Boolean licencia) {
         super(nombre, habilidad, dineroEnMano);
         this.licencia = licencia;
+        this.ocupado = false;
     }
 
     public Boolean isLicencia() {
@@ -48,6 +35,14 @@ public class Domiciliario extends Trabajador implements Serializable{
 
     public void setLicencia(Boolean licencia) {
         this.licencia = licencia;
+    }
+
+    public Boolean isOcupado() {
+        return ocupado;
+    }
+
+    public void setOcupado(Boolean ocupado) {
+        this.ocupado = ocupado;
     }
 
 
@@ -61,34 +56,7 @@ public class Domiciliario extends Trabajador implements Serializable{
         return true;
     }
 
-/** 
-    public boolean laborParticular(List<Canasta> canastas, Cliente cliente){
-        Direccion direccion = cliente.getDireccion();
-        Random rand = new Random();
-        int probabilidad = rand.nextInt(100);
-        if (probabilidad > habilidad){
-            this.habilidad++;
-            return false;
-        }
-        else{
-            // Se le cobra al cliente
-            double costoTotal = 0.0;
-            for (Canasta canasta : canastas) {
-                canasta.generarCosto();
-                costoTotal += canasta.getCostoTotal();
-            }
-            cliente.setPresupuesto(cliente.getPresupuesto() - costoTotal);
-            // Se le paga al domiciliario
-            dineroEnMano += costoTotal;
-            // Se le agrega el recibo al cliente
-            Recibo recibo = new Recibo(canastas, direccion, cliente);
-            cliente.getRecibos().add(recibo);
-            // Se le agrega el recibo al domiciliario
-            cliente.getRecibos().add(recibo);
-            return true;
-        }
-    }
-*/
+    
     public boolean conseguirIngredientes(Map<Ingrediente, Integer> listingredientes){
         
         double valorcompra = 0;
