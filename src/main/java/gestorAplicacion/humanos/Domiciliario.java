@@ -70,7 +70,7 @@ public class Domiciliario extends Trabajador implements Serializable{
         }
     }
 
-
+    //TODO: arreglar
     public boolean conseguirIngredientes(Map<Ingrediente, Integer> listingredientes){
         
         double valorcompra = 0;

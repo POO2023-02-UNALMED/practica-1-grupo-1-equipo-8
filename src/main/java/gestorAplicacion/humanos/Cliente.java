@@ -202,6 +202,8 @@ public class Cliente implements Serializable{
 		this.domiciliario = domiciliario;
 	}
 
+
+	//TODO revisar 
 	public void crearCanasta() {
 
 		Canasta canasta = new Canasta(null, null);
@@ -221,7 +223,6 @@ public class Cliente implements Serializable{
 		
 	}
 
-	//TODO trabajar para enviar la canasta a domicilio - Lo de abajo es solo una plantilla
 	public void enviarCanastasADomicilio(Canasta canastas){
 		enviarCanastasAFacturar(canastas);
 		Panaderia.enviarDomicilio(canastas, this);
