@@ -3,6 +3,7 @@ package gestorAplicacion.humanos;
 import java.util.Map;
 import java.util.Random;
 
+import UIMain.GestionDomicilioCliente;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
@@ -56,12 +57,16 @@ public class Domiciliario extends Trabajador implements Serializable{
     public boolean laborParticular(Canasta canasta){
         Catastrofe malechor = new Catastrofe();
         if (malechor.pincharLLanta(this)){
-            return false;
+            boolean x = false;
+            GestionDomicilioCliente.estadoDomicilio(x);
+            return x;
         }
         else{
             this.canasta = null;
             this.ocupado = false;
-            return true;
+            boolean x = true;
+            GestionDomicilioCliente.estadoDomicilio(x);
+            return x;
         }
     }
 

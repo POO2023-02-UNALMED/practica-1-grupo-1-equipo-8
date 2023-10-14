@@ -11,6 +11,7 @@ import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
 import gestorAplicacion.gestion.Recibo;
 import gestorAplicacion.gestion.Cupon.DescuentoPorTipo;
+import UIMain.GestionDomicilioCliente;
 
 public class Cliente implements Serializable{
 
@@ -217,14 +218,14 @@ public class Cliente implements Serializable{
 
 	//TODO trabajar para enviar la canasta a pagar - Lo de abajo es solo una plantilla
 	public void enviarCanastasAFacturar(Canasta canastas) {
-		Panaderia.
+		
 	}
 
 	//TODO trabajar para enviar la canasta a domicilio - Lo de abajo es solo una plantilla
 	public void enviarCanastasADomicilio(Canasta canastas){
 		enviarCanastasAFacturar(canastas);
 		Panaderia.enviarDomicilio(canastas, this);
-		double calificacion = pedirCalificacion();
+		double calificacion = GestionDomicilioCliente.pedirCalificacion();
 		calificarDomiciliario(domiciliario, calificacion);
 		Panaderia.reviewDomiciliario(domiciliario);
 	}
