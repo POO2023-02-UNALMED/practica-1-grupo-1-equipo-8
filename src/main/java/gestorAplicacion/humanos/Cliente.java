@@ -205,9 +205,9 @@ public class Cliente implements Serializable{
 
 	//TODO revisar 
 	public void crearCanasta() {
-
-		Canasta canasta = new Canasta(null, null);
-		this.canastas.add(canasta);
+		
+		//Canasta canasta = new Canasta(null, null);
+		//this.canastas.add(canasta);
 
 	}
 

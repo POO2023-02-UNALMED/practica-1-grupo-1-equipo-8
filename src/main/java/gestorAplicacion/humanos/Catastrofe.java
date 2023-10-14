@@ -30,4 +30,6 @@ public class Catastrofe {
         }
         return false;
     }
+
+    //TODO: la idea es que se implementen las otras catastrofes para las otras funcionalidades
 }

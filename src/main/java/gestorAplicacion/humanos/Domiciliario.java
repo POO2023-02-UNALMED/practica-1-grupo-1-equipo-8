@@ -70,7 +70,7 @@ public class Domiciliario extends Trabajador implements Serializable{
         }
     }
 
-    //TODO: arreglar
+    //TODO: arreglar porque ya no se estan implementando los hasmasps de antes. Hay que hablar con TEO
     public boolean conseguirIngredientes(Map<Ingrediente, Integer> listingredientes){
         
         double valorcompra = 0;
@@ -86,15 +86,15 @@ public class Domiciliario extends Trabajador implements Serializable{
      if (valorcompra <= Panaderia.getDinero()){
 
         this.dineroEnMano += valorcompra;
-        Panaderia.setDinero((float) (Panaderia.getDinero()-valorcompra));
+        Panaderia.setDinero((double) (Panaderia.getDinero()-valorcompra));
 
      }
 
      else{
 
-        Panaderia.conseguirPrestamo( (float) valorcompra);
+        Panaderia.conseguirPrestamo( (double) valorcompra);
         this.dineroEnMano += valorcompra;
-        Panaderia.setDinero((float) (Panaderia.getDinero()-valorcompra));
+        Panaderia.setDinero((double) (Panaderia.getDinero()-valorcompra));
 
      }
 
