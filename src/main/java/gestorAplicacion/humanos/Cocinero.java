@@ -219,15 +219,15 @@ public boolean conseguirIngredientes(Map<Ingrediente, Integer> listingredientes)
      if (valorcompra <= Panaderia.getDinero()){
 
         this.dineroEnMano += valorcompra;
-        Panaderia.setDinero((float) (Panaderia.getDinero()-valorcompra));
+        Panaderia.setDinero((double) (Panaderia.getDinero()-valorcompra));
 
      }
 
      else{
 
-        Panaderia.conseguirPrestamo( (float) valorcompra);
+        Panaderia.conseguirPrestamo( (double) valorcompra);
         this.dineroEnMano += valorcompra;
-        Panaderia.setDinero((float) (Panaderia.getDinero()-valorcompra));
+        Panaderia.setDinero((double) (Panaderia.getDinero()-valorcompra));
 
      }
 
