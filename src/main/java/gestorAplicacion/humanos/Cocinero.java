@@ -67,19 +67,6 @@ public class Cocinero extends Domiciliario{
      * @param cocinero El cocinero que cocina el producto.
      * @return true si el producto se quema, false en caso contrario.
      */
-    public boolean productoFallado(Cocinero cocinero){
-        cocinero.setFallado(false);
-        // Genera un número aleatorio entre 0 y 19 (inclusive)
-        Random numAleatorio = new Random();
-         int dificultadProducto = numAleatorio.nextInt(20); 
-         // Si la dificultad es igual a 1, se marca el producto como quemado por el cocinero.
-         if(dificultadProducto == Ingrediente.probabilidadConstante){
-            cocinero.setFallado(true);
-            return cocinero.isFallado();
-         }
-         // Si no se quema, se retorna el estado actual de quemado del cocinero.
-         return false;
-    }
     /**
      * Encuentra al cocinero ideal para un proceso de cocina específico.
      *
@@ -113,10 +100,11 @@ public class Cocinero extends Domiciliario{
     }
 
     public boolean procesoCocinar(Producto producto){
+        Catastrofe dificultad = new Catastrofe();
         List<String> procesoCook= producto.getProcesoDeCocina();
         for (String proceso : procesoCook){
             Cocinero chefIdeal = cocineroIdeal(proceso);
-            boolean cookProducto = productoFallado(chefIdeal);
+            boolean cookProducto = dificultad.dificultadProducto(chefIdeal);
             if (cookProducto){
                 return true;
             }

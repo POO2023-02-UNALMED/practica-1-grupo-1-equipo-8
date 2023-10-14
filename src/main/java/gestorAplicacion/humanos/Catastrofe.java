@@ -6,20 +6,6 @@ public class Catastrofe {
     
     private int maldad;
 
-    public enum FallosCocinando{
-        QUEMADO,
-        CRUDO,
-        INGREDIENTES_INSUFICIENTES,
-        CORTADO,
-        VENCIDO,
-        DEMASIADO_PICANTE,
-        DEMASIADO_SALADO,
-        MAL_OLOR,
-        INGREDIENTES_INCORRECTOS,
-        DIFICULTADES_INESPERADAS,
-        COCINERO_DISTRAIDO
-    }
-
     public Catastrofe() {
         Random rand = new Random();
         this.maldad = rand.nextInt(10) + 1; // 1 <= maldad <= 10
@@ -40,6 +26,14 @@ public class Catastrofe {
     public boolean pincharLLanta(Domiciliario domiciliario){
         if (domiciliario.habilidad < this.maldad){
             domiciliario.setLicencia(false);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean dificultadProducto(Cocinero cocinero){
+        if (cocinero.habilidad < this.maldad){
+            cocinero.setFallado(false);
             return true;
         }
         return false;
