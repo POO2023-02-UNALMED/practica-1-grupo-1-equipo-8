@@ -22,14 +22,18 @@ import java.util.Collections;
 public class Panaderia implements Serializable {
     private static ArrayList<Ingrediente> invIngredientes= new ArrayList<Ingrediente>();
     private static ArrayList<Producto> invProductos = new ArrayList<Producto>();
+
     private static ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
     private static ArrayList<Cocinero> cocineros = new ArrayList<Cocinero>();
     private static ArrayList<Domiciliario> domiciliarios = new ArrayList<Domiciliario>();
     private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+
     private static double dinero;
-    private static Canasta canastaDelDia;
     private static double valorDeudas;
     private static boolean enQuiebra = false;
+
+    private static Canasta canastaDelDia;
+    private static ArrayList<Canasta> canastasPublicadas = new ArrayList<Canasta>();
     static {
         // Agregar lista de productos de la canasta del dia
         canastaDelDia = new Canasta();
@@ -121,6 +125,14 @@ public class Panaderia implements Serializable {
         Panaderia.enQuiebra = enQuiebra;
     }
 
+    public static ArrayList<Canasta> getCanastasPublicadas() {
+        return canastasPublicadas;
+    }
+
+    public static void setCanastasPublicadas(ArrayList<Canasta> canastasPublicadas) {
+        Panaderia.canastasPublicadas = canastasPublicadas;
+    }
+
     //Metodos para agregar elementos a las listas
     public static void agregarTrabajador(Trabajador cocinero) {
         trabajadores.add(cocinero);
@@ -145,6 +157,11 @@ public class Panaderia implements Serializable {
     public static void restarDinero(double dinero) {
         Panaderia.dinero -= dinero;
     }
+
+    public static void agregarCanastasPublicadas(Canasta canasta) {
+        canastasPublicadas.add(canasta);
+    }
+
     public static Cocinero contratarCocinero(String nombre, double habilidad, double dineroEnMano, String especialidad) {
         Cocinero indicado = new Cocinero(nombre, habilidad, dineroEnMano, especialidad);
         cocineros.add(indicado);
@@ -559,37 +576,16 @@ public class Panaderia implements Serializable {
      * @param nombre El nombre del cliente.
      * @param id El identificador del cliente.
      * @param tipoDescuento El tipo de descuento que se aplicará al cliente.
-     * @param presupuesto El presupuesto del cliente.
-     * @param canastas Las canastas que ha comprado el cliente.
-     * @param recibos Los recibos que ha generado el cliente.
      * @return Un mensaje indicando que el cliente ha sido registrado con éxito.
      */
-    public static String registrarCliente(String nombre, Integer id, String contrasena, DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
+    public static String registrarCliente(String nombre, Integer id, String contrasena) {
     	
-    	Cliente cliente = new Cliente(nombre, id, contrasena, tipoDescuento, presupuesto, canastas, recibos);
-    	
-    	Panaderia.clientes.add(cliente);
-    	
-    	return "Ha sido registrado como cliente con exito bajo el nombre: " + cliente.getNombre();
-    	
-    }
-    
-    /**
-     * Registra un nuevo cliente en la panadería con los datos proporcionados.
-     * @param nombre El nombre del cliente.
-     * @param id El identificador del cliente.
-     * @param tipoDescuento El tipo de descuento que se aplicará al cliente.
-     * @param presupuesto El presupuesto del cliente.
-     * @return Un mensaje indicando que el cliente ha sido registrado con éxito bajo el nombre proporcionado.
-     */
-    public static String registrarCliente(String nombre, Integer id, String contrasena, DescuentoPorTipo tipoDescuento, double presupuesto) {
-    	
-    	Cliente cliente = new Cliente(nombre, id, contrasena, tipoDescuento, presupuesto);
+    	Cliente cliente = new Cliente(nombre, id, contrasena);
     	
     	Panaderia.clientes.add(cliente);
     	
     	return "Ha sido registrado como cliente con exito bajo el nombre: " + cliente.getNombre();
-    
+    	
     }
     
     /**

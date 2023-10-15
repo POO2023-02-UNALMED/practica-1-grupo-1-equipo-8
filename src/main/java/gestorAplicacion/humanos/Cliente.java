@@ -53,7 +53,7 @@ public class Cliente implements Serializable{
 		
 		List<Recibo> list2 = new ArrayList<Recibo>();
 
-        this.nombre = nombre;
+    this.nombre = nombre;
 		this.id = id;
 		this.contrasena = contrasena;
 		this.direccion = direccion;
@@ -63,30 +63,10 @@ public class Cliente implements Serializable{
 
 	}
 
-	// crear un cliente el cual no tiene ningún descuento
-
-	public Cliente(String nombre, Integer id, String contrasena, Direccion direccion, double presupuesto) {
-
-		this(nombre, id, contrasena, direccion, DescuentoPorTipo.NINGUNO, presupuesto);
-
-	}
-
-	public Cliente(String nombre, Integer id, String contrasena,  DescuentoPorTipo tipoDescuento, double presupuesto, Canasta canasta, ArrayList<Recibo> recibos) {
-		this.nombre = nombre;
-		this.id = id;
-		this.contrasena  = contrasena;
-		this.tipoDescuento = tipoDescuento;
-		this.presupuesto = presupuesto;
-		this.canastaOrden = canasta;
-		this.recibos = recibos;
-	}
-
-	public Cliente(String nombre,int id, String contrasena, DescuentoPorTipo tipoDescuento, double presupuesto){
+	public Cliente (String nombre, int id, String contrasena){
 		this.nombre = nombre;
 		this.id = id;
 		this.contrasena = contrasena;
-		this.tipoDescuento = tipoDescuento;
-		this.presupuesto = presupuesto;
 	}
 
 	public Cliente (String nombre, int id, String contrasena, double presupuesto){
@@ -97,7 +77,7 @@ public class Cliente implements Serializable{
 	}
 
 	public Cliente(){
-        List<Recibo> list2 = new ArrayList<Recibo>();
+    List<Recibo> list2 = new ArrayList<Recibo>();
 		this.tipoDescuento = DescuentoPorTipo.NINGUNO;
 		this.recibos = list2;
 		this.contrasena = "1234";
@@ -235,8 +215,40 @@ public class Cliente implements Serializable{
 		return this.canastaOrden;
 	}
 
-	public void publicarCanasta() {
-		
+	public void publicarCanasta(Canasta canasta, int calificacion, String comentario){
+		ArrayList<Producto> listaVacia = new ArrayList<Producto>();
+		ArrayList<Ingrediente> listaVacia2 = new ArrayList<Ingrediente>();
+		ArrayList<ArrayList<Ingrediente>> listaVacia3 = new ArrayList<ArrayList<Ingrediente>>();
+		canasta.setProductos(listaVacia);
+		canasta.setIngredientes(listaVacia2);
+		canasta.setKits(listaVacia3);
+		canasta.setPagada(false);
+		canasta.setCalificacion(calificacion);
+		canasta.setComentario(comentario);
+		Panaderia.agregarCanastasPublicadas(canasta);
+	}
+
+	public void publicarCanasta(Canasta canasta){
+		ArrayList<Producto> listaVacia = new ArrayList<Producto>();
+		ArrayList<Ingrediente> listaVacia2 = new ArrayList<Ingrediente>();
+		ArrayList<ArrayList<Ingrediente>> listaVacia3 = new ArrayList<ArrayList<Ingrediente>>();
+		canasta.setProductos(listaVacia);
+		canasta.setIngredientes(listaVacia2);
+		canasta.setKits(listaVacia3);
+		canasta.setPagada(false);
+		Panaderia.agregarCanastasPublicadas(canasta);
+	}
+
+	public void publicarCanasta(Canasta canasta, int calificacion){
+		ArrayList<Producto> listaVacia = new ArrayList<Producto>();
+		ArrayList<Ingrediente> listaVacia2 = new ArrayList<Ingrediente>();
+		ArrayList<ArrayList<Ingrediente>> listaVacia3 = new ArrayList<ArrayList<Ingrediente>>();
+		canasta.setProductos(listaVacia);
+		canasta.setIngredientes(listaVacia2);
+		canasta.setKits(listaVacia3);
+		canasta.setPagada(false);
+		canasta.setCalificacion(calificacion);
+		Panaderia.agregarCanastasPublicadas(canasta);
 	}
 
 	public void calificarDomiciliario(Domiciliario domiciliario, double calificacion){
