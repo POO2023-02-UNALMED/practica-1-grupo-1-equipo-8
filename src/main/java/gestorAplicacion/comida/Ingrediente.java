@@ -141,19 +141,29 @@ public class Ingrediente implements Serializable{
 		return ingrediente;
 	}
 	
+	public static Ingrediente obtenerObjetoPorId(String id) {
+		Ingrediente ingrediente = null;
+		for (int i = 0; i < baseDatosIngredientes.size(); i++) {
+			if (baseDatosIngredientes.get(i).getId().equals(id)) {
+				ingrediente = baseDatosIngredientes.get(i);
+			}
+		}
+		return ingrediente;
+	}
 	
 	/**
 	 * Crea un nuevo objeto Ingrediente con el nombre especificado. Si ya existe un Ingrediente con ese nombre, devuelve una copia del Ingrediente existente.
 	 * @param Nnombre el nombre del Ingrediente a crear o copiar
 	 * @return un nuevo objeto Ingrediente o una copia del Ingrediente existente
 	 */
-	public static Ingrediente crearIngrediente(String Nnombre) {
-		if(!verificacionExistenciaPorNombre(Nnombre)) {
-			return new Ingrediente(Nnombre);
-		}
-		else {
-			Ingrediente newIngrediente = obtenerObjetoPorNombre(Nnombre);
+	public static Ingrediente crearIngrediente(String nombreId) {
+		if(verificacionExistenciaPorNombre(nombreId) || verificacionExistenciaPorId(nombreId)) {
+			Ingrediente newIngrediente = obtenerObjetoPorNombre(nombreId);
 			return new Ingrediente(newIngrediente.getNombre(), newIngrediente.getId(), newIngrediente.getPrecioDeVenta(), newIngrediente.getPrecioDeCompra(), newIngrediente.getVecesVendido());
+		}
+
+		else {
+			return new Ingrediente(nombreId);
 		}
 	}
 

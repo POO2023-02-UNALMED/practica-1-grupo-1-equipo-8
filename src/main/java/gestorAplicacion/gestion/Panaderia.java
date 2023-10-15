@@ -303,14 +303,27 @@ public class Panaderia implements Serializable {
 
     // Método para agregar un ingrediente al inventario
 
+    /**
+     * Agrega un ingrediente a la lista de ingredientes disponibles en la panadería.
+     * @param ingrediente El ingrediente a agregar.
+     */
     public static void agregarIngrediente(Ingrediente ingrediente) {
         invIngredientes.add(ingrediente);
     }
 
+    /**
+     * Agrega un producto a la lista de productos disponibles en la panadería.
+     * @param producto el producto a agregar.
+     */
     public static void agregarProducto(Producto producto) {
         invProductos.add(producto);
     }
 
+    /**
+     * Resta la cantidad especificada de un ingrediente del inventario de la panadería.
+     * @param ingrediente el id del ingrediente a restar.
+     * @param cantidad la cantidad de ingredientes a restar.
+     */
     public static void restarIngrediente(String ingrediente, int cantidad) {
         if(verificarCantidadIngredientePorId(ingrediente) >= cantidad) {
             for(int i = 0; i < cantidad; i++){
@@ -324,6 +337,11 @@ public class Panaderia implements Serializable {
         }
     }
 
+    /**
+     * Resta la cantidad especificada de un ingrediente del inventario de la panadería.
+     * @param ingrediente el ingrediente a restar
+     * @param cantidad la cantidad de ingrediente a restar
+     */
     public static void restarIngrediente(Ingrediente ingrediente, int cantidad) {
         if(verificarCantidadIngredientePorId(ingrediente.getId()) >= cantidad) {
             for(int i = 0; i < cantidad; i++){
@@ -337,6 +355,11 @@ public class Panaderia implements Serializable {
         }
     }
 
+    /**
+     * Resta la cantidad especificada de un producto del inventario de la panadería.
+     * @param producto el id del producto a restar.
+     * @param cantidad la cantidad de productos a restar.
+     */
     public static void restarProducto(String producto, int cantidad) {
         if(verificarCantidadProductoPorId(producto) >= cantidad) {
             for(int i = 0; i < cantidad; i++){
@@ -350,6 +373,11 @@ public class Panaderia implements Serializable {
         }
     }
 
+    /**
+     * Resta la cantidad especificada de un producto del inventario de la panadería.
+     * @param producto el producto a restar del inventario
+     * @param cantidad la cantidad de producto a restar
+     */
     public static void restarProducto(Producto producto, int cantidad) {
         if(verificarCantidadProductoPorId(producto.getId()) >= cantidad) {
             for(int i = 0; i < cantidad; i++){
@@ -363,6 +391,10 @@ public class Panaderia implements Serializable {
         }
     }
 
+    /**
+     * Método que permite cocinar una canasta de productos utilizando un cocinero aleatorio.
+     * @param productosParaCocinar HashMap que contiene los productos y su cantidad necesaria para cocinar.
+     */
     public static void cocinar(HashMap<String, Integer> productosParaCocinar) {
         Canasta canastaDeProductosCocinar = new Canasta();
         canastaDeProductosCocinar.setProductosEnLista(productosParaCocinar);
@@ -377,6 +409,12 @@ public class Panaderia implements Serializable {
     }
 
 
+    /**
+     * Agrega los productos especificados en una canasta y devuelve una lista de los productos agregados.
+     * Si algún producto no tiene suficiente cantidad en la panadería, se cocinará la cantidad faltante.
+     * @param productos un HashMap que contiene los IDs de los productos y la cantidad deseada de cada uno.
+     * @return una ArrayList con los productos agregados a la canasta.
+     */
     public static ArrayList<Producto> agregarProductosACanasta(HashMap<String, Integer> productos) {
         ArrayList<Producto> productosCanasta = new ArrayList<Producto>();
         HashMap<String, Integer> productosFaltantes = new HashMap<String, Integer>();
@@ -390,7 +428,6 @@ public class Panaderia implements Serializable {
             cocinar(productosFaltantes);
         }
         for (Map.Entry<String, Integer> entry : productos.entrySet()) {
-            int cantidadExistente=verificarCantidadIngredientePorId(entry.getKey());
             for (int i=0;i<entry.getValue();i++){
                 productosCanasta.add(buscarProductoPorId(entry.getKey()));
                 restarProducto(entry.getKey(),entry.getValue());
@@ -400,6 +437,12 @@ public class Panaderia implements Serializable {
     }
 
 
+    /**
+     * Agrega los ingredientes especificados en una canasta y devuelve una lista con los ingredientes agregados.
+     * Si algún ingrediente no tiene suficiente cantidad en la panadería, se comprará la cantidad faltante.
+     * @param ingredientes Un HashMap que contiene los ingredientes y la cantidad deseada de cada uno.
+     * @return Una lista de objetos Ingrediente que representa los ingredientes agregados a la canasta.
+     */
     public static ArrayList<Ingrediente> agregarIngredientesACanasta(HashMap<String, Integer> ingredientes) {
         ArrayList<Ingrediente> ingredientesCanasta = new ArrayList<Ingrediente>();
         HashMap<String, Integer> ingredientesFaltantes = new HashMap<String, Integer>();
@@ -413,7 +456,6 @@ public class Panaderia implements Serializable {
             comprarIngredientes(ingredientesFaltantes);
         }
         for (Map.Entry<String, Integer> entry : ingredientes.entrySet()) {
-            int cantidadExistente=verificarCantidadIngredientePorId(entry.getKey());
             for (int i=0;i<entry.getValue();i++){
                 ingredientesCanasta.add(buscarIngredientePorId(entry.getKey()));
                 restarIngrediente(entry.getKey(),entry.getValue());
@@ -423,6 +465,12 @@ public class Panaderia implements Serializable {
     }
 
 
+    /**
+     * Agrega los kits de productos a la canasta y retorna una lista de kits de ingredientes.
+     * Si no hay suficientes ingredientes para los kits, los compra automáticamente.
+     * @param kitsEnLista HashMap que contiene los ids de los kits y la cantidad de veces que se deben agregar a la canasta.
+     * @return ArrayList de ArrayLists de ingredientes que representan los kits agregados a la canasta.
+     */
     public static ArrayList<ArrayList<Ingrediente>> agregarKitsACanasta(HashMap<String, Integer> kitsEnLista) {
         ArrayList<ArrayList<Ingrediente>> kitsCanasta = new ArrayList<ArrayList<Ingrediente>>();
         HashMap<String, Integer> ingredientesFaltantes = new HashMap<String, Integer>();

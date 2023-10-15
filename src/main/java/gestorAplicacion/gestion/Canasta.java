@@ -317,16 +317,7 @@ public class Canasta implements Serializable {
    * Actualiza el valor de itemsTotalesEnCanasta.
    */
   public void calcularElementosCanasta() {
-    int elementos = 0;
-    for(Producto producto : productos){
-      elementos+=1;
-    }
-    for(Ingrediente ingrediente : ingredientes){
-      elementos+=1;
-    }
-    for(ArrayList<Ingrediente> kit : kits){
-      elementos+=1;
-    }
+    int elementos= productos.size()+ingredientes.size()+kits.size();
     this.itemsTotalesEnCanasta=elementos;
   }
   /**
@@ -380,11 +371,12 @@ public class Canasta implements Serializable {
     return multiplicadorDescuento;
   }
 
+
   /**
-   * Calcula el costo total del pedido, incluyendo descuentos, para los elementos actuales en la canasta.
-   * El costo se calcula en función de la cantidad de cada producto, ingrediente o kit en la canasta.
-   * Los descuentos se aplican en función de los cupones disponibles para cada producto.
-   * El costo final se almacena en las variables de instancia costoTotalEnLista y costoTrasDescuentoEnLista.
+   * Calcula el costo total de la canasta, incluyendo descuentos si los hay.
+   * El costo total se calcula sumando el costo de los productos, ingredientes y kits en la canasta.
+   * Si hay descuentos, se calcula el descuento total y se resta del costo total.
+   * El costo total tras descuento se calcula sin tener en cuenta los descuentos.
    */
   public void generarCostoDeOrden(){
     double costoCanasta = 0;
@@ -417,12 +409,13 @@ public class Canasta implements Serializable {
     this.costoTrasDescuentoEnLista=costoCanasta;
   }
 
+
   /**
-   * Este método recibe una orden para un producto o ingrediente y lo agrega a la canasta si la cantidad es positiva, o lo elimina si la cantidad es negativa.
-   * @param objetoEntrante El id del producto o ingrediente que se va a agregar o eliminar.
-   * @param cantidad La cantidad del producto o ingrediente que se va a agregar o eliminar.
-   * @param receta Un booleano que indica si la orden es para un kit de receta o no.
-   * @return Un booleano que indica si la orden se agregó o eliminó correctamente de la canasta.
+   * Método que recibe una orden de agregar o eliminar un producto o ingrediente de la canasta.
+   * @param objetoEntrante El objeto que se desea agregar o eliminar de la canasta.
+   * @param cantidad La cantidad del objeto que se desea agregar o eliminar de la canasta.
+   * @param receta Indica si el objeto es un producto que se desea agregar o eliminar para una receta.
+   * @return true si la operación se realizó correctamente, false en caso contrario.
    */
   public boolean recibirOrden(String objetoEntrante, String cantidad, boolean receta) {
     if (Integer.parseInt(cantidad) < 0) {
@@ -470,13 +463,14 @@ public class Canasta implements Serializable {
     return false;
   }
 
+
   /**
-   * Recibe una orden personalizada para un producto y sus ingredientes necesarios, y lo agrega a la canasta.
-   * @param objetoEntrante El id del producto personalizado.
-   * @param ingredientesNecesarios Un mapa que contiene los ingredientes necesarios y sus cantidades para el producto personalizado.
-   * @param cantidad La cantidad del producto personalizado a agregar a la canasta.
-   * @param receta Un booleano que indica si el producto personalizado es un kit (true) o un producto individual (false).
-   * @return Un booleano que indica si el producto personalizado se agregó correctamente a la canasta.
+   * Recibe una orden personalizada de un producto y la agrega a la canasta.
+   * @param objetoEntrante el nombre del producto personalizado.
+   * @param ingredientesNecesarios los ingredientes necesarios para crear el producto personalizado.
+   * @param cantidad la cantidad de productos a agregar a la canasta.
+   * @param receta indica si la orden personalizada se agrega con la receta o no.
+   * @return true si la orden personalizada se agrega correctamente a la canasta, false en caso contrario.
    */
   public boolean recibirOrdenPersonalizada(String objetoEntrante,  HashMap<String, Integer> ingredientesNecesarios, String cantidad, boolean receta) {
     try {
@@ -498,10 +492,11 @@ public class Canasta implements Serializable {
     }
   }
   
+
   /**
-   * Envía la orden de los productos, ingredientes y kits en la canasta a la panadería para ser cocinados y preparados.
-   * Los productos, ingredientes y kits cocinados son luego agregados a la canasta.
-   * Finalmente, las listas de productos, ingredientes y kits en la canasta se establecen en nulo.
+   * Envía la orden de la canasta a la panadería para agregar los productos, ingredientes y kits en la lista de la canasta.
+   * Los productos, ingredientes y kits cocinados son agregados a la lista de gestión de la canasta.
+   * Luego, se establecen las listas de productos, ingredientes y kits en la canasta como nulas.
    */
   public void enviarOrdenCanasta() {
   ArrayList<Producto> productosCocinados = Panaderia.agregarProductosACanasta(productosEnLista);

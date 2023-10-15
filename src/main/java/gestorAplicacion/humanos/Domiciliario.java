@@ -10,7 +10,7 @@ import gestorAplicacion.gestion.Panaderia;
 
 import java.io.Serializable;
 
-public class Domiciliario extends Trabajador implements Serializable{
+public class Domiciliario extends Trabajador{
     Boolean licencia;
     Boolean ocupado;
     Canasta canasta;
@@ -85,72 +85,63 @@ public class Domiciliario extends Trabajador implements Serializable{
     }
 
     //TODO: arreglar porque ya no se estan implementando los hasmasps de antes. Hay que hablar con TEO
-    public boolean conseguirIngredientes(Map<Ingrediente, Integer> listingredientes){
-        
+    public boolean conseguirIngredientes(Map<String, Integer> listingredientes) {
+
         double valorcompra = 0;
         this.robado = false;
 
-        for (Map.Entry<Ingrediente, Integer> ingrediente : listingredientes.entrySet()){
+        for (Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()) {
 
-        int cantidad = ingrediente.getValue();
-        valorcompra += (ingrediente.getKey().getPrecioDeCompra())*(cantidad*2);
+            int cantidad = ingrediente.getValue();
+            valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingrediente.getKey()).getPrecioDeCompra())
+                    * (cantidad * 2);
 
-     }
-
-     if (valorcompra <= Panaderia.getDinero()){
-
-        this.dineroEnMano += valorcompra;
-        Panaderia.setDinero((double) (Panaderia.getDinero()-valorcompra));
-
-     }
-
-     else{
-
-        Panaderia.conseguirPrestamo( (double) valorcompra);
-        this.dineroEnMano += valorcompra;
-        Panaderia.setDinero((double) (Panaderia.getDinero()-valorcompra));
-
-     }
-
-     Random numAleatorio = new Random();
-
-     double habilidadLadron = numAleatorio.nextDouble() * 10;
-
-     if (habilidadLadron > this.habilidad){
-
-        this.dineroEnMano = 0;
-        this.robado = true;
-        return this.robado;
-     }
-
-     else{
-
-        this.dineroEnMano = 0;
-
-        for (Map.Entry<Ingrediente, Integer> compras : listingredientes.entrySet()){
-        	
-        	int cantidad = compras.getValue()*2;
-            Ingrediente ingrediente = compras.getKey();
-            
-            for (Map.Entry<Ingrediente, Integer> Inventario : Panaderia.getInvIngredientes().entrySet()) {
-            	
-            	String idInventario = Inventario.getKey().getId();
-            	
-            	if (ingrediente.getId() == idInventario) {
-            		
-            		Panaderia.getInvIngredientes().put(Inventario.getKey(), Inventario.getValue() + cantidad);
-            		break;
-            		
-            	}
-            	
-            }
-        	
         }
 
-        return this.robado;
-    
-     }
-    
-   }
+        if (valorcompra <= Panaderia.getDinero()) {
+
+            this.dineroEnMano += valorcompra;
+            Panaderia.setDinero((double) (Panaderia.getDinero() - valorcompra));
+
+        }
+
+        else {
+
+            Panaderia.conseguirPrestamo((double) valorcompra);
+            this.dineroEnMano += valorcompra;
+            Panaderia.setDinero((double) (Panaderia.getDinero() - valorcompra));
+
+        }
+
+        Random numAleatorio = new Random();
+
+        double habilidadLadron = numAleatorio.nextDouble() * 10;
+
+        if (habilidadLadron > this.habilidad) {
+
+            this.dineroEnMano = 0;
+            this.robado = true;
+            return this.robado;
+        }
+
+        else {
+
+            this.dineroEnMano = 0;
+
+            for (Map.Entry<String, Integer> compras : listingredientes.entrySet()) {
+
+                int cantidad = compras.getValue() * 2;
+                String ingrediente = compras.getKey();
+
+                for (int i = 0; i < cantidad; i++) {
+                    Ingrediente ingrdt = Ingrediente.crearIngrediente(ingrediente);
+                    Panaderia.agregarIngrediente(ingrdt);
+                }
+            }
+
+            return this.robado;
+
+        }
+    }
 
 }
