@@ -36,9 +36,10 @@ public class Producto implements Serializable{
 		this.nombre=nombre;
 		this.ingredientes=ingredientes;
 		this.costo=calcularCosto();
-		this.procesoDeCocina=seleccionProcesoDeCocina();
+		this.procesoDeCocina=seleccionProcesosDeCocina();
 		cantidadProductosUnicos++;
 		this.id = String.valueOf(cantidadProductosUnicos + Ingrediente.getCantidadIngredientesUnicos());
+		baseDatosProductos.add(this);
 	}
 
 	//Getters y Setters

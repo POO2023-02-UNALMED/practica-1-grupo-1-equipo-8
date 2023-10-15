@@ -33,7 +33,7 @@ public class Panaderia implements Serializable {
     private static boolean enQuiebra = false;
     static {
         // Agregar lista de productos de la canasta del dia
-        canastaDelDia = new Canasta(null, null);
+        canastaDelDia = new Canasta();
     }
 
     public Panaderia() {
@@ -198,10 +198,10 @@ public class Panaderia implements Serializable {
             Panaderia.saldarDeudas();
             
             while (Panaderia.enQuiebra == true) {
-            	
-            	GestionCompraMain.lecturaQuiebra(Panaderia.enQuiebra);
-            	Panaderia.saldarDeudas();
-         
+            
+                GestionCompraMain.lecturaQuiebra(Panaderia.enQuiebra);
+                Panaderia.saldarDeudas();
+        
             }
             
             Panaderia.dinero += valorNecesitado;
@@ -244,48 +244,33 @@ public class Panaderia implements Serializable {
     }
 
     /**
-     * Verifica si existe un producto con el nombre de pila en el inventario de la panadería.
-     * @param prdct el nombre del producto a buscar
-     * @return verdadero si existe un producto con el nombre de pila, falso en casocontrario
+     * Verifica la cantidad de un producto en el inventario de la panadería por su ID.
+     * @param prdct el ID del producto a verificar.
+     * @return la cantidad de productos con el ID especificado en el inventario.
      */
-    public static boolean verificarExistenciaProductoPorId(String prdct) {
-        for (Map.Entry<Producto, Integer> productoEntry : invProductos.entrySet()) {
-            Producto producto = productoEntry.getKey();
-            if (producto.getId().equals(prdct)) {
-                return true;
+    public static int verificarCantidadProductoPorId(String prdct) {
+        int contador=0;
+        for(Producto productos : invProductos) {
+            if (productos.getId().equals(prdct)) {
+                contador++;
             }
         }
-        return false;
+        return contador;
     }
 
     /**
-     * Verifica si un ingrediente existe en el inventario por su nombre.
-     * @param ingrd el nombre del ingrediente a verificar
-     * @return verdadero si el ingrediente existe, falso en caso contrario
+     * Verifica la cantidad de ingredientes en el inventario por su ID.
+     * @param ingrd el ID del ingrediente a verificar.
+     * @return la cantidad de ingredientes con el ID especificado en el inventario.
      */
-    public static boolean verificarExistenciaIngredientePorId(String ingrd) {
-        for (Map.Entry<Ingrediente, Integer> ingredienteEntry : invIngredientes.entrySet()) {
-            Ingrediente ingrediente = ingredienteEntry.getKey();
-            if (ingrediente.getId().equals(ingrd)) {
-                return true;
+    public static int verificarCantidadIngredientePorId(String ingrd) {
+        int contador=0;
+        for(Ingrediente ingredientes : invIngredientes) {
+            if (ingredientes.getId().equals(ingrd)) {
+                contador++;
             }
         }
-        return false;
-    }
-
-    /**
-     * Verifica si un producto con el nombre dado existe en el inventario.
-     * @param prdcto el nombre del producto a buscar
-     * @return verdadero si un producto con el nombre dado existe en el inventario, falso en caso contrario
-     */
-    public static boolean verificarExistenciaProductoPorNombre(String prdcto){
-        for (Map.Entry<Producto, Integer> productoEntry : invProductos.entrySet()) {
-            Producto producto = productoEntry.getKey();
-            if (producto.getNombre().equals(prdcto)) {
-                return true;
-            }
-        }
-        return false;
+        return contador;
     }
 
     /**
@@ -294,8 +279,7 @@ public class Panaderia implements Serializable {
      * @return el producto con el ID especificado, o null si no se encuentra en el inventario
      */
     public static Producto buscarProductoPorId(String id) {
-        for (Map.Entry<Producto, Integer> productoEntry : invProductos.entrySet()) {
-            Producto producto = productoEntry.getKey();
+        for(Producto producto: invProductos) {
             if (producto.getId().equals(id)) {
                 return producto;
             }
@@ -309,8 +293,7 @@ public class Panaderia implements Serializable {
      * @return el objeto Ingrediente correspondiente al ID, o null si no se encuentra
      */
     public static Ingrediente buscarIngredientePorId(String id) {
-        for (Map.Entry<Ingrediente, Integer> ingredienteEntry : invIngredientes.entrySet()) {
-            Ingrediente ingrediente = ingredienteEntry.getKey();
+        for(Ingrediente ingrediente: invIngredientes) {
             if (ingrediente.getId().equals(id)) {
                 return ingrediente;
             }
@@ -319,388 +302,162 @@ public class Panaderia implements Serializable {
     }
 
     // Método para agregar un ingrediente al inventario
-    /**
-     * Agrega una cantidad determinada de un ingrediente al inventario de la
-     * panadería.
-     * Si el ingrediente ya existe en el inventario, se suma la cantidad nueva a la
-     * existente.
-     * Si el ingrediente no existe en el inventario, se agrega con la cantidad
-     * especificada.
-     * 
-     * @param ingrediente el ingrediente a agregar al inventario
-     * @param cantidad    la cantidad del ingrediente a agregar
-     */
-    public static void agregarIngrediente(Ingrediente ingrediente, int cantidad) {
-        for (Map.Entry<Ingrediente, Integer> entry : invIngredientes.entrySet()) {
-            Ingrediente I = entry.getKey();
-            if (I.getId().equals(ingrediente.getId())) {
-                int cantidadExistente = entry.getValue();
-                invIngredientes.put(I, cantidadExistente + cantidad);
-                break;
-            }
-        }
-        invIngredientes.put(ingrediente, cantidad);
+
+    public static void agregarIngrediente(Ingrediente ingrediente) {
+        invIngredientes.add(ingrediente);
     }
 
-    /**
-     * Agrega una cantidad determinada de un ingrediente al inventario de la panadería.
-     * Si el ingrediente ya existe en el inventario, se actualiza la cantidad.
-     * Si el ingrediente no existe en el inventario, se agrega con la cantidad especificada.
-     * @param ingrediente el nombre del ingrediente a agregar
-     * @param cantidad la cantidad del ingrediente a agregar
-     */
-    public static void agregarIngrediente(String ingrediente, int cantidad) {
-        for(Map.Entry<Ingrediente, Integer> entry : invIngredientes.entrySet()) {
-            Ingrediente I = entry.getKey();
-            if (I.getNombre().equals(ingrediente)) {
-                int cantidadExistente = entry.getValue();
-                invIngredientes.put(I, cantidadExistente + cantidad);
-                break;
-            }
-        }
-        invIngredientes.put(new Ingrediente(ingrediente), cantidad);
+    public static void agregarProducto(Producto producto) {
+        invProductos.add(producto);
     }
 
-    /**
-     * Resta la cantidad especificada de un ingrediente del inventario de la panadería.
-     * @param ingrediente el nombre del ingrediente a restar
-     * @param cantidad la cantidad a restar del ingrediente
-     */
-    public static boolean restarIngrediente(String ingrediente, int cantidad) {
-        for (Map.Entry<Ingrediente, Integer> entry : invIngredientes.entrySet()) {
-            Ingrediente I = entry.getKey();
-            if (I.getId().equals(ingrediente)) {
-                int cantidadExistente = entry.getValue();
-                if (cantidadExistente > cantidad) {
-                    // Si hay suficiente cantidad del ingrediente, resta la cantidad especificada
-                    invIngredientes.put(I, cantidadExistente - cantidad);
-                    return true;
-                }/* 
-                else if(cantidadExistente-cantidad==0){
-                    invIngredientes.remove(I);
-                    return true;
-                }*/
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Resta la cantidad especificada de un ingrediente del inventario de la panadería.
-     * Si la cantidad especificada es mayor que la cantidad existente del ingrediente, no se realiza ninguna acción.
-     * Si la cantidad especificada es igual a la cantidad existente del ingrediente, el ingrediente se elimina del inventario.
-     * @param ingrediente el ingrediente a restar del inventario
-     * @param cantidad la cantidad de ingrediente a restar
-     * @return true si se restó la cantidad especificada del ingrediente del inventario, false en caso contrario
-     */
-    public static boolean restarIngrediente(Ingrediente ingrediente, int cantidad) {
-        for (Map.Entry<Ingrediente, Integer> entry : invIngredientes.entrySet()) {
-            Ingrediente I = entry.getKey();
-            if (I.getId().equals(ingrediente.getId())) {
-                int cantidadExistente = entry.getValue();
-                if (cantidadExistente > cantidad) {
-                    // Si hay suficiente cantidad del ingrediente, resta la cantidad especificada
-                    invIngredientes.put(I, cantidadExistente - cantidad);
-                    return true;
-                }/* 
-                else if(cantidadExistente-cantidad==0){
-                    invIngredientes.remove(I);
-                    return true;
-                }*/
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Agrega una cantidad determinada de un producto al inventario de la panadería.
-     * Si el producto ya existe en el inventario, se suma la cantidad nueva a la cantidad existente.
-     * Si el producto no existe en el inventario, se agrega con la cantidad nueva.
-     * @param producto el producto a agregar al inventario
-     * @param cantidad la cantidad del producto a agregar
-     */
-    public static void agregarProducto(Producto producto, int cantidad) {
-        for(Map.Entry<Producto, Integer> entry : invProductos.entrySet()) {
-            Producto P = entry.getKey();
-            if (P.getId().equals(producto.getId())) {
-                int cantidadExistente = entry.getValue();
-                invProductos.put(P, cantidadExistente + cantidad);
-                break;
-            }
-        }
-        invProductos.put(producto, cantidad);
-    }
-
-    /**
-     * Agrega un producto al inventario de la panadería.
-     * Si el producto ya existe, se actualiza la cantidad existente.
-     * @param producto el nombre del producto a agregar
-     * @param ingredientes los ingredientes necesarios para producir el producto
-     * @param cantidad la cantidad de productos a agregar
-     */
-    public static void agregarProducto(String producto,HashMap<Ingrediente, Integer> ingredientes, int cantidad) {
-        for(Map.Entry<Producto, Integer> entry : invProductos.entrySet()) {
-            Producto P = entry.getKey();
-            if (P.getId().equals(producto)) {
-                int cantidadExistente = entry.getValue();
-                invProductos.put(P, cantidadExistente + cantidad);
-                break;
-            }
-        }
-        invProductos.put(new Producto(producto, ingredientes), cantidad);
-    }
-
-    /**
-     * Resta la cantidad especificada de un producto del inventario de la panadería.
-     * @param producto el identificador del producto a restar.
-     * @param cantidad la cantidad a restar del producto.
-     * @return true si se pudo restar la cantidad especificada del producto, false en caso contrario.
-     */
-    public static boolean restarProducto(String producto, int cantidad) {
-        for (Map.Entry<Producto, Integer> entry : invProductos.entrySet()) {
-            Producto P = entry.getKey();
-            if (P.getId().equals(producto)) {
-                int cantidadExistente = entry.getValue();
-                if (cantidadExistente > cantidad) {
-                    // Si hay suficiente cantidad del producto, resta la cantidad especificada
-                    invProductos.put(P, cantidadExistente - cantidad);
-                    return true;
+    public static void restarIngrediente(String ingrediente, int cantidad) {
+        if(verificarCantidadIngredientePorId(ingrediente) >= cantidad) {
+            for(int i = 0; i < cantidad; i++){
+                for(Ingrediente ingrediente1 : invIngredientes) {
+                    if(ingrediente1.getId().equals(ingrediente)) {
+                        invIngredientes.remove(ingrediente1);
+                        break;
+                    }
                 }
-                /* 
-                else if(cantidadExistente-cantidad==0){
-                    invProductos.remove(P);
-                    return true;
-                }*/
             }
         }
-        return false;
     }
 
-    /**
-     * Resta la cantidad especificada del producto del inventario de la panadería.
-     * @param producto el producto a restar del inventario.
-     * @param cantidad la cantidad de producto a restar.
-     * @return true si se pudo restar la cantidad especificada del producto del inventario, false en caso contrario.
-     */
-    public static boolean restarProducto(Producto producto, int cantidad) {
-        for (Map.Entry<Producto, Integer> entry : invProductos.entrySet()) {
-            Producto P = entry.getKey();
-            if (P.getId().equals(producto.getId())) {
-                int cantidadExistente = entry.getValue();
-                if (cantidadExistente > cantidad) {
-                    // Si hay suficiente cantidad del producto, resta la cantidad especificada
-                    invProductos.put(P, cantidadExistente - cantidad);
-                    return true;
-                }/*
-                else if(cantidadExistente-cantidad==0){
-                    invProductos.remove(P);
-                    return true;
-                }*/
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Retorna la cantidad de un ingrediente específico en el inventario de la panadería.
-     * @param ingrediente el nombre del ingrediente a buscar
-     * @return la cantidad del ingrediente en el inventario, o 0 si no se encuentra
-     */
-    public static int obtenerCantidadIngrediente(String ingrediente) {
-        for (Map.Entry<Ingrediente, Integer> entry : invIngredientes.entrySet()) {
-            Ingrediente I = entry.getKey();
-            if (I.getId().equals(ingrediente)) {
-                return entry.getValue();
-            }
-        }
-        return 0;
-    }
-
-    /**
-     * Retorna la cantidad de un producto dado en el inventario.
-     * @param producto el ID del producto a buscar
-     * @return la cantidad del producto en el inventario, o 0 si el producto no se encuentra
-     */
-    public static int obtenerCantidadProducto(String producto) {
-        for (Map.Entry<Producto, Integer> entry : invProductos.entrySet()) {
-            Producto P = entry.getKey();
-            if (P.getId().equals(producto)) {
-                return entry.getValue();
-            }
-        }
-        return 0;
-    }
-
-    /**
-     * Retorna un mapa de ingredientes y sus cantidades requeridas para hacer un producto dado.
-     * @param producto el nombre del producto para obtener los ingredientes
-     * @return un mapa de ingredientes y sus cantidades requeridas para hacer el producto dado
-     */
-    public static Map<Ingrediente, Integer> ingredientesPorProducto(String producto) {
-        Map<Ingrediente, Integer> ingredientes = new HashMap<>();
-        for (Map.Entry<Producto, Integer> entry : invProductos.entrySet()) {
-            Producto p = entry.getKey();
-            if (p.getId().equals(producto)) {
-                ingredientes = p.getIngredientes();
-            break;
-            }
-        }
-        return ingredientes;
-    }
-
-    /**
-     * Este método verifica si hay suficientes ingredientes para hacer una receta.
-     * @param ingredientes Un mapa que contiene los ingredientes y sus cantidades.
-     * @return Un mapa que contiene los ingredientes faltantes y la cantidad necesaria para hacer la receta.
-     */
-    public static Map<Ingrediente, Integer> revisarCantidadIngredientes(Map<Ingrediente, Integer> ingredientes) {
-        HashMap<Ingrediente, Integer> ingredientesFaltantes = new HashMap<Ingrediente, Integer>();
-        for (Map.Entry<Ingrediente, Integer> entry : ingredientes.entrySet()) {
-            Ingrediente ingrediente = entry.getKey();
-            int cantidadNecesitada = entry.getValue();
-            int cantidadExistente = obtenerCantidadIngrediente(ingrediente.getId());
-            if (cantidadExistente < cantidadNecesitada) {
-                ingredientesFaltantes.put(ingrediente, cantidadNecesitada - cantidadExistente);
+    public static void restarIngrediente(Ingrediente ingrediente, int cantidad) {
+        if(verificarCantidadIngredientePorId(ingrediente.getId()) >= cantidad) {
+            for(int i = 0; i < cantidad; i++){
+                for(Ingrediente ingrediente1 : invIngredientes) {
+                    if(ingrediente1.getId().equals(ingrediente.getId())) {
+                        invIngredientes.remove(ingrediente1);
+                        break;
+                    }
                 }
+            }
         }
-        return ingredientesFaltantes;
     }
 
-    /**
-     * Este método recibe un mapa de productos y sus cantidades requeridas, y devuelve un mapa de productos y sus cantidades faltantes.
-     * Itera sobre el mapa de productos y verifica si la cantidad existente de cada producto es menor que la cantidad requerida.
-     * Si la cantidad existente es menor, agrega el producto y la cantidad faltante a un nuevo mapa.
-     * @param productos un mapa de productos y sus cantidades requeridas
-     * @return un mapa de productos y sus cantidades faltantes
-     */
-    public static Map<Producto, Integer> revisarCantidadProductos(Map<Producto, Integer> productos) {
-        HashMap<Producto, Integer> productosFaltantes = new HashMap<Producto, Integer>();
-        for (Map.Entry<Producto, Integer> entry : productos.entrySet()) {
-            Producto producto = entry.getKey();
-            int cantidadNecesitada = entry.getValue();
-            int cantidadExistente = obtenerCantidadProducto(producto.getId());
-            if (cantidadExistente < cantidadNecesitada) {
-                productosFaltantes.put(producto, cantidadNecesitada - cantidadExistente);
+    public static void restarProducto(String producto, int cantidad) {
+        if(verificarCantidadProductoPorId(producto) >= cantidad) {
+            for(int i = 0; i < cantidad; i++){
+                for(Producto producto1 : invProductos) {
+                    if(producto1.getId().equals(producto)) {
+                        invProductos.remove(producto1);
+                        break;
+                    }
                 }
-        }
-        return productosFaltantes;
-    }
-
-    /**
-     * Crea un producto personalizado con el nombre y los ingredientes dados.
-     * @param nombreProducto el nombre del producto personalizado
-     * @param ingredientes un mapa que contiene los ingredientes y sus respectivas cantidades
-     */
-    public static void crearProductoPersonalizado(String nombreProducto, Map<String, Integer> ingredientes) {
-        Map<Ingrediente, Integer> ingredientesProducto = new HashMap<Ingrediente, Integer>();
-        for (Map.Entry<String, Integer> ingrdts : ingredientes.entrySet()) {
-            String ingrediente = ingrdts.getKey();
-            Integer cantidad = ingrdts.getValue();
-            if (!verificarExistenciaIngredientePorId(ingrediente)) {
-                Ingrediente newIngrediente = new Ingrediente(ingrediente);
-                invIngredientes.put(newIngrediente, 0);
-                ingredientesProducto.put(newIngrediente, cantidad);
-            }
-            else {
-                ingredientesProducto.put(buscarIngredientePorId(ingrediente), cantidad);
             }
         }
-        invProductos.put(new Producto(nombreProducto, ingredientesProducto), 0);
     }
 
-    /**
-     * Cocina los productos dados creando un mapa de productos y sus respectivos ingredientes,
-     * y luego utilizando un chef aleatorio para cocinarlos.
-     * @param productos un mapa de nombres de productos y sus respectivas cantidades para cocinar
-     * @return un mapa de productos cocinados y sus respectivas cantidades
-     */
-    public static void cocinar(Map<Producto, Integer> productosParaCocinar) {
-        Canasta canastaDeProductosCocinar = new Canasta(productosParaCocinar, null);
+    public static void restarProducto(Producto producto, int cantidad) {
+        if(verificarCantidadProductoPorId(producto.getId()) >= cantidad) {
+            for(int i = 0; i < cantidad; i++){
+                for(Producto producto1 : invProductos) {
+                    if(producto1.getId().equals(producto.getId())) {
+                        invProductos.remove(producto1);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public static void cocinar(HashMap<String, Integer> productosParaCocinar) {
+        Canasta canastaDeProductosCocinar = new Canasta();
+        canastaDeProductosCocinar.setProductosEnLista(productosParaCocinar);
         ArrayList<Canasta> canastaParaCocinar = new ArrayList<Canasta>();
         canastaParaCocinar.add(canastaDeProductosCocinar);
+        Cocinero cocinero = cocineroAleatorio();
         while(true){
-            Cocinero cocinero = cocineroAleatorio();
             if(cocinero.laborParticular(canastaParaCocinar)){
                 break;
             }
         }
     }
 
-    /**
-     * Agrega los productos especificados en un mapa a la canasta de la panadería.
-     * @param productos un mapa que contiene los IDs de los productos y la cantidad deseada de cada uno
-     * @return un mapa que contiene los productos agregados a la canasta y la cantidad de cada uno
-     */
-    public static Map<Producto, Integer> agregarProductosACanasta(Map<String, Integer> productos) {
-        Map<Producto, Integer> productosCanasta = new HashMap<Producto, Integer>();
+
+    public static ArrayList<Producto> agregarProductosACanasta(HashMap<String, Integer> productos) {
+        ArrayList<Producto> productosCanasta = new ArrayList<Producto>();
+        HashMap<String, Integer> productosFaltantes = new HashMap<String, Integer>();
         for (Map.Entry<String, Integer> entry : productos.entrySet()) {
-            productosCanasta.put(buscarProductoPorId(entry.getKey()), entry.getValue());
+            int cantidadExistente=verificarCantidadIngredientePorId(entry.getKey());
+            if (cantidadExistente-entry.getValue()<0){
+                productosFaltantes.put(entry.getKey(),(cantidadExistente-entry.getValue())*(-2));
+            }
         }
-        Map<Producto, Integer> productosFaltantes = revisarCantidadProductos(productosCanasta);
         if(!productosFaltantes.isEmpty()){
             cocinar(productosFaltantes);
         }
-        for (Map.Entry<Producto, Integer> entry : productosCanasta.entrySet()) {
-            Producto producto = entry.getKey();
-            int cantidad = entry.getValue();
-            restarProducto(producto, cantidad);
+        for (Map.Entry<String, Integer> entry : productos.entrySet()) {
+            int cantidadExistente=verificarCantidadIngredientePorId(entry.getKey());
+            for (int i=0;i<entry.getValue();i++){
+                productosCanasta.add(buscarProductoPorId(entry.getKey()));
+                restarProducto(entry.getKey(),entry.getValue());
+            }
         }
         return productosCanasta;
     }
 
-    /**
-     * Agrega los ingredientes especificados en la canasta de la panadería y devuelve un mapa con los ingredientes agregados y su cantidad.
-     * Si algún ingrediente no está disponible en la cantidad especificada, se comprará la cantidad faltante.
-     * @param ingredientes un mapa con los nombres de los ingredientes y su cantidad a agregar en la canasta.
-     * @return un mapa con los ingredientes agregados y su cantidad.
-     */
-    public static Map<Ingrediente, Integer> agregarIngredientesACanasta(Map<String, Integer> ingredientes) {
-        Map<Ingrediente, Integer> ingredientesCanasta = new HashMap<Ingrediente, Integer>();
+
+    public static ArrayList<Ingrediente> agregarIngredientesACanasta(HashMap<String, Integer> ingredientes) {
+        ArrayList<Ingrediente> ingredientesCanasta = new ArrayList<Ingrediente>();
+        HashMap<String, Integer> ingredientesFaltantes = new HashMap<String, Integer>();
         for (Map.Entry<String, Integer> entry : ingredientes.entrySet()) {
-            ingredientesCanasta.put(buscarIngredientePorId(entry.getKey()), entry.getValue());
+            int cantidadExistente=verificarCantidadIngredientePorId(entry.getKey());
+            if (cantidadExistente-entry.getValue()<0){
+                ingredientesFaltantes.put(entry.getKey(),(cantidadExistente-entry.getValue())*(-2));
+            }
         }
-        Map<Ingrediente, Integer> ingredientesFaltantes = revisarCantidadIngredientes(ingredientesCanasta);
         if(!ingredientesFaltantes.isEmpty()){
             comprarIngredientes(ingredientesFaltantes);
         }
-        for (Map.Entry<Ingrediente, Integer> entry : ingredientesCanasta.entrySet()) {
-            Ingrediente ingrediente = entry.getKey();
-            int cantidad = entry.getValue();
-            restarIngrediente(ingrediente, cantidad);
+        for (Map.Entry<String, Integer> entry : ingredientes.entrySet()) {
+            int cantidadExistente=verificarCantidadIngredientePorId(entry.getKey());
+            for (int i=0;i<entry.getValue();i++){
+                ingredientesCanasta.add(buscarIngredientePorId(entry.getKey()));
+                restarIngrediente(entry.getKey(),entry.getValue());
+            }
         }
         return ingredientesCanasta;
     }
 
-    /**
-     * Agrega los kits de la lista de kits a la canasta de kits de la panadería.
-     * Para cada kit en la lista, se revisa si hay suficientes ingredientes en la panadería para hacer la cantidad deseada de kits.
-     * Si no hay suficientes ingredientes, se compran los ingredientes faltantes.
-     * Luego, se resta la cantidad de ingredientes utilizados de la panadería.
-     * Finalmente, se agrega el kit a la canasta de kits de la panadería.
-     * @param kitsEnLista un mapa que contiene el nombre de cada kit y la cantidad deseada de kits.
-     * @return un mapa que contiene el nombre de cada kit y una lista que contiene los ingredientes del kit y la cantidad deseada de kits.
-     */
-    public static Map<String, ArrayList<Object>> agregarKitsACanasta(Map<String, Integer> kitsEnLista) {
-        Map<String, ArrayList<Object>> kitsCanasta = new HashMap<String, ArrayList<Object>>();
+
+    public static ArrayList<ArrayList<Ingrediente>> agregarKitsACanasta(HashMap<String, Integer> kitsEnLista) {
+        ArrayList<ArrayList<Ingrediente>> kitsCanasta = new ArrayList<ArrayList<Ingrediente>>();
+        HashMap<String, Integer> ingredientesFaltantes = new HashMap<String, Integer>();
         for (Map.Entry<String, Integer> kit : kitsEnLista.entrySet()) {
-            String nombreKit = kit.getKey();
+            String idKit = kit.getKey();
             Integer cantidad = kit.getValue();
-            Map<Ingrediente, Integer> ingredientesKit = buscarProductoPorId(nombreKit).getIngredientes();
-            Map<Ingrediente, Integer> ingredientesKitEnCantidad= new HashMap<Ingrediente, Integer>();
-            ingredientesKit.forEach((ingrediente,cantidadIngrediente)-> ingredientesKitEnCantidad.put(ingrediente,cantidadIngrediente*cantidad));
-            Map<Ingrediente, Integer> ingredientesFaltantes = revisarCantidadIngredientes(ingredientesKitEnCantidad);
-            if(!ingredientesFaltantes.isEmpty()){
-                comprarIngredientes(ingredientesFaltantes);
+            Map<String, Integer> ingredientesKit = Producto.obtenerObjetoPorId(idKit).getIngredientes();
+            ingredientesKit.forEach((ingrediente,cantidadIngrediente)-> ingredientesKit.put(ingrediente,cantidadIngrediente*cantidad));
+            for(Map.Entry<String, Integer> entry : ingredientesKit.entrySet()){
+                int cantidadExistente=verificarCantidadIngredientePorId(entry.getKey());
+                if (cantidadExistente-entry.getValue()<0){
+                    if(ingredientesFaltantes.containsKey(entry.getKey())) {
+                        ingredientesFaltantes.put(entry.getKey(), ingredientesFaltantes.get(entry.getKey()) + (cantidadExistente - entry.getValue()) * (-2));
+                    }else{
+                        ingredientesFaltantes.put(entry.getKey(),(cantidadExistente-entry.getValue())*(-2));
+                    }
+                }
             }
-            for (Map.Entry<Ingrediente, Integer> entry : ingredientesKitEnCantidad.entrySet()) {
-                Ingrediente ingrediente = entry.getKey();
-                int cantidadIngrediente = entry.getValue();
-                restarIngrediente(ingrediente, cantidadIngrediente);
+        }
+        if(!ingredientesFaltantes.isEmpty()){
+            comprarIngredientes(ingredientesFaltantes);
+        }
+        for(Map.Entry<String, Integer> kit : kitsEnLista.entrySet()){
+            String idKit = kit.getKey();
+            Integer cantidad = kit.getValue();
+            for (int i=0;i<cantidad;i++){
+                ArrayList<Ingrediente> kitCanasta = new ArrayList<Ingrediente>();
+                for (Map.Entry<String, Integer> entry : Producto.obtenerObjetoPorId(idKit).getIngredientes().entrySet()) {
+                    for (int j=0;j<entry.getValue();j++){
+                        kitCanasta.add(buscarIngredientePorId(entry.getKey()));
+                        restarIngrediente(entry.getKey(),1);
+                    }
+                }
+                kitsCanasta.add(kitCanasta);
             }
-            ArrayList<Object> kitsIngredienteCantidad = new ArrayList<Object>();
-            kitsIngredienteCantidad.add(ingredientesKit);
-            kitsIngredienteCantidad.add(cantidad);
-            kitsCanasta.put(nombreKit, kitsIngredienteCantidad);
         }
         return kitsCanasta;
     }
@@ -842,7 +599,7 @@ public class Panaderia implements Serializable {
 
     }
     
-    public static void comprarIngredientes(Map<Ingrediente, Integer> listingredientes) {
+    public static void comprarIngredientes(Map<String, Integer> listingredientes) {
     	
     	Trabajador elegido = Panaderia.trabajadorAleatorio();
     	
