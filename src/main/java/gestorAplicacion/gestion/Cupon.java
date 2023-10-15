@@ -33,29 +33,7 @@ public class Cupon implements Serializable{
     }
   }
 
-  /**
-   * Este enum representa los diferentes tipos de descuentos que se pueden aplicar
-   * a un cupón.
-   * Los tipos disponibles son ESTUDIANTE y PROFESOR, cada uno con un valor de
-   * descuento correspondiente.
-   */
-  public enum DescuentoPorTipo {
-    ESTUDIANTE(0.1),
-    PROFESOR(0.1),
-    NINGUNO(0),
-    SENIOR(0.2),
-    EMPLEADO(0.3);
 
-    private final double valor;
-
-    DescuentoPorTipo(double valor) {
-      this.valor = valor;
-    }
-
-    public double getValor() {
-      return valor;
-    }
-  }
 
   
   

@@ -32,6 +32,10 @@ public class Canasta implements Serializable {
   private double costoTrasDescuentoEnLista;
   private double descuentoEnLista;
 
+  private double calificacion;
+  private String comentario;
+  private boolean pagada;
+
   // Constructores Canasta
   public Canasta() {
     this.productos = new ArrayList<Producto>();
@@ -55,7 +59,27 @@ public class Canasta implements Serializable {
     this.kitsEnLista = kitsEnLista;
     calcularElementosCanasta();
   }
+
+  public Canasta(ArrayList<Producto> productos, ArrayList<Ingrediente> ingredientes, ArrayList<ArrayList<Ingrediente>> kits, HashMap<String, Integer> productosEnLista, HashMap<String, Integer> ingredientesEnLista, HashMap<String, Integer> kitsEnLista, String identificador, int itemsTotalesEnCanasta, int itemsTotalesEnLista, double costoTotalEnLista, double costoTrasDescuentoEnLista, double descuentoEnLista, double calificacion, String comentario, boolean pagada) {
+    this.productos = productos;
+    this.ingredientes = ingredientes;
+    this.kits = kits;
+    this.productosEnLista = productosEnLista;
+    this.ingredientesEnLista = ingredientesEnLista;
+    this.kitsEnLista = kitsEnLista;
+    this.identificador = identificador;
+    this.itemsTotalesEnCanasta = itemsTotalesEnCanasta;
+    this.itemsTotalesEnLista = itemsTotalesEnLista;
+    this.costoTotalEnLista = costoTotalEnLista;
+    this.costoTrasDescuentoEnLista = costoTrasDescuentoEnLista;
+    this.descuentoEnLista = descuentoEnLista;
+    this.calificacion = calificacion;
+    this.comentario = comentario;
+    this.pagada = pagada;
+  }
+
   
+
   // getters y setters de los atributos
   public ArrayList<Producto> getProductos() {
     return productos;
@@ -167,6 +191,30 @@ public class Canasta implements Serializable {
 
   public void setItemsTotalesEnLista(int itemsTotalesEnLista) {
 	this.itemsTotalesEnLista = itemsTotalesEnLista;
+  }
+
+  public boolean isPagada() {
+    return pagada;
+  }
+
+  public void setPagada(boolean pagada) {
+    this.pagada = pagada;
+  }
+
+  public double getCalificacion() {
+    return calificacion;
+  }
+
+  public void setCalificacion(double calificacion) {
+    this.calificacion = calificacion;
+  }
+
+  public String getComentario() {
+    return comentario;
+  }
+
+  public void setComentario(String comentario) {
+    this.comentario = comentario;
   }
 
   // Metodos que gestionan correctamente la modificacion de los maps
@@ -499,17 +547,13 @@ public class Canasta implements Serializable {
    * Luego, se establecen las listas de productos, ingredientes y kits en la canasta como nulas.
    */
   public void enviarOrdenCanasta() {
-  ArrayList<Producto> productosCocinados = Panaderia.agregarProductosACanasta(productosEnLista);
-  ArrayList<Ingrediente> ingredientesCocinados = Panaderia.agregarIngredientesACanasta(ingredientesEnLista);
-  ArrayList<ArrayList<Ingrediente>> kitsCocinados = Panaderia.agregarKitsACanasta(kitsEnLista);
+    ArrayList<Producto> productosCocinados = Panaderia.agregarProductosACanasta(productosEnLista);
+    ArrayList<Ingrediente> ingredientesCocinados = Panaderia.agregarIngredientesACanasta(ingredientesEnLista);
+    ArrayList<ArrayList<Ingrediente>> kitsCocinados = Panaderia.agregarKitsACanasta(kitsEnLista);
 
-  gestionAgregarP(productosCocinados);
-  gestionAgregarI(ingredientesCocinados);
-  gestionAgregarK(kitsCocinados);
-
-  productosEnLista=null;
-  ingredientesEnLista=null;
-  kitsCocinados=null;
+    gestionAgregarP(productosCocinados);
+    gestionAgregarI(ingredientesCocinados);
+    gestionAgregarK(kitsCocinados);
   }
 
   /**

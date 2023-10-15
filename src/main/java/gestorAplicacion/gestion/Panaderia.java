@@ -10,7 +10,6 @@ import java.util.Random;
 import UIMain.GestionCompraMain;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
-import gestorAplicacion.gestion.Cupon.DescuentoPorTipo;
 import gestorAplicacion.humanos.Cliente;
 import gestorAplicacion.humanos.Cocinero;
 import gestorAplicacion.humanos.Domiciliario;

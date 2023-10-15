@@ -3,14 +3,12 @@ package gestorAplicacion.humanos;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
+import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
 import gestorAplicacion.gestion.Recibo;
-import gestorAplicacion.gestion.Cupon.DescuentoPorTipo;
 import UIMain.GestionDomicilioCliente;
 
 public class Cliente implements Serializable{
@@ -22,13 +20,18 @@ public class Cliente implements Serializable{
 	private Direccion direccion = null;
 	private DescuentoPorTipo tipoDescuento = null;
 	private double presupuesto = 0;
-	private ArrayList<Canasta> canastas = new ArrayList<Canasta>();
+
+	private Canasta canastaOrden;
+	private Canasta canastaEnMano;
+	private ArrayList<Canasta> historialOrdenes = new ArrayList<Canasta>();
+	private static int cantidadOrdenes;
+
 	private List<Recibo> recibos = new ArrayList<Recibo>();
 	private static Cliente sesion; //atributo estatico que almacena el cliente que ha iniciado sesion (necesario para parte funcional)
 	// crear cliente con todos los atributos
 	private Domiciliario domiciliario;
 
-	public Cliente(String nombre, Integer id, String contrasena, String direccionTXT, Direccion direccion ,DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas,
+	public Cliente(String nombre, Integer id, String contrasena, String direccionTXT, Direccion direccion ,DescuentoPorTipo tipoDescuento, double presupuesto, Canasta canasta,
 			List<Recibo> recibos) {
 
 		this.nombre = nombre;
@@ -38,7 +41,7 @@ public class Cliente implements Serializable{
 		this.direccion = direccion;
 		this.tipoDescuento = tipoDescuento;
 		this.presupuesto = presupuesto;
-		this.canastas = canastas;
+		this.canastaEnMano = canasta;
 		this.recibos = recibos;
 		
 	}
@@ -48,7 +51,6 @@ public class Cliente implements Serializable{
 
 	public Cliente(String nombre, Integer id, String contrasena, Direccion direccion, DescuentoPorTipo tipoDescuento, double presupuesto) {
 		
-		ArrayList<Canasta> list1 = new ArrayList<Canasta>();
 		List<Recibo> list2 = new ArrayList<Recibo>();
 
         this.nombre = nombre;
@@ -57,7 +59,6 @@ public class Cliente implements Serializable{
 		this.direccion = direccion;
 		this.tipoDescuento = tipoDescuento;
 		this.presupuesto = presupuesto;
-		this.canastas = list1;
 		this.recibos = list2;
 
 	}
@@ -70,13 +71,13 @@ public class Cliente implements Serializable{
 
 	}
 
-	public Cliente(String nombre, Integer id, String contrasena,  DescuentoPorTipo tipoDescuento, double presupuesto, ArrayList<Canasta> canastas, ArrayList<Recibo> recibos) {
+	public Cliente(String nombre, Integer id, String contrasena,  DescuentoPorTipo tipoDescuento, double presupuesto, Canasta canasta, ArrayList<Recibo> recibos) {
 		this.nombre = nombre;
 		this.id = id;
 		this.contrasena  = contrasena;
 		this.tipoDescuento = tipoDescuento;
 		this.presupuesto = presupuesto;
-		this.canastas = canastas;
+		this.canastaOrden = canasta;
 		this.recibos = recibos;
 	}
 
@@ -96,10 +97,8 @@ public class Cliente implements Serializable{
 	}
 
 	public Cliente(){
-		ArrayList<Canasta> list1 = new ArrayList<Canasta>();
         List<Recibo> list2 = new ArrayList<Recibo>();
 		this.tipoDescuento = DescuentoPorTipo.NINGUNO;
-		this.canastas = list1;
 		this.recibos = list2;
 		this.contrasena = "1234";
 	}
@@ -152,12 +151,12 @@ public class Cliente implements Serializable{
 		this.presupuesto = presupuesto;
 	}
 
-	public ArrayList<Canasta> getCanastas() {
-		return canastas;
+	public Canasta getCanastaOrden() {
+		return canastaOrden;
 	}
 
-	public void setCanastas(ArrayList<Canasta> canastas) {
-		this.canastas = canastas;
+	public void setCanastas(Canasta canasta) {
+		this.canastaOrden = canasta;
 	}
 
 	public List<Recibo> getRecibos() {
@@ -173,10 +172,6 @@ public class Cliente implements Serializable{
 		this.recibos = recibos;
 	}
 
-	public void setCanastas(List<Canasta> canastas) {
-		this.canastas = (ArrayList<Canasta>) canastas;
-	}
-
 	public String getContrasena() {
 		return contrasena;
 	}
@@ -184,7 +179,6 @@ public class Cliente implements Serializable{
 	public void setContrasena(String contrasena) {
 			this.contrasena = contrasena;
 	}
-
 
 	public static Cliente getSesion() {
 		return sesion;
@@ -202,13 +196,47 @@ public class Cliente implements Serializable{
 		this.domiciliario = domiciliario;
 	}
 
+	public void guardarCanastaEnHistorial(Canasta canasta){
+		ArrayList<Producto> listaVacia = new ArrayList<Producto>();
+		ArrayList<Ingrediente> listaVacia2 = new ArrayList<Ingrediente>();
+		ArrayList<ArrayList<Ingrediente>> listaVacia3 = new ArrayList<ArrayList<Ingrediente>>();
+		canasta.setProductos(listaVacia);
+		canasta.setIngredientes(listaVacia2);
+		canasta.setKits(listaVacia3);
+		canasta.setPagada(false);
+		this.historialOrdenes.add(canasta);
+	}
 
-	//TODO revisar 
-	public void crearCanasta() {
+	public Canasta crearCanastaPorHistorial(String id){
+		for (Canasta canasta: this.historialOrdenes){
+			if (canasta.getIdentificador().equals(id)){
+				Canasta newCanasta = canasta;
+				this.canastaOrden = new Canasta(newCanasta.getProductos(), newCanasta.getIngredientes(), newCanasta.getKits(),newCanasta.getProductosEnLista(), newCanasta.getIngredientesEnLista(), newCanasta.getKitsEnLista(),newCanasta.getIdentificador(), newCanasta.getItemsTotalesEnCanasta(), newCanasta.getItemsTotalesEnLista(),newCanasta.getCostoTotalEnLista(), newCanasta.getCostoTrasDescuentoEnLista(),newCanasta.getDescuentoEnLista(), newCanasta.getCalificacion(), newCanasta.getComentario(),newCanasta.isPagada());
+				cantidadOrdenes++;
+				this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));}
+				break;
+		}
+		return this.canastaOrden;
+	}
+
+	public Canasta crearCanastaDelDia(){
+		Canasta newCanasta = Panaderia.getCanastaDelDia();
+		canastaOrden = new Canasta(newCanasta.getProductos(), newCanasta.getIngredientes(), newCanasta.getKits(),newCanasta.getProductosEnLista(), newCanasta.getIngredientesEnLista(), newCanasta.getKitsEnLista(),newCanasta.getIdentificador(), newCanasta.getItemsTotalesEnCanasta(), newCanasta.getItemsTotalesEnLista(),newCanasta.getCostoTotalEnLista(), newCanasta.getCostoTrasDescuentoEnLista(),newCanasta.getDescuentoEnLista(), newCanasta.getCalificacion(), newCanasta.getComentario(),newCanasta.isPagada());
+		cantidadOrdenes++;
+		this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));
+		return this.canastaOrden;
+	}
+
+	public Canasta crearCanastaNueva() {
+		Canasta canasta = new Canasta();
+		this.canastaOrden = canasta;
+		cantidadOrdenes++;
+		this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));
+		return this.canastaOrden;
+	}
+
+	public void publicarCanasta() {
 		
-		//Canasta canasta = new Canasta(null, null);
-		//this.canastas.add(canasta);
-
 	}
 
 	public void calificarDomiciliario(Domiciliario domiciliario, double calificacion){
@@ -442,4 +470,27 @@ public class Cliente implements Serializable{
 		}
 	}
 
+	/**
+	 * Este enum representa los diferentes tipos de descuentos que se pueden aplicar
+	 * a un cupón.
+	 * Los tipos disponibles son ESTUDIANTE y PROFESOR, cada uno con un valor de
+	 * descuento correspondiente.
+	 */
+	public enum DescuentoPorTipo {
+		ESTUDIANTE(0.1),
+		PROFESOR(0.1),
+		NINGUNO(0),
+		SENIOR(0.2),
+		EMPLEADO(0.3);
+
+		private final double valor;
+
+		DescuentoPorTipo(double valor) {
+			this.valor = valor;
+		}
+
+		public double getValor() {
+			return valor;
+		}
+	}
 }
