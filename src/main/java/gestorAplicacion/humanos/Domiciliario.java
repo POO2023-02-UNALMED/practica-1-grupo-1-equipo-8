@@ -84,7 +84,10 @@ public class Domiciliario extends Trabajador{
         }
     }
 
-    //TODO: arreglar porque ya no se estan implementando los hasmasps de antes. Hay que hablar con TEO
+    //Este método se ejecuta cuando se llama el método comprarIngredientes de Panadería, basicamnete se encarga de comprar ingedientes cuando falta y añadirlos al inventario
+    //Recibe una diccionario de Strings y enteros paea saber exactamente qué se debe comprar y cuánta cantidad
+    //Cuando se "compran" nuevos ingredientes realmente se están creando objetos y añandiendose al inventario
+    
     public boolean conseguirIngredientes(Map<String, Integer> listingredientes) {
 
         double valorcompra = 0;
@@ -111,17 +114,14 @@ public class Domiciliario extends Trabajador{
             this.dineroEnMano += valorcompra;
             Panaderia.setDinero((double) (Panaderia.getDinero() - valorcompra));
 
-        }
+        } 
+        
+        Catastrofe Ladron = Catastrofe.responsableAleatorio();
+        Domiciliario postRobo = (Domiciliario) Ladron.robarComprador((Cocinero) this);
 
-        Random numAleatorio = new Random();
+        if (postRobo.robado = true) {
 
-        double habilidadLadron = numAleatorio.nextDouble() * 10;
-
-        if (habilidadLadron > this.habilidad) {
-
-            this.dineroEnMano = 0;
-            this.robado = true;
-            return this.robado;
+        	 return this.robado;
         }
 
         else {

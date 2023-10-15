@@ -191,6 +191,10 @@ public class Cocinero extends Domiciliario{
         // Si todos los productos se cocinan con éxito, retorna verdadero.
         return true;
     }
+  
+    //Este método se ejecuta cuando se llama el método comprarIngredientes de Panadería, basicamnete se encarga de comprar ingedientes cuando falta y añadirlos al inventario
+    //Recibe una diccionario de Strings y enteros paea saber exactamente qué se debe comprar y cuánta cantidad
+    //Cuando se "compran" nuevos ingredientes realmente se están creando objetos y añandiendose al inventario
 
     public boolean conseguirIngredientes(Map<String, Integer> listingredientes){
 
@@ -207,26 +211,23 @@ public class Cocinero extends Domiciliario{
         if (valorcompra <= Panaderia.getDinero()){
 
             this.dineroEnMano += valorcompra;
-            Panaderia.setDinero((double) (Panaderia.getDinero()-valorcompra));
+            Panaderia.setDinero(Panaderia.getDinero()-valorcompra);
 
         }
 
         else{
 
-            Panaderia.conseguirPrestamo( (double) valorcompra);
+            Panaderia.conseguirPrestamo( valorcompra);
             this.dineroEnMano += valorcompra;
-            Panaderia.setDinero((double) (Panaderia.getDinero()-valorcompra));
+            Panaderia.setDinero(Panaderia.getDinero()-valorcompra);
 
         }
+        
+        Catastrofe Ladron = Catastrofe.responsableAleatorio();
+        Cocinero postRobo = Ladron.robarComprador(this);
 
-        Random numAleatorio = new Random();
+        if (postRobo.robado = true){
 
-        double habilidadLadron = numAleatorio.nextDouble() * 10;
-
-        if (habilidadLadron > this.habilidad){
-
-            this.dineroEnMano = 0;
-            this.robado = true;
             return this.robado;
         }
 

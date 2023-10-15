@@ -646,6 +646,10 @@ public class Panaderia implements Serializable {
 
     }
     
+	//Este método se llama cuando en alguna parte del proceso de preparación de la compra hacen falta ingredientes 
+	//Escoge aleatoriamente un trabajador para ir a conseguir los ingredientes y tiene métodos de lectura que permiten las impresiones en la capa funcional
+	//Recibe un map de String y enteros para saber exactamente qué debe comprar y qué cantidad
+	
     public static void comprarIngredientes(Map<String, Integer> listingredientes) {
     	
     	Trabajador elegido = Panaderia.trabajadorAleatorio();
