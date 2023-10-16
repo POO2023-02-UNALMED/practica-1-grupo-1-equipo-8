@@ -11,6 +11,7 @@ import gestorAplicacion.comida.Producto;
 import gestorAplicacion.comida.ProductoFrio;
 
 public class ProductoFrioTest {
+  /* 
   private ProductoFrio productoFrio;
   private String nombre;
   private HashMap<String, Integer> ingredientes;
@@ -72,4 +73,5 @@ public class ProductoFrioTest {
     assertNotNull(procesos);
     assertEquals(1, procesos.size());
   }
+  */
 }

@@ -14,21 +14,19 @@ public class Producto implements Serializable{
 	protected String nombre;
 	protected String id;
 	protected double costo;
-	protected String sabor;
 	protected HashMap<String,Integer> ingredientes = new HashMap<String,Integer>();
 	protected ArrayList<String> procesoDeCocina = new ArrayList<String>();
 	protected int vecesVendido;
 	/* 
-  protected Integer unidades;
 	// Hablar con richar para eliminar el atributo de abajo
 	protected static List<Producto> productos = new ArrayList<Producto>(); //lista de productos necesaria para dar la lista de opciones y para procesar las ordenes facilmente
 	*/
 	//Constructores
-	public Producto(String nombre, HashMap<String,Integer> ingredientes, double costo, String sabor, ArrayList<String> procesoDeCocina) {
+	public Producto(String nombre, String id, HashMap<String,Integer> ingredientes, double costo, int vecesVendido) {
 		this.nombre = nombre;
+		this.id = id;
 		this.ingredientes = ingredientes;
-		this.sabor = sabor;
-		this.procesoDeCocina = procesoDeCocina;
+		this.vecesVendido = vecesVendido;
 		this.costo = calcularCosto();
 
 	}
@@ -37,7 +35,6 @@ public class Producto implements Serializable{
 		this.nombre=nombre;
 		this.ingredientes=ingredientes;
 		this.costo=calcularCosto();
-		this.procesoDeCocina=seleccionProcesosDeCocina();
 		cantidadProductosUnicos++;
 		this.id = String.valueOf(cantidadProductosUnicos + Ingrediente.getCantidadIngredientesUnicos());
 		baseDatosProductos.add(this);
@@ -69,24 +66,6 @@ public class Producto implements Serializable{
 		this.nombre = nombre;
 	}
 
-	public String getSabor() {
-		return sabor;
-	}
-
-	public void setSabor(String sabor) {
-		this.sabor = sabor;
-	}
-
-	/* 
-	public Integer getUnidades() {
-		return unidades;
-	}
-
-	public void setUnidades(Integer unidades) {
-		this.unidades = unidades;
-	}
-	*/
-	
 	public ArrayList<String> getProcesoDeCocina() {
 		return procesoDeCocina;
 	}
@@ -109,6 +88,22 @@ public class Producto implements Serializable{
 
 	public static void setCantidadProductosUnicos(int cantidadProductosUnicos) {
 		Producto.cantidadProductosUnicos = cantidadProductosUnicos;
+	}
+
+	public int getVecesVendido() {
+		return vecesVendido;
+	}
+
+	public void setVecesVendido(int vecesVendido) {
+		this.vecesVendido = vecesVendido;
+	}
+
+	public static ArrayList<Producto> getBaseDatosProductos() {
+		return baseDatosProductos;
+	}
+
+	public static void setBaseDatosProductos(ArrayList<Producto> baseDatosProductos) {
+		Producto.baseDatosProductos = baseDatosProductos;
 	}
 
 	//Métodos
@@ -156,7 +151,7 @@ public class Producto implements Serializable{
 	public static Producto crearProducto(String Nnombre) {
 		Producto newProducto = obtenerObjetoPorNombre(Nnombre);
 		newProducto.vecesVendido++;
-		return new Producto(newProducto.getNombre(), newProducto.getIngredientes(), newProducto.getCosto(), newProducto.getSabor(), newProducto.getProcesoDeCocina());
+		return new Producto(newProducto.getNombre(), newProducto.getId(), newProducto.getIngredientes(), newProducto.getCosto(), newProducto.getVecesVendido());
 	}
 
 	public static Producto crearProductoPersonalizado(String Nnombre, HashMap<String,Integer> ingredientes) {
@@ -171,12 +166,11 @@ public class Producto implements Serializable{
 	public double calcularCosto() {
 		double costo = 0;
 		for (HashMap.Entry<String, Integer> entry : ingredientes.entrySet()) {
-			costo += Ingrediente.obtenerObjetoPorNombre(entry.getKey()).getPrecioDeCompra() * entry.getValue();
+			costo += Ingrediente.obtenerObjetoPorNombre(entry.getKey()).getPrecioDeVenta() * entry.getValue();
 		}
 		return costo;
 	}
 
-	//TODO implementar funcion de proceso de cocina aleatorio
 	public ArrayList<String> seleccionProcesosDeCocina (){
 	ArrayList <String> procesos = new ArrayList<String>();
 	procesos.add("Hornear");

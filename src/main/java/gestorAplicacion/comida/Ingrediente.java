@@ -102,6 +102,14 @@ public class Ingrediente implements Serializable{
 		this.vecesVendido = vecesVendido;
 	}
 
+	public static ArrayList<Ingrediente> getBaseDatosIngredientes() {
+		return baseDatosIngredientes;
+	}
+
+	public static void setBaseDatosIngredientes(ArrayList<Ingrediente> baseDatosIngredientes) {
+		Ingrediente.baseDatosIngredientes = baseDatosIngredientes;
+	}
+
 	/**
 	 * Verifica si un ingrediente existe en la base de datos por su nombre.
 	 * @param nombre El nombre del ingrediente a verificar.

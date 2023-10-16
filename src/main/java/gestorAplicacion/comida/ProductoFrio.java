@@ -1,56 +1,76 @@
 package gestorAplicacion.comida;
 
+import gestorAplicacion.humanos.Domiciliario;
+import gestorAplicacion.humanos.Cocinero;
+
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class ProductoFrio extends Producto{
-  protected static ArrayList<Producto> baseDatosProductosFrios = new ArrayList<Producto>();
-  private double tipoDeEnvase;
-  private int tiempoDeVida;
+  private boolean congelador=false;
+  private int tiempoDeCongelamiento;
 
-  public ProductoFrio(String nombre, HashMap<String,Integer> ingredientes, double costo, String sabor, ArrayList<String> procesoDeCocina, double tipoDeEnvase, int tiempoDeVida) {
-    super(nombre, ingredientes, costo, sabor, procesoDeCocina);
-    this.tipoDeEnvase = tipoDeEnvase;
-    this.tiempoDeVida = tiempoDeVida;
+  public ProductoFrio(String nombre, String ids, HashMap<String,Integer> ingredientes, double costo, int vecesVendido, int tiempoDeCongelamiento) {
+    super(nombre, ids, ingredientes, costo, vecesVendido);
+    this.tiempoDeCongelamiento = tiempoDeCongelamiento;
   }
 
-  public ProductoFrio(String nombre, HashMap<String,Integer> ingredientes,double tipoDeEnvase, int tiempoDeVida) {
+  public ProductoFrio(String nombre, HashMap<String,Integer> ingredientes) {
     super(nombre, ingredientes);
-    this.tipoDeEnvase = tipoDeEnvase;
-    this.tiempoDeVida = tiempoDeVida;
+    this.tiempoDeCongelamiento = calcularCongelamiento();
   }
 
-  public double getTipoDeEnvase() {
-    return tipoDeEnvase;
+  public boolean getcongelador() {
+    return congelador;
   }
 
-  public void setTipoDeEnvase(double tipoDeEnvase) {
-    this.tipoDeEnvase = tipoDeEnvase;
+  public void setcongelador(boolean congelador) {
+    this.congelador = congelador;
   }
 
-  public int getTiempoDeVida() {
-    return tiempoDeVida;
+  public int gettiempoDeCongelamiento() {
+    return tiempoDeCongelamiento;
   }
 
-  public void setTiempoDeVida(int tiempoDeVida) {
-    this.tiempoDeVida = tiempoDeVida;
+  public void settiempoDeCongelamiento(int tiempoDeCongelamiento) {
+    this.tiempoDeCongelamiento = tiempoDeCongelamiento;
   }
   
-  public static Producto crearProducto(String Nnombre) {
-    Producto newProducto = obtenerObjetoPorNombre(Nnombre);
-    return new Producto(newProducto.getNombre(), newProducto.getIngredientes(), newProducto.getCosto(),
-        newProducto.getSabor(), newProducto.getProcesoDeCocina());
+  /**
+   * Crea un nuevo objeto ProductoFrio con el nombre especificado y aumenta el contador de veces vendido en 1.
+   * @param Nnombre el nombre del producto a crear
+   * @return el nuevo objeto ProductoFrio creado
+   */
+  public static ProductoFrio crearProducto(String Nnombre) {
+    ProductoFrio newProducto = (ProductoFrio) obtenerObjetoPorId(Nnombre);
+    newProducto.vecesVendido++;
+    return new ProductoFrio(newProducto.getNombre(), newProducto.getId(), newProducto.getIngredientes(), newProducto.getCosto(), newProducto.getVecesVendido(), newProducto.gettiempoDeCongelamiento());
   }
   
-  public static Producto crearProductoPersonalizado(String Nnombre, HashMap<String, Integer> ingredientes) {
+  /**
+   * Crea un producto frío personalizado con los ingredientes y el nombre especificados.
+   * Si un ingrediente no existe, se crea uno nuevo.
+   * @param Nnombre el nombre del producto frío personalizado
+   * @param ingredientes los ingredientes y sus cantidades necesarias para crear el producto frío personalizado
+   * @param congelador true si el producto frío personalizado debe ser almacenado en el congelador, false de lo contrario
+   * @return el producto frío personalizado creado
+   */
+  public static ProductoFrio crearProductoPersonalizado(String Nnombre, HashMap<String, Integer> ingredientes) {
     for (HashMap.Entry<String, Integer> entry : ingredientes.entrySet()) {
       if (!Ingrediente.verificacionExistenciaPorNombre(entry.getKey())) {
         new Ingrediente(entry.getKey());
       }
     }
-    return new Producto(Nnombre, ingredientes);
+    return new ProductoFrio(Nnombre, ingredientes);
   }
+  
+  /**
+   * Retorna una lista de procesos de cocina aleatorios para el producto frio.
+   * Los procesos pueden ser: Gelatinificar, Amasar, Mezclar, Congelar, Licuar o Decoracion.
+   * La cantidad de procesos aleatorios a seleccionar esta entre 1 y 3.
+   * @return una lista de procesos de cocina aleatorios para el producto frio.
+   */
   @Override
   public ArrayList<String> seleccionProcesosDeCocina() {
     ArrayList <String> procesos = new ArrayList<String>();
@@ -75,4 +95,33 @@ public class ProductoFrio extends Producto{
 	}
 	return procesosFinales;
 	}
+
+  //TODO montar vehiculo especial y contenedor especial para productos frios
+  public Domiciliario empaqueCongelador(Domiciliario domiciliario){
+    /* 
+    if(domiciliario.getVehiculo().getCongelador()){
+      return true;
+    }
+    return false;
+    */
+    return domiciliario;
+  }
+
+  //TODO implementar tiempo de congelamiento aleatorio
+  public int calcularCongelamiento(){
+    int tiempoDeCongelamiento = 0;
+
+    return tiempoDeCongelamiento;
+  }
+
+  //TODO implementar proceso de congelamiento para interactuar con cocinero
+  public Cocinero procesoCongelamiento(Cocinero cocinero){
+    /* 
+    if(cocinero.getContenedor().getCongelador()){
+      return true;
+    }
+    return false;
+    */
+    return cocinero;
+  }
 }
