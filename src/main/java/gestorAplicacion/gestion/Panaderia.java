@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import UIMain.GestionCompraMain;
+import UIMain.GestionCompra;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.humanos.Cliente;
@@ -162,11 +162,15 @@ public class Panaderia implements Serializable {
         canastasPublicadas.add(canasta);
     }
 
+    //TODO corregir importacion de cocinero
+    /*
     public static Cocinero contratarCocinero(String nombre, double habilidad, double dineroEnMano, String especialidad) {
         Cocinero indicado = new Cocinero(nombre, habilidad, dineroEnMano, especialidad);
         cocineros.add(indicado);
         return indicado;
+        
     }
+    */
 
     //Métodos para saldar las deudas de la panadería
     
@@ -215,7 +219,7 @@ public class Panaderia implements Serializable {
             
             while (Panaderia.enQuiebra == true) {
             
-                GestionCompraMain.lecturaQuiebra(Panaderia.enQuiebra);
+                GestionCompra.lecturaQuiebra(Panaderia.enQuiebra);
                 Panaderia.saldarDeudas();
         
             }
@@ -225,7 +229,7 @@ public class Panaderia implements Serializable {
 
         }
         
-        GestionCompraMain.lecturaQuiebra(Panaderia.enQuiebra);
+        GestionCompra.lecturaQuiebra(Panaderia.enQuiebra);
 
     }
 
@@ -650,17 +654,17 @@ public class Panaderia implements Serializable {
     	
     	Trabajador elegido = Panaderia.trabajadorAleatorio();
     	
-    	GestionCompraMain.lecturaCompra(elegido.isRobado());
+    	GestionCompra.lecturaCompra(elegido.isRobado());
 
         boolean x = elegido.conseguirIngredientes(listingredientes);
 
         while (x == true){
         	
-        	GestionCompraMain.lecturaRobo(x);
+        	GestionCompra.lecturaRobo(x);
             Panaderia.comprarIngredientes(listingredientes);
             
         }
         
-        GestionCompraMain.lecturaRobo(x);
+        GestionCompra.lecturaRobo(x);
     }
 }

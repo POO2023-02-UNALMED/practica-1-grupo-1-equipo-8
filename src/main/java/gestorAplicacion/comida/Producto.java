@@ -17,6 +17,7 @@ public class Producto implements Serializable{
 	protected String sabor;
 	protected HashMap<String,Integer> ingredientes = new HashMap<String,Integer>();
 	protected ArrayList<String> procesoDeCocina = new ArrayList<String>();
+	protected int vecesVendido;
 	/* 
   protected Integer unidades;
 	// Hablar con richar para eliminar el atributo de abajo
@@ -154,6 +155,7 @@ public class Producto implements Serializable{
 
 	public static Producto crearProducto(String Nnombre) {
 		Producto newProducto = obtenerObjetoPorNombre(Nnombre);
+		newProducto.vecesVendido++;
 		return new Producto(newProducto.getNombre(), newProducto.getIngredientes(), newProducto.getCosto(), newProducto.getSabor(), newProducto.getProcesoDeCocina());
 	}
 

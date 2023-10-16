@@ -8,7 +8,7 @@ import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Canasta;
 
-public class GestionCompraMain {
+public class GestionCompra {
   public void gestionRecibirOrdenCanasta(Canasta canasta){
     Scanner scanner = new Scanner(System.in);
     String objetoEntrante;
@@ -37,7 +37,7 @@ public class GestionCompraMain {
       else {
         String entrada;
         int cantidadIngrediente;
-        Map<String, Integer> ingredientesNecesarios = new HashMap<String, Integer>();
+        HashMap<String, Integer> ingredientesNecesarios = new HashMap<String, Integer>();
         System.out.println("No manejamos el producto que ingresó");
         System.out.println("Indiquenos los ingredientes necesarios para su preparacion y se lo cocinaremos");
         while (true) {

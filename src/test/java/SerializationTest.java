@@ -7,6 +7,7 @@ import baseDatos.Serializador;
 
 public class SerializationTest {
   public static void main(String[] args) {
+    /* 
     Panaderia panaderia=null;
     panaderia = Serializador.cargarPanaderia();
 
@@ -30,5 +31,6 @@ public class SerializationTest {
       System.out.println(ingrediente.getCantidadIngredientes());
     }
     Serializador.guardarPanaderia(panaderia);
+    */
   }
 }

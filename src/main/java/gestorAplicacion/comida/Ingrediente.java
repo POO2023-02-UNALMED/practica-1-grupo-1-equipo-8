@@ -16,7 +16,7 @@ public class Ingrediente implements Serializable{
 	private String id;
 	private double PrecioDeVenta;
 	private double PrecioDeCompra;
-	private int vecesVendido;
+	private int vecesVendido=0;
 	public static final int probabilidadConstante =1;
 	//Hablar con richar para eliminar el atributo de abajo
 	public static List<Ingrediente> ingredientes = new ArrayList<Ingrediente>(); //lista de ingredientes totales necesaria para dar la lista de opciones y para procesar las ordenes facilmente
@@ -31,6 +31,7 @@ public class Ingrediente implements Serializable{
 		this.PrecioDeCompra =  Math.ceil(numeroAleatorioCompra);
 		cantidadIngredientesUnicos++;
 		this.id = String.valueOf(cantidadIngredientesUnicos+Producto.getCantidadProductosUnicos());
+		baseDatosIngredientes.add(this);
 	}
 
 	public Ingrediente(String nombre, String id, double precioDeVenta, double precioDeCompra, int vecesVendido) {
@@ -159,6 +160,7 @@ public class Ingrediente implements Serializable{
 	public static Ingrediente crearIngrediente(String nombreId) {
 		if(verificacionExistenciaPorNombre(nombreId) || verificacionExistenciaPorId(nombreId)) {
 			Ingrediente newIngrediente = obtenerObjetoPorNombre(nombreId);
+			newIngrediente.setVecesVendido(newIngrediente.getVecesVendido()+1);
 			return new Ingrediente(newIngrediente.getNombre(), newIngrediente.getId(), newIngrediente.getPrecioDeVenta(), newIngrediente.getPrecioDeCompra(), newIngrediente.getVecesVendido());
 		}
 

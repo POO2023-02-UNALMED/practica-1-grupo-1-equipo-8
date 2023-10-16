@@ -6,7 +6,6 @@ import gestorAplicacion.comida.Producto;
 import gestorAplicacion.humanos.Cliente;
 //import gestorAplicacion.humanos.Cliente.Descuento;
 import gestorAplicacion.humanos.Cliente.Direccion;
-import gestorAplicacion.gestion.Cupon.DescuentoPorTipo;
 
 import java.util.List; //Libreria para listas
 import java.util.ArrayList; //Libreria para listas

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ProductoFrio extends Producto{
+  protected static ArrayList<Producto> baseDatosProductosFrios = new ArrayList<Producto>();
   private double tipoDeEnvase;
   private int tiempoDeVida;
 
@@ -17,6 +18,22 @@ public class ProductoFrio extends Producto{
   public ProductoFrio(String nombre, HashMap<String,Integer> ingredientes,double tipoDeEnvase, int tiempoDeVida) {
     super(nombre, ingredientes);
     this.tipoDeEnvase = tipoDeEnvase;
+    this.tiempoDeVida = tiempoDeVida;
+  }
+
+  public double getTipoDeEnvase() {
+    return tipoDeEnvase;
+  }
+
+  public void setTipoDeEnvase(double tipoDeEnvase) {
+    this.tipoDeEnvase = tipoDeEnvase;
+  }
+
+  public int getTiempoDeVida() {
+    return tiempoDeVida;
+  }
+
+  public void setTiempoDeVida(int tiempoDeVida) {
     this.tiempoDeVida = tiempoDeVida;
   }
   

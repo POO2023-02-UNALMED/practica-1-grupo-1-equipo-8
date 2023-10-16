@@ -73,19 +73,16 @@ public class Catastrofe {
     }
 
     //TODO: la idea es que se implementen las otras catastrofes para las otras funcionalidades
-}
 
-
-
-
-//TODO cambiar a panaderia lo siguiente apenas se puede
-{
-public void sortDomiciliariosByHabilidad(List<Domiciliario> domiciliarios) {
-    Collections.sort(domiciliarios, new Comparator<Domiciliario>() {
-        @Override
-        public int compare(Domiciliario d1, Domiciliario d2) {
-            return Integer.compare(d1.getHabilidad(), d2.getHabilidad());
-        }
-    });
-}
+    //TODO cambiar a panaderia lo siguiente apenas se puede
+    /* 
+    public void sortDomiciliariosByHabilidad(List<Domiciliario> domiciliarios) {
+        Collections.sort(domiciliarios, new Comparator<Domiciliario>() {
+            @Override
+            public int compare(Domiciliario d1, Domiciliario d2) {
+                return Integer.compare(d1.getHabilidad(), d2.getHabilidad());
+            }
+        });
+    }
+    */
 }
