@@ -175,8 +175,6 @@ public class Recibo implements Serializable{
         factura.add(Texto.centrar("█ ███ █ ▀▄ ▀▄  ██▄█▀█")); 
         factura.add(Texto.centrar("█▄▄▄▄▄█ █▀▀▄▄▀▀▀█  ▄ "));
         factura.add(String.format(""));
-
-
         }
 
     }

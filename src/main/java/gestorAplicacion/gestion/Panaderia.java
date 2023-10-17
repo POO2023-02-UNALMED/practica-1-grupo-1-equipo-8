@@ -710,4 +710,9 @@ public class Panaderia implements Serializable {
         else{
             return false;
         }
+        }
+
+    public static Recibo generarRecibo(){
+       return new Recibo(Cliente.getSesion(), Cliente.getSesion().getCanastaEnMano().getCostoTrasDescuentoEnLista(), Cliente.getSesion().getTipoDescuento().getValor()); //puede que cambie parametros del constructor despues
+    }
 }

@@ -176,6 +176,14 @@ public class Cliente implements Serializable{
 		this.domiciliario = domiciliario;
 	}
 
+	public Canasta getCanastaEnMano() {
+		return canastaEnMano;
+	}
+
+	public void setCanastaEnMano(Canasta canastaEnMano) {
+		this.canastaEnMano = canastaEnMano;
+	}
+
 	public void guardarCanastaEnHistorial(Canasta canasta){
 		ArrayList<Producto> listaVacia = new ArrayList<Producto>();
 		ArrayList<Ingrediente> listaVacia2 = new ArrayList<Ingrediente>();
