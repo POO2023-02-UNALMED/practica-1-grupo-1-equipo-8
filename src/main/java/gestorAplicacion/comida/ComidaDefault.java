@@ -1,5 +1,7 @@
 package gestorAplicacion.comida;
 
+import UIMain.Texto;
+
 public interface ComidaDefault {
     final int tarifaDomicilio = 2000;
     final int tarifaGanancias = 3;
@@ -12,9 +14,8 @@ public interface ComidaDefault {
     default public String getNutrientes(){
         String m = String.format(""+
         " _______________________________________________________ \n"+
-        "| Producto: Galletas de chocolate                       |\n"+
-        "| Porción: 2 galletas (30 g)                            |\n"+
-        "| Porciones por envase: 10                              |\n"+
+        "|"+Texto.centrar("Producto: ")+" |\n"+
+        "| Porción: 30 g                                         |\n"+
         "|_______________________________________________________| \n"+
         "| Información nutricional por porción                   |\n"+
         "|______________________ ________ _______________________| \n"+

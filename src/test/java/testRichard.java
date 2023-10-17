@@ -1,8 +1,10 @@
+import UIMain.Texto;
+
 public class testRichard {
     public static void main(String[] args){
         String m = String.format(""+
         " _______________________________________________________ \n"+
-        "| Producto: Galletas de chocolate                       |\n"+
+        "|"+Texto.centrar("Producto: ")+" |\n"+
         "| Porción: 2 galletas (30 g)                            |\n"+
         "| Porciones por envase: 10                              |\n"+
         "|_______________________________________________________| \n"+
