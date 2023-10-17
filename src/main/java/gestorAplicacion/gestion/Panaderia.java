@@ -10,6 +10,7 @@ import java.util.Random;
 import UIMain.GestionCompra;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
+import gestorAplicacion.comida.ProductoFrio;
 import gestorAplicacion.humanos.Cliente;
 import gestorAplicacion.humanos.Cocinero;
 import gestorAplicacion.humanos.Domiciliario;
@@ -240,6 +241,13 @@ public class Panaderia implements Serializable {
 
     public static void enviarDomicilio(Canasta canasta, Cliente cliente) {
         Domiciliario domiciliario = domiciliarioAleatorio();
+        ArrayList<Producto> producto = canasta.getProductos();
+
+        for (Producto p : producto){
+            if (p instanceof ProductoFrio){
+                ((ProductoFrio)p).empaqueCongelador(domiciliario);
+            }
+        }
         if (!domiciliario.isLicencia()){
             Panaderia.restarDinero(10000);
             domiciliario.setLicencia(true);

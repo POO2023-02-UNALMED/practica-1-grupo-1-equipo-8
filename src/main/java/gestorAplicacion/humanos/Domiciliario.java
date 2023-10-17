@@ -81,14 +81,7 @@ public class Domiciliario extends Trabajador{
 
 
     public boolean laborParticular(Canasta canasta){
-        ArrayList<Producto> producto = canasta.getProductos();
-
-        for (Producto p : producto){
-            if (p instanceof ProductoFrio){
-                ((ProductoFrio)p).empaqueCongelador(Domiciliario.this);
-            }
-        }
-
+        
         Catastrofe malechor = new Catastrofe();
         if (malechor.pincharLLanta(this)){
             boolean x = false;
