@@ -258,6 +258,8 @@ public class Panaderia implements Serializable {
         while (!logro){
             domiciliario.setHabilidad(domiciliario.getHabilidad()+1);
             logro = domiciliario.laborParticular(canasta);
+            Panaderia.restarDinero(10000);
+            domiciliario.setLicencia(true);
         }
         cliente.setDomiciliario(domiciliario);
     }
