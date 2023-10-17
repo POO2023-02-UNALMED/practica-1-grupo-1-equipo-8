@@ -57,15 +57,14 @@ public void setHorno(boolean horno) {
     return tiempoDeHornear;
 	}
 
-	public Producto procesoHornear(Producto producto){
-    /** 
-    if(cocinero.getContenedor().getCongelador()){
-		return true;
-    }
-    return false;
-    */
-    return producto;
-  }
+	public Cocinero procesoHornear(Cocinero cocinero){
+		if (cocinero.isHorno() == true) {
+			return cocinero;
+		} else {
+			cocinero.setHorno(true);
+			return cocinero;
+		}
+	}
 
 @Override
 

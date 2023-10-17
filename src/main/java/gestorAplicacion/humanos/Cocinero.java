@@ -18,7 +18,8 @@ public class Cocinero extends Domiciliario{
     private String especialidad;
     private boolean fallado = false;
     private boolean trabajo = false;
-
+    private boolean nevera;
+    private boolean horno;
 
 
     public Cocinero() {
@@ -57,6 +58,22 @@ public class Cocinero extends Domiciliario{
 
     public void setTrabajo(boolean trabajo) {
         this.trabajo = trabajo;
+    }
+
+    public boolean isNevera() {
+        return nevera;
+    }
+
+    public void setNevera(boolean nevera) {
+        this.nevera = nevera;
+    }
+
+    public boolean isHorno() {
+        return horno;
+    }
+
+    public void setHorno(boolean horno) {
+        this.horno = horno;
     }
     /**
      * Calcula los ingredientes faltantes necesarios para cocinar un producto específico.
@@ -114,16 +131,16 @@ public class Cocinero extends Domiciliario{
         producto.setProcesoDeCocina(procesosProducto);
         Catastrofe dificultad = new Catastrofe();
         List<String> procesoCook= producto.getProcesoDeCocina();
-        if (producto instanceof ProductoFrio) {
-            ProductoFrio productoF = (ProductoFrio)producto;
-            productoF.procesoCongelamiento(producto);
-        }
-        if (producto instanceof ProductoCaliente) {
-            ProductoCaliente productoH = (ProductoCaliente)producto;
-            productoH.procesoHornear(producto);
-        }
         for (String proceso : procesoCook){
             Cocinero chefIdeal = cocineroIdeal(proceso);
+            if (producto instanceof ProductoFrio) {
+                ProductoFrio productoF = (ProductoFrio)producto;
+                productoF.procesoCongelamiento(chefIdeal);
+            }
+            if (producto instanceof ProductoCaliente) {
+                ProductoCaliente productoH = (ProductoCaliente)producto;
+                productoH.procesoHornear(chefIdeal);
+            }
             boolean cookProducto = dificultad.dificultadProducto(chefIdeal);
             if (cookProducto){
                 chefIdeal.setHabilidad(chefIdeal.getHabilidad()+1);

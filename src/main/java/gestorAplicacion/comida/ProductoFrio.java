@@ -115,13 +115,12 @@ public class ProductoFrio extends Producto{
   }
 
   //TODO implementar proceso de congelamiento para interactuar con cocinero
-  public Producto procesoCongelamiento(Producto producto){
-    /* 
-    if(cocinero.getContenedor().getCongelador()){
-      return true;
+  public Cocinero procesoCongelamiento(Cocinero cocinero){
+    if (cocinero.isNevera() == true) {
+      return cocinero;
+    } else {
+      cocinero.setNevera(true);
+      return cocinero;
     }
-    return false;
-    */
-    return producto;
   }
 }
