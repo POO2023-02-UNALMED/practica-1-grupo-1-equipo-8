@@ -21,7 +21,7 @@ public class Recibo implements Serializable{
     ArrayList<String> factura = new ArrayList<String>();
 
     //ESTE PRIMER CONSTRUCTOR ES EL UNICO QUE USARA LA CLASE RECIBO, LOS DEMAS CREO QUE SON PARA PRUEBAS DE NICOLAS
-    public Recibo(Cliente cliente, double subtotal, double descuento) {
+    public Recibo(Cliente cliente, double subtotal, double descuento) { //el subtotal de recibo es el total de canasta
         totalFacturas++;
         this.cliente = cliente;
         this.idRecibo = totalFacturas;
