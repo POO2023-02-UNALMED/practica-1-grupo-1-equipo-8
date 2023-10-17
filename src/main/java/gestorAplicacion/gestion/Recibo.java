@@ -1,22 +1,12 @@
 package gestorAplicacion.gestion;
 
 import UIMain.Texto;
-import gestorAplicacion.comida.Ingrediente;
-import gestorAplicacion.comida.Producto;
 import gestorAplicacion.humanos.Cliente;
-//import gestorAplicacion.humanos.Cliente.Descuento;
-import gestorAplicacion.humanos.Cliente.Direccion;
-
-import java.util.List; //Libreria para listas
 import java.util.ArrayList; //Libreria para listas
 import java.util.Date; //Libreria para manejar fechas
-import java.io.EOFException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.time.Instant; //Libreria para obterer la fecha actual
-import java.util.Random; //Libreria para sacar numeros aleatorios (pensaba en premiar un cliente aleatorio volviendo su factura gratis)
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 
 public class Recibo implements Serializable{
     private Cliente cliente;
@@ -24,66 +14,20 @@ public class Recibo implements Serializable{
     private static int totalFacturas;
     private double precioTotal;
     private double precioFinal;
-    private DescuentoPorTipo descuento;
+    private double descuento;
     private Date fecha = new Date();
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     ArrayList<String> factura = new ArrayList<String>();
 
     //ESTE PRIMER CONSTRUCTOR ES EL UNICO QUE USARA LA CLASE RECIBO, LOS DEMAS CREO QUE SON PARA PRUEBAS DE NICOLAS
-    public Recibo(Cliente cliente, double precioTotal, DescuentoPorTipo descuento) {
+    public Recibo(Cliente cliente, double precioTotal, double descuento) {
         totalFacturas++;
         this.cliente = cliente;
         this.idRecibo = totalFacturas;
         this.precioTotal = precioTotal;
         this.descuento = descuento;
-        this.precioFinal = precioTotal * (1 - descuento.getValor()); 
+        this.precioFinal = precioTotal * (1 - descuento); 
         this.fecha = Date.from(Instant.now());
-    }
-
-    public Recibo(Cliente cliente, int idRecibo, double precioTotal) {
-        this.cliente = cliente;
-        this.idRecibo = idRecibo;
-        this.precioTotal = precioTotal;
-        this.descuento = DescuentoPorTipo.NINGUNO;
-        this.precioFinal = precioTotal; 
-        this.fecha = Date.from(Instant.now());
-        totalFacturas++;
-    }
-
-    public Recibo(Cliente cliente, int idRecibo) {
-        this.cliente = cliente;
-        this.idRecibo = idRecibo;
-        this.precioTotal = 0;
-        this.descuento = DescuentoPorTipo.NINGUNO;
-        this.precioFinal = precioTotal; 
-        this.fecha = Date.from(Instant.now());
-        totalFacturas++;
-    }
-
-    public Recibo(Canasta canasta, Direccion direccion, Cliente cliente){
-        Random rand = new Random();
-        this.cliente = cliente;
-        this.idRecibo = rand.nextInt(1000);
-        canasta.generarCosto();
-        this.precioTotal = canasta.getCostoTotal();
-        this.descuento = cliente.getTipoDescuento();
-        this.precioFinal = precioTotal; 
-        this.fecha = Date.from(Instant.now());
-        totalFacturas++;
-    }
-
-    public Recibo(ArrayList<Canasta> canastas, Direccion direccion, Cliente cliente){
-        Random rand = new Random();
-        this.cliente = cliente;
-        this.idRecibo = rand.nextInt(1000);
-        this.precioTotal = 0;
-        for(Canasta canasta: canastas){
-        	canasta.generarCosto();
-            this.precioTotal += canasta.getCostoTotal();
-        }
-        this.descuento = cliente.getTipoDescuento();
-        this.precioFinal = precioTotal; 
-        this.fecha = Date.from(Instant.now());
-        totalFacturas++;
     }
 
     public double getPrecioTotal() {
@@ -118,7 +62,7 @@ public class Recibo implements Serializable{
         this.precioFinal = precioFinal;
     }
 
-    public void setDescuento(DescuentoPorTipo descuento) {
+    public void setDescuento(double descuento) {
         this.descuento = descuento;
     }
 
@@ -142,7 +86,7 @@ public class Recibo implements Serializable{
         return precioFinal;
     }
 
-    public DescuentoPorTipo getDescuento() {
+    public double getDescuento() {
         return descuento;
     }
 
@@ -183,7 +127,7 @@ public class Recibo implements Serializable{
         factura.add(String.format(Texto.centrar("DOMICILIOS 24 HORAS")));
         factura.add(String.format(""));
         factura.add(Texto.centrar(String.format("Factura Nro: %s", idRecibo)));
-        factura.add(Texto.centrar(String.format("Fecha y hora: ")));
+        factura.add(Texto.centrar(String.format("Fecha y hora: %s", formato.format(fecha))));
         factura.add(Texto.centrar(String.format("Panadero que atendio su pedido: Mateo")));
         factura.add(Texto.centrar(String.format("Ciudad: Medellin")));
         factura.add(Texto.centrar(String.format("Cliente: %s", cliente.getNombre())));
@@ -204,8 +148,8 @@ public class Recibo implements Serializable{
         factura.add(Texto.centrar(String.format(Texto.centrar(""))));
         factura.add(Texto.centrar(String.format("Total articulos comprados: %s", idRecibo)));
         factura.add(Texto.centrar("EN POO BAKERY SOMOS EXPERTOS EN AHORRO:"));
-        factura.add(Texto.centrar(String.format("TU AHORRO HOY FUE DEL %s%", (descuento.getValor()*100))));
-        factura.add(Texto.centrar(String.format("EQUIVALENTE A: ")));
+        factura.add(Texto.centrar(String.format("TU AHORRO HOY FUE DEL %s%", (descuento*100))));
+        factura.add(Texto.centrar(String.format("EQUIVALENTE A: "))); //colocar el total ahorrado aqui cuando este todo listo
         factura.add(Texto.centrar("POO Bakery"));
         factura.add(Texto.centrar("solo calidad"));
         factura.add(Texto.centrar("Gracias por elegirnos"));
