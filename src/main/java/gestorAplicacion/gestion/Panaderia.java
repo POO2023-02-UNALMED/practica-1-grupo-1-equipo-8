@@ -164,14 +164,14 @@ public class Panaderia implements Serializable {
     }
 
     //TODO corregir importacion de cocinero
-    /*
-    public static Cocinero contratarCocinero(String nombre, double habilidad, double dineroEnMano, String especialidad) {
-        Cocinero indicado = new Cocinero(nombre, habilidad, dineroEnMano, especialidad);
+    
+    public static Cocinero contratarCocinero(String nombre, double habilidad,double calificacion, double dineroEnMano, String especialidad) {
+        Cocinero indicado = new Cocinero(nombre, habilidad,calificacion, dineroEnMano, especialidad);
         cocineros.add(indicado);
         return indicado;
         
     }
-    */
+    
 
     //Métodos para saldar las deudas de la panadería
     
@@ -432,13 +432,24 @@ public class Panaderia implements Serializable {
         canastaParaCocinar.add(canastaDeProductosCocinar);
         Cocinero cocinero = cocineroAleatorio();
         while(true){
-            if(cocinero.laborParticular(canastaParaCocinar)){
+            if(cocinero.laborParticular(canastaDeProductosCocinar)){
                 break;
             }
         }
     }
 
-
+    public static Map<String, Integer> revisarCantidadIngredientes(Map<String, Integer> ingredientesNecesarios){
+        HashMap<String, Integer> ingredientessFaltantes = new HashMap<String, Integer>();
+        for (Map.Entry<String, Integer> entry : ingredientesNecesarios.entrySet()) {
+            String ingredienteId = entry.getKey();
+            Integer cantidad = entry.getValue();
+            int cantidadExistente=verificarCantidadIngredientePorId(ingredienteId);
+            if (cantidadExistente-cantidad<0){
+                ingredientessFaltantes.put(ingredienteId,(cantidadExistente-cantidad)*(-2));
+            }
+        }
+        return ingredientessFaltantes;
+    }
     /**
      * Agrega los productos especificados en una canasta y devuelve una lista de los productos agregados.
      * Si algún producto no tiene suficiente cantidad en la panadería, se cocinará la cantidad faltante.
