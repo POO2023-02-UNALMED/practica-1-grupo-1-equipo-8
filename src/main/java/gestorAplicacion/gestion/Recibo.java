@@ -16,6 +16,7 @@ public class Recibo implements Serializable{
     private double total;
     private double descuento;
     private Date fecha = new Date();
+    private boolean pagado = false;
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     ArrayList<String> factura = new ArrayList<String>();
 
@@ -28,6 +29,14 @@ public class Recibo implements Serializable{
         this.descuento = descuento;
         this.total = subtotal * (1 - descuento); 
         this.fecha = Date.from(Instant.now());
+    }
+
+    public boolean isPagado() {
+        return pagado;
+    }
+
+    public void setPagado(boolean pagado) {
+        this.pagado = pagado;
     }
 
     public double getSubtotal() {

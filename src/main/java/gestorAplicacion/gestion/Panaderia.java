@@ -697,4 +697,14 @@ public class Panaderia implements Serializable {
         
         GestionCompra.lecturaRobo(x);
     }
+
+        //METODOS DE FACTURACION
+    public static boolean facturar(Recibo recibo, boolean pagar){
+        if (Cliente.getSesion().getPresupuesto() >= recibo.getTotal()){
+            recibo.setPagado(true);
+            return true;
+        }
+        else{
+            return false;
+        }
 }
