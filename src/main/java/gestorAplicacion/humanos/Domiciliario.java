@@ -2,11 +2,14 @@ package gestorAplicacion.humanos;
 
 import java.util.Map;
 import java.util.Random;
+import java.util.ArrayList;
 
 import UIMain.GestionDomicilioCliente;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
+import gestorAplicacion.comida.Producto;
+import gestorAplicacion.comida.ProductoFrio;
 
 import java.io.Serializable;
 
@@ -14,6 +17,7 @@ public class Domiciliario extends Trabajador{
     Boolean licencia;
     Boolean ocupado;
     Canasta canasta;
+    private boolean empaqueFrio;
 
     public Domiciliario() {
         super();
@@ -67,8 +71,17 @@ public class Domiciliario extends Trabajador{
         this.canasta = canasta;
     }
 
+    public boolean isEmpaqueFrio() {
+        return empaqueFrio;
+    }
+
+    public void setEmpaqueFrio(boolean empaqueFrio) {
+        this.empaqueFrio = empaqueFrio;
+    }
+
 
     public boolean laborParticular(Canasta canasta){
+        
         Catastrofe malechor = new Catastrofe();
         if (malechor.pincharLLanta(this)){
             boolean x = false;

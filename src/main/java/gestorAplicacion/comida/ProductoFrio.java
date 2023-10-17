@@ -98,13 +98,12 @@ public class ProductoFrio extends Producto{
 
   //TODO montar vehiculo especial y contenedor especial para productos frios
   public Domiciliario empaqueCongelador(Domiciliario domiciliario){
-    /* 
-    if(domiciliario.getVehiculo().getCongelador()){
-      return true;
+    if (domiciliario.isEmpaqueFrio() == true) {
+      return domiciliario;
+    } else {
+      domiciliario.setEmpaqueFrio(true);
+      return domiciliario;
     }
-    return false;
-    */
-    return domiciliario;
   }
 
   //TODO implementar tiempo de congelamiento aleatorio
