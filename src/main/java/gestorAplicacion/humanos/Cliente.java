@@ -257,7 +257,11 @@ public class Cliente implements Serializable{
 		domiciliario.setCalificacion(calificacionNueva);
 	}
 
-
+	public void calificarCocinero(Cocinero cocinero, double calificacion){
+		double calificacionVieja = cocinero.getCalificacion();
+		double calificacionNueva = (calificacionVieja + calificacion)/2;
+		cocinero.setCalificacion(calificacionNueva);
+	}
 	//TODO trabajar para enviar la canasta a pagar - Lo de abajo es solo una plantilla
 	public void enviarCanastasAFacturar(Canasta canastas) {
 		

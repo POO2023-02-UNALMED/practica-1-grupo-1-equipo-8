@@ -273,6 +273,15 @@ public class Panaderia implements Serializable {
         }
     }
 
+    public static void reviewCocinero(Cocinero cocinero){
+        double calificacion = cocinero.getCalificacion();
+        if (calificacion < 3){
+            cocinero.setSalario(cocinero.getSalario()*0.9);
+        } else if (calificacion == 5){
+            cocinero.setSalario(cocinero.getSalario()*1.1);
+        }
+    }
+
     /**
      * Verifica la cantidad de un producto en el inventario de la panadería por su ID.
      * @param prdct el ID del producto a verificar.

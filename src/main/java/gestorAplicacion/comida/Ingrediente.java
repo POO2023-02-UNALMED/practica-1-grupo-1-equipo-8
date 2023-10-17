@@ -18,6 +18,7 @@ public class Ingrediente implements Serializable{
 	private double PrecioDeCompra;
 	private int vecesVendido=0;
 	public static final int probabilidadConstante =1;
+	private boolean caducado=false;
 	//Hablar con richar para eliminar el atributo de abajo
 	public static List<Ingrediente> ingredientes = new ArrayList<Ingrediente>(); //lista de ingredientes totales necesaria para dar la lista de opciones y para procesar las ordenes facilmente
 
@@ -106,6 +107,14 @@ public class Ingrediente implements Serializable{
 		return baseDatosIngredientes;
 	}
 
+public boolean isCaducado() {
+	return caducado;
+}
+
+public void setCaducado(boolean caducado) {
+	this.caducado = caducado;
+}
+
 	public static void setBaseDatosIngredientes(ArrayList<Ingrediente> baseDatosIngredientes) {
 		Ingrediente.baseDatosIngredientes = baseDatosIngredientes;
 	}
@@ -177,13 +186,21 @@ public class Ingrediente implements Serializable{
 		}
 	}
 
-	public static void revisarCaducidad(Ingrediente ingrediente, int cantidad){
+	public void caducidad(Ingrediente ingrediente){
 		Random numAleatorio = new Random();
-	    int caducidad = numAleatorio.nextInt(20);
-	    if(caducidad == probabilidadConstante){
-	    	String ingredienteId = ingrediente.getId();
-	    	Panaderia.restarIngrediente(ingredienteId, cantidad);
-	    }
+		int caducidad = numAleatorio.nextInt(20);
+		if(caducidad == probabilidadConstante){
+			ingrediente.setCaducado(true);;
+		}
+	}
+
+	public static void revisarCaducidad(Ingrediente ingrediente, int cantidad){
+		ingrediente.caducidad(ingrediente);
+		boolean vencido = ingrediente.isCaducado();
+		if(vencido){
+		String ingredienteId = ingrediente.getId();
+		Panaderia.restarIngrediente(ingredienteId, cantidad);
+		}	
 	}
 
 	public static int getProbabilidadconstante() {

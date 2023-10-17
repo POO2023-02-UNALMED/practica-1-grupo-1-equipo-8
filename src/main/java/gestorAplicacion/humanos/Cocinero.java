@@ -163,6 +163,19 @@ public class Cocinero extends Domiciliario{
         // Retorna falso, indicando que no se puede realizar la labor debido a la falta de ingredientes.
         return false;
     }
+        //verificar si hay un ingrediente caducado y si lo hay se elimina del inventario
+        for (Map.Entry<String, Integer> product : productos.entrySet()) {
+            String productoId = product.getKey();
+            Producto producto = Panaderia.buscarProductoPorId(productoId);
+            Map<String,Integer> ingredientesAUsar = producto.getIngredientes();
+            for (Map.Entry<String, Integer> verificar : ingredientesAUsar.entrySet()){
+                String ingIdVerificar = verificar.getKey();
+                Ingrediente ingVerificar = Panaderia.buscarIngredientePorId(ingIdVerificar);
+                Integer cantidad = verificar.getValue();
+                Ingrediente.revisarCaducidad(ingVerificar,cantidad);
+            }
+        }
+        
          // Itera a través de los productos en la canasta nuevamente.
         for (Map.Entry<String, Integer> product : productos.entrySet()) {
             String productoId = product.getKey();
@@ -181,25 +194,18 @@ public class Cocinero extends Domiciliario{
             cocinero.detenerCoccion(producto);
             return false;
             }
-        }
-        //verificar si hay un ingrediente caducado y si lo hay se elimina del inventario
-        for (Map.Entry<Producto, Integer> product : productos.entrySet()) {
-            Producto producto = product.getKey();
-            Map<Ingrediente,Integer> ingredientesAUsar = producto.getIngredientes();
-            for (Map.Entry<Ingrediente, Integer> verificar : ingredientesAUsar.entrySet()){
-                Ingrediente ingVerificar = verificar.getKey();
-                Integer cantidad = verificar.getValue();
-                Ingrediente.revisarCaducidad(ingVerificar,cantidad);
-            }
+        Panaderia.agregarProducto(productoNew);
         }
         
      // Resta los ingredientes usados del inventario de la Panadería.
-        for (Map.Entry<Producto, Integer> product : productos.entrySet()) {
-            Producto producto = product.getKey();
+        for (Map.Entry<String, Integer> product : productos.entrySet()) {
+            String productoId = product.getKey();
+            Producto producto = Panaderia.buscarProductoPorId(productoId);
             Cocinero cocinero = Panaderia.cocineroAleatorio();
             cocinero.detenerCoccion(producto);
         }
         // Si todos los productos se cocinan con éxito, retorna verdadero.
+
         return true;
     }
   
