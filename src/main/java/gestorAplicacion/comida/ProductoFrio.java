@@ -108,19 +108,20 @@ public class ProductoFrio extends Producto{
 
   //TODO implementar tiempo de congelamiento aleatorio
   public int calcularCongelamiento(){
-    int tiempoDeCongelamiento = 0;
+    Random numAleatorio = new Random();
+    int tiempoDeCongelamiento = numAleatorio.nextInt(20);;
 
     return tiempoDeCongelamiento;
   }
 
   //TODO implementar proceso de congelamiento para interactuar con cocinero
-  public Cocinero procesoCongelamiento(Cocinero cocinero){
+  public Producto procesoCongelamiento(Producto producto){
     /* 
     if(cocinero.getContenedor().getCongelador()){
       return true;
     }
     return false;
     */
-    return cocinero;
+    return producto;
   }
 }

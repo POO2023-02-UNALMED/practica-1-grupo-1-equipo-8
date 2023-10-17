@@ -30,6 +30,7 @@ public class Cliente implements Serializable{
 	private static Cliente sesion; //atributo estatico que almacena el cliente que ha iniciado sesion (necesario para parte funcional)
 	// crear cliente con todos los atributos
 	private Domiciliario domiciliario;
+	//private Cocinero cocinero; para luego calificarlo
 
 	public Cliente(String nombre, Integer id, String contrasena, String direccionTXT, Direccion direccion ,DescuentoPorTipo tipoDescuento, double presupuesto, Canasta canasta,
 			List<Recibo> recibos) {

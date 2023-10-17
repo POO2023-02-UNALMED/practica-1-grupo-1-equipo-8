@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import gestorAplicacion.humanos.Cocinero;
+
 public class ProductoCaliente extends Producto{
+	private boolean horno=false;
 	private int tiempoEnHorno;
 
 	public ProductoCaliente(String nombre, String ids, HashMap<String,Integer> ingredientes, double costo, int vecesVendido, int tiempoEnHorno) {
@@ -13,8 +16,16 @@ public class ProductoCaliente extends Producto{
 }
 public ProductoCaliente(String nombre, HashMap<String,Integer> ingredientes,int tiempoEnHorno) {
     super(nombre, ingredientes);
-		this.tiempoEnHorno = tiempoEnHorno;
+		this.tiempoEnHorno = calcularHorneado();
     }
+
+public boolean isHorno() {
+	return horno;
+}
+
+public void setHorno(boolean horno) {
+	this.horno = horno;
+}
 
 	public int getTiempoEnHorno() {
 		return tiempoEnHorno;
@@ -38,6 +49,24 @@ public ProductoCaliente(String nombre, HashMap<String,Integer> ingredientes,int 
     }
     return new Producto(Nnombre, ingredientes);
   }
+
+	public int calcularHorneado(){
+		Random numAleatorio = new Random();
+		int tiempoDeHornear = numAleatorio.nextInt(20);;
+
+    return tiempoDeHornear;
+	}
+
+	public Producto procesoHornear(Producto producto){
+    /** 
+    if(cocinero.getContenedor().getCongelador()){
+		return true;
+    }
+    return false;
+    */
+    return producto;
+  }
+
 @Override
 
   public ArrayList<String> seleccionProcesosDeCocina (){

@@ -17,6 +17,7 @@ import gestorAplicacion.gestion.Panaderia;
 public class Cocinero extends Domiciliario{
     private String especialidad;
     private boolean fallado = false;
+    private boolean trabajo = false;
 
 
 
@@ -48,6 +49,14 @@ public class Cocinero extends Domiciliario{
 
     public void setFallado(boolean quemado) {
         this.fallado = quemado;
+    }
+
+    public boolean isTrabajo() {
+        return trabajo;
+    }
+
+    public void setTrabajo(boolean trabajo) {
+        this.trabajo = trabajo;
     }
     /**
      * Calcula los ingredientes faltantes necesarios para cocinar un producto específico.
@@ -105,12 +114,22 @@ public class Cocinero extends Domiciliario{
         producto.setProcesoDeCocina(procesosProducto);
         Catastrofe dificultad = new Catastrofe();
         List<String> procesoCook= producto.getProcesoDeCocina();
+        if (producto instanceof ProductoFrio) {
+            ProductoFrio productoF = (ProductoFrio)producto;
+            productoF.procesoCongelamiento(producto);
+        }
+        if (producto instanceof ProductoCaliente) {
+            ProductoCaliente productoH = (ProductoCaliente)producto;
+            productoH.procesoHornear(producto);
+        }
         for (String proceso : procesoCook){
             Cocinero chefIdeal = cocineroIdeal(proceso);
             boolean cookProducto = dificultad.dificultadProducto(chefIdeal);
             if (cookProducto){
+                chefIdeal.setHabilidad(chefIdeal.getHabilidad()+1);
                 return true;
             }
+            chefIdeal.setTrabajo(true);
         }
         return false;
     }
