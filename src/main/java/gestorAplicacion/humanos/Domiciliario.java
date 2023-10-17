@@ -82,8 +82,8 @@ public class Domiciliario extends Trabajador{
 
     public boolean laborParticular(Canasta canasta){
         
-        Catastrofe malechor = new Catastrofe();
-        if (malechor.pincharLLanta(this)){
+        Catastrofe transito = new Catastrofe();
+        if (transito.paradaTransito(this)){
             boolean x = false;
             GestionDomicilioCliente.estadoDomicilio(x);
             return x;

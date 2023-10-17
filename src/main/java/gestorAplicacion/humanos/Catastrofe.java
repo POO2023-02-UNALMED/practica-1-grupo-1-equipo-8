@@ -30,12 +30,12 @@ public class Catastrofe {
         this.maldad = maldad;
     }
 
-    public boolean pincharLLanta(Domiciliario domiciliario){
+    public Domiciliario pincharLLanta(Domiciliario domiciliario){
         if (domiciliario.habilidad < this.maldad){
             domiciliario.setLicencia(false);
-            return true;
+            return domiciliario;
         }
-        return false;
+        return domiciliario;
     }
 
     public boolean dificultadProducto(Cocinero cocinero){
@@ -70,6 +70,17 @@ public class Catastrofe {
     	}
     	
     	return rival;	
+    }
+
+    public boolean paradaTransito(Domiciliario domiciliario){
+        Random rand = new Random();
+        int chance = rand.nextInt(5) + 1; // 1 <= chance <= 5
+        if (domiciliario.habilidad < chance){
+            domiciliario.setLicencia(false);
+            return false;
+        }
+
+        return true;
     }
 
     //TODO: la idea es que se implementen las otras catastrofes para las otras funcionalidades

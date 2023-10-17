@@ -11,6 +11,7 @@ import UIMain.GestionCompra;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.comida.ProductoFrio;
+import gestorAplicacion.humanos.Catastrofe;
 import gestorAplicacion.humanos.Cliente;
 import gestorAplicacion.humanos.Cocinero;
 import gestorAplicacion.humanos.Domiciliario;
@@ -248,10 +249,15 @@ public class Panaderia implements Serializable {
                 ((ProductoFrio)p).empaqueCongelador(domiciliario);
             }
         }
+
+        Catastrofe malechor = new Catastrofe();
+        domiciliario = malechor.pincharLLanta(domiciliario);
+
         if (!domiciliario.isLicencia()){
             Panaderia.restarDinero(10000);
             domiciliario.setLicencia(true);
         }
+
         domiciliario.setCanasta(canasta);
         domiciliario.setOcupado(true);
         boolean logro = domiciliario.laborParticular(canasta);
