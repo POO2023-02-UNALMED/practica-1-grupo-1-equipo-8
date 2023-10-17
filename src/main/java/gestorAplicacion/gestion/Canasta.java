@@ -28,9 +28,9 @@ public class Canasta implements Serializable {
   private String identificador;
   private int itemsTotalesEnCanasta;
   private int itemsTotalesEnLista;
-  private double costoTotalEnLista;
-  private double costoTrasDescuentoEnLista;
-  private double descuentoEnLista;
+  private double costoTotalEnLista; //subtotal 
+  private double costoTrasDescuentoEnLista; //total // total de canasta seria subtotal de factura
+  private double descuentoEnLista; //total ahorrado
 
   private double calificacion;
   private String comentario;
