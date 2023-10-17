@@ -699,7 +699,7 @@ public class Panaderia implements Serializable {
     }
 
         //METODOS DE FACTURACION
-    public static boolean facturar(Recibo recibo, boolean pagar){ //este metodo le resta el dinero del presupuesto al cliente y se lo pasa a la panaderia cuando el cliente elige pagar
+    public static boolean facturar(Recibo recibo){ //este metodo le resta el dinero del presupuesto al cliente y se lo pasa a la panaderia cuando el cliente elige pagar
         if (Cliente.getSesion().getPresupuesto() >= recibo.getTotal()){
             Cliente.getSesion().setPresupuesto(Cliente.getSesion().getPresupuesto()-recibo.getTotal());
             Panaderia.dinero += recibo.getTotal();
