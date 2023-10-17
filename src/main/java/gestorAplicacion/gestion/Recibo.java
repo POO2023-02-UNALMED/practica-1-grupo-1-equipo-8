@@ -12,26 +12,26 @@ public class Recibo implements Serializable{
     private Cliente cliente;
     private int idRecibo;
     private static int totalFacturas;
-    private double precioTotal;
-    private double precioFinal;
+    private double subtotal;
+    private double total;
     private double descuento;
     private Date fecha = new Date();
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     ArrayList<String> factura = new ArrayList<String>();
 
     //ESTE PRIMER CONSTRUCTOR ES EL UNICO QUE USARA LA CLASE RECIBO, LOS DEMAS CREO QUE SON PARA PRUEBAS DE NICOLAS
-    public Recibo(Cliente cliente, double precioTotal, double descuento) {
+    public Recibo(Cliente cliente, double subtotal, double descuento) {
         totalFacturas++;
         this.cliente = cliente;
         this.idRecibo = totalFacturas;
-        this.precioTotal = precioTotal;
+        this.subtotal = subtotal;
         this.descuento = descuento;
-        this.precioFinal = precioTotal * (1 - descuento); 
+        this.total = subtotal * (1 - descuento); 
         this.fecha = Date.from(Instant.now());
     }
 
-    public double getPrecioTotal() {
-        return precioTotal;
+    public double getSubtotal() {
+        return subtotal;
     }
 
     public Cliente getCliente() {
@@ -54,12 +54,12 @@ public class Recibo implements Serializable{
         Recibo.totalFacturas = totalFacturas;
     }
 
-    public void setPrecioTotal(double precioTotal) {
-        this.precioTotal = precioTotal;
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
     }
 
-    public void setPrecioFinal(double precioFinal) {
-        this.precioFinal = precioFinal;
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public void setDescuento(double descuento) {
@@ -82,8 +82,8 @@ public class Recibo implements Serializable{
         return fecha;
     }
 
-    public double getPrecioFinal() {
-        return precioFinal;
+    public double getTotal() {
+        return total;
     }
 
     public double getDescuento() {
