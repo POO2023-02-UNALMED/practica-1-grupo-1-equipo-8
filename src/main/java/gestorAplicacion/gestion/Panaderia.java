@@ -126,7 +126,7 @@ public class Panaderia implements Serializable {
 	public void setInventario(Inventario inventario) {
 		this.inventario = inventario;
 	}
-	
+
 	//Metodos para agregar elementos a las listas
 
 	public void agregarTrabajador(Trabajador cocinero) {
@@ -321,6 +321,7 @@ public class Panaderia implements Serializable {
         for (Map.Entry<String, Integer> entry : productos.entrySet()) {
             for (int i=0;i<entry.getValue();i++){
                 productosCanasta.add(this.inventario.buscarProductoPorId(entry.getKey()));
+                Producto.obtenerObjetoPorId(entry.getKey()).setVecesVendido(Producto.obtenerObjetoPorId(entry.getKey()).getVecesVendido()+1);
                 this.inventario.restarProducto(entry.getKey(),entry.getValue());
             }
         }
@@ -349,6 +350,8 @@ public class Panaderia implements Serializable {
         for (Map.Entry<String, Integer> entry : ingredientes.entrySet()) {
             for (int i=0;i<entry.getValue();i++){
                 ingredientesCanasta.add(this.inventario.buscarIngredientePorId(entry.getKey()));
+                Ingrediente.obtenerObjetoPorId(entry.getKey()).setVecesVendido(Ingrediente.obtenerObjetoPorId(entry.getKey()).getVecesVendido()+1);
+                Ingrediente.organizarTopMasVendidos();
                 this.inventario.restarIngrediente(entry.getKey(),entry.getValue());
             }
         }
@@ -392,6 +395,8 @@ public class Panaderia implements Serializable {
                 for (Map.Entry<String, Integer> entry : Producto.obtenerObjetoPorId(idKit).getIngredientes().entrySet()) {
                     for (int j=0;j<entry.getValue();j++){
                         kitCanasta.add(this.inventario.buscarIngredientePorId(entry.getKey()));
+                        Ingrediente.obtenerObjetoPorId(entry.getKey()).setVecesVendido(Ingrediente.obtenerObjetoPorId(entry.getKey()).getVecesVendido()+1);
+                        Ingrediente.organizarTopMasVendidos();
                         this.inventario.restarIngrediente(entry.getKey(),1);
                     }
                 }
@@ -403,24 +408,37 @@ public class Panaderia implements Serializable {
 
     //Metodos para la gestion de cuentas de los clientes
     // TODO trabajar los metodos de abajo(Sahely)
-    public boolean inicioSesion(int id, String contrasena){
-            /* 
-            * Lo mismo que el método de abajo, podría cambiarse para que devuelva un string con el tipo de error en vez de booleano
-            */
-            for (Cliente cliente : this.clientes){
-    
-                if (cliente.getId() == id && cliente.getContrasena().equals(contrasena)){
-    
-                    Cliente.setSesion(cliente);
-                    return true;
-    
-                }
-    
+    public Cliente inicioSesionId(int id){
+
+        for (Cliente cliente : getClientes()){
+
+            if (cliente.getId() == id){
+
+                return cliente;
+
             }
-            return false;
+
+        }
+        return null;
     
     }
 
+    public String inicioSesionConstrasena(Cliente cliente, String contrasena){
+            
+            if (cliente.getContrasena().equals(contrasena)){
+    
+                Cliente.setSesion(cliente);
+                return "Inicio de sesion exitoso";
+    
+            }
+    
+            else{
+    
+                return "Contrasena incorrecta";
+    
+            }
+    
+    }
 
     public boolean crearCuenta(String nombre, int id, String contrasena, double presupuesto){
         /* 

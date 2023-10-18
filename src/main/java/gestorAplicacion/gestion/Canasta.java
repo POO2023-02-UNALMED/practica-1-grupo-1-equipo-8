@@ -5,6 +5,10 @@ import java.util.Map;
 
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
+import gestorAplicacion.comida.ProductoCaliente;
+import gestorAplicacion.comida.ProductoFrio;
+import gestorAplicacion.gestion.Panaderia;
+import gestorAplicacion.humanos.Cliente;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -522,7 +526,13 @@ public class Canasta implements Serializable {
    */
   public boolean recibirOrdenPersonalizada(String objetoEntrante,  HashMap<String, Integer> ingredientesNecesarios, String cantidad, boolean receta) {
     try {
-      Producto.crearProductoPersonalizado(objetoEntrante, ingredientesNecesarios);
+      int randomNum = (int) (Math.floor(Math.random() * 2 + 1));
+      if(randomNum ==1){
+        ProductoFrio.crearProductoPersonalizado(objetoEntrante, ingredientesNecesarios);
+      }
+      else{
+        ProductoCaliente.crearProductoPersonalizado(objetoEntrante, ingredientesNecesarios);
+      }
     }
     catch (Exception e){
       return false;
@@ -547,9 +557,9 @@ public class Canasta implements Serializable {
    * Luego, se establecen las listas de productos, ingredientes y kits en la canasta como nulas.
    */
   public void enviarOrdenCanasta() {
-    ArrayList<Producto> productosCocinados = Panaderia.agregarProductosACanasta(productosEnLista);
-    ArrayList<Ingrediente> ingredientesCocinados = Panaderia.agregarIngredientesACanasta(ingredientesEnLista);
-    ArrayList<ArrayList<Ingrediente>> kitsCocinados = Panaderia.agregarKitsACanasta(kitsEnLista);
+    ArrayList<Producto> productosCocinados = Cliente.getSesion().getPanaderia().agregarProductosACanasta(productosEnLista);
+    ArrayList<Ingrediente> ingredientesCocinados = Cliente.getSesion().getPanaderia().agregarIngredientesACanasta(ingredientesEnLista);
+    ArrayList<ArrayList<Ingrediente>> kitsCocinados = Cliente.getSesion().getPanaderia().agregarKitsACanasta(kitsEnLista);
 
     gestionAgregarP(productosCocinados);
     gestionAgregarI(ingredientesCocinados);

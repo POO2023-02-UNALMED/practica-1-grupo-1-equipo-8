@@ -186,6 +186,30 @@ public class Cliente implements Serializable{
 		this.canastaEnMano = canastaEnMano;
 	}
 
+	public ArrayList<Canasta> getHistorialOrdenes() {
+		return historialOrdenes;
+	}
+
+	public void setHistorialOrdenes(ArrayList<Canasta> historialOrdenes) {
+		this.historialOrdenes = historialOrdenes;
+	}
+
+	public static int getCantidadOrdenes() {
+		return cantidadOrdenes;
+	}
+
+	public static void setCantidadOrdenes(int cantidadOrdenes) {
+		Cliente.cantidadOrdenes = cantidadOrdenes;
+	}
+
+	public Panaderia getPanaderia() {
+		return panaderia;
+	}
+
+	public void setPanaderia(Panaderia panaderia) {
+		this.panaderia = panaderia;
+	}
+
 	public void guardarCanastaEnHistorial(Canasta canasta){
 		ArrayList<Producto> listaVacia = new ArrayList<Producto>();
 		ArrayList<Ingrediente> listaVacia2 = new ArrayList<Ingrediente>();

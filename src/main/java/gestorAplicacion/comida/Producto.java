@@ -17,10 +17,8 @@ public class Producto implements Serializable{
 	protected HashMap<String,Integer> ingredientes = new HashMap<String,Integer>();
 	protected ArrayList<String> procesoDeCocina = new ArrayList<String>();
 	protected int vecesVendido;
-	/* 
-	// Hablar con richar para eliminar el atributo de abajo
-	protected static List<Producto> productos = new ArrayList<Producto>(); //lista de productos necesaria para dar la lista de opciones y para procesar las ordenes facilmente
-	*/
+	protected ArrayList<Producto> topMasVendidos = new ArrayList<Producto>(6);
+
 	//Constructores
 	public Producto(String nombre, String id, HashMap<String,Integer> ingredientes, double costo, int vecesVendido) {
 		this.nombre = nombre;
@@ -150,7 +148,6 @@ public class Producto implements Serializable{
 
 	public static Producto crearProducto(String Nnombre) {
 		Producto newProducto = obtenerObjetoPorNombre(Nnombre);
-		newProducto.vecesVendido++;
 		return new Producto(newProducto.getNombre(), newProducto.getId(), newProducto.getIngredientes(), newProducto.getCosto(), newProducto.getVecesVendido());
 	}
 
@@ -196,5 +193,23 @@ public class Producto implements Serializable{
 		procesosFinales.add(procesoRandom);
 	}
 	return procesosFinales;
+	}
+
+	public void organizarTopMasVendidos(){
+		topMasVendidos.clear();
+		for(int i=0; i<baseDatosProductos.size(); i++){
+			for(int j=0; j<baseDatosProductos.size(); j++){
+				if(baseDatosProductos.get(i).getVecesVendido() > baseDatosProductos.get(j).getVecesVendido()){
+					Producto aux = baseDatosProductos.get(i);
+					baseDatosProductos.set(i, baseDatosProductos.get(j));
+					baseDatosProductos.set(j, aux);
+				}
+			}
+		}
+		for(int i=0; i<baseDatosProductos.size(); i++){
+			if(i<5){
+				topMasVendidos.add(baseDatosProductos.get(i));
+			}
+		}
 	}
 }

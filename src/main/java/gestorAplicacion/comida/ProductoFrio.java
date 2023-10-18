@@ -44,7 +44,6 @@ public class ProductoFrio extends Producto{
    */
   public static ProductoFrio crearProducto(String Nnombre) {
     ProductoFrio newProducto = (ProductoFrio) obtenerObjetoPorId(Nnombre);
-    newProducto.vecesVendido++;
     return new ProductoFrio(newProducto.getNombre(), newProducto.getId(), newProducto.getIngredientes(), newProducto.getCosto(), newProducto.getVecesVendido(), newProducto.gettiempoDeCongelamiento());
   }
   

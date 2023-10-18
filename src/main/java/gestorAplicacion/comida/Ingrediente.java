@@ -21,9 +21,8 @@ public class Ingrediente implements Serializable{
 	public static final int probabilidadConstante =1;
 	private boolean caducado=false;
 	private Inventario inventario;
-	
-	//Hablar con richar para eliminar el atributo de abajo
-	public static List<Ingrediente> ingredientes = new ArrayList<Ingrediente>(); //lista de ingredientes totales necesaria para dar la lista de opciones y para procesar las ordenes facilmente
+
+	private static ArrayList<Ingrediente> topMasVendidos = new ArrayList<Ingrediente>(6);
 
 	// constructores sobrecargados
 		public Ingrediente(String nombre1) {
@@ -44,16 +43,6 @@ public class Ingrediente implements Serializable{
 		this.PrecioDeVenta = precioDeVenta;
 		this.PrecioDeCompra = precioDeCompra;
 		this.vecesVendido = vecesVendido;
-	}
-
-	public static List<Ingrediente> getIngredientes() {
-		return ingredientes;
-	}
-
-	
-
-	public static void setIngredientes(List<Ingrediente> ingredientes) {
-		Ingrediente.ingredientes = ingredientes;
 	}
 
 	// getters y setters de los atributos
@@ -196,7 +185,6 @@ public class Ingrediente implements Serializable{
 	public static Ingrediente crearIngrediente(String nombreId) {
 		if(verificacionExistenciaPorNombre(nombreId) || verificacionExistenciaPorId(nombreId)) {
 			Ingrediente newIngrediente = obtenerObjetoPorNombre(nombreId);
-			newIngrediente.setVecesVendido(newIngrediente.getVecesVendido()+1);
 			return new Ingrediente(newIngrediente.getNombre(), newIngrediente.getId(), newIngrediente.getPrecioDeVenta(), newIngrediente.getPrecioDeCompra(), newIngrediente.getVecesVendido());
 		}
 
@@ -226,5 +214,31 @@ public class Ingrediente implements Serializable{
 
 	public static int getProbabilidadconstante() {
 		return probabilidadConstante;
+	}
+
+	public static ArrayList<Ingrediente> getTopMasVendidos() {
+		return topMasVendidos;
+	}
+
+	public static void setTopMasVendidos(ArrayList<Ingrediente> topMasVendidos) {
+		Ingrediente.topMasVendidos = topMasVendidos;
+	}
+
+	public static void organizarTopMasVendidos(){
+		topMasVendidos.clear();
+		for(int i=0; i<baseDatosIngredientes.size(); i++){
+			for(int j=0; j<baseDatosIngredientes.size(); j++){
+				if(baseDatosIngredientes.get(i).getVecesVendido() > baseDatosIngredientes.get(j).getVecesVendido()){
+					Ingrediente aux = baseDatosIngredientes.get(i);
+					baseDatosIngredientes.set(i, baseDatosIngredientes.get(j));
+					baseDatosIngredientes.set(j, aux);
+				}
+			}
+		}
+		for(int i=0; i<baseDatosIngredientes.size(); i++){
+			if(i<5){
+				topMasVendidos.add(baseDatosIngredientes.get(i));
+			}
+		}
 	}
 }

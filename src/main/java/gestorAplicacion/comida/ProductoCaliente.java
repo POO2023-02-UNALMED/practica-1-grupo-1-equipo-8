@@ -37,7 +37,6 @@ public void setHorno(boolean horno) {
 
 	public static ProductoCaliente crearProducto(String Nnombre) {
 		ProductoCaliente newProducto = (ProductoCaliente) obtenerObjetoPorId(Nnombre);
-		newProducto.vecesVendido++;
 		return new ProductoCaliente(newProducto.getNombre(), newProducto.getId(), newProducto.getIngredientes(), newProducto.getCosto(), newProducto.getVecesVendido(), newProducto.getTiempoEnHorno());
 	}
 
