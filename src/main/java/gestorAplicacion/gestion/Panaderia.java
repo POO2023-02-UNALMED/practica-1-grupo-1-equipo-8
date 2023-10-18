@@ -22,20 +22,21 @@ import gestorAplicacion.humanos.Cliente.Direccion;
 import java.util.Collections;
 
 public class Panaderia implements Serializable {
-    private static ArrayList<Ingrediente> invIngredientes= new ArrayList<Ingrediente>();
-    private static ArrayList<Producto> invProductos = new ArrayList<Producto>();
+	
+    private ArrayList<Ingrediente> invIngredientes= new ArrayList<Ingrediente>();
+    private ArrayList<Producto> invProductos = new ArrayList<Producto>();
 
-    private static ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
-    private static ArrayList<Cocinero> cocineros = new ArrayList<Cocinero>();
-    private static ArrayList<Domiciliario> domiciliarios = new ArrayList<Domiciliario>();
-    private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+    private ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
+    private ArrayList<Cocinero> cocineros = new ArrayList<Cocinero>();
+    private ArrayList<Domiciliario> domiciliarios = new ArrayList<Domiciliario>();
+    private ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
-    private static double dinero;
-    private static double valorDeudas;
-    private static boolean enQuiebra = false;
+    private double dinero;
+    private double valorDeudas;
+    private boolean enQuiebra = false;
 
     private static Canasta canastaDelDia;
-    private static ArrayList<Canasta> canastasPublicadas = new ArrayList<Canasta>();
+    private ArrayList<Canasta> canastasPublicadas = new ArrayList<Canasta>();
     static {
         // Agregar lista de productos de la canasta del dia
         canastaDelDia = new Canasta();
@@ -46,48 +47,48 @@ public class Panaderia implements Serializable {
     }
 
     // metodos get:
-    public static ArrayList<Producto> getInvProductos() {
+    public ArrayList<Producto> getInvProductos() {
         return invProductos;
     }
 
-    public static ArrayList<Ingrediente> getInvIngredientes() {
+    public ArrayList<Ingrediente> getInvIngredientes() {
         return invIngredientes;
     }
 
-    public static Canasta getCanastaDelDia() {
+    public Canasta getCanastaDelDia() {
         return canastaDelDia;
     }
 
-    public static ArrayList<Trabajador> getTrabajadores() {
+    public ArrayList<Trabajador> getTrabajadores() {
 		return trabajadores;
 	}
 
-	public static ArrayList<Cocinero> getCocineros() {
+	public ArrayList<Cocinero> getCocineros() {
 		return cocineros;
 	}
 
-	public static ArrayList<Domiciliario> getDomiciliarios() {
+	public ArrayList<Domiciliario> getDomiciliarios() {
 		return domiciliarios;
 	}
 
-	public static ArrayList<Cliente> getClientes() {
+	public ArrayList<Cliente> getClientes() {
         return clientes;
     }
 
-    public static double getDinero() {
+    public double getDinero() {
         return dinero;
     }
 
     // metodos set:
-    public static void setInvProductos(ArrayList<Producto> newInvProductos) {
+    public void setInvProductos(ArrayList<Producto> newInvProductos) {
         invProductos = newInvProductos;
     }
 
-    public static void setInvIngredientes(ArrayList<Ingrediente> newInvIngredientes) {
+    public void setInvIngredientes(ArrayList<Ingrediente> newInvIngredientes) {
         invIngredientes = newInvIngredientes;
     }
 
-    public static void setClientes(ArrayList<Cliente> clientes) {
+    public void setClientes(ArrayList<Cliente> clientes) {
         Panaderia.clientes = clientes;
     }
 
