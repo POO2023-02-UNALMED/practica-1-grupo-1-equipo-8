@@ -13,6 +13,7 @@ public class Inventario implements Serializable{
 	private Panaderia panaderia;
 	private ArrayList<Ingrediente> invIngredientes= new ArrayList<Ingrediente>();
     private ArrayList<Producto> invProductos = new ArrayList<Producto>();
+    private final int maxCantidad = 20;
     
     //Métodos Get y Set
 	
@@ -40,7 +41,11 @@ public class Inventario implements Serializable{
 		this.invProductos = invProductos;
 	}
     
-	 /**
+	 public int getMaxCantidad() {
+		return maxCantidad;
+	}
+
+	/**
      * Verifica la cantidad de un producto en el inventario de la panadería por su ID.
      * @param prdct el ID del producto a verificar.
      * @return la cantidad de productos con el ID especificado en el inventario.

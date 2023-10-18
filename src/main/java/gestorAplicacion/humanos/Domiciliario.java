@@ -125,6 +125,9 @@ public class Domiciliario extends Trabajador{
         for (Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()) {
 
             int cantidad = ingrediente.getValue();
+            
+            //Aquí añadir la priorización
+            
             valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingrediente.getKey()).getPrecioDeCompra())
                     * (cantidad * 2);
 

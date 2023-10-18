@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import gestorAplicacion.gestion.Inventario;
 import gestorAplicacion.gestion.Panaderia;
 
 //necesito un metodo o un atributo que me de los ingredientes disponibles en bodega!!! (Richard)
@@ -19,6 +20,7 @@ public class Ingrediente implements Serializable{
 	private int vecesVendido=0;
 	public static final int probabilidadConstante =1;
 	private boolean caducado=false;
+	private Inventario inventario;
 	
 	//Hablar con richar para eliminar el atributo de abajo
 	public static List<Ingrediente> ingredientes = new ArrayList<Ingrediente>(); //lista de ingredientes totales necesaria para dar la lista de opciones y para procesar las ordenes facilmente
@@ -108,13 +110,29 @@ public class Ingrediente implements Serializable{
 		return baseDatosIngredientes;
 	}
 
-public boolean isCaducado() {
-	return caducado;
-}
+    public boolean isCaducado() {
+    	return caducado;	
+    }
 
-public void setCaducado(boolean caducado) {
-	this.caducado = caducado;
-}
+    public void setCaducado(boolean caducado) {
+    	this.caducado = caducado;
+    }
+
+	public double getTARIFAGANANCIA() {
+		return TARIFAGANANCIA;
+	}
+
+	public void setTARIFAGANANCIA(double tARIFAGANANCIA) {
+		TARIFAGANANCIA = tARIFAGANANCIA;
+	}
+
+	public Inventario getInventario() {
+		return inventario;
+	}
+
+	public void setInventario(Inventario inventario) {
+		this.inventario = inventario;
+	}
 
 	public static void setBaseDatosIngredientes(ArrayList<Ingrediente> baseDatosIngredientes) {
 		Ingrediente.baseDatosIngredientes = baseDatosIngredientes;
@@ -195,13 +213,13 @@ public void setCaducado(boolean caducado) {
 		}
 	}
 
-	public static void revisarCaducidad(Ingrediente ingrediente, int cantidad){
+	public void revisarCaducidad(int cantidad){
 		
-		ingrediente.caducidad(ingrediente);
-		boolean vencido = ingrediente.isCaducado();
+		this.caducidad(this);
+		boolean vencido = this.isCaducado();
 		if(vencido){
-		String ingredienteId = ingrediente.getId();
-		Panaderia.restarIngrediente(ingredienteId, cantidad);
+		String ingredienteId = this.getId();
+	    this.inventario.restarIngrediente(ingredienteId, cantidad);
 		
 		}	
 	}

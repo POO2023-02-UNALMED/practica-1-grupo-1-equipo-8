@@ -218,7 +218,7 @@ public class Cocinero extends Domiciliario{
                 String ingIdVerificar = verificar.getKey();
                 Ingrediente ingVerificar = this.panaderia.getInventario().buscarIngredientePorId(ingIdVerificar);
                 Integer cantidad = verificar.getValue();
-                Ingrediente.revisarCaducidad(ingVerificar,cantidad);
+                ingVerificar.revisarCaducidad(cantidad); //Mirar esto!!!!!!!!
             }
         }
         
