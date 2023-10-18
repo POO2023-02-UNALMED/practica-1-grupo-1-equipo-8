@@ -60,7 +60,7 @@ public class Catastrofe {
 
     }
     
-    public Cocinero robarComprador(Cocinero rival) {
+    public Domiciliario robarComprador(Domiciliario rival) {
     	
     	if (this.getMaldad() > rival.getHabilidad()) {
     		

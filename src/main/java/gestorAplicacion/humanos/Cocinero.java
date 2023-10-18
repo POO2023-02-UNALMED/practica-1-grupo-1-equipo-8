@@ -249,60 +249,7 @@ public class Cocinero extends Domiciliario{
     //Recibe una diccionario de Strings y enteros paea saber exactamente qué se debe comprar y cuánta cantidad
     //Cuando se "compran" nuevos ingredientes realmente se están creando objetos y añandiendose al inventario
 
-    public boolean conseguirIngredientes(Map<String, Integer> listingredientes){
-
-        double valorcompra = 0;
-        this.robado = false;
-        
-        for (Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()){
-
-            int cantidad = ingrediente.getValue();
-            valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingrediente.getKey()).getPrecioDeCompra())*(cantidad*2);
-
-        }
-
-        if (valorcompra <= Panaderia.getDinero()){
-
-            this.dineroEnMano += valorcompra;
-            Panaderia.setDinero(Panaderia.getDinero()-valorcompra);
-
-        }
-
-        else{
-
-            Panaderia.conseguirPrestamo( valorcompra);
-            this.dineroEnMano += valorcompra;
-            Panaderia.setDinero(Panaderia.getDinero()-valorcompra);
-
-        }
-        
-        Catastrofe Ladron = Catastrofe.responsableAleatorio();
-        Cocinero postRobo = Ladron.robarComprador(this);
-
-        if (postRobo.robado = true){
-
-            return this.robado;
-        }
-
-        else{
-
-            this.dineroEnMano = 0;
-
-        for (Map.Entry<String, Integer> compras : listingredientes.entrySet()){
-            
-            int cantidad = compras.getValue()*2;
-            String ingrediente = compras.getKey();
-            
-            for(int i=0;i<cantidad;i++){
-                Ingrediente ingrdt = Ingrediente.crearIngrediente(ingrediente);
-                Panaderia.agregarIngrediente(ingrdt);
-            }
-        }
-
-        return this.robado;
-    
-    }
-  }
+  
 }
 
 // use hasmaps y sale facil get datos

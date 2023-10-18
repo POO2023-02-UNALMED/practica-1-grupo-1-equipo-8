@@ -130,7 +130,7 @@ public class Domiciliario extends Trabajador{
         } 
         
         Catastrofe Ladron = Catastrofe.responsableAleatorio();
-        Domiciliario postRobo = (Domiciliario) Ladron.robarComprador((Cocinero) this);
+        Domiciliario postRobo = Ladron.robarComprador((Cocinero) this);
 
         if (postRobo.robado = true) {
 
