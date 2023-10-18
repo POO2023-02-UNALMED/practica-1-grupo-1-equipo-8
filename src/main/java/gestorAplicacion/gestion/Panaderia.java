@@ -407,7 +407,12 @@ public class Panaderia implements Serializable {
     }
 
     //Metodos para la gestion de cuentas de los clientes
-    // TODO trabajar los metodos de abajo(Sahely)
+
+    /**
+     * Busca un cliente en la lista de clientes de la panadería que tenga el ID especificado.
+     * @param id El ID del cliente a buscar.
+     * @return El cliente con el ID especificado, o null si no se encuentra.
+     */
     public Cliente inicioSesionId(int id){
 
         for (Cliente cliente : getClientes()){
@@ -423,6 +428,12 @@ public class Panaderia implements Serializable {
     
     }
 
+    /**
+     * Inicia sesión para un cliente con una contraseña dada.
+     * @param cliente El cliente que desea iniciar sesión.
+     * @param contrasena La contraseña del cliente.
+     * @return Un mensaje indicando si el inicio de sesión fue exitoso o no.
+     */
     public String inicioSesionConstrasena(Cliente cliente, String contrasena){
             
             if (cliente.getContrasena().equals(contrasena)){
@@ -440,26 +451,17 @@ public class Panaderia implements Serializable {
     
     }
 
-    public boolean crearCuenta(String nombre, int id, String contrasena, double presupuesto){
-        /* 
-         * Esta función se encarga de crear una cuenta de cliente, la idea es que solo pase los parametros nombre, id, contrasena y presupuesto (O tambien se puede plantear para que se pregunte por el presupuesto luego de crear la cuenta)
-         * si no existe un cliente con el mismo nombre e id, se crea un cliente con los parametros dados (Se manda a registro cliente)
-         * en caso contrario, si ya existe, se devuelve false, para que la capa funcional pueda hacer sus respectivas impresiones y volver a llamar el crear cuenta
-         * También se puede cambiar para devolver un String indicando el tipo de error en vez de un booleano, esa puede ser mejor opcion
-         * 
-         * También recomiendo plantear otra funcion (está abajo) que se encargue de verificar si la Contrasena es valida, tipo poniendole una longitud minima y que deba incluir numeros o así, sería bacano
-         * claramente la info de esa funcion debería ser notificada a traves de retornos de strings para saver que está mal
-        */
-        return true;
-    }
-
-    public String verificarContrasenaNueva(String Contrasena){
-        /* 
-         * Esta función se encarga de verificar si la Contrasena nueva cumple con los requisitos de seguridad
-         * Si no cumple con los requisitos, devuelve un string indicando el tipo de error
-         * Si cumple con los requisitos, devuelve un string vacio
-        */
-        return "";
+    /**
+     * Crea una nueva cuenta de cliente con el nombre, id y contraseña proporcionados y la agrega a la lista de clientes de la panadería.
+     * @param nombre el nombre del cliente
+     * @param id el identificador único del cliente
+     * @param contrasena la contraseña de la cuenta del cliente
+     * @return un mensaje que indica que la cuenta se ha creado con éxito
+     */
+    public String crearCuenta(String nombre, int id, String contrasena){
+        Cliente cliente = new Cliente(nombre, id, contrasena);
+        this.clientes.add(cliente);
+        return "Cuenta creada con exito";
     }
 
     //Método sobrevargado registrarCliente

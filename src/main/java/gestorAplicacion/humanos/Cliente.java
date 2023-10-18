@@ -503,6 +503,22 @@ public class Cliente implements Serializable{
 		return true;
 	}
 
+	/**
+	 * Verifica si la contraseña proporcionada es válida y la establece como la nueva contraseña del cliente.
+	 * La contraseña debe tener al menos 8 caracteres para ser válida.
+	 * @param contrasena La nueva contraseña a verificar y establecer.
+	 * @return Un mensaje indicando si la contraseña es válida o no.
+	 */
+	public String verificarContrasenaNueva(String contrasena) {
+		if (contrasena.length() < 8) {
+			this.contrasena = contrasena;
+			return "La contrasena debe tener al menos 8 caracteres";
+		} else {
+
+			return "Contrasena valida";
+		}
+	}
+
 	public enum Direccion {
 		MEDELLIN("Cerca"),
 		BOGOTA("Lejos"),
