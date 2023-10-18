@@ -46,8 +46,8 @@ public class Panaderia implements Serializable {
 
     }
     
-    //MÉTODOS GET Y SET
-    
+    //Métodos Get y Set
+
     public ArrayList<Ingrediente> getInvIngredientes() {
 		return invIngredientes;
 	}
@@ -135,10 +135,39 @@ public class Panaderia implements Serializable {
 	public void setCanastasPublicadas(ArrayList<Canasta> canastasPublicadas) {
 		this.canastasPublicadas = canastasPublicadas;
 	}
-	
-	//TODO corregir importacion de cocinero
 
-	public static Cocinero contratarCocinero(String nombre, double habilidad,double calificacion, double dineroEnMano, String especialidad) {
+	//Metodos para agregar elementos a las listas
+    public static void agregarTrabajador(Trabajador cocinero) {
+        trabajadores.add(cocinero);
+    }
+
+    public static void agregarCliente(Cliente cliente) {
+        clientes.add(cliente);
+    }
+
+    public static void eliminarCocinero(Trabajador cocinero) {
+        trabajadores.remove(cocinero);
+    }
+
+    public static void eliminarCliente(Cliente cliente) {
+        clientes.remove(cliente);
+    }
+
+    public static void agregarDinero(double dinero) {
+        Panaderia.dinero += dinero;
+    }
+
+    public static void restarDinero(double dinero) {
+        Panaderia.dinero -= dinero;
+    }
+
+    public static void agregarCanastasPublicadas(Canasta canasta) {
+        canastasPublicadas.add(canasta);
+    }
+
+    //TODO corregir importacion de cocinero
+    
+    public static Cocinero contratarCocinero(String nombre, double habilidad,double calificacion, double dineroEnMano, String especialidad) {
         Cocinero indicado = new Cocinero(nombre, habilidad,calificacion, dineroEnMano, especialidad);
         cocineros.add(indicado);
         return indicado;
