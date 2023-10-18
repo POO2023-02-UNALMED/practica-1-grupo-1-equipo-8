@@ -19,6 +19,7 @@ public class Ingrediente implements Serializable{
 	private int vecesVendido=0;
 	public static final int probabilidadConstante =1;
 	private boolean caducado=false;
+	
 	//Hablar con richar para eliminar el atributo de abajo
 	public static List<Ingrediente> ingredientes = new ArrayList<Ingrediente>(); //lista de ingredientes totales necesaria para dar la lista de opciones y para procesar las ordenes facilmente
 
@@ -195,11 +196,13 @@ public void setCaducado(boolean caducado) {
 	}
 
 	public static void revisarCaducidad(Ingrediente ingrediente, int cantidad){
+		
 		ingrediente.caducidad(ingrediente);
 		boolean vencido = ingrediente.isCaducado();
 		if(vencido){
 		String ingredienteId = ingrediente.getId();
 		Panaderia.restarIngrediente(ingredienteId, cantidad);
+		
 		}	
 	}
 

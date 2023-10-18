@@ -5,6 +5,7 @@ import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.gestion.Canasta;
 import java.io.Serializable;
 import java.util.Map;
+import gestorAplicacion.gestion.Panaderia;
 
 public abstract class Trabajador implements Serializable{
     protected String nombre;
@@ -13,6 +14,7 @@ public abstract class Trabajador implements Serializable{
     protected double dineroEnMano;
     protected double salario;
     protected boolean robado;
+    protected Panaderia panaderia;
 
     public Trabajador() {
         this("John Doe", 0, 0, 1000000);
