@@ -25,6 +25,7 @@ public class Cliente implements Serializable{
 	private Canasta canastaEnMano;
 	private ArrayList<Canasta> historialOrdenes = new ArrayList<Canasta>();
 	private static int cantidadOrdenes;
+	private Panaderia panaderia;
 
 	private List<Recibo> recibos = new ArrayList<Recibo>();
 	private static Cliente sesion; //atributo estatico que almacena el cliente que ha iniciado sesion (necesario para parte funcional)
@@ -234,7 +235,7 @@ public class Cliente implements Serializable{
 		canasta.setPagada(false);
 		canasta.setCalificacion(calificacion);
 		canasta.setComentario(comentario);
-		Panaderia.agregarCanastasPublicadas(canasta);
+		this.panaderia.agregarCanastasPublicadas(canasta);
 	}
 
 	public void publicarCanasta(Canasta canasta){
@@ -245,7 +246,7 @@ public class Cliente implements Serializable{
 		canasta.setIngredientes(listaVacia2);
 		canasta.setKits(listaVacia3);
 		canasta.setPagada(false);
-		Panaderia.agregarCanastasPublicadas(canasta);
+		this.panaderia.agregarCanastasPublicadas(canasta);
 	}
 
 	public void publicarCanasta(Canasta canasta, int calificacion){
@@ -257,7 +258,7 @@ public class Cliente implements Serializable{
 		canasta.setKits(listaVacia3);
 		canasta.setPagada(false);
 		canasta.setCalificacion(calificacion);
-		Panaderia.agregarCanastasPublicadas(canasta);
+		this.panaderia.agregarCanastasPublicadas(canasta);
 	}
 
 	public void calificarDomiciliario(Domiciliario domiciliario, double calificacion){
@@ -278,10 +279,10 @@ public class Cliente implements Serializable{
 
 	public void enviarCanastasADomicilio(Canasta canastas){
 		enviarCanastasAFacturar(canastas);
-		Panaderia.enviarDomicilio(canastas, this);
+		this.panaderia.enviarDomicilio(canastas, this);
 		double calificacion = GestionDomicilioCliente.pedirCalificacion();
 		calificarDomiciliario(domiciliario, calificacion);
-		Panaderia.reviewDomiciliario(domiciliario);
+		this.panaderia.reviewDomiciliario(domiciliario);
 	}
 
 	//Métodos para agregar la informacion faltante del cliente

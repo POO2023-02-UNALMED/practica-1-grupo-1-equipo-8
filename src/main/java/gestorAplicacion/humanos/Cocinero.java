@@ -20,6 +20,7 @@ public class Cocinero extends Domiciliario{
     private boolean trabajo = false;
     private boolean nevera;
     private boolean horno;
+    private Panaderia panaderia;
 
 
     public Cocinero() {
@@ -75,7 +76,16 @@ public class Cocinero extends Domiciliario{
     public void setHorno(boolean horno) {
         this.horno = horno;
     }
-    /**
+    
+    public Panaderia getPanaderia() {
+		return panaderia;
+	}
+
+	public void setPanaderia(Panaderia panaderia) {
+		this.panaderia = panaderia;
+	}
+
+	/**
      * Calcula los ingredientes faltantes necesarios para cocinar un producto específico.
      *
      * @param producto El producto que se desea cocinar.
@@ -84,7 +94,7 @@ public class Cocinero extends Domiciliario{
      */
     public Map<String, Integer> ingredientesCocinero (Map<String, Integer> ingredientesNecesarios) {
         // Revisa la cantidad de ingredientes disponibles en la panadería y calcula los faltantes.
-        Map<String, Integer> ingrFaltantes = Panaderia.revisarCantidadIngredientes(ingredientesNecesarios);
+        Map<String, Integer> ingrFaltantes = this.panaderia.revisarCantidadIngredientes(ingredientesNecesarios);
         // Retorna un mapa que contiene los ingredientes necesarios y la cantidad faltante de cada uno.
         return ingrFaltantes;
     }
@@ -103,7 +113,7 @@ public class Cocinero extends Domiciliario{
      */
     public Cocinero cocineroIdeal(String proceso) {
         Cocinero ideal=null;
-        List<Cocinero> listaCocineros = Panaderia.getCocineros();
+        List<Cocinero> listaCocineros = this.panaderia.getCocineros();
          // Itera a través de la lista de cocineros para encontrar el cocinero con la especialidad deseada.
         for (Cocinero cocinero : listaCocineros) {		// buscar en la base de datos el cocinero que su atributo especialidad coincida
             String especialidad= cocinero.getEspecialidad();
@@ -113,7 +123,7 @@ public class Cocinero extends Domiciliario{
                 // Se detiene la búsqueda una vez que se encuentra el cocinero ideal.
             }
         }
-        Cocinero idealNew = Panaderia.contratarCocinero( nombre,  habilidad, calificacion,  dineroEnMano,  proceso);
+        Cocinero idealNew = this.panaderia.contratarCocinero( nombre,  habilidad, calificacion,  dineroEnMano,  proceso);
         return idealNew;
     }
 
@@ -122,7 +132,7 @@ public class Cocinero extends Domiciliario{
             for (Map.Entry<String, Integer> usados : ingredientesUsados.entrySet()){
                 String ingUsado = usados.getKey();
                 Integer cantidad = usados.getValue();
-                Panaderia.restarIngrediente(ingUsado,cantidad);
+                this.panaderia.restarIngrediente(ingUsado,cantidad);
             }
     }
 
@@ -185,7 +195,7 @@ public class Cocinero extends Domiciliario{
         List<Map<String, Integer>> listaDeMapas = new ArrayList<>();
         for (Map.Entry<String, Integer> product : productos.entrySet()) {
             String productoID = product.getKey();
-            Producto producto = Panaderia.buscarProductoPorId(productoID);
+            Producto producto = this.panaderia.buscarProductoPorId(productoID);
             Integer cantidad = product.getValue();
             Map<String,Integer> ingredientesNecesarios = producto.getIngredientes();
             Map<String,Integer> ingredientesAbsolutos = multiplicarValoresEnMapa(ingredientesNecesarios,cantidad);
@@ -195,18 +205,18 @@ public class Cocinero extends Domiciliario{
         Map<String, Integer> ingrFaltantes = ingredientesCocinero(listaIngredientesTotales);
         if(!ingrFaltantes.isEmpty()){
             // Compra los ingredientes faltantes en la Panadería.
-        Panaderia.comprarIngredientes(ingrFaltantes);
+        this.panaderia.comprarIngredientes(ingrFaltantes);
         // Retorna falso, indicando que no se puede realizar la labor debido a la falta de ingredientes.
         return false;
     }
         //verificar si hay un ingrediente caducado y si lo hay se elimina del inventario
         for (Map.Entry<String, Integer> product : productos.entrySet()) {
             String productoId = product.getKey();
-            Producto producto = Panaderia.buscarProductoPorId(productoId);
+            Producto producto = this.panaderia.buscarProductoPorId(productoId);
             Map<String,Integer> ingredientesAUsar = producto.getIngredientes();
             for (Map.Entry<String, Integer> verificar : ingredientesAUsar.entrySet()){
                 String ingIdVerificar = verificar.getKey();
-                Ingrediente ingVerificar = Panaderia.buscarIngredientePorId(ingIdVerificar);
+                Ingrediente ingVerificar = this.panaderia.buscarIngredientePorId(ingIdVerificar);
                 Integer cantidad = verificar.getValue();
                 Ingrediente.revisarCaducidad(ingVerificar,cantidad);
             }
@@ -215,7 +225,7 @@ public class Cocinero extends Domiciliario{
          // Itera a través de los productos en la canasta nuevamente.
         for (Map.Entry<String, Integer> product : productos.entrySet()) {
             String productoId = product.getKey();
-            Producto producto = Panaderia.buscarProductoPorId(productoId);
+            Producto producto = this.panaderia.buscarProductoPorId(productoId);
             Producto productoNew;
             if (producto instanceof ProductoFrio) {
             productoNew = ProductoFrio.crearProducto(productoId);
@@ -224,20 +234,20 @@ public class Cocinero extends Domiciliario{
         } else {
             productoNew = Producto.crearProducto(productoId);
         }
-            Cocinero cocinero = Panaderia.cocineroAleatorio();
+            Cocinero cocinero = this.panaderia.cocineroAleatorio();
             boolean fallado = cocinero.procesoCocinar(productoNew);
             if (fallado){
             cocinero.detenerCoccion(producto);
             return false;
             }
-        Panaderia.agregarProducto(productoNew);
+        this.panaderia.agregarProducto(productoNew);
         }
         
      // Resta los ingredientes usados del inventario de la Panadería.
         for (Map.Entry<String, Integer> product : productos.entrySet()) {
             String productoId = product.getKey();
-            Producto producto = Panaderia.buscarProductoPorId(productoId);
-            Cocinero cocinero = Panaderia.cocineroAleatorio();
+            Producto producto = this.panaderia.buscarProductoPorId(productoId);
+            Cocinero cocinero = this.panaderia.cocineroAleatorio();
             cocinero.detenerCoccion(producto);
         }
         // Si todos los productos se cocinan con éxito, retorna verdadero.

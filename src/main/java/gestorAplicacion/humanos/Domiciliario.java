@@ -18,6 +18,7 @@ public class Domiciliario extends Trabajador{
     Boolean ocupado;
     Canasta canasta;
     private boolean empaqueFrio;
+    private Panaderia panaderia;
 
     public Domiciliario() {
         super();
@@ -79,8 +80,23 @@ public class Domiciliario extends Trabajador{
         this.empaqueFrio = empaqueFrio;
     }
 
+    public Panaderia getPanaderia() {
+		return panaderia;
+	}
 
-    public boolean laborParticular(Canasta canasta){
+	public void setPanaderia(Panaderia panaderia) {
+		this.panaderia = panaderia;
+	}
+
+	public Boolean getLicencia() {
+		return licencia;
+	}
+
+	public Boolean getOcupado() {
+		return ocupado;
+	}
+
+	public boolean laborParticular(Canasta canasta){
         
         Catastrofe transito = new Catastrofe();
         if (transito.paradaTransito(this)){
@@ -114,18 +130,18 @@ public class Domiciliario extends Trabajador{
 
         }
 
-        if (valorcompra <= Panaderia.getDinero()) {
+        if (valorcompra <= this.panaderia.getDinero()) {
 
             this.dineroEnMano += valorcompra;
-            Panaderia.setDinero((double) (Panaderia.getDinero() - valorcompra));
+            this.panaderia.setDinero((double) (this.panaderia.getDinero() - valorcompra));
 
         }
 
         else {
 
-            Panaderia.conseguirPrestamo((double) valorcompra);
+            this.panaderia.conseguirPrestamo((double) valorcompra);
             this.dineroEnMano += valorcompra;
-            Panaderia.setDinero((double) (Panaderia.getDinero() - valorcompra));
+            this.panaderia.setDinero((double) (this.panaderia.getDinero() - valorcompra));
 
         } 
         
@@ -148,7 +164,7 @@ public class Domiciliario extends Trabajador{
 
                 for (int i = 0; i < cantidad; i++) {
                     Ingrediente ingrdt = Ingrediente.crearIngrediente(ingrediente);
-                    Panaderia.agregarIngrediente(ingrdt);
+                    this.panaderia.agregarIngrediente(ingrdt);
                 }
             }
 
