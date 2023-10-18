@@ -298,30 +298,19 @@ public class Panaderia implements Serializable {
             }
         }
     }
-
-    public Map<String, Integer> revisarCantidadIngredientes(Map<String, Integer> ingredientesNecesarios){
-        HashMap<String, Integer> ingredientessFaltantes = new HashMap<String, Integer>();
-        for (Map.Entry<String, Integer> entry : ingredientesNecesarios.entrySet()) {
-            String ingredienteId = entry.getKey();
-            Integer cantidad = entry.getValue();
-            int cantidadExistente = verificarCantidadIngredientePorId(ingredienteId);
-            if (cantidadExistente-cantidad<0){
-                ingredientessFaltantes.put(ingredienteId,(cantidadExistente-cantidad)*(-2));
-            }
-        }
-        return ingredientessFaltantes;
-    }
+    
     /**
      * Agrega los productos especificados en una canasta y devuelve una lista de los productos agregados.
      * Si algún producto no tiene suficiente cantidad en la panadería, se cocinará la cantidad faltante.
      * @param productos un HashMap que contiene los IDs de los productos y la cantidad deseada de cada uno.
      * @return una ArrayList con los productos agregados a la canasta.
      */
+    
     public ArrayList<Producto> agregarProductosACanasta(HashMap<String, Integer> productos) {
         ArrayList<Producto> productosCanasta = new ArrayList<Producto>();
         HashMap<String, Integer> productosFaltantes = new HashMap<String, Integer>();
         for (Map.Entry<String, Integer> entry : productos.entrySet()) {
-            int cantidadExistente=verificarCantidadIngredientePorId(entry.getKey());
+            int cantidadExistente = this.inventario.verificarCantidadIngredientePorId(entry.getKey());
             if (cantidadExistente-entry.getValue()<0){
                 productosFaltantes.put(entry.getKey(),(cantidadExistente-entry.getValue())*(-2));
             }
@@ -331,8 +320,8 @@ public class Panaderia implements Serializable {
         }
         for (Map.Entry<String, Integer> entry : productos.entrySet()) {
             for (int i=0;i<entry.getValue();i++){
-                productosCanasta.add(buscarProductoPorId(entry.getKey()));
-                restarProducto(entry.getKey(),entry.getValue());
+                productosCanasta.add(this.inventario.buscarProductoPorId(entry.getKey()));
+                this.inventario.restarProducto(entry.getKey(),entry.getValue());
             }
         }
         return productosCanasta;
@@ -349,7 +338,7 @@ public class Panaderia implements Serializable {
         ArrayList<Ingrediente> ingredientesCanasta = new ArrayList<Ingrediente>();
         HashMap<String, Integer> ingredientesFaltantes = new HashMap<String, Integer>();
         for (Map.Entry<String, Integer> entry : ingredientes.entrySet()) {
-            int cantidadExistente=verificarCantidadIngredientePorId(entry.getKey());
+            int cantidadExistente = this.inventario.verificarCantidadIngredientePorId(entry.getKey());
             if (cantidadExistente-entry.getValue()<0){
                 ingredientesFaltantes.put(entry.getKey(),(cantidadExistente-entry.getValue())*(-2));
             }
@@ -359,8 +348,8 @@ public class Panaderia implements Serializable {
         }
         for (Map.Entry<String, Integer> entry : ingredientes.entrySet()) {
             for (int i=0;i<entry.getValue();i++){
-                ingredientesCanasta.add(buscarIngredientePorId(entry.getKey()));
-                restarIngrediente(entry.getKey(),entry.getValue());
+                ingredientesCanasta.add(this.inventario.buscarIngredientePorId(entry.getKey()));
+                this.inventario.restarIngrediente(entry.getKey(),entry.getValue());
             }
         }
         return ingredientesCanasta;
@@ -382,7 +371,7 @@ public class Panaderia implements Serializable {
             Map<String, Integer> ingredientesKit = Producto.obtenerObjetoPorId(idKit).getIngredientes();
             ingredientesKit.forEach((ingrediente,cantidadIngrediente)-> ingredientesKit.put(ingrediente,cantidadIngrediente*cantidad));
             for(Map.Entry<String, Integer> entry : ingredientesKit.entrySet()){
-                int cantidadExistente=verificarCantidadIngredientePorId(entry.getKey());
+                int cantidadExistente = this.inventario.verificarCantidadIngredientePorId(entry.getKey());
                 if (cantidadExistente-entry.getValue()<0){
                     if(ingredientesFaltantes.containsKey(entry.getKey())) {
                         ingredientesFaltantes.put(entry.getKey(), ingredientesFaltantes.get(entry.getKey()) + (cantidadExistente - entry.getValue()) * (-2));
@@ -402,8 +391,8 @@ public class Panaderia implements Serializable {
                 ArrayList<Ingrediente> kitCanasta = new ArrayList<Ingrediente>();
                 for (Map.Entry<String, Integer> entry : Producto.obtenerObjetoPorId(idKit).getIngredientes().entrySet()) {
                     for (int j=0;j<entry.getValue();j++){
-                        kitCanasta.add(buscarIngredientePorId(entry.getKey()));
-                        restarIngrediente(entry.getKey(),1);
+                        kitCanasta.add(this.inventario.buscarIngredientePorId(entry.getKey()));
+                        this.inventario.restarIngrediente(entry.getKey(),1);
                     }
                 }
                 kitsCanasta.add(kitCanasta);

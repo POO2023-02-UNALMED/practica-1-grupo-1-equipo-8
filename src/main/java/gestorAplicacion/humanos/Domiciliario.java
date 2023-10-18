@@ -164,7 +164,7 @@ public class Domiciliario extends Trabajador{
 
                 for (int i = 0; i < cantidad; i++) {
                     Ingrediente ingrdt = Ingrediente.crearIngrediente(ingrediente);
-                    this.panaderia.agregarIngrediente(ingrdt);
+                    this.panaderia.getInventario().agregarIngrediente(ingrdt);
                 }
             }
 
