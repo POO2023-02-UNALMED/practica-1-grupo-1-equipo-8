@@ -45,129 +45,100 @@ public class Panaderia implements Serializable {
     public Panaderia() {
 
     }
-
-    // metodos get:
-    public ArrayList<Producto> getInvProductos() {
-        return invProductos;
-    }
-
+    
+    //MÉTODOS GET Y SET
+    
     public ArrayList<Ingrediente> getInvIngredientes() {
-        return invIngredientes;
-    }
+		return invIngredientes;
+	}
 
-    public Canasta getCanastaDelDia() {
-        return canastaDelDia;
-    }
+	public void setInvIngredientes(ArrayList<Ingrediente> invIngredientes) {
+		this.invIngredientes = invIngredientes;
+	}
 
-    public ArrayList<Trabajador> getTrabajadores() {
+	public ArrayList<Producto> getInvProductos() {
+		return invProductos;
+	}
+
+	public void setInvProductos(ArrayList<Producto> invProductos) {
+		this.invProductos = invProductos;
+	}
+
+	public ArrayList<Trabajador> getTrabajadores() {
 		return trabajadores;
+	}
+
+	public void setTrabajadores(ArrayList<Trabajador> trabajadores) {
+		this.trabajadores = trabajadores;
 	}
 
 	public ArrayList<Cocinero> getCocineros() {
 		return cocineros;
 	}
 
+	public void setCocineros(ArrayList<Cocinero> cocineros) {
+		this.cocineros = cocineros;
+	}
+
 	public ArrayList<Domiciliario> getDomiciliarios() {
 		return domiciliarios;
 	}
 
+	public void setDomiciliarios(ArrayList<Domiciliario> domiciliarios) {
+		this.domiciliarios = domiciliarios;
+	}
+
 	public ArrayList<Cliente> getClientes() {
-        return clientes;
-    }
+		return clientes;
+	}
 
-    public double getDinero() {
-        return dinero;
-    }
+	public void setClientes(ArrayList<Cliente> clientes) {
+		this.clientes = clientes;
+	}
 
-    // metodos set:
-    public void setInvProductos(ArrayList<Producto> newInvProductos) {
-        invProductos = newInvProductos;
-    }
+	public double getDinero() {
+		return dinero;
+	}
 
-    public void setInvIngredientes(ArrayList<Ingrediente> newInvIngredientes) {
-        invIngredientes = newInvIngredientes;
-    }
+	public void setDinero(double dinero) {
+		this.dinero = dinero;
+	}
 
-    public void setClientes(ArrayList<Cliente> clientes) {
-        Panaderia.clientes = clientes;
-    }
+	public double getValorDeudas() {
+		return valorDeudas;
+	}
 
-    public static void setDinero(double dinero) {
-        Panaderia.dinero = dinero;
-    }
+	public void setValorDeudas(double valorDeudas) {
+		this.valorDeudas = valorDeudas;
+	}
 
-    public static void setCanastaDelDia(Canasta canasta) {
-        canastaDelDia = canasta;
-    }
+	public boolean isEnQuiebra() {
+		return enQuiebra;
+	}
 
-    public static void setTrabajadores(ArrayList<Trabajador> trabajadores) {
-        Panaderia.trabajadores = trabajadores;
-    }
+	public void setEnQuiebra(boolean enQuiebra) {
+		this.enQuiebra = enQuiebra;
+	}
 
-    public static void setCocineros(ArrayList<Cocinero> cocineros) {
-        Panaderia.cocineros = cocineros;
-    }
+	public static Canasta getCanastaDelDia() {
+		return canastaDelDia;
+	}
 
-    public static void setDomiciliarios(ArrayList<Domiciliario> domiciliarios) {
-        Panaderia.domiciliarios = domiciliarios;
-    }
+	public static void setCanastaDelDia(Canasta canastaDelDia) {
+		Panaderia.canastaDelDia = canastaDelDia;
+	}
 
-    public static double getValorDeudas() {
-        return valorDeudas;
-    }
+	public ArrayList<Canasta> getCanastasPublicadas() {
+		return canastasPublicadas;
+	}
 
-    public static void setValorDeudas(double valorDeudas) {
-        Panaderia.valorDeudas = valorDeudas;
-    }
+	public void setCanastasPublicadas(ArrayList<Canasta> canastasPublicadas) {
+		this.canastasPublicadas = canastasPublicadas;
+	}
+	
+	//TODO corregir importacion de cocinero
 
-    public static boolean isEnQuiebra() {
-        return enQuiebra;
-    }
-
-    public static void setEnQuiebra(boolean enQuiebra) {
-        Panaderia.enQuiebra = enQuiebra;
-    }
-
-    public static ArrayList<Canasta> getCanastasPublicadas() {
-        return canastasPublicadas;
-    }
-
-    public static void setCanastasPublicadas(ArrayList<Canasta> canastasPublicadas) {
-        Panaderia.canastasPublicadas = canastasPublicadas;
-    }
-
-    //Metodos para agregar elementos a las listas
-    public static void agregarTrabajador(Trabajador cocinero) {
-        trabajadores.add(cocinero);
-    }
-
-    public static void agregarCliente(Cliente cliente) {
-        clientes.add(cliente);
-    }
-
-    public static void eliminarCocinero(Trabajador cocinero) {
-        trabajadores.remove(cocinero);
-    }
-
-    public static void eliminarCliente(Cliente cliente) {
-        clientes.remove(cliente);
-    }
-
-    public static void agregarDinero(double dinero) {
-        Panaderia.dinero += dinero;
-    }
-
-    public static void restarDinero(double dinero) {
-        Panaderia.dinero -= dinero;
-    }
-
-    public static void agregarCanastasPublicadas(Canasta canasta) {
-        canastasPublicadas.add(canasta);
-    }
-
-    //TODO corregir importacion de cocinero
-    
-    public static Cocinero contratarCocinero(String nombre, double habilidad,double calificacion, double dineroEnMano, String especialidad) {
+	public static Cocinero contratarCocinero(String nombre, double habilidad,double calificacion, double dineroEnMano, String especialidad) {
         Cocinero indicado = new Cocinero(nombre, habilidad,calificacion, dineroEnMano, especialidad);
         cocineros.add(indicado);
         return indicado;
