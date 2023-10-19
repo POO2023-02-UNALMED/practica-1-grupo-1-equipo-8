@@ -493,13 +493,14 @@ public class Cliente implements Serializable{
 	 */
 
 	public boolean establecerDescuentoPorTipoValido(String descuento) {
-		/*
-		 * Esta función se encarga de establecer el descuento del cliente que está en sesión
-		 * A esta funcion se le pasa lo de Estudiante, Empleado, Maestro o así para que compare con el enum y establezca el descuento
-		 * Se le pasa el descuento, y se verifica que sea válido
-		 * Si es válido, se establece el descuento y se devuelve true
-		 * Si no es válido, se devuelve false
-		 */
+		try{
+			descuento = descuento.toUpperCase();
+			DescuentoPorTipo descuentoPorTipo = DescuentoPorTipo.valueOf(descuento);
+			this.tipoDescuento = descuentoPorTipo;
+		}
+		catch(Exception e){
+			return false;
+		}
 		return true;
 	}
 
