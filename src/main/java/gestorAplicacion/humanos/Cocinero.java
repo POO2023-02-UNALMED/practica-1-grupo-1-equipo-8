@@ -121,6 +121,10 @@ public class Cocinero extends Domiciliario{
         return idealNew;
     }
 
+    /**
+     * Detiene la cocción del producto especificado y resta los ingredientes usados(desperdiciados) del inventario de la panadería.
+     * @param producto El producto cuya cocción se detendrá y cuyos ingredientes se restarán del inventario.
+     */
     public void detenerCoccion(Producto producto){
         Map<String,Integer> ingredientesUsados = producto.getIngredientes();
             for (Map.Entry<String, Integer> usados : ingredientesUsados.entrySet()){
