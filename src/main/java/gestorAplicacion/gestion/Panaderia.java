@@ -157,6 +157,15 @@ public class Panaderia implements Serializable {
         canastasPublicadas.add(canasta);
     }
 
+    /**
+     * Contrata un nuevo cocinero y lo agrega a la lista de cocineros de la panadería.
+     * @param nombre El nombre del cocinero a contratar.
+     * @param habilidad La habilidad del cocinero a contratar.
+     * @param calificacion La calificación del cocinero a contratar.
+     * @param dineroEnMano La cantidad de dinero en mano del cocinero a contratar.
+     * @param especialidad La especialidad del cocinero a contratar.
+     * @return El objeto Cocinero recién contratado.
+     */
     public Cocinero contratarCocinero(String nombre, double habilidad,double calificacion, double dineroEnMano, String especialidad) {
         Cocinero indicado = new Cocinero(nombre, habilidad,calificacion, dineroEnMano, especialidad);
         this.cocineros.add(indicado);
