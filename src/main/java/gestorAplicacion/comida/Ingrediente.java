@@ -207,6 +207,10 @@ public class Ingrediente implements Serializable{
 		}
 	}
 
+	/**
+	 * Revisa la caducidad del ingrediente y resta la cantidad especificada del inventario si está vencido.
+	 * @param cantidad La cantidad de ingrediente a revisar y restar del inventario si está vencido.
+	 */
 	public void revisarCaducidad(int cantidad){
 		
 		this.caducidad(this);
