@@ -121,16 +121,41 @@ public class Domiciliario extends Trabajador{
 
         double valorcompra = 0;
         this.robado = false;
+        
+        Ingrediente.organizarTopMasVendidos();
+        ArrayList<Ingrediente> top = Ingrediente.getTopMasVendidos();
 
         for (Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()) {
 
-            int cantidad = ingrediente.getValue();
+            int cantidad = ingrediente.getValue();            
+            Ingrediente necesitado = Ingrediente.obtenerObjetoPorNombre(ingrediente.getKey());
+            int cantidadexistente = this.getPanaderia().getInventario().verificarCantidadIngredientePorId(necesitado.getId());
             
-            //Aquí añadir la priorización
+            if (top.contains(necesitado)) { //Pedir ayuda revisión
+            	
+            	if ((cantidad * 2) + cantidadexistente < 40) {
+            		
+            		 valorcompra += (necesitado.getPrecioDeCompra())  * (cantidad * 2);            		
+            	}
+            	
+            	else if (cantidad + cantidadexistente < 40){
+            		
+            		valorcompra += (necesitado.getPrecioDeCompra() * cantidad);
+            		
+            	}
+            	
+            }
             
-            valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingrediente.getKey()).getPrecioDeCompra())
-                    * (cantidad * 2);
-
+            else {
+            	
+            	if (cantidad + cantidadexistente < 20) {
+            		
+            		valorcompra += (necesitado.getPrecioDeCompra() * cantidad);
+            		
+            	}
+            	
+            }
+            
         }
 
         if (valorcompra <= this.panaderia.getDinero()) {
@@ -162,18 +187,41 @@ public class Domiciliario extends Trabajador{
 
             for (Map.Entry<String, Integer> compras : listingredientes.entrySet()) {
 
-                int cantidad = compras.getValue() * 2;
+                int cantidad = compras.getValue();
                 String ingrediente = compras.getKey();
-
-                for (int i = 0; i < cantidad; i++) {
-                    Ingrediente ingrdt = Ingrediente.crearIngrediente(ingrediente);
-                    this.panaderia.getInventario().agregarIngrediente(ingrdt);
+                Ingrediente necesitado = Ingrediente.obtenerObjetoPorNombre(ingrediente);
+                int cantidadexistente = this.getPanaderia().getInventario().verificarCantidadIngredientePorId(necesitado.getId());
+                
+                if (top.contains(necesitado) & ((cantidad * 2) + cantidadexistente) < 40) {
+                	
+                	for (int i = 0; i < cantidad*2; i++) {
+                        Ingrediente ingrdt = Ingrediente.crearIngrediente(ingrediente);
+                        this.panaderia.getInventario().agregarIngrediente(ingrdt);
+                    }
+                
                 }
+                
+                else if (top.contains(necesitado) & (cantidad + cantidadexistente) < 40){
+                	
+                	for (int i = 0; i < cantidad; i++) {
+                        Ingrediente ingrdt = Ingrediente.crearIngrediente(ingrediente);
+                        this.panaderia.getInventario().agregarIngrediente(ingrdt);
+                    }           	
+                }
+                
+                else {
+                	
+                	for (int i = 0; i < cantidad; i++) {
+                        Ingrediente ingrdt = Ingrediente.crearIngrediente(ingrediente);
+                        this.panaderia.getInventario().agregarIngrediente(ingrdt);
+                    }           	
+                	
+                }
+                
             }
 
             return this.robado;
-
-        }
+       }
     }
 
-}
+ }
