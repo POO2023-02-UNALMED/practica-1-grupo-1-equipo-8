@@ -32,8 +32,8 @@ public class Cocinero extends Domiciliario{
         this.especialidad = especialidad;
     }
 
-    public Cocinero(String nombre, double habilidad,double calificacion, double dineroEnMano, String especialidad) {
-        super(nombre, habilidad, calificacion,dineroEnMano);
+    public Cocinero(String nombre, double habilidad,double calificacion, double dineroEnMano, String especialidad, Panaderia panaderia) {
+        super(nombre, habilidad, calificacion,dineroEnMano, panaderia);
         this.especialidad = especialidad;
     }
 
