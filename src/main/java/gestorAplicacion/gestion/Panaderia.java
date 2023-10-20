@@ -167,7 +167,7 @@ public class Panaderia implements Serializable {
      * @return El objeto Cocinero recién contratado.
      */
     public Cocinero contratarCocinero(String nombre, double habilidad,double calificacion, double dineroEnMano, String especialidad) {
-        Cocinero indicado = new Cocinero(nombre, habilidad,calificacion, dineroEnMano, especialidad);
+        Cocinero indicado = new Cocinero(nombre, habilidad,calificacion, dineroEnMano, especialidad, this);
         this.cocineros.add(indicado);
         return indicado;
         
