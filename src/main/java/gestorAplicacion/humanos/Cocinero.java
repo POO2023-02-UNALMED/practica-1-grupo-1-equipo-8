@@ -134,30 +134,59 @@ public class Cocinero extends Domiciliario{
             }
     }
 
-    public boolean procesoCocinar(Producto producto){
-        ArrayList<String> procesosProducto = producto.seleccionProcesosDeCocina();
-        producto.setProcesoDeCocina(procesosProducto);
-        Catastrofe dificultad = new Catastrofe();
-        List<String> procesoCook= producto.getProcesoDeCocina();
-        for (String proceso : procesoCook){
-            Cocinero chefIdeal = cocineroIdeal(proceso);
-            if (producto instanceof ProductoFrio) {
-                ProductoFrio productoF = (ProductoFrio)producto;
-                productoF.procesoCongelamiento(chefIdeal);
-            }
-            if (producto instanceof ProductoCaliente) {
-                ProductoCaliente productoH = (ProductoCaliente)producto;
-                productoH.procesoHornear(chefIdeal);
-            }
-            boolean cookProducto = dificultad.dificultadProducto(chefIdeal);
-            if (cookProducto){
-                chefIdeal.setHabilidad(chefIdeal.getHabilidad()+1);
-                return true;
-            }
-            chefIdeal.setTrabajo(true);
+/**
+ * Realiza el proceso de cocinar un producto, siguiendo los pasos necesarios para su preparación.
+ * 
+ * @param producto El producto a cocinar.
+ * @return false si el producto se cocinó con éxito, true en caso contrario.
+ */
+public boolean procesoCocinar(Producto producto) {
+    // Obtiene la lista de procesos de cocina necesarios para el producto.
+    ArrayList<String> procesosProducto = producto.seleccionProcesosDeCocina();
+    
+    // Asigna la lista de procesos al producto.
+    producto.setProcesoDeCocina(procesosProducto);
+    
+    // Crea una instancia de la clase Catastrofe para gestionar la dificultad.
+    Catastrofe dificultad = new Catastrofe();
+    
+    // Obtiene la lista de procesos a realizar.
+    List<String> procesoCook = producto.getProcesoDeCocina();
+    
+    // Itera a través de los procesos de cocina.
+    for (String proceso : procesoCook) {
+        // Encuentra al cocinero ideal para el proceso actual.
+        Cocinero chefIdeal = cocineroIdeal(proceso);
+        
+        // Realiza el proceso específico para productos fríos, si corresponde.
+        if (producto instanceof ProductoFrio) {
+            ProductoFrio productoF = (ProductoFrio) producto;
+            productoF.procesoCongelamiento(chefIdeal);
         }
-        return false;
+        
+        // Realiza el proceso específico para productos calientes, si corresponde.
+        if (producto instanceof ProductoCaliente) {
+            ProductoCaliente productoH = (ProductoCaliente) producto;
+            productoH.procesoHornear(chefIdeal);
+        }
+        
+        // Evalúa la dificultad del proceso con el cocinero seleccionado.
+        boolean cookProducto = dificultad.dificultadProducto(chefIdeal);
+        
+        if (cookProducto) {
+            // Incrementa la habilidad del cocinero si el proceso falló.
+            chefIdeal.setHabilidad(chefIdeal.getHabilidad() + 1);
+            return true;
+        }
+        
+        // Establece el cocinero como ocupado.
+        chefIdeal.setTrabajo(true);
     }
+    
+    // Devuelve false si todos los procesos se completaron con éxito.
+    return false;
+}
+
 
     public Map<String, Integer> unirMapasIngredientesId(List<Map<String, Integer>> listaDeMapas){
         Map<String, Integer> mapaAcumulativo = new HashMap<>();
