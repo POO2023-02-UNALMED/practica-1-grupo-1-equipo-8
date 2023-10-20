@@ -99,6 +99,12 @@ public class Cocinero extends Domiciliario{
     }
     
 
+
+    /**
+     * Busca el cocinero ideal para un proceso de cocina dado. Si encuentra un cocinero en la lista de cocineros de la panadería con la especialidad deseada, lo devuelve. De lo contrario, contrata a un nuevo cocinero con la especialidad deseada y lo devuelve.
+     * @param proceso el proceso de cocina para el que se busca un cocinero ideal
+     * @return el cocinero ideal para el proceso de cocina dado
+     */
     public Cocinero cocineroIdeal(String proceso) {
         Cocinero ideal=null;
         List<Cocinero> listaCocineros = this.panaderia.getCocineros();
