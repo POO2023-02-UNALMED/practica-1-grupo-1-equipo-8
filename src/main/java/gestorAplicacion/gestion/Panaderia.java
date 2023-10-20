@@ -246,7 +246,7 @@ public class Panaderia implements Serializable {
 
         for (Producto p : producto){
             if (p instanceof ProductoFrio){
-                ((ProductoFrio)p).empaqueCongelador(domiciliario);
+                domiciliario = ((ProductoFrio)p).empaqueCongelador(domiciliario);
             }
         }
 
@@ -260,6 +260,7 @@ public class Panaderia implements Serializable {
 
         domiciliario.setCanasta(canasta);
         domiciliario.setOcupado(true);
+        cliente.setDomiciliario(domiciliario);
         boolean logro = domiciliario.laborParticular(canasta);
         while (!logro){
             domiciliario.setHabilidad(domiciliario.getHabilidad()+1);
@@ -267,7 +268,7 @@ public class Panaderia implements Serializable {
             this.restarDinero(10000);
             domiciliario.setLicencia(true);
         }
-        cliente.setDomiciliario(domiciliario);
+        cliente.setDomiciliario(null);
     }
 
     public void reviewDomiciliario(Domiciliario domiciliario){
