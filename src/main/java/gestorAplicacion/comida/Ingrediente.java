@@ -193,6 +193,12 @@ public class Ingrediente implements Serializable{
 		}
 	}
 
+
+	/**
+	 * Método que establece la caducidad de un ingrediente de manera aleatoria.
+	 * Si la caducidad es igual a la probabilidad constante, el ingrediente se marca como caducado.
+	 * @param ingrediente El ingrediente al que se le establecerá la caducidad.
+	 */
 	public void caducidad(Ingrediente ingrediente){
 		Random numAleatorio = new Random();
 		int caducidad = numAleatorio.nextInt(20);
@@ -207,7 +213,7 @@ public class Ingrediente implements Serializable{
 		boolean vencido = this.isCaducado();
 		if(vencido){
 		String ingredienteId = this.getId();
-	    this.inventario.restarIngrediente(ingredienteId, cantidad);
+		this.inventario.restarIngrediente(ingredienteId, cantidad);
 		
 		}	
 	}
