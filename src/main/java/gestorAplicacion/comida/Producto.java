@@ -168,6 +168,13 @@ public class Producto implements Serializable{
 		return costo;
 	}
 
+
+	/**
+	 * Este método devuelve una lista de procesos de cocina seleccionados aleatoriamente.
+	 * Los procesos de cocina disponibles son: Hornear, Gelatinificar, Amasar, Mezclar, Fritar, Asar, Congelar, Licuar y Decoracion.
+	 * El número de procesos seleccionados es aleatorio y varía entre 1 y 3.
+	 * @return una lista de procesos de cocina seleccionados aleatoriamente.
+	 */
 	public ArrayList<String> seleccionProcesosDeCocina (){
 	ArrayList <String> procesos = new ArrayList<String>();
 	procesos.add("Hornear");
@@ -180,11 +187,11 @@ public class Producto implements Serializable{
 	procesos.add("Licuar");
 	procesos.add("Decoracion");
 	Random numAleatorio = new Random();
-  	int cuantosProcesos = numAleatorio.nextInt(3)+1;
+	int cuantosProcesos = numAleatorio.nextInt(3)+1;
 			ArrayList <Integer> numerosIndices = new ArrayList<Integer>();
 	for(int i=0;i<cuantosProcesos;i++){
 		Random random = new Random();
-  	int numerosDelProceso = random.nextInt(6);
+	int numerosDelProceso = random.nextInt(6);
 		numerosIndices.add(numerosDelProceso);
 	}
 	ArrayList <String> procesosFinales = new ArrayList<String>();
