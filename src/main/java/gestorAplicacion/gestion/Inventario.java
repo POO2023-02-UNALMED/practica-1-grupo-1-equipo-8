@@ -132,6 +132,8 @@ public class Inventario implements Serializable{
                 for(Ingrediente ingrediente1 : invIngredientes) {
                     if(ingrediente1.getId().equals(ingrediente)) {
                         invIngredientes.remove(ingrediente1);
+                        Ingrediente.obtenerObjetoPorId(ingrediente).setVecesVendido(Ingrediente.obtenerObjetoPorId(ingrediente).getVecesVendido() + 1);
+                        Ingrediente.organizarTopMasVendidos();
                         break;
                     }
                 }
@@ -150,6 +152,8 @@ public class Inventario implements Serializable{
                 for(Ingrediente ingrediente1 : invIngredientes) {
                     if(ingrediente1.getId().equals(ingrediente.getId())) {
                         invIngredientes.remove(ingrediente1);
+                        Ingrediente.obtenerObjetoPorId(ingrediente.getId()).setVecesVendido(Ingrediente.obtenerObjetoPorId(ingrediente.getId()).getVecesVendido() + 1);
+                        Ingrediente.organizarTopMasVendidos();
                         break;
                     }
                 }
@@ -168,6 +172,9 @@ public class Inventario implements Serializable{
                 for(Producto producto1 : this.invProductos) {
                     if(producto1.getId().equals(producto)) {
                         invProductos.remove(producto1);
+                        Producto.obtenerObjetoPorId(producto)
+                                .setVecesVendido(Producto.obtenerObjetoPorId(producto).getVecesVendido() + 1);
+                        Producto.organizarTopMasVendidos();
                         break;
                     }
                 }
@@ -186,6 +193,8 @@ public class Inventario implements Serializable{
                 for(Producto producto1 : invProductos) {
                     if(producto1.getId().equals(producto.getId())) {
                         invProductos.remove(producto1);
+                        Producto.obtenerObjetoPorId(producto.getId()).setVecesVendido(Producto.obtenerObjetoPorId(producto.getId()).getVecesVendido() + 1);
+                        Producto.organizarTopMasVendidos();
                         break;
                     }
                 }

@@ -37,10 +37,11 @@ public class ProductoFrio extends Producto{
     this.tiempoDeCongelamiento = tiempoDeCongelamiento;
   }
   
+
   /**
-   * Crea un nuevo objeto ProductoFrio con el nombre especificado y aumenta el contador de veces vendido en 1.
-   * @param Nnombre el nombre del producto a crear
-   * @return el nuevo objeto ProductoFrio creado
+   * Crea un nuevo objeto ProductoFrio a partir de un nombre dado.
+   * @param Nnombre el nombre del producto a crear.
+   * @return el nuevo objeto ProductoFrio creado.
    */
   public static ProductoFrio crearProducto(String Nnombre) {
     ProductoFrio newProducto = (ProductoFrio) obtenerObjetoPorId(Nnombre);
@@ -95,7 +96,11 @@ public class ProductoFrio extends Producto{
 	return procesosFinales;
 	}
 
-  //TODO montar vehiculo especial y contenedor especial para productos frios
+  /**
+   * Empaqueta el producto frío en un contenedor de frío por parte del domiciliario.
+   * @param domiciliario El domiciliario que realizará el empaque.
+   * @return El domiciliario con el empaque de frío activado.
+   */
   public Domiciliario empaqueCongelador(Domiciliario domiciliario){
     if (domiciliario.isEmpaqueFrio() == true) {
       return domiciliario;
@@ -105,7 +110,10 @@ public class ProductoFrio extends Producto{
     }
   }
 
-  //TODO implementar tiempo de congelamiento aleatorio
+  /**
+   * Calcula el tiempo de congelamiento de un producto frío de manera aleatoria.
+   * @return tiempo de congelamiento en horas.
+   */
   public int calcularCongelamiento(){
     Random numAleatorio = new Random();
     int tiempoDeCongelamiento = numAleatorio.nextInt(20);;
@@ -113,7 +121,11 @@ public class ProductoFrio extends Producto{
     return tiempoDeCongelamiento;
   }
 
-  //TODO implementar proceso de congelamiento para interactuar con cocinero
+  /**
+   * Congela el producto frío si el cocinero tiene una nevera disponible.
+   * @param cocinero el cocinero que realiza el proceso de congelamiento.
+   * @return el cocinero con el producto frío congelado si la nevera está disponible, de lo contrario, el mismo cocinero sin cambios.
+   */
   public Cocinero procesoCongelamiento(Cocinero cocinero){
     if (cocinero.isNevera() == true) {
       return cocinero;

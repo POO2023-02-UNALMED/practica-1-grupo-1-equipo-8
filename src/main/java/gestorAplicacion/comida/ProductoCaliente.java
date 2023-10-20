@@ -8,16 +8,12 @@ import gestorAplicacion.humanos.Cocinero;
 
 public class ProductoCaliente extends Producto{
 	private boolean horno=false;
-	private int tiempoEnHorno;
 
-	public ProductoCaliente(String nombre, String ids, HashMap<String,Integer> ingredientes, double costo, int vecesVendido, int tiempoEnHorno) {
+
+	public ProductoCaliente(String nombre, String ids, HashMap<String,Integer> ingredientes, double costo, int vecesVendido) {
 		super(nombre, ids, ingredientes, costo, vecesVendido);
-		this.tiempoEnHorno = tiempoEnHorno;
 }
-public ProductoCaliente(String nombre, HashMap<String,Integer> ingredientes,int tiempoEnHorno) {
-    super(nombre, ingredientes);
-		this.tiempoEnHorno = calcularHorneado();
-    }
+
 
 public boolean isHorno() {
 	return horno;
@@ -27,19 +23,28 @@ public void setHorno(boolean horno) {
 	this.horno = horno;
 }
 
-	public int getTiempoEnHorno() {
-		return tiempoEnHorno;
-	}
-
-	public void setTiempoEnHorno(int tiempoEnHorno) {
-		this.tiempoEnHorno = tiempoEnHorno;
-	}
-
+	/**
+	 * Crea un nuevo objeto ProductoCaliente a partir de su nombre.
+	 * @param Nnombre el nombre del producto caliente a crear.
+	 * @return el nuevo objeto ProductoCaliente creado.
+	 */
 	public static ProductoCaliente crearProducto(String Nnombre) {
 		ProductoCaliente newProducto = (ProductoCaliente) obtenerObjetoPorId(Nnombre);
-		return new ProductoCaliente(newProducto.getNombre(), newProducto.getId(), newProducto.getIngredientes(), newProducto.getCosto(), newProducto.getVecesVendido(), newProducto.getTiempoEnHorno());
+		return new ProductoCaliente(newProducto.getNombre(), newProducto.getId(), newProducto.getIngredientes(), newProducto.getCosto(), newProducto.getVecesVendido());
 	}
 
+	/**
+	 * Creates a custom product with the given name and ingredients.
+	 * If an ingredient does not exist, it creates a new one.
+	 * @param Nnombre the name of the custom product
+	 * @param ingredientes a HashMap containing the name and quantity of each ingredient
+	 * @return the newly created custom product
+	 * Crea un nuevo producto personalizado con el nombre y los ingredientes especificados.
+	 * Si alguno de los ingredientes no existe en la lista de ingredientes, se crea uno nuevo.
+	 * @param Nnombre el nombre del producto personalizado
+	 * @param ingredientes un HashMap que contiene los ingredientes y sus cantidades
+	 * @return el nuevo producto personalizado creado
+	 */
 	public static Producto crearProductoPersonalizado(String Nnombre, HashMap<String, Integer> ingredientes) {
     for (HashMap.Entry<String, Integer> entry : ingredientes.entrySet()) {
     if (!Ingrediente.verificacionExistenciaPorNombre(entry.getKey())) {
@@ -49,13 +54,11 @@ public void setHorno(boolean horno) {
     return new Producto(Nnombre, ingredientes);
   }
 
-	public int calcularHorneado(){
-		Random numAleatorio = new Random();
-		int tiempoDeHornear = numAleatorio.nextInt(20);;
-
-    return tiempoDeHornear;
-	}
-
+	/**
+	 * Proceso de horneado de un producto caliente por parte de un cocinero.
+	 * @param cocinero El cocinero que realizará el proceso de horneado.
+	 * @return El cocinero con el estado del horno actualizado.
+	 */
 	public Cocinero procesoHornear(Cocinero cocinero){
 		if (cocinero.isHorno() == true) {
 			return cocinero;
@@ -65,8 +68,13 @@ public void setHorno(boolean horno) {
 		}
 	}
 
+/**
+ * Retorna una lista de procesos de cocina aleatorios para el producto caliente.
+ * Los procesos posibles son: Hornear, Amasar, Mezclar, Fritar, Asar y Decoracion.
+ * El número de procesos aleatorios a seleccionar está entre 1 y 3.
+ * @return una lista de procesos de cocina aleatorios para el producto caliente.
+ */
 @Override
-
   public ArrayList<String> seleccionProcesosDeCocina (){
 	ArrayList <String> procesos = new ArrayList<String>();
 	procesos.add("Hornear");

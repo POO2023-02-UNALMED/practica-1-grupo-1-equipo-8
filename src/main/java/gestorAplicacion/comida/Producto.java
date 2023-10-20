@@ -17,7 +17,7 @@ public class Producto implements Serializable{
 	protected HashMap<String,Integer> ingredientes = new HashMap<String,Integer>();
 	protected ArrayList<String> procesoDeCocina = new ArrayList<String>();
 	protected int vecesVendido;
-	protected ArrayList<Producto> topMasVendidos = new ArrayList<Producto>(6);
+	protected static ArrayList<Producto> topMasVendidos = new ArrayList<Producto>(6);
 
 	//Constructores
 	public Producto(String nombre, String id, HashMap<String,Integer> ingredientes, double costo, int vecesVendido) {
@@ -195,7 +195,7 @@ public class Producto implements Serializable{
 	return procesosFinales;
 	}
 
-	public void organizarTopMasVendidos(){
+	public static void organizarTopMasVendidos(){
 		topMasVendidos.clear();
 		for(int i=0; i<baseDatosProductos.size(); i++){
 			for(int j=0; j<baseDatosProductos.size(); j++){

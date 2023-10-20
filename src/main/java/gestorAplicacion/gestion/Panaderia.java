@@ -157,8 +157,6 @@ public class Panaderia implements Serializable {
         canastasPublicadas.add(canasta);
     }
 
-    //TODO corregir importacion de cocinero
-    
     public Cocinero contratarCocinero(String nombre, double habilidad,double calificacion, double dineroEnMano, String especialidad) {
         Cocinero indicado = new Cocinero(nombre, habilidad,calificacion, dineroEnMano, especialidad);
         this.cocineros.add(indicado);
@@ -321,7 +319,6 @@ public class Panaderia implements Serializable {
         for (Map.Entry<String, Integer> entry : productos.entrySet()) {
             for (int i=0;i<entry.getValue();i++){
                 productosCanasta.add(this.inventario.buscarProductoPorId(entry.getKey()));
-                Producto.obtenerObjetoPorId(entry.getKey()).setVecesVendido(Producto.obtenerObjetoPorId(entry.getKey()).getVecesVendido()+1);
                 this.inventario.restarProducto(entry.getKey(),entry.getValue());
             }
         }
@@ -350,8 +347,6 @@ public class Panaderia implements Serializable {
         for (Map.Entry<String, Integer> entry : ingredientes.entrySet()) {
             for (int i=0;i<entry.getValue();i++){
                 ingredientesCanasta.add(this.inventario.buscarIngredientePorId(entry.getKey()));
-                Ingrediente.obtenerObjetoPorId(entry.getKey()).setVecesVendido(Ingrediente.obtenerObjetoPorId(entry.getKey()).getVecesVendido()+1);
-                Ingrediente.organizarTopMasVendidos();
                 this.inventario.restarIngrediente(entry.getKey(),entry.getValue());
             }
         }
