@@ -85,12 +85,11 @@ public class Cocinero extends Domiciliario{
 		this.panaderia = panaderia;
 	}
 
-	/**
-     * Calcula los ingredientes faltantes necesarios para cocinar un producto específico.
-     *
-     * @param producto El producto que se desea cocinar.
-     * @return Un mapa que contiene los ingredientes necesarios y la cantidad faltante de cada uno.
-     *         Si no faltan ingredientes, el mapa estará vacío.
+
+    /**
+     * Calcula la cantidad de ingredientes faltantes para preparar un plato, revisando la cantidad disponible en la panadería.
+     * @param ingredientesNecesarios un mapa que contiene los ingredientes necesarios y la cantidad requerida de cada uno.
+     * @return un mapa que contiene los ingredientes necesarios y la cantidad faltante de cada uno.
      */
     public Map<String, Integer> ingredientesCocinero (Map<String, Integer> ingredientesNecesarios) {
         // Revisa la cantidad de ingredientes disponibles en la panadería y calcula los faltantes.
@@ -99,18 +98,7 @@ public class Cocinero extends Domiciliario{
         return ingrFaltantes;
     }
     
-    /**
-     * Simula la posibilidad de que un producto cocinado por un cocinero se queme.
-     *
-     * @param cocinero El cocinero que cocina el producto.
-     * @return true si el producto se quema, false en caso contrario.
-     */
-    /**
-     * Encuentra al cocinero ideal para un proceso de cocina específico.
-     *
-     * @param proceso El nombre del proceso de cocina para el que se busca el cocinero ideal.
-     * @return El cocinero ideal para el proceso o null si no se encuentra ninguno.
-     */
+
     public Cocinero cocineroIdeal(String proceso) {
         Cocinero ideal=null;
         List<Cocinero> listaCocineros = this.panaderia.getCocineros();
