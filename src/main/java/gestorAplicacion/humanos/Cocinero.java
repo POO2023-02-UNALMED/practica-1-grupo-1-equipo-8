@@ -134,60 +134,66 @@ public class Cocinero extends Domiciliario{
             }
     }
 
-/**
- * Realiza el proceso de cocinar un producto, siguiendo los pasos necesarios para su preparación.
- * 
- * @param producto El producto a cocinar.
- * @return false si el producto se cocinó con éxito, true en caso contrario.
- */
-public boolean procesoCocinar(Producto producto) {
-    // Obtiene la lista de procesos de cocina necesarios para el producto.
-    ArrayList<String> procesosProducto = producto.seleccionProcesosDeCocina();
-    
-    // Asigna la lista de procesos al producto.
-    producto.setProcesoDeCocina(procesosProducto);
-    
-    // Crea una instancia de la clase Catastrofe para gestionar la dificultad.
-    Catastrofe dificultad = new Catastrofe();
-    
-    // Obtiene la lista de procesos a realizar.
-    List<String> procesoCook = producto.getProcesoDeCocina();
-    
-    // Itera a través de los procesos de cocina.
-    for (String proceso : procesoCook) {
-        // Encuentra al cocinero ideal para el proceso actual.
-        Cocinero chefIdeal = cocineroIdeal(proceso);
+    /**
+     * Realiza el proceso de cocinar un producto, siguiendo los pasos necesarios para su preparación.
+     * 
+     * @param producto El producto a cocinar.
+     * @return false si el producto se cocinó con éxito, true en caso contrario.
+     */
+    public boolean procesoCocinar(Producto producto) {
+        // Obtiene la lista de procesos de cocina necesarios para el producto.
+        ArrayList<String> procesosProducto = producto.seleccionProcesosDeCocina();
         
-        // Realiza el proceso específico para productos fríos, si corresponde.
-        if (producto instanceof ProductoFrio) {
-            ProductoFrio productoF = (ProductoFrio) producto;
-            productoF.procesoCongelamiento(chefIdeal);
+        // Asigna la lista de procesos al producto.
+        producto.setProcesoDeCocina(procesosProducto);
+        
+        // Crea una instancia de la clase Catastrofe para gestionar la dificultad.
+        Catastrofe dificultad = new Catastrofe();
+        
+        // Obtiene la lista de procesos a realizar.
+        List<String> procesoCook = producto.getProcesoDeCocina();
+        
+        // Itera a través de los procesos de cocina.
+        for (String proceso : procesoCook) {
+            // Encuentra al cocinero ideal para el proceso actual.
+            Cocinero chefIdeal = cocineroIdeal(proceso);
+            
+            // Realiza el proceso específico para productos fríos, si corresponde.
+            if (producto instanceof ProductoFrio) {
+                ProductoFrio productoF = (ProductoFrio) producto;
+                productoF.procesoCongelamiento(chefIdeal);
+            }
+            
+            // Realiza el proceso específico para productos calientes, si corresponde.
+            if (producto instanceof ProductoCaliente) {
+                ProductoCaliente productoH = (ProductoCaliente) producto;
+                productoH.procesoHornear(chefIdeal);
+            }
+            
+            // Evalúa la dificultad del proceso con el cocinero seleccionado.
+            boolean cookProducto = dificultad.dificultadProducto(chefIdeal);
+            
+            if (cookProducto) {
+                // Incrementa la habilidad del cocinero si el proceso falló.
+                chefIdeal.setHabilidad(chefIdeal.getHabilidad() + 1);
+                return true;
+            }
+            
+            // Establece el cocinero como ocupado.
+            chefIdeal.setTrabajo(true);
         }
         
-        // Realiza el proceso específico para productos calientes, si corresponde.
-        if (producto instanceof ProductoCaliente) {
-            ProductoCaliente productoH = (ProductoCaliente) producto;
-            productoH.procesoHornear(chefIdeal);
-        }
-        
-        // Evalúa la dificultad del proceso con el cocinero seleccionado.
-        boolean cookProducto = dificultad.dificultadProducto(chefIdeal);
-        
-        if (cookProducto) {
-            // Incrementa la habilidad del cocinero si el proceso falló.
-            chefIdeal.setHabilidad(chefIdeal.getHabilidad() + 1);
-            return true;
-        }
-        
-        // Establece el cocinero como ocupado.
-        chefIdeal.setTrabajo(true);
+        // Devuelve false si todos los procesos se completaron con éxito.
+        return false;
     }
-    
-    // Devuelve false si todos los procesos se completaron con éxito.
-    return false;
-}
 
 
+
+    /**
+     * Método que une varios mapas de ingredientes en uno solo, acumulando las cantidades de los ingredientes que se repiten.
+     * @param listaDeMapas Lista de mapas de ingredientes a unir.
+     * @return Mapa acumulativo con los ingredientes y sus cantidades totales.
+     */
     public Map<String, Integer> unirMapasIngredientesId(List<Map<String, Integer>> listaDeMapas){
         Map<String, Integer> mapaAcumulativo = new HashMap<>();
         for (Map<String, Integer> mapa : listaDeMapas) {
@@ -196,6 +202,12 @@ public boolean procesoCocinar(Producto producto) {
         return mapaAcumulativo;
     }
 
+    /**
+     * Multiplica los valores de un mapa por un multiplicador dado y devuelve un nuevo mapa con los valores multiplicados.
+     * @param mapa El mapa original con los valores a multiplicar.
+     * @param multiplicador El valor por el cual se multiplicarán los valores del mapa.
+     * @return Un nuevo mapa con los valores multiplicados.
+     */
     public Map<String, Integer> multiplicarValoresEnMapa(Map<String, Integer> mapa, int multiplicador) {
         Map<String, Integer> nuevoMapa = new HashMap<>();
     
@@ -212,7 +224,7 @@ public boolean procesoCocinar(Producto producto) {
     /**
      * Realiza una labor específica relacionada con la preparación y cocción de productos de la canasta.
      *
-     * @param canasta El objeto Canasta que contiene los productos a procesar.
+     * @param canastaTrabajar El objeto Canasta que contiene los productos a procesar.
      * @return true si la labor se realiza con éxito; false si no se puede realizar debido a la falta de ingredientes o problemas de cocción.
      */
     @Override
@@ -220,6 +232,8 @@ public boolean procesoCocinar(Producto producto) {
         // Obtiene los productos junto con sus cantidades de la canasta
         HashMap<String, Integer> productos = canastaTrabajar.getProductosEnLista();
         List<Map<String, Integer>> listaDeMapas = new ArrayList<>();
+        
+        // Preparación de ingredientes necesarios
         for (Map.Entry<String, Integer> product : productos.entrySet()) {
             String productoID = product.getKey();
             Producto producto = this.panaderia.getInventario().buscarProductoPorId(productoID);
@@ -228,15 +242,21 @@ public boolean procesoCocinar(Producto producto) {
             Map<String,Integer> ingredientesAbsolutos = multiplicarValoresEnMapa(ingredientesNecesarios,cantidad);
             listaDeMapas.add(ingredientesAbsolutos);
         }
+        
+        // Unión de ingredientes necesarios
         Map<String, Integer> listaIngredientesTotales = unirMapasIngredientesId(listaDeMapas);
+        
+        // Comprobación de ingredientes faltantes
         Map<String, Integer> ingrFaltantes = ingredientesCocinero(listaIngredientesTotales);
-        if(!ingrFaltantes.isEmpty()){
+        
+        if (!ingrFaltantes.isEmpty()) {
             // Compra los ingredientes faltantes en la Panadería.
-        this.panaderia.comprarIngredientes(ingrFaltantes);
-        // Retorna falso, indicando que no se puede realizar la labor debido a la falta de ingredientes.
-        return false;
-    }
-        //verificar si hay un ingrediente caducado y si lo hay se elimina del inventario
+            this.panaderia.comprarIngredientes(ingrFaltantes);
+            // Retorna falso, indicando que no se puede realizar la labor debido a la falta de ingredientes.
+            return false;
+        }
+        
+        // Verificar caducidad de ingredientes
         for (Map.Entry<String, Integer> product : productos.entrySet()) {
             String productoId = product.getKey();
             Producto producto = this.panaderia.getInventario().buscarProductoPorId(productoId);
@@ -245,40 +265,40 @@ public boolean procesoCocinar(Producto producto) {
                 String ingIdVerificar = verificar.getKey();
                 Ingrediente ingVerificar = this.panaderia.getInventario().buscarIngredientePorId(ingIdVerificar);
                 Integer cantidad = verificar.getValue();
-                ingVerificar.revisarCaducidad(cantidad); //Mirar esto!!!!!!!!
+                ingVerificar.revisarCaducidad(cantidad);
             }
         }
-        
-         // Itera a través de los productos en la canasta nuevamente.
+
+        // Itera a través de los productos en la canasta nuevamente.
         for (Map.Entry<String, Integer> product : productos.entrySet()) {
             String productoId = product.getKey();
             Producto producto = this.panaderia.getInventario().buscarProductoPorId(productoId);
             Producto productoNew;
             if (producto instanceof ProductoFrio) {
-            productoNew = ProductoFrio.crearProducto(productoId);
-        } else if (producto instanceof ProductoCaliente) {
-            productoNew = ProductoCaliente.crearProducto(productoId);
-        } else {
-            productoNew = Producto.crearProducto(productoId);
-        }
+                productoNew = ProductoFrio.crearProducto(productoId);
+            } else if (producto instanceof ProductoCaliente) {
+                productoNew = ProductoCaliente.crearProducto(productoId);
+            } else {
+                productoNew = Producto.crearProducto(productoId);
+            }
             Cocinero cocinero = this.panaderia.cocineroAleatorio();
             boolean fallado = cocinero.procesoCocinar(productoNew);
             if (fallado){
-            cocinero.detenerCoccion(producto);
-            return false;
+                cocinero.detenerCoccion(producto);
+                return false;
             }
-        this.panaderia.getInventario().agregarProducto(productoNew);
+            this.panaderia.getInventario().agregarProducto(productoNew);
         }
         
-     // Resta los ingredientes usados del inventario de la Panadería.
+        // Resta los ingredientes usados del inventario de la Panadería.
         for (Map.Entry<String, Integer> product : productos.entrySet()) {
             String productoId = product.getKey();
             Producto producto = this.panaderia.getInventario().buscarProductoPorId(productoId);
             Cocinero cocinero = this.panaderia.cocineroAleatorio();
             cocinero.detenerCoccion(producto);
         }
+        
         // Si todos los productos se cocinan con éxito, retorna verdadero.
-
         return true;
     }
   
