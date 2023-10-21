@@ -11,10 +11,10 @@ public interface ComidaDefault {
         return "Ahora mismo no tenemos una descripcion para este producto, pero te invitamos a probarlo.";
     }
 
-    default public String getNutrientes(){
+    default public String getNutrientes(String nombre){
         String m = String.format(""+
         " _______________________________________________________ \n"+
-        "|"+Texto.centrar("Producto: ")+" |\n"+
+        "|"+Texto.centrar(String.format("Producto: ", nombre)+" |\n"+
         "| Porción: 30 g                                         |\n"+
         "|_______________________________________________________| \n"+
         "| Información nutricional por porción                   |\n"+
