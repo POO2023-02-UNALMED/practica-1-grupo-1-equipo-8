@@ -9,50 +9,176 @@ import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Canasta;
 
 public class GestionCompra {
+  
+
+  /**
+   * Método que maneja la recepción de una orden de compra de una canasta.
+   * Permite al usuario agregar o modificar productos de un catálogo o agregar un producto personalizado.
+   * @param canasta La canasta a la que se le agregará la orden.
+   */
   public static void gestionRecibirOrdenCanasta(Canasta canasta){
     Scanner scanner = new Scanner(System.in);
+    String tipoDeProducto="0"; //1=Catalogo, 2=Personalizado
     String objetoEntrante;
     String cantidad;
+    String kit;
     boolean continuar = true;
 
-    while (continuar) {
-      //Se pueden cambiar luego estos print
-      System.out.println("Ingrese el nombre del producto o ingrediente que quiere agregar al carrito (Escriba '0' para terminar): ");
-      objetoEntrante = scanner.nextLine();
-      if (objetoEntrante.equalsIgnoreCase("0")) {
-        continuar = false;
+    while (true) {
+      continuar = true;
+      if(tipoDeProducto.equals("0")){
+        while(true){
+          System.out.println("Desea modificar un producto de nuestro catalogo o agregar un producto personalizado? (Escriba '0'=Volver atrás - '1'=Catalogo - '2'=Personalizado): ");
+          tipoDeProducto = scanner.nextLine();
+          if(tipoDeProducto.equalsIgnoreCase("0")||tipoDeProducto.equalsIgnoreCase("1")||tipoDeProducto.equalsIgnoreCase("2")){
+            if(tipoDeProducto.equalsIgnoreCase("0")){
+              continuar = false;
+            }
+            break;
+          }
+          else{
+            System.out.println("Debes ingresar un numero adecuado");
+          }
+        }
+      }
+
+      if(!continuar){
         break;
       }
 
-      System.out.println("Ingrese la cantidad: ");
-      cantidad = scanner.nextLine();
-      if (cantidad.equalsIgnoreCase("0")) {
-        continuar = false;
-        break;
+      if(tipoDeProducto.equalsIgnoreCase("1")){
+        tipoDeProducto = "0";
+        while(true){
+          System.out.println("Ingrese el id del elemento que quiere modificar de la orden(Escriba '0'para volver atrás): ");
+          try{
+            objetoEntrante = scanner.nextLine();
+            int numero = Integer.parseInt(objetoEntrante);
+            if (numero == 0) {
+              continuar = false;
+            }
+            break;
+          }
+          catch(Exception e){
+            System.out.println("Debes ingresar un numero adecuado");
+            continue;
+          }
+        }
+
+        if(!continuar){
+          continue;
+        }
+
+        while(true){
+          System.out.println("Ingrese la cantidad (Número positivo para agregar a la orden, negativo para restar de la orden) (Escriba '0'para volver atrás) : ");
+          try{
+            cantidad = scanner.nextLine();
+            int numero = Integer.parseInt(cantidad);
+            if (numero == 0) {
+              continue;
+            }
+            break;
+          }
+          catch(Exception e){
+            System.out.println("Debes ingresar un numero adecuado");
+          }
+        }
+
+        while(true){
+          System.out.println("Desea que se le entregue el kit de cocina? (Escriba '1'=Si o '2'=No): ");
+          kit = scanner.nextLine();
+          if(kit.equalsIgnoreCase("1")||kit.equalsIgnoreCase("2")){
+            break;
+          }
+          else{
+            System.out.println("Debes ingresar un numero adecuado");
+          }
+        }
+
+        String respuesta; 
+        if(kit.equals("1")){
+          respuesta = canasta.recibirOrden(objetoEntrante, cantidad,true);
+        }
+        else {
+          respuesta = canasta.recibirOrden(objetoEntrante, cantidad,false);
+        }
+
+        if(canasta.estadoOrden){ //Si no hay errores
+          System.out.println(respuesta);
+        } 
+
+        else {
+          System.out.println(respuesta);
+          if(respuesta.equals("No se ha podido realizar el proceso")){
+            System.out.println("No manejamos un producto con el id que ingresó");
+            System.out.println("Si nos indica los ingredientes necesarios para su preparacion, se lo cocinaremos");
+            
+            while(true){
+              System.out.println("Desea agregar un producto personalizado? (Escriba '0'=No y volver al inicio - '1'=Si):");
+              try{
+                String entrada = scanner.nextLine();
+                entrada = scanner.nextLine();
+                int numero = Integer.parseInt(objetoEntrante);
+                if (numero == 0) {
+                  continuar = false;
+                }
+                break;
+              }
+              catch(Exception e){
+                System.out.println("Debes ingresar un numero adecuado");
+              }
+            }
+
+            if(!continuar){
+              continue;
+            }
+
+            tipoDeProducto = "2";
+
+          }
+
+          else{
+            System.out.println("No se ha podido realizar el proceso, vuelva a intentarlo");
+            continue;
+          }
+        }
       }
 
-      if(canasta.recibirOrden(objetoEntrante, cantidad,true)){
-        System.out.println("Se ha agregado el producto o ingrediente a la canasta.");
-      } 
-      else {
+      else if(tipoDeProducto.equalsIgnoreCase("2")){
+        tipoDeProducto = "0";
         String entrada;
         int cantidadIngrediente;
+        boolean kitValue = false;
         HashMap<String, Integer> ingredientesNecesarios = new HashMap<String, Integer>();
-        System.out.println("No manejamos el producto que ingresó");
-        System.out.println("Indiquenos los ingredientes necesarios para su preparacion y se lo cocinaremos");
+
+        while(true){
+          System.out.println("Ingrese el nombre del producto personalizado (Escriba '0'para volver atrás): ");
+          objetoEntrante = scanner.nextLine();
+          if(objetoEntrante.equalsIgnoreCase("0")){
+            continuar = false;
+          }
+          break;
+        }
+
+        if(!continuar){
+          continue;
+        }
+
+        System.out.println("Ingrese los ingrediente (Escriba '0' cuando termine con el listado): ");
         while (true) {
-          System.out.println("Ingrese el ingrediente (Escriba 's' cuando termine con el listado): ");
           while (true) {
-            System.out.println("Ingresa el nombre del ingrediente: ");
+            System.out.println("Ingresa el nombre del ingrediente (Escriba '0' si ya terminó con el listado):");
             entrada = scanner.nextLine();
-            if (entrada.equalsIgnoreCase("s") & ingredientesNecesarios.isEmpty()) {
+            if (entrada.equalsIgnoreCase("0") & ingredientesNecesarios.isEmpty()) {
               System.out.println("Necesitas al menos un ingrediente");
-            } else {
+            } 
+            else if(entrada.equalsIgnoreCase("0")){
+              continuar = false;
+            }
+            else{
               break;
             }
           }
-
-          if (entrada.equalsIgnoreCase("s")) {
+          if(!continuar){
             break;
           }
 
@@ -71,22 +197,64 @@ public class GestionCompra {
           }
 
           ingredientesNecesarios = canasta.gestionAgregar(entrada, cantidadIngrediente, ingredientesNecesarios);
-          System.out.println("Desea agregar otro ingrediente? (Escriba 's' cuando termine con el listado):");
-          entrada = scanner.nextLine();
-          if (entrada.equalsIgnoreCase("s")) {
+          }
+        
+        while(true){
+          System.out.println("Ingrese la cantidad (Número positivo para agregar a la orden, negativo para restar de la orden) (Escriba '0'para volver atrás) : ");
+          try{
+            cantidad = scanner.nextLine();
+            int numero = Integer.parseInt(cantidad);
+            if (numero == 0) {
+              continuar = false;
+            }
             break;
           }
+          catch(Exception e){
+            System.out.println("Debes ingresar un numero adecuado");
+            continue;
+          }
         }
-        if(canasta.recibirOrdenPersonalizada(objetoEntrante, ingredientesNecesarios, cantidad,true)){
-          System.out.println("Se ha agregado el nuevo producto a la canasta.");
+
+        while (true) {
+          System.out.println("Desea que se le entregue el kit de cocina? (Escriba '1'=Si o '2'=No): ");
+          kit = scanner.nextLine();
+          if (kit.equalsIgnoreCase("1") || kit.equalsIgnoreCase("2")) {
+            break;
+          } else {
+            System.out.println("Debes ingresar un numero adecuado");
+          }
+        }
+
+        if(kit.equals("1")){
+          kitValue = true;
         }
         else {
-        System.out.println("No se ha podido agregar el producto a la canasta, indica un elemento válido.");
+          kitValue = false;
+        }
+        if(canasta.recibirOrdenPersonalizada(objetoEntrante, ingredientesNecesarios, cantidad, kitValue)){
+          System.out.println("Su orden ha sido recibida y el producto ha sido anotado");
+        }
+        else{
+          System.out.println("No se ha podido realizar el proceso, vuelva a intentarlo");
+          continue;
+        }
       }
+      System.out.println("Desea agregar otro producto o ingrediente a la canasta? (Escriba '0' para terminar - '1' para seguir):");
+      try{
+        String entrada;
+        entrada = scanner.nextLine();
+        int numero = Integer.parseInt(entrada);
+        if (numero == 0) {
+          continuar = false;
+        }
+        else if(numero == 1){
+          continue;
+        }
       }
-      System.out.println("Desea agregar otro producto o ingrediente a la canasta? (Escriba '0' cuando termine con el listado):");
-      objetoEntrante = scanner.nextLine();
-      if (objetoEntrante.equalsIgnoreCase("0")||objetoEntrante.equalsIgnoreCase("no")) {
+      catch(Exception e){
+        System.out.println("Debes ingresar un numero adecuado");
+      }
+      if(!continuar){
         break;
       }
     }
