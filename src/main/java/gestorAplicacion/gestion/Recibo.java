@@ -18,7 +18,7 @@ public class Recibo implements Serializable{
     private Date fecha = new Date();
     private boolean pagado = false;
     private Canasta canasta;
-    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    public static SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     ArrayList<String> factura = new ArrayList<String>();
 
     //ESTE PRIMER CONSTRUCTOR ES EL UNICO QUE USARA LA CLASE RECIBO, LOS DEMAS CREO QUE SON PARA PRUEBAS DE NICOLAS

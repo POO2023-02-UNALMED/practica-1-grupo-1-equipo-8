@@ -5,6 +5,7 @@ import gestorAplicacion.humanos.Cliente;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Panaderia;
+import gestorAplicacion.gestion.Recibo;
 
 public class UI {
 
@@ -149,7 +150,7 @@ public class UI {
       return mensaje;
     }
 
-    public void imprimirFactura() {
+    public void imprimirFactura(Recibo recibo) {
       System.out.println(Texto.centrar("                      ██████            "));
       System.out.println(Texto.centrar("          ████████████░░░░░░██          "));
       System.out.println(Texto.centrar("        ██░░░░░░░░░░░░██░░░░░░██████    "));
@@ -174,12 +175,12 @@ public class UI {
       System.out.println(String.format(Texto.centrar("POO Bakery")));
       System.out.println(String.format(Texto.centrar("DOMICILIOS 24 HORAS")));
       System.out.println(String.format(""));
-      System.out.println(Texto.centrar(String.format("Factura Nro: %s", idRecibo)));
-      System.out.println(Texto.centrar(String.format("Fecha y hora: %s", formato.format(fecha))));
+      System.out.println(Texto.centrar(String.format("Factura Nro: %s", recibo.getIdRecibo())));
+      System.out.println(Texto.centrar(String.format("Fecha y hora: %s", Recibo.formato.format(recibo.getFecha()))));
       System.out.println(Texto.centrar(String.format("Panadero que atendio su pedido: Mateo")));
       System.out.println(Texto.centrar(String.format("Ciudad: Medellin")));
-      System.out.println(Texto.centrar(String.format("Cliente: %s", cliente.getNombre())));
-      System.out.println(Texto.centrar(String.format("Identificacion: %s", cliente.getId())));
+      System.out.println(Texto.centrar(String.format("Cliente: %s", recibo.getCliente().getNombre())));
+      System.out.println(Texto.centrar(String.format("Identificacion: %s", recibo.getCliente().getId())));
       System.out.println(Texto.centrar(String.format("")));
       System.out.println(Texto.centrar(String.format(Texto.centrar("DETALLE DE VENTA"))));
       System.out.println(" ");
@@ -194,9 +195,9 @@ public class UI {
       }*/
       System.out.println(Texto.centrar(String.format(Texto.centrar("DETALLE DE IMPUESTOS"))));//DESPUES TRABAJARE EN LA DEDUCCION DE IMPUESTOS
       System.out.println(Texto.centrar(String.format(Texto.centrar(""))));
-      System.out.println(Texto.centrar(String.format("Total articulos comprados: %s", idRecibo)));
+      System.out.println(Texto.centrar(String.format("Total articulos comprados: %s", recibo.getIdRecibo())));
       System.out.println(Texto.centrar("EN POO BAKERY SOMOS EXPERTOS EN AHORRO:"));
-      System.out.println(Texto.centrar(String.format("TU AHORRO HOY FUE DEL %s%", (descuento*100))));
+      System.out.println(Texto.centrar(String.format("TU AHORRO HOY FUE DEL %s%", (recibo.getDescuento()*100))));
       //System.out.println(Texto.centrar(String.format("EQUIVALENTE A: "))); //colocar el total ahorrado aqui cuando este todo listo
       System.out.println(Texto.centrar("POO Bakery"));
       System.out.println(Texto.centrar("solo calidad"));

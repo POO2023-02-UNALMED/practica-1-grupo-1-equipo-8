@@ -55,7 +55,19 @@ public class Main {
                         switch (eleccion){
                             case "s":
                                 Panaderia.generarRecibo();
-                                
+                                System.out.println("Desea que le enviemos su pedido a domicilio? escriba s para si, n para no, escriba 0 para volver al menu");
+                                eleccion = input.nextLine();
+                                switch (eleccion){
+                                    case "s":
+                                        break;
+                                    case "n":
+                                        break;
+                                    case "0":
+                                        break;
+                                    default:
+                                        System.out.println("Escriba una opcion valida");
+                                        break;
+                                }
                                 break;
                             case "n":
                                 break;
