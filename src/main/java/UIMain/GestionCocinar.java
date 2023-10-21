@@ -116,4 +116,12 @@ public class GestionCocinar {
             }
         }
     }
+    public static void fallosCocinando(){
+        System.out.println("X    X");
+        System.out.println(" X  X ");
+        System.out.println("  XX  ");
+        System.out.println(" X  X ");
+        System.out.println("X    X");
+        System.out.println("Fallo en el proceso de Cocinado por falta de ingredientes");
+    }
 }
