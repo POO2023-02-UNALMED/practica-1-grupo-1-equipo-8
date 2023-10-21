@@ -13,6 +13,7 @@ import gestorAplicacion.comida.ProductoFrio;
 import gestorAplicacion.comida.ProductoCaliente;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
+import UIMain.GestionCocinar;
 
 public class Cocinero extends Domiciliario{
     private String especialidad;
@@ -152,6 +153,7 @@ public class Cocinero extends Domiciliario{
         
         // Obtiene la lista de procesos a realizar.
         List<String> procesoCook = producto.getProcesoDeCocina();
+        int longitud = procesoCook.size();
         
         // Itera a través de los procesos de cocina.
         for (String proceso : procesoCook) {
@@ -176,9 +178,10 @@ public class Cocinero extends Domiciliario{
             if (cookProducto) {
                 // Incrementa la habilidad del cocinero si el proceso falló.
                 chefIdeal.setHabilidad(chefIdeal.getHabilidad() + 1);
+                GestionCocinar.fallosCocinando(procesoCook,longitud);
                 return true;
             }
-            
+            a
             // Establece el cocinero como ocupado.
             chefIdeal.setTrabajo(true);
         }
@@ -301,12 +304,14 @@ public class Cocinero extends Domiciliario{
         // Si todos los productos se cocinan con éxito, retorna verdadero.
         return true;
     }
-  
+
+
     //Este método se ejecuta cuando se llama el método comprarIngredientes de Panadería, basicamnete se encarga de comprar ingedientes cuando falta y añadirlos al inventario
     //Recibe una diccionario de Strings y enteros paea saber exactamente qué se debe comprar y cuánta cantidad
     //Cuando se "compran" nuevos ingredientes realmente se están creando objetos y añandiendose al inventario
 
-  
+
+
 }
 
 // use hasmaps y sale facil get datos
