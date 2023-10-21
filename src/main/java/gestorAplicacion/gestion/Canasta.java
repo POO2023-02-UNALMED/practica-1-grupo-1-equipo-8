@@ -39,6 +39,7 @@ public class Canasta implements Serializable {
   private double calificacion;
   private String comentario;
   private boolean pagada;
+  public boolean estadoOrden;
 
   // Constructores Canasta
   public Canasta() {
@@ -289,7 +290,7 @@ public class Canasta implements Serializable {
   }
 
   //Para agregar strings a una lista enviada
-  public Map<String, Integer> gestionAgregar(String ingrd, int elementNum,Map<String, Integer> lista) {
+  public HashMap<String, Integer> gestionAgregar(String ingrd, int elementNum,HashMap<String, Integer> lista) {
     if ((ingrd != null) && (!lista.containsKey(ingrd))) {
       lista.put(ingrd, elementNum);
     } else if ((ingrd != null)) {
@@ -469,7 +470,8 @@ public class Canasta implements Serializable {
    * @param receta Indica si el objeto es un producto que se desea agregar o eliminar para una receta.
    * @return true si la operación se realizó correctamente, false en caso contrario.
    */
-  public boolean recibirOrden(String objetoEntrante, String cantidad, boolean receta) {
+  public String recibirOrden(String objetoEntrante, String cantidad, boolean receta) {
+    this.estadoOrden = false;
     if (Integer.parseInt(cantidad) < 0) {
       boolean estado;
       if (Producto.verificacionExistenciaPorId(objetoEntrante)) {
@@ -480,22 +482,24 @@ public class Canasta implements Serializable {
           estado = gestionEliminar(objetoEntrante, Integer.parseInt(cantidad), "1");
         }
         if (estado){
-          return true;
+          this.estadoOrden = true;
+          return "Se ha restado la cantidad del producto de la canasta";
         }
         else{
-          return false;
+          return "No se ha podido restar la cantidad del producto de la canasta";
         }
       } 
       else if (Ingrediente.verificacionExistenciaPorId(objetoEntrante) && !receta) {
         estado=gestionEliminar(objetoEntrante, Integer.parseInt(cantidad), 1);
         if (estado){
-          return true;
+          this.estadoOrden = true;
+          return "Se ha restado la cantidad del ingrediente de la canasta";
         }
         else{
-          return false;
+          return "No se ha podido restar la cantidad del ingrediente de la canasta";
         }
       }
-      return false;
+      return "No se ha podido realizar el proceso, vuelva a intentarlo";
     }
     else{
       if (Producto.verificacionExistenciaPorId(objetoEntrante)) {
@@ -505,14 +509,16 @@ public class Canasta implements Serializable {
         else{
           gestionAgregar(objetoEntrante, Integer.parseInt(cantidad),"1");
         }
-        return true;
+        this.estadoOrden = true;
+        return "Se ha agregado la cantidad del producto a la canasta";
       } 
       else if (Ingrediente.verificacionExistenciaPorId(objetoEntrante) && !receta) {
         gestionAgregar(objetoEntrante, Integer.parseInt(cantidad),1);
-        return true;
+        this.estadoOrden = true;
+        return "Se ha agregado la cantidad del ingrediente a la canasta";
       } 
     }
-    return false;
+    return "No se ha podido realizar el proceso";
   }
 
 
