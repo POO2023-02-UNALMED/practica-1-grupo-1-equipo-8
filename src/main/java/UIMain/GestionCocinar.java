@@ -19,8 +19,50 @@ public class GestionCocinar {
         Scanner sc = new Scanner(System.in);
         }
 
-    public void barrasCocinando(List<String> procesoCook,int longitud){
-        
+    public static void barrasCocinando(List<String> procesoCook,int longitud){
+        if (longitud==1){
+            System.out.println("100%  [###############################] 100%");
+            String elemento = procesoCook.get(0);
+            System.out.println("Proceso de " + elemento + " completado");
+            System.out.println("Producto Cocinado")
+            zonas=0;
+        }
+        if (longitud==2){
+            if(zonas==0){
+            System.out.println("50%  [#############...................] 100%");
+            String elemento = procesoCook.get(0);
+            System.out.println("Proceso de " + elemento + " completado");
+            zonas++;
+            }
+            else if(zonas==1){
+            System.out.println("100%  [###############################] 100%");
+            String elemento2 = procesoCook.get(1);
+            System.out.println("Proceso de " + elemento2 + " completado");
+            System.out.println("Producto Cocinado");
+            zonas=0;
+            }
+        }
+        if (longitud==3){
+            if(zonas==0){
+            System.out.println("33%  [#########.......................] 100%");
+            String elemento = procesoCook.get(0);
+            System.out.println("Proceso de " + elemento + " completado");
+            zonas++;
+            }
+            else if(zonas==1){
+            System.out.println("66%  [###################.............] 100%");
+            String elemento2 = procesoCook.get(1);
+            System.out.println("Proceso de " + elemento2 + " completado");
+            zonas++;
+            }
+            else if(zonas==2){
+            System.out.println("100%  [###############################] 100%");
+            String elemento3 = procesoCook.get(2);
+            System.out.println("Proceso de " + elemento3 + " completado");
+            System.out.println("Producto Cocinado");
+            zonas=0;
+            }
+        }
     }
 
     public static void fallosCocinando(List<String> procesoCook,int longitud){

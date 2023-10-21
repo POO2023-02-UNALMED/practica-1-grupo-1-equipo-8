@@ -181,7 +181,7 @@ public class Cocinero extends Domiciliario{
                 GestionCocinar.fallosCocinando(procesoCook,longitud);
                 return true;
             }
-            a
+            GestionCocinar.barrasCocinando(procesoCook,longitud);
             // Establece el cocinero como ocupado.
             chefIdeal.setTrabajo(true);
         }
