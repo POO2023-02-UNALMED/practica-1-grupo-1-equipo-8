@@ -83,8 +83,8 @@ public class UI {
     }
     //Este metodo muestra las opciones de todos los productos que puede comprar el cliente
     public static String mostrarOpciones() {
-
-      String mensaje = Texto.centrar("PRODUCTOS\n");
+      String mensaje = "PRODUCTOS DISPONIBLES PARA COMPRAR:";
+      mensaje += Texto.centrar("PRODUCTOS\n");
 
       for (Producto producto : Producto.getBaseDatosProductos()) { //productos que le alcanza el dinero al cliente
         if (producto.getCosto() <= Cliente.getSesion().getPresupuesto()) {
@@ -114,6 +114,39 @@ public class UI {
 
       return mensaje;
 
+    }
+
+    public static String mostrarCanasta(){
+      String mensaje = "PRODUCTOS EN LA CANASTA: \n";
+      mensaje += Texto.centrar("PRODUCTOS\n");
+
+      for (Producto producto : Producto.getBaseDatosProductos()) { //productos que le alcanza el dinero al cliente
+        if (producto.getCosto() <= Cliente.getSesion().getPresupuesto()) {
+          mensaje += GREEN+Texto.alinear(String.format("%s. %s", producto.getId(), producto.getNombre()),producto.getUnidades(),producto.getCosto())+RESET+"\n";
+        }
+      }
+
+      for (Producto producto : Producto.getBaseDatosProductos()) { //productos que no le alcanza el dinero al cliente
+        if(producto.getCosto() > Cliente.getSesion().getPresupuesto()){
+          mensaje += RED+Texto.alinear(String.format("%s. %s", producto.getId(), producto.getNombre()),producto.getUnidades(),producto.getCosto())+RESET+"\n";
+        }
+      }
+      
+      mensaje += Texto.centrar("INGREDIENTES\n");
+
+      for (Ingrediente ingrediente: Ingrediente.getBaseDatosIngredientes()){
+        if (ingrediente.getPrecioDeVenta()<Cliente.getSesion().getPresupuesto()){
+          mensaje += GREEN+Texto.alinear(String.format("%s. %s", ingrediente.getId(), ingrediente.getNombre()),0,ingrediente.getPrecioDeVenta())+RESET+"\n";
+        }
+      }
+
+      for (Ingrediente ingrediente: Ingrediente.getBaseDatosIngredientes()){
+        if (ingrediente.getPrecioDeVenta()<Cliente.getSesion().getPresupuesto()){
+          mensaje += RED+Texto.alinear(String.format("%s. %s", ingrediente.getId(), ingrediente.getNombre()),0,ingrediente.getPrecioDeVenta())+RESET+"\n";
+        }
+      }
+
+      return mensaje;
     }
 
 }

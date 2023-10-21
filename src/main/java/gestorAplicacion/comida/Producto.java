@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 
-public class Producto implements Serializable{
+public class Producto implements Serializable, ComidaDefault{
 	
 	protected static ArrayList<Producto> baseDatosProductos = new ArrayList<Producto>();
 	protected static int cantidadProductosUnicos;

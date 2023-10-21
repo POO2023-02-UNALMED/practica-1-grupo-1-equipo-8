@@ -9,7 +9,7 @@ import gestorAplicacion.gestion.Inventario;
 import gestorAplicacion.gestion.Panaderia;
 
 //necesito un metodo o un atributo que me de los ingredientes disponibles en bodega!!! (Richard)
-public class Ingrediente implements Serializable{
+public class Ingrediente implements Serializable, ComidaDefault{
 	private static ArrayList<Ingrediente> baseDatosIngredientes = new ArrayList<Ingrediente>();
 	private static int cantidadIngredientesUnicos;
 	private double TARIFAGANANCIA =2/3;
