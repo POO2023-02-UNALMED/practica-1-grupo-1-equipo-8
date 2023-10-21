@@ -9,7 +9,7 @@ import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Canasta;
 
 public class GestionCompra {
-  public void gestionRecibirOrdenCanasta(Canasta canasta){
+  public static void gestionRecibirOrdenCanasta(Canasta canasta){
     Scanner scanner = new Scanner(System.in);
     String objetoEntrante;
     String cantidad;
@@ -17,7 +17,7 @@ public class GestionCompra {
 
     while (continuar) {
       //Se pueden cambiar luego estos print
-      System.out.println("Ingrese el nombre del producto o ingrediente (Escriba '0' para terminar): ");
+      System.out.println("Ingrese el nombre del producto o ingrediente que quiere agregar al carrito (Escriba '0' para terminar): ");
       objetoEntrante = scanner.nextLine();
       if (objetoEntrante.equalsIgnoreCase("0")) {
         continuar = false;

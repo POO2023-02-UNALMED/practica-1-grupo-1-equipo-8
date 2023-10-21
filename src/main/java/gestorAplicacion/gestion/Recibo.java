@@ -17,16 +17,19 @@ public class Recibo implements Serializable{
     private double descuento;
     private Date fecha = new Date();
     private boolean pagado = false;
+    private Canasta canasta;
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     ArrayList<String> factura = new ArrayList<String>();
 
     //ESTE PRIMER CONSTRUCTOR ES EL UNICO QUE USARA LA CLASE RECIBO, LOS DEMAS CREO QUE SON PARA PRUEBAS DE NICOLAS
-    public Recibo(Cliente cliente, double subtotal, double descuento) { //el subtotal de recibo es el total de canasta
+    public Recibo(Cliente cliente, Canasta canasta) { //el subtotal de recibo es el total de canasta
+
         totalFacturas++;
+        this.canasta = canasta;
         this.cliente = cliente;
         this.idRecibo = totalFacturas;
-        this.subtotal = subtotal;
-        this.descuento = descuento;
+        this.subtotal = canasta.getCostoTrasDescuentoEnLista();
+        this.descuento = cliente.getTipoDescuento().getValor();
         this.total = subtotal * (1 - descuento); 
         this.fecha = Date.from(Instant.now());
     }

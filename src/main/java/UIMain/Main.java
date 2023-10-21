@@ -12,12 +12,15 @@ public class Main {
     public static void main(String[] args) {
 
     	
+        //Colocar aqui el metodo para iniciar sesion
+
         Scanner input = new Scanner(System.in);
         UI.titulo();
-        String strOpciones = "Escriba el numero correspondiente a la opcion que quiere elejir\n" +
-                "1. Ver productos disponibles para compra\n" +
-                "2. Agregar productos a la canasta de compras\n" +
-                "3. Ver las facturas de mis compras pasadas\n";
+        String strOpciones = "Escriba el numero correspondiente a la opcion que quiere elegir\n" +
+                "0. Cerrar sesion\n"+
+                "1. Agregar productos a la canasta de compras\n" +
+                "2. Ver las facturas de mis compras pasadas\n";
+                
         System.out.println(strOpciones);
         int IntEleccion = input.nextInt();
         boolean eleccionValida = true;
@@ -25,17 +28,18 @@ public class Main {
         do {
             switch (IntEleccion) {
                 // codigo que hace que se muestren opciones disponibles
-                case 1:
-
+                case 0:
+                    Cliente.setSesion(null);
                     break;
 
                 // codigo que crea canasta y permite agregar productos
-                case 2:
-
+                case 1:
+                    UI.mostrarOpciones();
+                    GestionCompra.gestionRecibirOrdenCanasta(Cliente.getSesion().getCanastaOrden());
                     break;
 
                 // codigo que le pide al cliente su identificación y le muestra sus opciones
-                case 3:
+                case 2:
                     System.out.println("Escriba su identificación: ");
                     int identificacion = input.nextInt();
                     break;
@@ -46,7 +50,7 @@ public class Main {
                     eleccionValida = false;
                     break;
             }
-        } while (eleccionValida == false);
+        } while (eleccionValida == false && Cliente.getSesion() != null);
     }
 
 }
