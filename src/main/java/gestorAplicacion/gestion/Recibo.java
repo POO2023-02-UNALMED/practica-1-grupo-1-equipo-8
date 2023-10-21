@@ -161,7 +161,7 @@ public class Recibo implements Serializable{
         factura.add(Texto.centrar(String.format("Total articulos comprados: %s", idRecibo)));
         factura.add(Texto.centrar("EN POO BAKERY SOMOS EXPERTOS EN AHORRO:"));
         factura.add(Texto.centrar(String.format("TU AHORRO HOY FUE DEL %s%", (descuento*100))));
-        factura.add(Texto.centrar(String.format("EQUIVALENTE A: "))); //colocar el total ahorrado aqui cuando este todo listo
+        //factura.add(Texto.centrar(String.format("EQUIVALENTE A: "))); //colocar el total ahorrado aqui cuando este todo listo
         factura.add(Texto.centrar("POO Bakery"));
         factura.add(Texto.centrar("solo calidad"));
         factura.add(Texto.centrar("Gracias por elegirnos"));

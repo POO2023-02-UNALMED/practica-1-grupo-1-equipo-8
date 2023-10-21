@@ -13,9 +13,9 @@ public class Main {
 
     	
         //Colocar aqui el metodo para iniciar sesion
-
-        Scanner input = new Scanner(System.in);
+        
         UI.titulo();
+        Scanner input = new Scanner(System.in);
         String strOpciones = "Escriba el numero correspondiente a la opcion que quiere elegir\n" +
                 "0. Cerrar sesion\n"+
                 "1. Agregar productos a la canasta de compras\n" +
@@ -29,7 +29,16 @@ public class Main {
             switch (IntEleccion) {
                 // codigo que hace que se muestren opciones disponibles
                 case 0:
-                    Cliente.setSesion(null);
+                    System.out.println("Esta seguro de que quiere cerrar su sesion?");
+                    System.out.println("Escriba 1 para si, escriba cualquier otra tecla para cancelar");
+                    IntEleccion = input.nextInt();
+                    if(IntEleccion == 1){
+                        Cliente.setSesion(null);
+                    } else if(IntEleccion == 0){
+                        break;
+                    } else{
+                        System.out.println("Usted escogio una opcion no valida, vuelva a intentar");
+                    }
                     break;
 
                 // codigo que crea canasta y permite agregar productos
@@ -40,8 +49,7 @@ public class Main {
 
                 // codigo que le pide al cliente su identificación y le muestra sus opciones
                 case 2:
-                    System.out.println("Escriba su identificación: ");
-                    int identificacion = input.nextInt();
+
                     break;
 
                 // caso donde el cliente elije una opcion no valida
