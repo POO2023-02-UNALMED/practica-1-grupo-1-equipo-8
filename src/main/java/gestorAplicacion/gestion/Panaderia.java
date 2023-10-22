@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import UIMain.GestionCompra;
+import UIMain.GestionConseguirIngredientes;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.comida.ProductoFrio;
@@ -221,7 +221,7 @@ public class Panaderia implements Serializable {
             
             while (this.enQuiebra == true) {
             
-                GestionCompra.lecturaQuiebra(this.enQuiebra);
+                GestionConseguirIngredientes.lecturaQuiebra(this.enQuiebra);
                 this.saldarDeudas();
         
             }
@@ -231,7 +231,7 @@ public class Panaderia implements Serializable {
 
         }
         
-        GestionCompra.lecturaQuiebra(this.enQuiebra);
+        GestionConseguirIngredientes.lecturaQuiebra(this.enQuiebra);
 
     }
 
@@ -550,18 +550,18 @@ public class Panaderia implements Serializable {
     	
     	Trabajador elegido = this.trabajadorAleatorio();
     	
-    	GestionCompra.lecturaCompra(elegido.isRobado());
+    	GestionConseguirIngredientes.lecturaCompra(elegido.isRobado());
 
         boolean x = elegido.conseguirIngredientes(listingredientes);
 
         while (x == true){
         	
-        	GestionCompra.lecturaRobo(x);
+        	GestionConseguirIngredientes.lecturaRobo(x);
             this.comprarIngredientes(listingredientes);
             
         }
         
-        GestionCompra.lecturaRobo(x);
+        GestionConseguirIngredientes.lecturaRobo(x);
     }
 
         //METODOS DE FACTURACION
