@@ -104,9 +104,9 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
   }
 
-  public static String mostrarCanasta() {
-    String mensaje = "PRODUCTOS EN LA CANASTA: \n";
-    mensaje += Texto.centrar("PRODUCTOS\n");
+  public static String mostrarCanasta() { //Falta terminar este metodo
+    String mensaje = "PRODUCTOS EN SU CANASTA: \n";
+    mensaje += Texto.centrar("PRODUCTOS:\n");
 
     for (Producto producto : Producto.getBaseDatosProductos()) { // productos que le alcanza el dinero al cliente
       if (producto.getCosto() <= Cliente.getSesion().getPresupuesto()) {
@@ -122,7 +122,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
       }
     }
 
-    mensaje += Texto.centrar("INGREDIENTES\n");
+    mensaje += Texto.centrar("INGREDIENTES:\n");
 
     for (Ingrediente ingrediente : Ingrediente.getBaseDatosIngredientes()) {
       if (ingrediente.getPrecioDeVenta() < Cliente.getSesion().getPresupuesto()) {
@@ -130,6 +130,8 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
             ingrediente.getPrecioDeVenta()) + RESET + "\n";
       }
     }
+
+    mensaje += Texto.centrar("KITS DE INGREDIENTES:\n");
 
     for (Ingrediente ingrediente : Ingrediente.getBaseDatosIngredientes()) {
       if (ingrediente.getPrecioDeVenta() < Cliente.getSesion().getPresupuesto()) {
@@ -267,13 +269,14 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
   public static void compras(){
     UI.mostrarOpciones();
+    UI.mostrarCanasta();
     GestionCompra.gestionRecibirOrdenCanasta(Cliente.getSesion().getCanastaOrden());
     System.out.println("Desea continuar con la facturación? escriba s para si, escriba n para no, escriba 0 para volver al menu.");
     eleccion = input.nextLine();
     switch (eleccion){
         case "s":
-            Recibo factura = Panaderia.generarRecibo();
-            UI.imprimirFactura(factura);
+            Recibo recibo = new Recibo(Cliente.getSesion(), Cliente.getSesion().getCanastaOrden());
+            UI.imprimirFactura(recibo);
 
             break;
         case "n":
@@ -301,6 +304,18 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
                     System.out.println("Escriba una opcion valida");
                     break;
             }
+  }
+
+  public static void esperaCocinaDomicilio(){
+    System.out.println("Su pedido ha sido entregado con exito");
+  }
+
+  public static void facturacion(){
+    Recibo recibo = new Recibo(Cliente.getSesion(), Cliente.getSesion().getCanastaOrden());
+    imprimirFactura(recibo);
+    System.out.println("Listo para pagar? s/n");
+
+
   }
 
   public static void verCatalogoDescripcion(){
