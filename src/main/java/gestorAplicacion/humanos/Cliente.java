@@ -9,6 +9,7 @@ import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
 import gestorAplicacion.gestion.Recibo;
+import UIMain.GestionCocinar;
 import UIMain.GestionDomicilioCliente;
 
 public class Cliente implements Serializable{
@@ -291,11 +292,20 @@ public class Cliente implements Serializable{
 		domiciliario.setCalificacion(calificacionNueva);
 	}
 
-	public void calificarCocinero(Cocinero cocinero, double calificacion){
+	public void calificarCocina(Cocinero cocinero, double calificacion){
 		double calificacionVieja = cocinero.getCalificacion();
 		double calificacionNueva = (calificacionVieja + calificacion)/2;
 		cocinero.setCalificacion(calificacionNueva);
 	}
+
+public void notaCocineros() {
+	for (Cocinero cocinero : this.panaderia.getCocineros()) {
+		if (cocinero.isTrabajo()) {
+			double calificacion = GestionCocinar.gestionCocina();
+			calificarCocina(cocinero, calificacion);
+		}
+	}
+}
 	//TODO trabajar para enviar la canasta a pagar - Lo de abajo es solo una plantilla
 	public void enviarCanastasAFacturar(Canasta canastas) {
 		
@@ -307,7 +317,13 @@ public class Cliente implements Serializable{
 		double calificacion = GestionDomicilioCliente.pedirCalificacion();
 		calificarDomiciliario(domiciliario, calificacion);
 		this.panaderia.reviewDomiciliario(domiciliario);
+		notaCocineros();
+		for (Cocinero cocinero : this.panaderia.getCocineros()) {
+		if (cocinero.isTrabajo()) {
+			this.panaderia.reviewCocinero(cocinero);
+		}
 	}
+}
 
 	//Métodos para agregar la informacion faltante del cliente
 	//TODO trabajar los metodos de abajo(Sahely)

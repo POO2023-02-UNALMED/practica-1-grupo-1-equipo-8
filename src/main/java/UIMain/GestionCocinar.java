@@ -15,9 +15,25 @@ public class GestionCocinar {
 
     public static int zonas = 0;
 
-    public void gestionCocina(Canasta canastaTrabajar){
-        Scanner sc = new Scanner(System.in);
-        }
+    /**
+     * Este método gestiona el proceso de cocción solicitando al usuario que ingrese un número entre 0 y 5.
+     * Continuará solicitando al usuario hasta que se ingrese un número válido y luego devolverá ese número.
+     *
+     * @return El valor entero ingresado por el usuario.
+     */
+    public static int gestionCocina() {
+        Scanner sc = new Scanner(System.in); 
+        int num;
+        do {
+            System.out.print("Ingrese un número entre 0 y 5: ");
+            while (!sc.hasNextInt()) {
+                System.out.print("Ingrese un número entre 0 y 5: ");
+                sc.next();
+            }
+            num = sc.nextInt();
+        } while (num < 0 || num > 5);
+        return num;
+    }
 
     /**
      * Este método imprime el progreso de un proceso de cocción en función del número de elementos en el proceso.
@@ -29,46 +45,121 @@ public class GestionCocinar {
      */
     public static void barrasCocinando(List<String> procesoCook,int longitud){
         if (longitud==1){
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             System.out.println("100%  [###############################] 100%");
             String elemento = procesoCook.get(0);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             System.out.println("Proceso de " + elemento + " completado");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             System.out.println("Producto Cocinado");
             zonas=0;
         }
         if (longitud==2){
             if(zonas==0){
-            System.out.println("50%  [#############...................] 100%");
-            String elemento = procesoCook.get(0);
-            System.out.println("Proceso de " + elemento + " completado");
-            zonas++;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("50%  [#############...................] 100%");
+                String elemento = procesoCook.get(0);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Proceso de " + elemento + " completado");
+                zonas++;
             }
             else if(zonas==1){
-            System.out.println("100%  [###############################] 100%");
-            String elemento2 = procesoCook.get(1);
-            System.out.println("Proceso de " + elemento2 + " completado");
-            System.out.println("Producto Cocinado");
-            zonas=0;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("100%  [###############################] 100%");
+                String elemento2 = procesoCook.get(1);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Proceso de " + elemento2 + " completado");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Producto Cocinado");
+                zonas=0;
             }
         }
         if (longitud==3){
             if(zonas==0){
-            System.out.println("33%  [#########.......................] 100%");
-            String elemento = procesoCook.get(0);
-            System.out.println("Proceso de " + elemento + " completado");
-            zonas++;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("33%  [#########.......................] 100%");
+                String elemento = procesoCook.get(0);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Proceso de " + elemento + " completado");
+                zonas++;
             }
             else if(zonas==1){
-            System.out.println("66%  [###################.............] 100%");
-            String elemento2 = procesoCook.get(1);
-            System.out.println("Proceso de " + elemento2 + " completado");
-            zonas++;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("66%  [###################.............] 100%");
+                String elemento2 = procesoCook.get(1);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Proceso de " + elemento2 + " completado");
+                zonas++;
             }
             else if(zonas==2){
-            System.out.println("100%  [###############################] 100%");
-            String elemento3 = procesoCook.get(2);
-            System.out.println("Proceso de " + elemento3 + " completado");
-            System.out.println("Producto Cocinado");
-            zonas=0;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("100%  [###############################] 100%");
+                String elemento3 = procesoCook.get(2);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Proceso de " + elemento3 + " completado");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Producto Cocinado");
+                zonas=0;
             }
         }
     }
