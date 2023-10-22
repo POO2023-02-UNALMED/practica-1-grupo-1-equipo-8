@@ -1,6 +1,5 @@
 package UIMain;
 
-import java.io.*;
 import java.util.Scanner;
 import gestorAplicacion.comida.*;
 import gestorAplicacion.gestion.*;
@@ -12,13 +11,13 @@ import baseDatos.Serializador;
 public class Main { //preferiblemente colocar solo los metodos para que el codigo no quede todo disperso
     static Scanner input = new Scanner(System.in);
     static boolean continuar = true;
+    static boolean eleccionValida = true;
     public static void main(String[] args) {
         Panaderia panaderia=null;
         panaderia=Serializador.cargarPanaderia();
         do{
             continuar = GestionInicioCliente.sesionCliente(panaderia); //este metodo aun no esta listo
             do{ //bucle del menu
-                boolean continuar = true;
                 UI.titulo();
                 String strOpciones = "Escriba el numero correspondiente a la opcion que quiere elegir\n" +
                         "0. Cerrar sesion\n" +
@@ -32,8 +31,8 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
         
                 System.out.println(strOpciones);
                 String eleccion = input.nextLine();
-                boolean eleccionValida = true;
-                    switch (eleccion) {
+                eleccionValida = true;
+                switch (eleccion) {
 
                     case "0": //cerrar sesion
                         UI.cerrarSesion();
@@ -54,11 +53,11 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
                         UI.historialRecibos(Cliente.getSesion());
                         break;
                     case "4":
-                        UI.cambiarClave();
+                        UI.cambiarClave(Cliente.getSesion());
                         break;
 
                     case "5":
-                        UI.meterPlata();
+                        UI.meterPlata(Cliente.getSesion());
                         break;
 
                     case "6":
@@ -74,9 +73,8 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
                         System.out.println("Usted escogio una opción que no estaba en la lista");
                         eleccionValida = false;
                         break;
-
-                } while (eleccionValida == false | Cliente.getSesion() != null);
-            }while(true);
+                }
+            } while (eleccionValida == false | Cliente.getSesion() != null);
         } while(continuar);
         Serializador.guardarPanaderia(panaderia);
         System.exit(0);

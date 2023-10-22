@@ -3,6 +3,9 @@ import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.humanos.Cliente;
 import gestorAplicacion.gestion.Canasta;
+import gestorAplicacion.humanos.Trabajador;
+import gestorAplicacion.humanos.Cocinero;
+import gestorAplicacion.humanos.Domiciliario;
 import baseDatos.Serializador;
 import UIMain.UI;
 
@@ -12,9 +15,11 @@ public class SerializationTest {
   public static void main(String[] args) {
     System.out.println("Test de serializacion");
     Panaderia panaderia = new Panaderia();
-    Panaderia panaderiaCargada = Serializador.cargarPanaderia();
-    System.out.println(panaderiaCargada);
+    panaderia = Serializador.cargarPanaderia();
+    System.out.println("panaderia cargada");
 
+    
+    
     Ingrediente.crearIngrediente("leche");
     Ingrediente.crearIngrediente("harina");
     Ingrediente.crearIngrediente("azucar");
@@ -63,7 +68,29 @@ public class SerializationTest {
     Producto.crearProductoPersonalizado("torta de milo", ingredientesTortaMilo);
     Producto.crearProductoPersonalizado("cheesecake", ingredientesCheesecake);
 
+    panaderia.crearCuenta("Sahely", 1123433775, "123");
+    panaderia.crearCuenta("Richard", 202, "qwerty");
+    Cliente.getSesion().setPresupuesto(30000);
+    
+
+    
+    Cliente cliente1= panaderia.inicioSesionId(202);
+    panaderia.inicioSesionConstrasena(cliente1,"qwerty");
+    System.out.println("cliente1 cargado");
+    HashMap<String, Integer> ingredientesCocinar = new HashMap<String, Integer>();
+    ingredientesCocinar.put("14", 2);
+    ingredientesCocinar.put("15", 4);
+    Domiciliario domiciliario1 = new Domiciliario("Juan");
+    domiciliario1.setPanaderia(panaderia);
+    panaderia.agregarDomiciliario(domiciliario1);
+    Cocinero cocinero1 = new Cocinero("Mateo", "Decoracion",panaderia);
+    System.out.println("cocinero1 cargado");
+    System.out.println("domiciliario1 cargado");
+
+    panaderia.cocinar(ingredientesCocinar);
+
     UI.mostrarOpciones(panaderia.getInventario());
+    
 
     Serializador.guardarPanaderia(panaderia);
     System.out.println("panaderia guardada");

@@ -1,6 +1,5 @@
 package UIMain;
 
-//TODO arreglar
 import java.util.Scanner;
 import gestorAplicacion.humanos.Cliente;
 import gestorAplicacion.comida.Ingrediente;
@@ -9,7 +8,7 @@ import gestorAplicacion.gestion.Panaderia;
 import gestorAplicacion.gestion.Recibo;
 import gestorAplicacion.gestion.Inventario;
 
-public class UI{ // en esta clase estaran habran metodos en general de la interfaz de usuario
+public class UI { // en esta clase estaran habran metodos en general de la interfaz de usuario
   public static final String BLACK = "\u001B[30m";
   public static final String RED = "\u001B[31m";
   public static final String GREEN = "\u001B[32m";
@@ -68,11 +67,9 @@ public class UI{ // en esta clase estaran habran metodos en general de la interf
   // Este metodo muestra las opciones de todos los productos que puede comprar el
   // cliente
   public static void mostrarOpciones(Inventario inventario) {
-    
-    String mensaje = "PRODUCTOS DISPONIBLES PARA COMPRAR:";
-    mensaje += "_".repeat(55)+"\n";
-    mensaje += Texto.centrar("PRODUCTOS\n");
-    mensaje += "_".repeat(55)+"\n";
+
+    String mensaje = "PRODUCTOS DISPONIBLES PARA COMPRAR:\n";
+    mensaje += Texto.centrar("PRODUCTOS") + "\n";
     for (Producto producto : Producto.getBaseDatosProductos()) { // productos que le alcanza el dinero al cliente
       if (producto.getCosto() <= Cliente.getSesion().getPresupuesto()) {
         mensaje += GREEN + Texto.alinear(String.format("%s. %s", producto.getId(), producto.getNombre()),
@@ -86,23 +83,22 @@ public class UI{ // en esta clase estaran habran metodos en general de la interf
             inventario.verificarCantidadProductoPorId(producto.getId()), producto.getCosto()) + RESET + "\n";
       }
     }
-    mensaje += "_".repeat(55)+"\n";
-    mensaje += Texto.centrar("INGREDIENTES\n");
-    mensaje += "_".repeat(55)+"\n";
+    mensaje += Texto.centrar("INGREDIENTES") + "\n";
     for (Ingrediente ingrediente : Ingrediente.getBaseDatosIngredientes()) {
       if (ingrediente.getPrecioDeVenta() < Cliente.getSesion().getPresupuesto()) {
-        mensaje += GREEN + Texto.alinear(String.format("%s. %s", ingrediente.getId(), ingrediente.getNombre()), inventario.verificarCantidadIngredientePorId(ingrediente.getId()),
+        mensaje += GREEN + Texto.alinear(String.format("%s. %s", ingrediente.getId(), ingrediente.getNombre()),
+            inventario.verificarCantidadIngredientePorId(ingrediente.getId()),
             ingrediente.getPrecioDeVenta()) + RESET + "\n";
       }
     }
 
     for (Ingrediente ingrediente : Ingrediente.getBaseDatosIngredientes()) {
-      if (ingrediente.getPrecioDeVenta() < Cliente.getSesion().getPresupuesto()) {
-        mensaje += RED + Texto.alinear(String.format("%s. %s", ingrediente.getId(), ingrediente.getNombre()), inventario.verificarCantidadIngredientePorId(ingrediente.getId()),
+      if (ingrediente.getPrecioDeVenta() > Cliente.getSesion().getPresupuesto()) {
+        mensaje += RED + Texto.alinear(String.format("%s. %s", ingrediente.getId(), ingrediente.getNombre()),
+            inventario.verificarCantidadIngredientePorId(ingrediente.getId()),
             ingrediente.getPrecioDeVenta()) + RESET + "\n";
       }
     }
-    mensaje += "_".repeat(55)+"\n";
     System.out.println(mensaje);
 
   }
@@ -157,7 +153,7 @@ public class UI{ // en esta clase estaran habran metodos en general de la interf
      */
     System.out.println("");
     System.out.println("");
-    //System.out.println(Texto.alinear("Domicilio", ))
+    // System.out.println(Texto.alinear("Domicilio", ))
     System.out.println("");
     System.out.println("-".repeat(55));
     System.out.println(Texto.centrar(String.format(Texto.centrar("DETALLE DE IMPUESTOS"))));
@@ -190,59 +186,60 @@ public class UI{ // en esta clase estaran habran metodos en general de la interf
     System.out.println(String.format(""));
   }
 
-  public static void menu(){ //Ignorar este metodo, esto ira en main
-    do{
+  public static void menu() { // Ignorar este metodo, esto ira en main
+    do {
       titulo();
       String strOpciones = "Escriba el numero correspondiente a la opcion que quiere elegir\n" +
-              "0. Cerrar sesion\n" +
-              "1. Agregar productos a la canasta de compras\n" +
-              "2. Ver catalogo de productos e informacion adicional"+
-              "3. Ver las facturas de mis compras pasadas\n";
+          "0. Cerrar sesion\n" +
+          "1. Agregar productos a la canasta de compras\n" +
+          "2. Ver catalogo de productos e informacion adicional" +
+          "3. Ver las facturas de mis compras pasadas\n";
 
       System.out.println(strOpciones);
       String eleccion = input.nextLine();
       boolean eleccionValida = true;
 
       do {
-          switch (eleccion) {
+        switch (eleccion) {
 
-              case "0": //cerrar sesion
-                break;
-              case "1": 
-                break;
-              case "2":
-                break;
-              // caso donde el cliente elije una opcion no valida
-              default:
-                System.out.println("Usted escogio una opción que no estaba en la lista");
-                eleccionValida = false;
-                break;
-          }
+          case "0": // cerrar sesion
+            break;
+          case "1":
+            break;
+          case "2":
+            break;
+          // caso donde el cliente elije una opcion no valida
+          default:
+            System.out.println("Usted escogio una opción que no estaba en la lista");
+            eleccionValida = false;
+            break;
+        }
       } while (eleccionValida == true && Cliente.getSesion() != null);
-    }while(true);
+    } while (true);
 
   }
 
-  //cerrar sesion del usuario
-  public static void cerrarSesion(){ //Este metodo esta listo
-      System.out.println("Seguro de que quiere cerrar su sesion?");
-      System.out.println("Escriba 1 para si, escriba 0 para cancelar");
-      eleccion = input.nextLine();
-      switch (eleccion) {
-          case "0":
-              break;
-          case "1":
-              Cliente.setSesion(null);
-              System.out.println("Su sesion ha sido finalizada");
-              break;
-          default:
-              System.out.println("Usted escogio una opción que no estaba en la lista");
-              break;
-            }
+  // cerrar sesion del usuario
+  public static void cerrarSesion() { // Este metodo esta listo
+    System.out.println("Seguro de que quiere cerrar su sesion?");
+    System.out.println("Escriba 1 para si, escriba 0 para cancelar");
+    eleccion = input.nextLine();
+    switch (eleccion) {
+      case "0":
+        break;
+      case "1":
+        Cliente.setSesion(null);
+        System.out.println("Su sesion ha sido finalizada");
+        break;
+      default:
+        System.out.println("Usted escogio una opción que no estaba en la lista");
+        break;
     }
+  }
 
-  //Agregar cosas al carrito de compras
-  public static void compras(Panaderia panaderia){ //este metodo esta listo, falta corregir mostrarOpciones y mostrarCanasta
+  // Agregar cosas al carrito de compras
+  public static void compras(Panaderia panaderia) { // este metodo esta listo, falta corregir mostrarOpciones y
+                                                    // mostrarCanasta
     continuar = true;
     mostrarOpciones(panaderia.getInventario());
     GestionCompra.mostrarCanasta(Cliente.getSesion().getCanastaOrden());
@@ -251,52 +248,55 @@ public class UI{ // en esta clase estaran habran metodos en general de la interf
     System.out.println("");
     System.out.println("Asi queda su canasta:");
     GestionCompra.mostrarCanasta(Cliente.getSesion().getCanastaOrden());
-    System.out.println("Desea continuar con la facturación y el domicilio? escriba s para si, escriba n para no, escriba 0 para volver al menu.");
+    System.out.println(
+        "Desea continuar con la facturación y el domicilio? escriba s para si, escriba n para no, escriba 0 para volver al menu.");
     eleccion = input.nextLine();
-    switch (eleccion){
-        case "s":
-          break;
-        case "n":
-          continuar = false;
-          break;
-        case "0":
-          System.out.println("Volviendo al menu");
-          continuar = false;
-        default:
-          System.out.println("Elija una opcion valida");
-          continuar = false;
-          break;
+    switch (eleccion) {
+      case "s":
+        break;
+      case "n":
+        continuar = false;
+        break;
+      case "0":
+        System.out.println("Volviendo al menu");
+        continuar = false;
+      default:
+        System.out.println("Elija una opcion valida");
+        continuar = false;
+        break;
     }
   }
 
-  //Aqui se procesa todo lo que tiene que ver con el envio a domicilio del cliente
-  public static void domicilio(){ //pendiente por terminar este metodo
-    if(continuar = true){
-      System.out.println("Desea que le enviemos su pedido a su domicilio? escriba s para si, n para no, escriba 0 para volver al menu");
+  // Aqui se procesa todo lo que tiene que ver con el envio a domicilio del
+  // cliente
+  public static void domicilio() { // pendiente por terminar este metodo
+    if (continuar = true) {
+      System.out.println(
+          "Desea que le enviemos su pedido a su domicilio? escriba s para si, n para no, escriba 0 para volver al menu");
       eleccion = input.nextLine();
-      switch (eleccion){
-          case "s": //Escriban todo lo de domicilio dentro de este caso
+      switch (eleccion) {
+        case "s": // Escriban todo lo de domicilio dentro de este caso
 
-            break;
-          case "n":
-            break;
-          case "0":
-            continuar = false;
-            break;
-          default:
-              System.out.println("Escriba una opcion valida");
-              break;
+          break;
+        case "n":
+          break;
+        case "0":
+          continuar = false;
+          break;
+        default:
+          System.out.println("Escriba una opcion valida");
+          break;
       }
     }
   }
 
-  public static void facturacion(){ //pendiente por terminar este metodo
-    if (continuar == true){
+  public static void facturacion() { // pendiente por terminar este metodo
+    if (continuar == true) {
       Recibo recibo = new Recibo(Cliente.getSesion(), Cliente.getSesion().getCanastaOrden());
       imprimirFactura(recibo);
       System.out.println("Desea continuar con el pago? s/n");
       eleccion = input.nextLine();
-      switch(eleccion){
+      switch (eleccion) {
         case "s":
           break;
 
@@ -309,39 +309,41 @@ public class UI{ // en esta clase estaran habran metodos en general de la interf
     }
   }
 
-  //En este metodo van a ir todas las notificaciones del pedido (catastrofes o si la entrega fue exitosa)
-  public static void concluirOrden(){ //pendiente por terminar este metodo
-    if (continuar == true){
+  // En este metodo van a ir todas las notificaciones del pedido (catastrofes o si
+  // la entrega fue exitosa)
+  public static void concluirOrden() { // pendiente por terminar este metodo
+    if (continuar == true) {
       System.out.println("Su pedido ha sido entregado con exito");
     }
   }
 
-  //Aqui se mostrara la informacion nutricional y otros
-  public static void verCatalogoDescripcion(Panaderia panaderia){
+  // Aqui se mostrara la informacion nutricional y otros
+  public static void verCatalogoDescripcion(Panaderia panaderia) {
     mostrarOpciones(panaderia.getInventario());
     GestionRankings.mostrarRankingProductos();
     GestionRankings.mostrarRankingIngredientes();
-    //sugerencias
+    // sugerencias
     GestionRankings.mostrarRankingDomiciliarios(panaderia);
     GestionRankings.mostrarRankingCocineros(panaderia);
-    
-    
+
     GestionRankings.mostrarRankingCanastas(panaderia);
-    do{
-        System.out.println("Seleccione un producto (Escriba el numero de id), o escriba 0 para salir ");
-        eleccion = input.nextLine();
-        if (eleccion == "0"){
-            break;
-        } else{
-        System.out.println(Producto.obtenerObjetoPorId(eleccion).getNutrientes(Producto.obtenerObjetoPorId(eleccion).getNombre()));
-        }
+    do {
+      System.out.println("Seleccione un producto (Escriba el numero de id), o escriba 0 para salir ");
+      eleccion = input.nextLine();
+      if (eleccion == "0") {
         break;
-    } while(true);
+      } else {
+        System.out.println(
+            Producto.obtenerObjetoPorId(eleccion).getNutrientes(Producto.obtenerObjetoPorId(eleccion).getNombre()));
+      }
+      break;
+    } while (true);
   }
 
-  //Este metodo imprime todos los recibos que se le haya entregado antes al cliente
-  public static void historialRecibos(Cliente cliente){
-    for(Recibo recibo: cliente.getRecibos()){
+  // Este metodo imprime todos los recibos que se le haya entregado antes al
+  // cliente
+  public static void historialRecibos(Cliente cliente) {
+    for (Recibo recibo : cliente.getRecibos()) {
       imprimirFactura(recibo);
       System.out.println(" ");
       System.out.println(" ");
@@ -350,24 +352,42 @@ public class UI{ // en esta clase estaran habran metodos en general de la interf
     }
   }
 
-  //Metodo para que el cliente cambie su contraseña
-  public static void cambiarClave(){
+  // Metodo para que el cliente cambie su contraseña
+  public static void cambiarClave(Cliente cliente) {
+    System.out.println("Ingrese su nueva clave: ");
+    eleccion = input.nextLine();
+    cliente.setContrasena(eleccion);
+  }
+
+  // Metodo para que el cliente pueda ingresar dinero a su cuenta (Aumentar el
+  // presupuesto)
+  public static void meterPlata(Cliente cliente) {
+
+    double cantidad = 0;
+
+    while (true) {
+      System.out.println("Por favor ingrese la cantidad de dinero que desea ingresar:");
+      try {
+        cantidad = input.nextDouble();
+        break;
+      } catch (Exception e) {
+        System.out.println("Por favor ingrese un id valido (solo numeros)");
+      }
+    }
+
+    cliente.setPresupuesto(cantidad);
 
   }
 
-
-  //Metodo para que el cliente pueda ingresar dinero a su cuenta (Aumentar el presupuesto)
-  public static void meterPlata(){
-
-  }
-
-  //Metodo para que el cliente valide el tipo de cliente que es para aplicar a descuentos especiales
-  public static void validarTipoCliente(){
+  // Metodo para que el cliente valide el tipo de cliente que es para aplicar a
+  // descuentos especiales
+  public static void validarTipoCliente() {
 
   }
 
-  //Aqui el cliente puede ver el historial de las cosas que ha pedido antes, para pedirlas otra vez facilmente
-  public static void historialOrdenes(){
+  // Aqui el cliente puede ver el historial de las cosas que ha pedido antes, para
+  // pedirlas otra vez facilmente
+  public static void historialOrdenes() {
 
   }
 }

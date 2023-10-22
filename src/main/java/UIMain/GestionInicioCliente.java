@@ -14,42 +14,51 @@ public class GestionInicioCliente {
 
     Scanner input = new Scanner(System.in);
 
-    System.out.println(
-        "Bienvenido a Poo Bakery, si ya tiene una cuenta registrada con nosotros por favor ingrese 1, si desea crear una cuenta por favor ingrese 2, si desea salir por favor escriba 0");
+    System.out.println("Bienvenido a Poo Bakery, si ya tiene una cuenta registrada con nosotros por favor ingrese 1, si desea crear una cuenta por favor ingrese 2, si desea salir por favor escriba 0");
 
-    int eleccion = input.nextInt();
-
-    if (eleccion == 1) {
-      
-      GestionInicioCliente.iniciarSesion(panaderia);
+    String eleccion = input.nextLine();
+    switch(eleccion){
+      case "1":
+        GestionInicioCliente.iniciarSesion(panaderia);
+        input.close();
+        return true;
+      case "2":
+        GestionInicioCliente.registroCliente(panaderia);
+        input.close();
+        return true;
+      case "0":
+        input.close();
+        return false;
+      default:
+        System.out.println("Por favor ingrese una opcion valida");
+        input.close();
+        return true;
     }
-
-    else if(eleccion == 2){
-      
-      GestionInicioCliente.registroCliente(panaderia);
-    }
-
-    else if(eleccion == 0){
-
-      input.close();
-      return false;
-    }
-
-    input.close();
-    return true;
   }
 
   public static void registroCliente(Panaderia panaderia) {
 
     Scanner input = new Scanner(System.in);
+    int id = 0;
 
-      System.out.println("Por favor ingrese, su nombre, su id y una contraseña");
-
+      System.out.println("Por favor ingrese su nombre:");
       String nombre = input.nextLine();
-      int id = input.nextInt();
-      String presupuesto = input.nextLine();
 
-      System.out.println(panaderia.crearCuenta(nombre, id, presupuesto));
+      while(true){
+        System.out.println("Por favor ingrese su id:");
+        try{
+          id = input.nextInt();
+          break;
+        }
+        catch(Exception e){
+          System.out.println("Por favor ingrese un id valido (solo numeros)");
+        }
+      }
+
+      System.out.println("Por favor ingrese su contrasena:");
+      String contrasena = input.nextLine();
+
+      System.out.println(panaderia.crearCuenta(nombre, id, contrasena));
       input.close();
   }
 
@@ -57,9 +66,20 @@ public class GestionInicioCliente {
     
     Scanner input = new Scanner(System.in);
 
-      System.out.println("Por favor ingrese su id y su contraseña");
+      int id = 0;
 
-      int id = input.nextInt();
+      while(true){
+        System.out.println("Por favor ingrese su id:");
+        try{
+          id = input.nextInt();
+          break;
+        }
+        catch(Exception e){
+          System.out.println("Por favor ingrese un id valido (solo numeros)");
+        }
+      }
+
+      System.out.println("Por favor ingrese su contrasena:");
       String contrasena = input.nextLine();
 
       Cliente usuario = panaderia.inicioSesionId(id);

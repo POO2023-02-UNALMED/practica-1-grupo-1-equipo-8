@@ -17,11 +17,11 @@ public abstract class Trabajador implements Serializable{
     protected Panaderia panaderia;
 
     public Trabajador() {
-        this("John Doe", 0, 0, 1000000);
+        this("John Doe", 0, 0, 1000);
     }
 
     public Trabajador(String nombre) {
-        this(nombre, 0, 0, 1000000);
+        this(nombre, 0, 0, 1000);
     }
 
     public Trabajador(String nombre, double calificacion, double dineroEnMano, double salario) {
@@ -29,7 +29,7 @@ public abstract class Trabajador implements Serializable{
 
         this.nombre = nombre;
         this.calificacion = calificacion;
-        this.habilidad = rand.nextInt(10) + 1; // 1 <= habilidad <= 10
+        this.habilidad = rand.nextInt(10) + 9; // 9 <= habilidad <= 19
         this.dineroEnMano = dineroEnMano;
         this.salario = salario;
         this.robado = false;

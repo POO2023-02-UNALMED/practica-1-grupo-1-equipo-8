@@ -33,6 +33,13 @@ public class Cocinero extends Domiciliario{
         this.especialidad = especialidad;
     }
 
+    public Cocinero(String nombre, String especialidad, Panaderia panaderia) {
+        super(nombre);
+        this.especialidad = especialidad;
+        this.panaderia = panaderia;
+        panaderia.getCocineros().add(this);
+    }
+
     public Cocinero(String nombre, double habilidad,double calificacion, double dineroEnMano, String especialidad, Panaderia panaderia) {
         super(nombre, habilidad, calificacion,dineroEnMano, panaderia);
         this.especialidad = especialidad;
@@ -241,7 +248,7 @@ public class Cocinero extends Domiciliario{
         // Preparación de ingredientes necesarios
         for (Map.Entry<String, Integer> product : productos.entrySet()) {
             String productoID = product.getKey();
-            Producto producto = this.panaderia.getInventario().buscarProductoPorId(productoID);
+            Producto producto = Producto.obtenerObjetoPorId(productoID);
             Integer cantidad = product.getValue();
             Map<String,Integer> ingredientesNecesarios = producto.getIngredientes();
             Map<String,Integer> ingredientesAbsolutos = multiplicarValoresEnMapa(ingredientesNecesarios,cantidad);

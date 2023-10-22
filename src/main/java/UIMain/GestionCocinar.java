@@ -56,20 +56,20 @@ public class GestionCocinar {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("100%  [###############################] 100%");
+            System.out.println(Texto.centrar("100%  [###############################] 100%"));
             String elemento = procesoCook.get(0);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("Proceso de " + elemento + " completado");
+            System.out.println(Texto.centrar("Proceso de " + elemento + " completado"));
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("Producto Cocinado");
+            System.out.println(Texto.centrar("Producto Cocinado"));
             zonas=0;
         }
         if (longitud==2){
@@ -79,14 +79,14 @@ public class GestionCocinar {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("50%  [#############...................] 100%");
+                System.out.println(Texto.centrar("50%  [#############...................] 100%"));
                 String elemento = procesoCook.get(0);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Proceso de " + elemento + " completado");
+                System.out.println(Texto.centrar("Proceso de " + elemento + " completado"));
                 zonas++;
             }
             else if(zonas==1){
@@ -95,20 +95,20 @@ public class GestionCocinar {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("100%  [###############################] 100%");
+                System.out.println(Texto.centrar("100%  [###############################] 100%"));
                 String elemento2 = procesoCook.get(1);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Proceso de " + elemento2 + " completado");
+                System.out.println(Texto.centrar("Proceso de " + elemento2 + " completado"));
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Producto Cocinado");
+                System.out.println(Texto.centrar("Producto Cocinado"));
                 zonas=0;
             }
         }
@@ -119,14 +119,14 @@ public class GestionCocinar {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("33%  [#########.......................] 100%");
+                System.out.println(Texto.centrar("33%  [#########.......................] 100%"));
                 String elemento = procesoCook.get(0);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Proceso de " + elemento + " completado");
+                System.out.println(Texto.centrar("Proceso de " + elemento + " completado"));
                 zonas++;
             }
             else if(zonas==1){
@@ -135,14 +135,14 @@ public class GestionCocinar {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("66%  [###################.............] 100%");
+                System.out.println(Texto.centrar("66%  [###################.............] 100%"));
                 String elemento2 = procesoCook.get(1);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Proceso de " + elemento2 + " completado");
+                System.out.println(Texto.centrar("Proceso de " + elemento2 + " completado"));
                 zonas++;
             }
             else if(zonas==2){
@@ -151,20 +151,20 @@ public class GestionCocinar {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("100%  [###############################] 100%");
+                System.out.println(Texto.centrar("100%  [###############################] 100%"));
                 String elemento3 = procesoCook.get(2);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Proceso de " + elemento3 + " completado");
+                System.out.println(Texto.centrar("Proceso de " + elemento3 + " completado"));
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Producto Cocinado");
+                System.out.println(Texto.centrar("Producto Cocinado"));
                 zonas=0;
             }
         }
@@ -180,56 +180,57 @@ public class GestionCocinar {
         int numeroAleatorio = falloRandom.nextInt(6);
         String falloAleatorio = Catastrofe.fallosCocina[numeroAleatorio];
         if (longitud == 1){
-            System.out.println("X    X");
-            System.out.println(" X  X ");
-            System.out.println("  XX  ");
-            System.out.println(" X  X ");
-            System.out.println("X    X");
+            System.out.println(Texto.centrar("X    X"));
+            System.out.println(Texto.centrar(" X  X "));
+            System.out.println(Texto.centrar("  XX  "));
+            System.out.println(Texto.centrar(" X  X "));
+            System.out.println(Texto.centrar("X    X"));
             String elemento = procesoCook.get(0);
-            System.out.println("Fallo en el proceso de " + elemento);
-            System.out.println(falloAleatorio);
+            System.out.println(Texto.centrar("Fallo en el proceso de " + elemento));
+            System.out.println(Texto.centrar(falloAleatorio));
             zonas=0;
         }
         if (longitud == 2){
-            System.out.println("X    X");
-            System.out.println(" X  X ");
-            System.out.println("  XX  ");
-            System.out.println(" X  X ");
-            System.out.println("X    X");
+            System.out.println(Texto.centrar("X    X"));
+            System.out.println(Texto.centrar(" X  X "));
+            System.out.println(Texto.centrar("  XX  "));
+            System.out.println(Texto.centrar(" X  X "));
+            System.out.println(Texto.centrar("X    X"));
             if(zonas==0){
             String elemento = procesoCook.get(0);
-            System.out.println("Fallo en el proceso de " + elemento);
-            System.out.println(falloAleatorio);
+            System.out.println(Texto.centrar("Fallo en el proceso de " + elemento));
+            System.out.println(Texto.centrar(falloAleatorio));
             zonas=0;
         }
             if(zonas==1){
             String elemento2 = procesoCook.get(1);
-            System.out.println("Fallo en el proceso de " + elemento2);
-            System.out.println(falloAleatorio);
+            System.out.println(Texto.centrar("Fallo en el proceso de " + elemento2));
+            System.out.println(Texto.centrar(falloAleatorio));
             zonas=0;
         }
         }
         if (longitud==3){
-            System.out.println("X    X");
-            System.out.println(" X  X ");
-            System.out.println("  XX  ");
-            System.out.println(" X  X ");
-            System.out.println("X    X");
+            System.out.println(Texto.centrar("X    X"));
+            System.out.println(Texto.centrar(" X  X "));
+            System.out.println(Texto.centrar("  XX  "));
+            System.out.println(Texto.centrar(" X  X "));
+            System.out.println(Texto.centrar("X    X"));
             if(zonas==0){
             String elemento = procesoCook.get(0);
-            System.out.println("Fallo en el proceso de " + elemento);
-            System.out.println(falloAleatorio);
+            System.out.println(Texto.centrar("Fallo en el proceso de " + elemento));
+            System.out.println(Texto.centrar(falloAleatorio));
             zonas=0;
             }
             if(zonas==1){
             String elemento2 = procesoCook.get(1);
-            System.out.println("Fallo en el proceso de " + elemento2);
-            
+            System.out.println(Texto.centrar("Fallo en el proceso de " + elemento2));
+            System.out.println(Texto.centrar(falloAleatorio));
             zonas=0;
             }
             if(zonas==2){
             String elemento3 = procesoCook.get(2);
-            System.out.println("Fallo en el proceso de " + elemento3);
+            System.out.println(Texto.centrar("Fallo en el proceso de " + elemento3));
+            System.out.println(Texto.centrar(falloAleatorio));
             zonas=0;
             }
         }
@@ -238,11 +239,11 @@ public class GestionCocinar {
      * Método que imprime un patrón de X's y un mensaje de error indicando que ha habido un fallo en el proceso de cocinado por falta de ingredientes.
      */
     public static void fallosCocinando(){
-        System.out.println("X    X");
-        System.out.println(" X  X ");
-        System.out.println("  XX  ");
-        System.out.println(" X  X ");
-        System.out.println("X    X");
-        System.out.println("Fallo en el proceso de Cocinado por falta de ingredientes");
+        System.out.println(Texto.centrar("X    X"));
+        System.out.println(Texto.centrar(" X  X "));
+        System.out.println(Texto.centrar("  XX  "));
+        System.out.println(Texto.centrar(" X  X "));
+        System.out.println(Texto.centrar("X    X"));
+        System.out.println(Texto.centrar("Fallo por falta de ingredientes"));
     }
 }

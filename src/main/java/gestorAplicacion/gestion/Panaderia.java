@@ -141,6 +141,14 @@ public class Panaderia implements Serializable {
         this.trabajadores.remove(cocinero);
     }
 
+    public void agregarDomiciliario(Domiciliario domiciliario) {
+        this.domiciliarios.add(domiciliario);
+    }
+
+    public void eliminarDomiciliario(Domiciliario domiciliario) {
+        this.domiciliarios.remove(domiciliario);
+    }
+
     public void eliminarCliente(Cliente cliente) {
         this.clientes.remove(cliente);
     }
@@ -492,7 +500,7 @@ public class Panaderia implements Serializable {
     }
 
     public Cocinero cocineroAleatorio(){
-        
+
         ArrayList<Cocinero> x = (ArrayList<Cocinero>) this.cocineros.clone();
         
         Collections.shuffle(x);
