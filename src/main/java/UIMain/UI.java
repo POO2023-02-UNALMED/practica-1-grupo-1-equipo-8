@@ -242,12 +242,13 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   //Agregar cosas al carrito de compras
   public static void compras(){ //este metodo esta listo, falta corregir mostrarOpciones y mostrarCanasta
     continuar = true;
-    UI.mostrarOpciones();
-    UI.mostrarCanasta();
+    mostrarOpciones();
+    GestionCompra.mostrarCanasta();
+
     GestionCompra.gestionRecibirOrdenCanasta(Cliente.getSesion().getCanastaOrden());
     System.out.println("");
     System.out.println("Asi queda su canasta:");
-    UI.mostrarCanasta();
+    GestionCompra.mostrarCanasta();
     System.out.println("Desea continuar con la facturación y el domicilio? escriba s para si, escriba n para no, escriba 0 para volver al menu.");
     eleccion = input.nextLine();
     switch (eleccion){
@@ -315,7 +316,13 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
   //Aqui se mostrara la informacion nutricional y otros
   public static void verCatalogoDescripcion(){
-    UI.mostrarOpciones();
+    mostrarOpciones();
+    //sugerencias
+    mostrarRankingDomiciliarios
+    mostrarRankingCocineros
+    mostrarRankingProductos
+    mostrarRankingIngredientes
+    mostrarRankingCanastas
     do{
         System.out.println("Seleccione un producto (Escriba el numero de id), o escriba 0 para salir ");
         eleccion = input.nextLine();

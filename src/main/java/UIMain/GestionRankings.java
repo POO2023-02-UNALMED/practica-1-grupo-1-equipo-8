@@ -41,7 +41,7 @@ public class GestionRankings {
     ArrayList<Canasta> canastas = panaderia.getCanastasPublicadas();
     for (Canasta canasta : canastas){
       System.out.println(canasta.getIdentificador());
-      GestionCompra.mostrarCanasta(canasta, panaderia.getInventario());
+      GestionCompra.mostrarCanasta(canasta);
     }
   }
 }

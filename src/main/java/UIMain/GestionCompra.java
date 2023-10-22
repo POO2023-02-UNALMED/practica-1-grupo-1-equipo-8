@@ -289,13 +289,13 @@ public class GestionCompra {
    * Muestra el contenido de la cesta de la compra, incluidos productos, ingredientes y coste total.
    */
   //Esto se va a mostrar antes de pagar, mientras el cliente agrega sus productos, y tambien en la factura
-  public static void mostrarCanasta(Canasta canasta, Inventario inv) {
+  public static void mostrarCanasta(Canasta canasta) {
     System.out.println(Texto.centrar("PRODUCTOS"));
     System.out.println("_".repeat(55));
     System.out.println(Texto.alinear("Descripcion", "Cantidad", "Costo"));
     System.out.println("_".repeat(55));
     System.out.println("");
-    for (Producto producto : canasta.getProductos()) {
+    for (map.Entry<Producto, Integer> entry : canasta.getProductosEnLista().entrySet()) {
       System.out.println(Texto.alinear(producto.getNombre(), inv.verificarCantidadProductoPorId(producto.getId()), producto.getCosto()));
     }
     System.out.println("_".repeat(55));
