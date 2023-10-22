@@ -191,8 +191,12 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
      * item.getKey().getCosto()*item.getValue()));
      * }
      */
-    System.out.println(Texto.centrar(String.format(Texto.centrar("DETALLE DE IMPUESTOS"))));// DESPUES TRABAJARE EN LA
-                                                                                            // DEDUCCION DE IMPUESTOS
+    System.out.println("-".repeat(55));
+    System.out.println(Texto.centrar(String.format(Texto.centrar("DETALLE DE IMPUESTOS"))));
+    System.out.println("-".repeat(55));
+    System.out.println(Texto.alinear("IVA", recibo.getTotal()));
+    System.out.println("-".repeat(55));
+    System.out.println("");
     System.out.println(Texto.centrar(String.format(Texto.centrar(""))));
     System.out.println(Texto.centrar(String.format("Total articulos comprados: %s", recibo.getIdRecibo())));
     System.out.println(Texto.centrar("EN POO BAKERY SOMOS EXPERTOS EN AHORRO:"));
@@ -201,7 +205,8 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     // //colocar el total ahorrado aqui cuando este todo listo
     System.out.println(Texto.centrar("POO Bakery"));
     System.out.println(Texto.centrar("solo calidad"));
-    System.out.println(Texto.centrar("Gracias por elegirnos"));
+    System.out.println(Texto.centrar("Gracias por tu compra"));
+    System.out.println(Texto.centrar("No se permiten devoluciones"));
     System.out.println(String.format(""));
     System.out.println(Texto.centrar("▄▄▄▄▄▄▄  ▄ ▄▄ ▄▄▄▄▄▄▄"));
     System.out.println(Texto.centrar("█ ▄▄▄ █ ██ ▀▄ █ ▄▄▄ █"));
@@ -217,7 +222,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     System.out.println(String.format(""));
   }
 
-  public static void menu(){
+  public static void menu(){ //Ignorar este metodo, esto ira en main
     do{
       UI.titulo();
       String strOpciones = "Escriba el numero correspondiente a la opcion que quiere elegir\n" +
@@ -250,7 +255,8 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
   }
 
-  public static void cerrarSesion(){
+  //cerrar sesion del usuario
+  public static void cerrarSesion(){ //Este metodo esta listo
       System.out.println("Esta seguro de que quiere cerrar su sesion?");
       System.out.println("Escriba 1 para si, escriba 0 para cancelar");
       eleccion = input.nextLine();
@@ -267,7 +273,9 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
             }
     }
 
-  public static void compras(){
+  //Agregar cosas al carrito de compras
+  public static void compras(){ //este metodo esta listo, falta corregir mostrarOpciones y mostrarCanasta
+    continuar = true;
     UI.mostrarOpciones();
     UI.mostrarCanasta();
     GestionCompra.gestionRecibirOrdenCanasta(Cliente.getSesion().getCanastaOrden());
@@ -283,41 +291,62 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
             break;
         case "0":
             System.out.println("Volviendo al menu");
+            continuar = false;
         default:
             System.out.println("Elija una opcion valida");
+            continuar = false;
             break;
     }
   }
 
-  public static void domicilio(){
-                System.out.println("Desea que le enviemos su pedido a domicilio? escriba s para si, n para no, escriba 0 para volver al menu");
-            eleccion = input.nextLine();
-            switch (eleccion){
-                case "s": //IMPORTANTE ESCRIBIR AQUI LO DEL PROCESO DE DOMICILIO
+  //Aqui se procesa todo lo que tiene que ver con el envio a domicilio del cliente
+  public static void domicilio(){ //pendiente por terminar este metodo
+    if(continuar = true){
+      System.out.println("Desea que le enviemos su pedido a su domicilio? escriba s para si, n para no, escriba 0 para volver al menu");
+      eleccion = input.nextLine();
+      switch (eleccion){
+          case "s": //Escriban todo lo de domicilio dentro de este caso
 
-                    break;
-                case "n":
-                    break;
-                case "0":
-                    break;
-                default:
-                    System.out.println("Escriba una opcion valida");
-                    break;
-            }
+            break;
+          case "n":
+            break;
+          case "0":
+            continuar = false;
+            break;
+          default:
+              System.out.println("Escriba una opcion valida");
+              break;
+      }
+    }
   }
 
-  public static void esperaCocinaDomicilio(){
-    System.out.println("Su pedido ha sido entregado con exito");
+  public static void facturacion(){ //pendiente por terminar este metodo
+    if (continuar == true){
+      Recibo recibo = new Recibo(Cliente.getSesion(), Cliente.getSesion().getCanastaOrden());
+      imprimirFactura(recibo);
+      System.out.println("Desea continuar con el pago? s/n");
+      eleccion = input.nextLine();
+      switch(eleccion){
+        case "s":
+          break;
+
+        case "n":
+          break;
+
+        default:
+          break;
+      }
+    }
   }
 
-  public static void facturacion(){
-    Recibo recibo = new Recibo(Cliente.getSesion(), Cliente.getSesion().getCanastaOrden());
-    imprimirFactura(recibo);
-    System.out.println("Listo para pagar? s/n");
-
-
+  //En este metodo van a ir todas las notificaciones del pedido (catastrofes o si la entrega fue exitosa)
+  public static void esperaCocinaDomicilio(){ //pendiente por terminar este metodo
+    if (continuar == true){
+      System.out.println("Su pedido ha sido entregado con exito");
+    }
   }
 
+  //Aqui se mostrara la informacion nutricional y otros
   public static void verCatalogoDescripcion(){
     UI.mostrarOpciones();
     do{
@@ -332,6 +361,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     } while(true);
   }
 
+  //Este metodo imprime todos los recibos que se le haya entregado antes al cliente
   public static void historialRecibos(Cliente cliente){
     for(Recibo recibo: cliente.getRecibos()){
       imprimirFactura(recibo);
@@ -340,5 +370,26 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
       System.out.println(" ");
       System.out.println(" ");
     }
+  }
+
+  //Metodo para que el cliente cambie su contraseña
+  public static void cambiarContraseña(){
+
+  }
+
+
+  //Metodo para que el cliente pueda ingresar dinero a su cuenta (Aumentar el presupuesto)
+  public static void meterPlata(){
+
+  }
+
+  //Metodo para que el cliente valide el tipo de cliente que es para aplicar a descuentos especiales
+  public static void validarTipoCliente(){
+
+  }
+
+  //Aqui el cliente puede ver el historial de las cosas que ha pedido antes, para pedirlas otra vez facilmente
+  public static void historialOrdenes(){
+
   }
 }

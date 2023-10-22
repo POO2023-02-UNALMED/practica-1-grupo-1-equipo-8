@@ -19,12 +19,12 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
                 String strOpciones = "Escriba el numero correspondiente a la opcion que quiere elegir\n" +
                         "0. Cerrar sesion\n" +
                         "1. Agregar productos a la canasta de compras\n" +
-                        "2. Ver catalogo de productos e informacion adicional (RECOMENDADO PARA ANTES DE COMPRAR)\n"+
+                        "2. Ver catalogo de productos, descripciones y productos mas vendidos\n"+
                         "3. Ver las facturas de mis compras pasadas\n" +
                         "4. Cambiar contraseña\n" +
                         "5. Meter plata a mi cuenta\n" +
                         "6. validar tipo de cliente\n" +
-                        "7. Historial de ordenes";
+                        "7. Historial de ordenes, pedir canastas otra vez";
         
                 System.out.println(strOpciones);
                 String eleccion = input.nextLine();
@@ -51,15 +51,19 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
                         break;
 
                     case "4":
+                        UI.cambiarContraseña();
                         break;
 
                     case "5":
+                        UI.meterPlata();
                         break;
 
                     case "6":
+                        UI.validarTipoCliente();
                         break;
 
                     case "7":
+                        UI.historialOrdenes();
                         break;
 
                     // caso donde el cliente elije una opcion no valida
