@@ -191,6 +191,10 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
      * item.getKey().getCosto()*item.getValue()));
      * }
      */
+    System.out.println("");
+    System.out.println("");
+    System.out.println(Texto.alinear("Domicilio", ))
+    System.out.println("");
     System.out.println("-".repeat(55));
     System.out.println(Texto.centrar(String.format(Texto.centrar("DETALLE DE IMPUESTOS"))));
     System.out.println("-".repeat(55));
@@ -241,14 +245,14 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
               case "0": //cerrar sesion
                 break;
               case "1": 
-                  break;
+                break;
               case "2":
-                  break;
+                break;
               // caso donde el cliente elije una opcion no valida
               default:
-                  System.out.println("Usted escogio una opción que no estaba en la lista");
-                  eleccionValida = false;
-                  break;
+                System.out.println("Usted escogio una opción que no estaba en la lista");
+                eleccionValida = false;
+                break;
           }
       } while (eleccionValida == true && Cliente.getSesion() != null);
     }while(true);
@@ -279,23 +283,24 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     UI.mostrarOpciones();
     UI.mostrarCanasta();
     GestionCompra.gestionRecibirOrdenCanasta(Cliente.getSesion().getCanastaOrden());
-    System.out.println("Desea continuar con la facturación? escriba s para si, escriba n para no, escriba 0 para volver al menu.");
+    System.out.println("");
+    System.out.println("Asi queda su canasta:");
+    UI.mostrarCanasta()
+    System.out.println("Desea continuar con la facturación y el domicilio? escriba s para si, escriba n para no, escriba 0 para volver al menu.");
     eleccion = input.nextLine();
     switch (eleccion){
         case "s":
-            Recibo recibo = new Recibo(Cliente.getSesion(), Cliente.getSesion().getCanastaOrden());
-            UI.imprimirFactura(recibo);
-
-            break;
+          break;
         case "n":
-            break;
+          continuar = false;
+          break;
         case "0":
-            System.out.println("Volviendo al menu");
-            continuar = false;
+          System.out.println("Volviendo al menu");
+          continuar = false;
         default:
-            System.out.println("Elija una opcion valida");
-            continuar = false;
-            break;
+          System.out.println("Elija una opcion valida");
+          continuar = false;
+          break;
     }
   }
 
