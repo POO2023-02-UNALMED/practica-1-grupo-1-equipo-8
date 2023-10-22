@@ -17,11 +17,12 @@ public class GestionInicioCliente {
 
     if (eleccion == 1) {
       
-      GestionInicioCliente.registroCliente(panaderia);
+      GestionInicioCliente.iniciarSesion(panaderia);
     }
 
     else if(eleccion == 0){
       
+      GestionInicioCliente.registroCliente(panaderia);
     }
     /*
      * Si ya tiene cuenta, se le pide que ingrese su id y contraseña para acceder a
@@ -59,5 +60,16 @@ public class GestionInicioCliente {
       String presupuesto = input.nextLine();
 
       System.out.println(panaderia.crearCuenta(nombre, id, presupuesto));
+  }
+
+  public static void iniciarSesion(Panaderia panaderia){
+    
+    Scanner input = new Scanner(System.in);
+
+      System.out.println("Por favor ingrese, su nombre, su id y una contraseña");
+
+      int id = input.nextInt();
+      String contrasena = input.nextLine();
+
   }
 }

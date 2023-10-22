@@ -108,6 +108,10 @@ public class Producto implements Serializable, ComidaDefault{
 		return topMasVendidos;
 	}
 
+	public static void setTopMasVendidos(ArrayList<Producto> topMasVendidos) {
+		Producto.topMasVendidos = topMasVendidos;
+	}
+
 	//Métodos
 
 	public static boolean verificacionExistenciaPorNombre(String nombre) {

@@ -20,7 +20,7 @@ public class Ingrediente implements Serializable, ComidaDefault{
 	private int vecesVendido=0;
 	public static final int probabilidadConstante =1;
 	private boolean caducado=false;
-
+	private Inventario inventario;
 
 	private static ArrayList<Ingrediente> topMasVendidos = new ArrayList<Ingrediente>(6);
 
@@ -113,6 +113,14 @@ public class Ingrediente implements Serializable, ComidaDefault{
 
 	public void setTARIFAGANANCIA(double tARIFAGANANCIA) {
 		TARIFAGANANCIA = tARIFAGANANCIA;
+	}
+
+	public Inventario getInventario() {
+		return inventario;
+	}
+
+	public void setInventario(Inventario inventario) {
+		this.inventario = inventario;
 	}
 
 	public static void setBaseDatosIngredientes(ArrayList<Ingrediente> baseDatosIngredientes) {

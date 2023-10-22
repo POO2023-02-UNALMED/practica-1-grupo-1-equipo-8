@@ -60,9 +60,14 @@ public class Serializador {
     public static void cargarValoresEstaticos(ObjectInputStream stream) throws IOException {
         try {
             Panaderia.setCanastaDelDia((Canasta) stream.readObject());
-            Ingrediente.setBaseDatosIngredientes((HashMap<String, Ingrediente>) stream.readObject());
-            
-
+            Ingrediente.setBaseDatosIngredientes((ArrayList<Ingrediente>) stream.readObject());
+            Ingrediente.setCantidadIngredientesUnicos(stream.readInt());
+            Ingrediente.setTopMasVendidos((ArrayList<Ingrediente>) stream.readObject());
+            Producto.setBaseDatosProductos((ArrayList<Producto>) stream.readObject());
+            Producto.setCantidadProductosUnicos(stream.readInt());
+            Producto.setTopMasVendidos((ArrayList<Producto>) stream.readObject());
+            Recibo.setTotalFacturas(stream.readInt());
+            Cliente.setCantidadOrdenes(stream.readInt());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
