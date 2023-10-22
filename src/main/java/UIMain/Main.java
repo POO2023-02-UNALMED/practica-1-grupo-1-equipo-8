@@ -2,7 +2,6 @@ package UIMain;
 
 import java.io.*;
 import java.util.Scanner;
-
 import gestorAplicacion.comida.*;
 import gestorAplicacion.gestion.*;
 import gestorAplicacion.humanos.*;

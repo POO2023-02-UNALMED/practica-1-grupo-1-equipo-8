@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import gestorAplicacion.gestion.Panaderia;
+import gestorAplicacion.gestion.Recibo;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.humanos.Cliente;
@@ -47,15 +48,20 @@ public class Serializador {
     public static void guardarValoresEstaticos(ObjectOutputStream stream) throws IOException {
         stream.writeObject(Panaderia.getCanastaDelDia());
         stream.writeObject(Ingrediente.getBaseDatosIngredientes());
-        stream.writeObject(Ingrediente.getCantidadIngredientesUnicos());
+        stream.writeInt(Ingrediente.getCantidadIngredientesUnicos());
+        stream.writeObject(Ingrediente.getTopMasVendidos());
         stream.writeObject(Producto.getBaseDatosProductos());
-        stream.writeObject(Producto.getCantidadProductosUnicos());
-        
+        stream.writeInt(Producto.getCantidadProductosUnicos());
+        stream.writeObject(Producto.getTopMasVendidos());
+        stream.writeInt(Recibo.getTotalFacturas());
+        stream.writeInt(Cliente.getCantidadOrdenes());
     }
 
     public static void cargarValoresEstaticos(ObjectInputStream stream) throws IOException {
         try {
             Panaderia.setCanastaDelDia((Canasta) stream.readObject());
+            Ingrediente.setBaseDatosIngredientes((HashMap<String, Ingrediente>) stream.readObject());
+            
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

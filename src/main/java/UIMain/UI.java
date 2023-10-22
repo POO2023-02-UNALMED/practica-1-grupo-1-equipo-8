@@ -9,7 +9,7 @@ import gestorAplicacion.gestion.Panaderia;
 import gestorAplicacion.gestion.Recibo;
 import gestorAplicacion.gestion.Inventario;
 
-public class UI { // en esta clase estaran habran metodos en general de la interfaz de usuario
+public class { // en esta clase estaran habran metodos en general de la interfaz de usuario
   public static final String BLACK = "\u001B[30m";
   public static final String RED = "\u001B[31m";
   public static final String GREEN = "\u001B[32m";
@@ -190,7 +190,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
   public static void menu(){ //Ignorar este metodo, esto ira en main
     do{
-      UI.titulo();
+      titulo();
       String strOpciones = "Escriba el numero correspondiente a la opcion que quiere elegir\n" +
               "0. Cerrar sesion\n" +
               "1. Agregar productos a la canasta de compras\n" +

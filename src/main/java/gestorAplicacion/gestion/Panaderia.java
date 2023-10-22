@@ -477,43 +477,6 @@ public class Panaderia implements Serializable {
         return "Cuenta creada con exito";
     }
 
-    //Método sobrevargado registrarCliente
-    
-    /**
-     * Registra un nuevo cliente en la panadería con la información proporcionada.
-     * @param nombre El nombre del cliente.
-     * @param id El identificador del cliente.
-     * @param tipoDescuento El tipo de descuento que se aplicará al cliente.
-     * @return Un mensaje indicando que el cliente ha sido registrado con éxito.
-     */
-    public String registrarCliente(String nombre, Integer id, String contrasena) {
-    	
-    	Cliente cliente = new Cliente(nombre, id, contrasena);
-    	
-    	this.clientes.add(cliente);
-    	
-    	return "Ha sido registrado como cliente con exito bajo el nombre: " + cliente.getNombre();
-    	
-    }
-    
-    /**
-     * Registra un nuevo cliente con el nombre, ID y presupuesto dados.
-     * @param nombre El nombre del cliente.
-     * @param id El ID del cliente.
-     * @param presupuesto El presupuesto del cliente.
-     * @return Un mensaje indicando que el cliente ha sido registrado con éxito.
-     * El mensaje incluye el nombre del cliente registrado.
-     */
-    public String registrarCliente(String nombre, Integer id, String contrasena, double presupuesto) {
-    	
-    	Cliente cliente = new Cliente(nombre, id, contrasena, presupuesto);
-    	
-    	this.clientes.add(cliente);
-    	
-    	return "Ha sido registrado como cliente con exito bajo el nombre: " + cliente.getNombre();
-    
-    }
-
     public Trabajador trabajadorAleatorio(){
 
         ArrayList<Trabajador> x = (ArrayList<Trabajador>) this.trabajadores.clone();
