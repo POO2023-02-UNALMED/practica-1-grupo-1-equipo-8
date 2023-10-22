@@ -4,12 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Random;
 
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
 import gestorAplicacion.humanos.Cocinero;
+import gestorAplicacion.humanos.Domiciliario;
+import gestorAplicacion.humanos.Trabajador;
+import gestorAplicacion.humanos.Catastrofe;
 
 public class GestionCocinar {
 
@@ -32,7 +36,9 @@ public class GestionCocinar {
             }
             num = sc.nextInt();
         } while (num < 0 || num > 5);
+        sc.close();
         return num;
+        
     }
 
     /**
@@ -170,6 +176,9 @@ public class GestionCocinar {
      * @param longitud Entero que indica la longitud de la lista procesoCook.
      */
     public static void fallosCocinando(List<String> procesoCook,int longitud){
+        Random falloRandom = new Random();
+        int numeroAleatorio = falloRandom.nextInt(6);
+        String falloAleatorio = Catastrofe.fallosCocina[numeroAleatorio];
         if (longitud == 1){
             System.out.println("X    X");
             System.out.println(" X  X ");
@@ -178,6 +187,7 @@ public class GestionCocinar {
             System.out.println("X    X");
             String elemento = procesoCook.get(0);
             System.out.println("Fallo en el proceso de " + elemento);
+            System.out.println(falloAleatorio);
             zonas=0;
         }
         if (longitud == 2){
@@ -189,11 +199,13 @@ public class GestionCocinar {
             if(zonas==0){
             String elemento = procesoCook.get(0);
             System.out.println("Fallo en el proceso de " + elemento);
+            System.out.println(falloAleatorio);
             zonas=0;
         }
             if(zonas==1){
             String elemento2 = procesoCook.get(1);
             System.out.println("Fallo en el proceso de " + elemento2);
+            System.out.println(falloAleatorio);
             zonas=0;
         }
         }
@@ -206,11 +218,13 @@ public class GestionCocinar {
             if(zonas==0){
             String elemento = procesoCook.get(0);
             System.out.println("Fallo en el proceso de " + elemento);
+            System.out.println(falloAleatorio);
             zonas=0;
             }
             if(zonas==1){
             String elemento2 = procesoCook.get(1);
             System.out.println("Fallo en el proceso de " + elemento2);
+            
             zonas=0;
             }
             if(zonas==2){

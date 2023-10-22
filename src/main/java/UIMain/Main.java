@@ -5,13 +5,18 @@ import java.util.Scanner;
 import gestorAplicacion.comida.*;
 import gestorAplicacion.gestion.*;
 import gestorAplicacion.humanos.*;
+import baseDatos.Serializador;
+
 
 //Esta clase la he estado modificando yo (Richard), cualquier sugerencia me pueden escribir aqui
 public class Main { //preferiblemente colocar solo los metodos para que el codigo no quede todo disperso
     static Scanner input = new Scanner(System.in);
+    static boolean continuar = true;
     public static void main(String[] args) {
+        Panaderia panaderia=null;
+        panaderia=Serializador.cargarPanaderia();
         do{
-            GestionInicioCliente.sesionCliente(); //este metodo aun no esta listo
+            continuar = GestionInicioCliente.sesionCliente(panaderia); //este metodo aun no esta listo
             do{ //bucle del menu
                 boolean continuar = true;
                 UI.titulo();
@@ -32,17 +37,17 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
 
                     case "0": //cerrar sesion
                         UI.cerrarSesion();
-                    break;
+                        break;
 
                     case "1":
-                        UI.compras();
+                        UI.compras(panaderia);
                         UI.domicilio();
                         UI.facturacion();
                         UI.concluirOrden();
                         break;
 
                     case "2":
-                        UI.verCatalogoDescripcion();
+                        UI.verCatalogoDescripcion(panaderia);
                         break;
 
                     case "3":
@@ -72,7 +77,8 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
 
                 } while (eleccionValida == false | Cliente.getSesion() != null);
             }while(true);
-        } while(true);
-        
+        } while(continuar);
+        Serializador.guardarPanaderia(panaderia);
+        System.exit(0);
     }
 }

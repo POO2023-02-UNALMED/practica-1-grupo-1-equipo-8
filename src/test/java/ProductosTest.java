@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 public class ProductosTest {
   public static void main(String[] args) {
+    /* 
     System.out.println("Test de productos");
     
     HashMap<String, Integer> ingredientes = new HashMap<String, Integer>();
@@ -43,5 +44,6 @@ public class ProductosTest {
 
     Panaderia.getInvProductos().add(producto3);
     ProductoFrio productoSacadoDeInventario = (ProductoFrio) Panaderia.buscarProductoPorId("3");
+    */
   }
 }

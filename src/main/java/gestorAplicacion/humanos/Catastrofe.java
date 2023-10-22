@@ -7,7 +7,9 @@ import java.util.Random;
 import gestorAplicacion.gestion.Panaderia;
 
 public class Catastrofe {
-    
+
+    public static String[] fallosCocina = {"El producto se quemó","El cocinero se cortó un dedo","El producto se pudrió","Hubo un incendio","El cocinero está triste","Encontramos un pelo en la comida"};
+
     private int maldad;
     private static ArrayList<Catastrofe> reponsables = new ArrayList<Catastrofe>();
     private double dineroRobado;

@@ -173,7 +173,7 @@ public class Producto implements Serializable, ComidaDefault{
 		for (HashMap.Entry<String, Integer> entry : ingredientes.entrySet()) {
 			costo += Ingrediente.obtenerObjetoPorNombre(entry.getKey()).getPrecioDeVenta() * entry.getValue();
 		}
-		return costo;
+		return costo*tarifaGanancias;
 	}
 
 

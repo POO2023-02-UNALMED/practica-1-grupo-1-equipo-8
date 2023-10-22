@@ -9,7 +9,7 @@ import gestorAplicacion.gestion.Panaderia;
 import gestorAplicacion.gestion.Recibo;
 import gestorAplicacion.gestion.Inventario;
 
-public class { // en esta clase estaran habran metodos en general de la interfaz de usuario
+public class UI{ // en esta clase estaran habran metodos en general de la interfaz de usuario
   public static final String BLACK = "\u001B[30m";
   public static final String RED = "\u001B[31m";
   public static final String GREEN = "\u001B[32m";
@@ -67,41 +67,43 @@ public class { // en esta clase estaran habran metodos en general de la interfaz
 
   // Este metodo muestra las opciones de todos los productos que puede comprar el
   // cliente
-  public static String mostrarOpciones(Inventario inv) {
+  public static void mostrarOpciones(Inventario inventario) {
+    
     String mensaje = "PRODUCTOS DISPONIBLES PARA COMPRAR:";
+    mensaje += "_".repeat(55)+"\n";
     mensaje += Texto.centrar("PRODUCTOS\n");
-
+    mensaje += "_".repeat(55)+"\n";
     for (Producto producto : Producto.getBaseDatosProductos()) { // productos que le alcanza el dinero al cliente
       if (producto.getCosto() <= Cliente.getSesion().getPresupuesto()) {
         mensaje += GREEN + Texto.alinear(String.format("%s. %s", producto.getId(), producto.getNombre()),
-            producto.getUnidades(), producto.getCosto()) + RESET + "\n";
+            inventario.verificarCantidadProductoPorId(producto.getId()), producto.getCosto()) + RESET + "\n";
       }
     }
 
     for (Producto producto : Producto.getBaseDatosProductos()) { // productos que no le alcanza el dinero al cliente
       if (producto.getCosto() > Cliente.getSesion().getPresupuesto()) {
         mensaje += RED + Texto.alinear(String.format("%s. %s", producto.getId(), producto.getNombre()),
-            producto.getUnidades(), producto.getCosto()) + RESET + "\n";
+            inventario.verificarCantidadProductoPorId(producto.getId()), producto.getCosto()) + RESET + "\n";
       }
     }
-
+    mensaje += "_".repeat(55)+"\n";
     mensaje += Texto.centrar("INGREDIENTES\n");
-
+    mensaje += "_".repeat(55)+"\n";
     for (Ingrediente ingrediente : Ingrediente.getBaseDatosIngredientes()) {
       if (ingrediente.getPrecioDeVenta() < Cliente.getSesion().getPresupuesto()) {
-        mensaje += GREEN + Texto.alinear(String.format("%s. %s", ingrediente.getId(), ingrediente.getNombre()), 0,
+        mensaje += GREEN + Texto.alinear(String.format("%s. %s", ingrediente.getId(), ingrediente.getNombre()), inventario.verificarCantidadIngredientePorId(ingrediente.getId()),
             ingrediente.getPrecioDeVenta()) + RESET + "\n";
       }
     }
 
     for (Ingrediente ingrediente : Ingrediente.getBaseDatosIngredientes()) {
       if (ingrediente.getPrecioDeVenta() < Cliente.getSesion().getPresupuesto()) {
-        mensaje += RED + Texto.alinear(String.format("%s. %s", ingrediente.getId(), ingrediente.getNombre()), 0,
+        mensaje += RED + Texto.alinear(String.format("%s. %s", ingrediente.getId(), ingrediente.getNombre()), inventario.verificarCantidadIngredientePorId(ingrediente.getId()),
             ingrediente.getPrecioDeVenta()) + RESET + "\n";
       }
     }
-
-    return mensaje;
+    mensaje += "_".repeat(55)+"\n";
+    System.out.println(mensaje);
 
   }
 
@@ -155,7 +157,7 @@ public class { // en esta clase estaran habran metodos en general de la interfaz
      */
     System.out.println("");
     System.out.println("");
-    System.out.println(Texto.alinear("Domicilio", ))
+    //System.out.println(Texto.alinear("Domicilio", ))
     System.out.println("");
     System.out.println("-".repeat(55));
     System.out.println(Texto.centrar(String.format(Texto.centrar("DETALLE DE IMPUESTOS"))));
@@ -223,7 +225,7 @@ public class { // en esta clase estaran habran metodos en general de la interfaz
 
   //cerrar sesion del usuario
   public static void cerrarSesion(){ //Este metodo esta listo
-      System.out.println("Esta seguro de que quiere cerrar su sesion?");
+      System.out.println("Seguro de que quiere cerrar su sesion?");
       System.out.println("Escriba 1 para si, escriba 0 para cancelar");
       eleccion = input.nextLine();
       switch (eleccion) {
@@ -240,15 +242,15 @@ public class { // en esta clase estaran habran metodos en general de la interfaz
     }
 
   //Agregar cosas al carrito de compras
-  public static void compras(){ //este metodo esta listo, falta corregir mostrarOpciones y mostrarCanasta
+  public static void compras(Panaderia panaderia){ //este metodo esta listo, falta corregir mostrarOpciones y mostrarCanasta
     continuar = true;
-    mostrarOpciones();
-    GestionCompra.mostrarCanasta();
+    mostrarOpciones(panaderia.getInventario());
+    GestionCompra.mostrarCanasta(Cliente.getSesion().getCanastaOrden());
 
     GestionCompra.gestionRecibirOrdenCanasta(Cliente.getSesion().getCanastaOrden());
     System.out.println("");
     System.out.println("Asi queda su canasta:");
-    GestionCompra.mostrarCanasta();
+    GestionCompra.mostrarCanasta(Cliente.getSesion().getCanastaOrden());
     System.out.println("Desea continuar con la facturación y el domicilio? escriba s para si, escriba n para no, escriba 0 para volver al menu.");
     eleccion = input.nextLine();
     switch (eleccion){
@@ -315,15 +317,16 @@ public class { // en esta clase estaran habran metodos en general de la interfaz
   }
 
   //Aqui se mostrara la informacion nutricional y otros
-  public static void verCatalogoDescripcion(){
-    mostrarOpciones();
+  public static void verCatalogoDescripcion(Panaderia panaderia){
+    mostrarOpciones(panaderia.getInventario());
     GestionRankings.mostrarRankingProductos();
-    //sugerencias
-    GestionRankings.mostrarRankingDomiciliarios();
-    GestionRankings.mostrarRankingCocineros();
-    
     GestionRankings.mostrarRankingIngredientes();
-    GestionRankings.mostrarRankingCanastas();
+    //sugerencias
+    GestionRankings.mostrarRankingDomiciliarios(panaderia);
+    GestionRankings.mostrarRankingCocineros(panaderia);
+    
+    
+    GestionRankings.mostrarRankingCanastas(panaderia);
     do{
         System.out.println("Seleccione un producto (Escriba el numero de id), o escriba 0 para salir ");
         eleccion = input.nextLine();

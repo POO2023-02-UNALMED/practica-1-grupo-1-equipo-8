@@ -156,9 +156,9 @@ public class Cocinero extends Domiciliario{
         int longitud = procesoCook.size();
         
         // Itera a través de los procesos de cocina.
-        for (String proceso : procesoCook) {
+        for (int i=0; i<longitud;i++) {
             // Encuentra al cocinero ideal para el proceso actual.
-            Cocinero chefIdeal = cocineroIdeal(proceso);
+            Cocinero chefIdeal = cocineroIdeal(procesoCook.get(i));
             
             // Realiza el proceso específico para productos fríos, si corresponde.
             if (producto instanceof ProductoFrio) {
@@ -179,7 +179,9 @@ public class Cocinero extends Domiciliario{
                 // Incrementa la habilidad del cocinero si el proceso falló.
                 chefIdeal.setHabilidad(chefIdeal.getHabilidad() + 1);
                 GestionCocinar.fallosCocinando(procesoCook,longitud);
-                return true;
+                chefIdeal.detenerCoccion(producto);
+                i=-1;
+                continue;
             }
             GestionCocinar.barrasCocinando(procesoCook,longitud);
             // Establece el cocinero como ocupado.

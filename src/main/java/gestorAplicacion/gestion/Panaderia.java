@@ -457,7 +457,7 @@ public class Panaderia implements Serializable {
             }
     
             else{
-    
+                
                 return "Contrasena incorrecta";
     
             }
@@ -474,6 +474,8 @@ public class Panaderia implements Serializable {
     public String crearCuenta(String nombre, int id, String contrasena){
         Cliente cliente = new Cliente(nombre, id, contrasena);
         this.clientes.add(cliente);
+        Cliente.setSesion(cliente);
+        
         return "Cuenta creada con exito";
     }
 
