@@ -39,7 +39,7 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
                         UI.compras();
                         UI.domicilio();
                         UI.facturacion();
-                        UI.esperaCocinaDomicilio();
+                        UI.concluirOrden();
                         break;
 
                     case "2":

@@ -32,11 +32,4 @@ public  class GestionDomicilioCliente {
             System.out.println("El domicilio no se ha podido realizar \n Ya te enviaremos tu domiclio");
         }
     }
-
-    public static void mostrarRanking(){
-        ArrayList<Domiciliario> domiciliarios = Panaderia.getDomiciliarios();
-        for (Domiciliario domiciliario : domiciliarios){
-            System.out.println(domiciliario.getNombre() + " " + domiciliario.getCalificacion());
-        }
-    }
 }

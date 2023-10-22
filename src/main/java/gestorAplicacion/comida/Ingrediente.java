@@ -127,6 +127,10 @@ public class Ingrediente implements Serializable, ComidaDefault{
 		Ingrediente.baseDatosIngredientes = baseDatosIngredientes;
 	}
 
+	public static void getTopMasVendidos(ArrayList<Ingrediente> topMasVendidos) {
+		Ingrediente.topMasVendidos = topMasVendidos;
+	}
+
 	/**
 	 * Verifica si un ingrediente existe en la base de datos por su nombre.
 	 * @param nombre El nombre del ingrediente a verificar.

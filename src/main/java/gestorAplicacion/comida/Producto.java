@@ -104,6 +104,10 @@ public class Producto implements Serializable, ComidaDefault{
 		Producto.baseDatosProductos = baseDatosProductos;
 	}
 
+	public static ArrayList<Producto> getTopMasVendidos() {
+		return topMasVendidos;
+	}
+
 	//Métodos
 
 	public static boolean verificacionExistenciaPorNombre(String nombre) {

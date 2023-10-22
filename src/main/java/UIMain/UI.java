@@ -7,6 +7,7 @@ import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Panaderia;
 import gestorAplicacion.gestion.Recibo;
+import gestorAplicacion.gestion.Inventario;
 
 public class UI { // en esta clase estaran habran metodos en general de la interfaz de usuario
   public static final String BLACK = "\u001B[30m";
@@ -66,7 +67,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
   // Este metodo muestra las opciones de todos los productos que puede comprar el
   // cliente
-  public static String mostrarOpciones() {
+  public static String mostrarOpciones(Inventario inv) {
     String mensaje = "PRODUCTOS DISPONIBLES PARA COMPRAR:";
     mensaje += Texto.centrar("PRODUCTOS\n");
 
@@ -102,45 +103,6 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
     return mensaje;
 
-  }
-
-  public static String mostrarCanasta() { //Falta terminar este metodo
-    String mensaje = "PRODUCTOS EN SU CANASTA: \n";
-    mensaje += Texto.centrar("PRODUCTOS:\n");
-
-    for (Producto producto : Producto.getBaseDatosProductos()) { // productos que le alcanza el dinero al cliente
-      if (producto.getCosto() <= Cliente.getSesion().getPresupuesto()) {
-        mensaje += GREEN + Texto.alinear(String.format("%s. %s", producto.getId(), producto.getNombre()),
-            producto.getUnidades(), producto.getCosto()) + RESET + "\n";
-      }
-    }
-
-    for (Producto producto : Producto.getBaseDatosProductos()) { // productos que no le alcanza el dinero al cliente
-      if (producto.getCosto() > Cliente.getSesion().getPresupuesto()) {
-        mensaje += RED + Texto.alinear(String.format("%s. %s", producto.getId(), producto.getNombre()),
-            producto.getUnidades(), producto.getCosto()) + RESET + "\n";
-      }
-    }
-
-    mensaje += Texto.centrar("INGREDIENTES:\n");
-
-    for (Ingrediente ingrediente : Ingrediente.getBaseDatosIngredientes()) {
-      if (ingrediente.getPrecioDeVenta() < Cliente.getSesion().getPresupuesto()) {
-        mensaje += GREEN + Texto.alinear(String.format("%s. %s", ingrediente.getId(), ingrediente.getNombre()), 0,
-            ingrediente.getPrecioDeVenta()) + RESET + "\n";
-      }
-    }
-
-    mensaje += Texto.centrar("KITS DE INGREDIENTES:\n");
-
-    for (Ingrediente ingrediente : Ingrediente.getBaseDatosIngredientes()) {
-      if (ingrediente.getPrecioDeVenta() < Cliente.getSesion().getPresupuesto()) {
-        mensaje += RED + Texto.alinear(String.format("%s. %s", ingrediente.getId(), ingrediente.getNombre()), 0,
-            ingrediente.getPrecioDeVenta()) + RESET + "\n";
-      }
-    }
-
-    return mensaje;
   }
 
   public static void imprimirFactura(Recibo recibo) {
@@ -285,7 +247,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     GestionCompra.gestionRecibirOrdenCanasta(Cliente.getSesion().getCanastaOrden());
     System.out.println("");
     System.out.println("Asi queda su canasta:");
-    UI.mostrarCanasta()
+    UI.mostrarCanasta();
     System.out.println("Desea continuar con la facturación y el domicilio? escriba s para si, escriba n para no, escriba 0 para volver al menu.");
     eleccion = input.nextLine();
     switch (eleccion){
@@ -345,7 +307,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   }
 
   //En este metodo van a ir todas las notificaciones del pedido (catastrofes o si la entrega fue exitosa)
-  public static void esperaCocinaDomicilio(){ //pendiente por terminar este metodo
+  public static void concluirOrden(){ //pendiente por terminar este metodo
     if (continuar == true){
       System.out.println("Su pedido ha sido entregado con exito");
     }

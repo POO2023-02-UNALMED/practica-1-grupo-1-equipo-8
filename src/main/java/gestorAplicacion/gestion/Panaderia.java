@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.List;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Random;
 
 import UIMain.GestionConseguirIngredientes;
 import gestorAplicacion.comida.Ingrediente;
@@ -16,8 +15,6 @@ import gestorAplicacion.humanos.Cliente;
 import gestorAplicacion.humanos.Cocinero;
 import gestorAplicacion.humanos.Domiciliario;
 import gestorAplicacion.humanos.Trabajador;
-import gestorAplicacion.humanos.Cliente.*;
-import gestorAplicacion.humanos.Cliente.Direccion;
 
 import java.util.Collections;
 
@@ -42,7 +39,10 @@ public class Panaderia implements Serializable {
     }
 
     public Panaderia() {
-
+        this.dinero = 1000000;
+        this.valorDeudas = 0;
+        this.enQuiebra = false;
+        this.inventario = new Inventario();
     }
     
     //Métodos Get y Set
@@ -155,6 +155,14 @@ public class Panaderia implements Serializable {
 
     public void agregarCanastasPublicadas(Canasta canasta) {
         canastasPublicadas.add(canasta);
+    }
+
+    public ArrayList<Canasta> getCanastasPublicadas(Canasta canasta) {
+        return canastasPublicadas;
+    }
+
+    public Inventario getInventario(Inventario inventario) {
+        return inventario;
     }
 
     /**
