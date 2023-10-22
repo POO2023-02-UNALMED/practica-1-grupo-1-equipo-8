@@ -45,34 +45,13 @@ public class Serializador {
     }
 
     public static void guardarValoresEstaticos(ObjectOutputStream stream) throws IOException {
-        stream.writeObject(Panaderia.getInvIngredientes());
-        stream.writeObject(Panaderia.getInvProductos());
-        stream.writeObject(Panaderia.getTrabajadores());
-        stream.writeObject(Panaderia.getCocineros());
-        stream.writeObject(Panaderia.getDomiciliarios());
-        stream.writeObject(Panaderia.getClientes());
-        stream.writeDouble(Panaderia.getDinero());
         stream.writeObject(Panaderia.getCanastaDelDia());
-        stream.writeDouble(Panaderia.getValorDeudas());
-        stream.writeBoolean(Panaderia.isEnQuiebra());
-        stream.writeInt(Ingrediente.getCantidadIngredientes());
-        stream.writeInt(Producto.getCantidadProductos());
     }
 
     public static void cargarValoresEstaticos(ObjectInputStream stream) throws IOException {
         try {
-            Panaderia.setInvIngredientes((HashMap<Ingrediente, Integer>) stream.readObject());
-            Panaderia.setInvProductos((HashMap<Producto, Integer>) stream.readObject());
-            Panaderia.setTrabajadores((ArrayList<Trabajador>) stream.readObject());
-            Panaderia.setCocineros((ArrayList<Cocinero>) stream.readObject());
-            Panaderia.setDomiciliarios((ArrayList<Domiciliario>) stream.readObject());
-            Panaderia.setClientes((ArrayList<Cliente>) stream.readObject());
-            Panaderia.setDinero(stream.readDouble());
             Panaderia.setCanastaDelDia((Canasta) stream.readObject());
-            Panaderia.setValorDeudas(stream.readDouble());
-            Panaderia.setEnQuiebra(stream.readBoolean());
-            Ingrediente.setCantidadIngredientes(stream.readInt());
-            Producto.setCantidadProductos(stream.readInt());
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

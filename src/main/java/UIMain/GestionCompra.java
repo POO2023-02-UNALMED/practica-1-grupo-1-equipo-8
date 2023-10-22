@@ -7,6 +7,7 @@ import java.util.Scanner;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Canasta;
+import gestorAplicacion.gestion.Inventario;
 
 public class GestionCompra {
   
@@ -76,7 +77,17 @@ public class GestionCompra {
             if (numero == 0) {
               continue;
             }
-            break;
+            else if(numero>19){
+              System.out.println("No puedes pedir más de 19 productos iguales");
+              continue;
+            }
+            else if(numero < -19){
+              System.out.println("No puedes quitar más de 19 productos iguales");
+              continue;
+            }
+            else{
+              break;
+            }
           }
           catch(Exception e){
             System.out.println("Debes ingresar un numero adecuado");
@@ -116,8 +127,7 @@ public class GestionCompra {
               System.out.println("Desea agregar un producto personalizado? (Escriba '0'=No y volver al inicio - '1'=Si):");
               try{
                 String entrada = scanner.nextLine();
-                entrada = scanner.nextLine();
-                int numero = Integer.parseInt(objetoEntrante);
+                int numero = Integer.parseInt(entrada);
                 if (numero == 0) {
                   continuar = false;
                 }
@@ -188,7 +198,11 @@ public class GestionCompra {
               cantidadIngrediente = scanner.nextInt();
               if (cantidadIngrediente <= 0) {
                 System.out.println("La cantidad debe ser mayor a 0");
-              } else {
+              } 
+              else if(cantidadIngrediente>19){
+                System.out.println("No puedes pedir más de 19 ingredientes iguales");
+              }
+              else {
                 break;
               }
             } catch (Exception e) {
@@ -207,7 +221,17 @@ public class GestionCompra {
             if (numero == 0) {
               continuar = false;
             }
-            break;
+            else if(numero>19){
+              System.out.println("No puedes pedir más de 19 productos iguales");
+              continue;
+            }
+            else if(numero < -19){
+              System.out.println("No puedes quitar más de 19 productos iguales");
+              continue;
+            }
+            else{
+              break;
+            }
           }
           catch(Exception e){
             System.out.println("Debes ingresar un numero adecuado");
@@ -265,16 +289,14 @@ public class GestionCompra {
    * Muestra el contenido de la cesta de la compra, incluidos productos, ingredientes y coste total.
    */
   //Esto se va a mostrar antes de pagar, mientras el cliente agrega sus productos, y tambien en la factura
-  public void mostrarCanasta(Canasta canasta) {
+  public void mostrarCanasta(Canasta canasta, Inventario inv) {
     System.out.println(Texto.centrar("PRODUCTOS"));
     System.out.println("_".repeat(55));
     System.out.println(Texto.alinear("Descripcion", "Cantidad", "Costo"));
     System.out.println("_".repeat(55));
     System.out.println("");
-    for (Map.Entry<Producto, Integer> productoEntry : canasta.getProductos().entrySet()) {
-      Producto producto = productoEntry.getKey();
-      Integer cantidad = productoEntry.getValue();
-      System.out.println(Texto.alinear(producto.getNombre(), cantidad, producto.getCosto()));
+    for (Producto producto : canasta.getProductos()) {
+      System.out.println(Texto.alinear(producto.getNombre(), inv.verificarCantidadProductoPorId(producto.getId()), producto.getCosto()));
     }
     System.out.println("_".repeat(55));
     System.out.println("");
@@ -282,13 +304,12 @@ public class GestionCompra {
     System.out.println("_".repeat(55));
     System.out.println(Texto.alinear("Descripcion", "Cantidad", "Costo"));
     System.out.println("_".repeat(55));
-    for (Map.Entry<Ingrediente, Integer> ingredienteEntry : canasta.getIngredientes().entrySet()) {
-      Ingrediente ingrediente = ingredienteEntry.getKey();
-      Integer cantidad = ingredienteEntry.getValue();
-      System.out.println(Texto.alinear(ingrediente.getNombre(), cantidad, ingrediente.getPrecioDeVenta()));
+    for (Ingrediente ingrediente : canasta.getIngredientes()) {
+
+      System.out.println(Texto.alinear(ingrediente.getNombre(), inv.verificarCantidadIngredientePorId(ingrediente.getId()), ingrediente.getPrecioDeCompra()));
     }
     System.out.println("_".repeat(55));
-    System.out.println(Texto.alinear("Descuento efectuado: ",canasta.getDescuento()));
+    System.out.println(Texto.alinear("Descuento efectuado: ",canasta.getDescuentoEnLista()));
     System.out.println(Texto.alinear("**** SUBTOTAL/TOTAL *****",canasta.getCostoTotalEnLista())); //el valor para i1 sera el total de productos comprados
     System.out.println("_".repeat(55));
   }
