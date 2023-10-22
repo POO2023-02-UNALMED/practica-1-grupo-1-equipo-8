@@ -46,6 +46,11 @@ public class Serializador {
 
     public static void guardarValoresEstaticos(ObjectOutputStream stream) throws IOException {
         stream.writeObject(Panaderia.getCanastaDelDia());
+        stream.writeObject(Ingrediente.getBaseDatosIngredientes());
+        stream.writeObject(Ingrediente.getCantidadIngredientesUnicos());
+        stream.writeObject(Producto.getBaseDatosProductos());
+        stream.writeObject(Producto.getCantidadProductosUnicos());
+        
     }
 
     public static void cargarValoresEstaticos(ObjectInputStream stream) throws IOException {

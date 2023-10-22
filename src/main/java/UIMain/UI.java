@@ -317,12 +317,13 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   //Aqui se mostrara la informacion nutricional y otros
   public static void verCatalogoDescripcion(){
     mostrarOpciones();
+    GestionRankings.mostrarRankingProductos();
     //sugerencias
-    mostrarRankingDomiciliarios
-    mostrarRankingCocineros
-    mostrarRankingProductos
-    mostrarRankingIngredientes
-    mostrarRankingCanastas
+    GestionRankings.mostrarRankingDomiciliarios();
+    GestionRankings.mostrarRankingCocineros();
+    
+    GestionRankings.mostrarRankingIngredientes();
+    GestionRankings.mostrarRankingCanastas();
     do{
         System.out.println("Seleccione un producto (Escriba el numero de id), o escriba 0 para salir ");
         eleccion = input.nextLine();
@@ -347,7 +348,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   }
 
   //Metodo para que el cliente cambie su contraseña
-  public static void cambiarContraseña(){
+  public static void cambiarClave(){
 
   }
 

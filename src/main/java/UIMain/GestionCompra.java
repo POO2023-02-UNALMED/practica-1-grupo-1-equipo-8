@@ -295,19 +295,39 @@ public class GestionCompra {
     System.out.println(Texto.alinear("Descripcion", "Cantidad", "Costo"));
     System.out.println("_".repeat(55));
     System.out.println("");
-    for (map.Entry<Producto, Integer> entry : canasta.getProductosEnLista().entrySet()) {
-      System.out.println(Texto.alinear(producto.getNombre(), inv.verificarCantidadProductoPorId(producto.getId()), producto.getCosto()));
+    for (Map.Entry<String, Integer> entry : canasta.getProductosEnLista().entrySet()) {
+      String producto = entry.getKey();
+      Integer cantidad = entry.getValue();
+      System.out.println(Texto.alinear(Producto.obtenerObjetoPorId(producto).getNombre(), cantidad, Producto.obtenerObjetoPorId(producto).getCosto()));
     }
+
     System.out.println("_".repeat(55));
     System.out.println("");
     System.out.println(Texto.centrar("INGREDIENTES"));
     System.out.println("_".repeat(55));
     System.out.println(Texto.alinear("Descripcion", "Cantidad", "Costo"));
     System.out.println("_".repeat(55));
-    for (Ingrediente ingrediente : canasta.getIngredientes()) {
-
-      System.out.println(Texto.alinear(ingrediente.getNombre(), inv.verificarCantidadIngredientePorId(ingrediente.getId()), ingrediente.getPrecioDeCompra()));
+    System.out.println("");
+    for (Map.Entry<String, Integer> entry : canasta.getIngredientesEnLista().entrySet()) {
+      String ingrediente = entry.getKey();
+      Integer cantidad2 = entry.getValue();
+      System.out.println(Texto.alinear(Ingrediente.obtenerObjetoPorId(ingrediente).getNombre(), cantidad2, Ingrediente.obtenerObjetoPorId(ingrediente).getPrecioDeCompra()));
     }
+
+    System.out.println("_".repeat(55));
+    System.out.println("");
+    System.out.println(Texto.centrar("KITS"));
+    System.out.println("_".repeat(55));
+    System.out.println(Texto.alinear("Descripcion", "Cantidad", "Costo"));
+    System.out.println("_".repeat(55));
+    System.out.println("");
+    for (Map.Entry<String, Integer> entry : canasta.getKitsEnLista().entrySet()) {
+      String kit = entry.getKey();
+      Integer cantidad2 = entry.getValue();
+      System.out.println(Texto.alinear(Producto.obtenerObjetoPorId(kit).getNombre(), cantidad2, Producto.obtenerObjetoPorId(kit).getCosto()));
+    }
+
+
     System.out.println("_".repeat(55));
     System.out.println(Texto.alinear("Descuento efectuado: ",canasta.getDescuentoEnLista()));
     System.out.println(Texto.alinear("**** SUBTOTAL/TOTAL *****",canasta.getCostoTotalEnLista())); //el valor para i1 sera el total de productos comprados
@@ -315,6 +335,4 @@ public class GestionCompra {
   }
   
   //Este método se encarga de indicar si robaron al trabajador al ir a comprar los ingredientes
-  
-  
 }

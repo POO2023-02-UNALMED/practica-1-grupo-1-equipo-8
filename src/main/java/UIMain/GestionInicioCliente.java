@@ -5,8 +5,15 @@ import java.util.Scanner;
 import gestorAplicacion.gestion.Panaderia;
 
 public class GestionInicioCliente {
+
   public static void sesionCliente(){ //IMPORTANTE CAMBIAR EL ATRIBUTO ESTATICO CLIENTE.SESION
-    System.out.println("Brother, ya tienes cuenta?");
+  
+  
+    System.out.println("Si ya tiene una cuenta registrada con nosotros por favor ingrese 1, si desea crear una cuenta por favor ingrese 0");
+
+    if (){
+      
+    }
         /*
     *Si ya tiene cuenta, se le pide que ingrese su id y contraseña para acceder a sus datos (Se llama a inicioSesion())
       *Si los datos ingresados fueron erroneos, se le avisa al cliente y se le da la opcion de volver a intentarlo o crear una cuenta nueva

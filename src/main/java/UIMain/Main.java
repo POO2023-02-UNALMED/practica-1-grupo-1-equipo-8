@@ -49,9 +49,8 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
                     case "3":
                         UI.historialRecibos(Cliente.getSesion());
                         break;
-
                     case "4":
-                        UI.cambiarContraseña();
+                        UI.cambiarClave();
                         break;
 
                     case "5":
