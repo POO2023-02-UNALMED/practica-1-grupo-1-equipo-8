@@ -147,6 +147,11 @@ public class Domiciliario extends Trabajador{
             		valorcompra += (necesitado.getPrecioDeCompra() * cantidad);
             		
             	}
+
+                else{
+                    
+                    valorcompra += (40-cantidadexistente) * necesitado.getPrecioDeCompra();
+                }
             	
             }
             
@@ -157,6 +162,11 @@ public class Domiciliario extends Trabajador{
             		valorcompra += (necesitado.getPrecioDeCompra() * cantidad);
             		
             	}
+
+                else {
+                    
+                    valorcompra += (20-cantidadexistente) * necesitado.getPrecioDeCompra();
+                }
             	
             }
             
@@ -213,13 +223,33 @@ public class Domiciliario extends Trabajador{
                     }           	
                 }
                 
-                else {
+                else if (cantidad + cantidadexistente < 20){
                 	
                 	for (int i = 0; i < cantidad; i++) {
                         Ingrediente ingrdt = Ingrediente.crearIngrediente(ingrediente);
                         this.panaderia.getInventario().agregarIngrediente(ingrdt);
                     }           	
                 	
+                }
+
+                else{
+
+                    if (top.contains(necesitado)){
+
+                        for (int i = 0; i < (40-cantidadexistente); i++) {
+                        Ingrediente ingrdt = Ingrediente.crearIngrediente(ingrediente);
+                        this.panaderia.getInventario().agregarIngrediente(ingrdt);
+                    } 
+                  }
+
+                    else{
+                      
+                        for (int i = 0; i < (20-cantidadexistente); i++) {
+                        Ingrediente ingrdt = Ingrediente.crearIngrediente(ingrediente);
+                        this.panaderia.getInventario().agregarIngrediente(ingrdt);
+                    } 
+
+                   }
                 }
                 
             }
