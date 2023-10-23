@@ -212,14 +212,16 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
 
                     //if existentes + cantidad*2 < 40 
 
-                    if (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).verificarCantidadIngredientePorNombre(ingredienteNombre) + (cantidad * 2) <= 40){
+                    if (this.panaderia.getInventario().verificarCantidadIngredientePorNombre(ingredienteNombre) + (cantidad * 2) <= 40){
                         
                         if(this.robado==true){ 
-                            cantidad= cantidad*2;
+                            
+                            cantidad = cantidad*2;
                         }
-                        
-                        valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())  * (cantidad * 2);
-                         topp=true;  
+
+                        valorcompra = valorcompra + ((Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra()) * (cantidad));
+                        topp=true;
+
                     }
 
                     //else, lo que se compre sea 40-existentes y eso mismo se poner en el if de this robado 
@@ -227,11 +229,12 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
                     else{
 
                         if(this.robado==true){ 
-                            cantidad = (40-Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).verificarCantidadIngredientePorNombre(ingredienteNombre));
-                        }
                             
-                        valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())  * (40-Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).verificarCantidadIngredientePorNombre(ingredienteNombre));
-                        topp=true;
+                            cantidad = (40-this.panaderia.getInventario().verificarCantidadIngredientePorNombre(ingredienteNombre));
+                        }
+                        
+                        valorcompra = valorcompra + ((Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra()) * (cantidad));
+                        topp=true;        
                     }    		
                 }
             }
@@ -239,28 +242,30 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
             if(!topp){
 
                 //if de productos fuera del top
-                if (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).verificarCantidadIngredientePorNombre(ingredienteNombre) + (cantidad) <= 20){
+                if (this.panaderia.getInventario().verificarCantidadIngredientePorNombre(ingredienteNombre) + (cantidad) <= 20){
 
-                    valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())  * (cantidad);
+                    valorcompra = valorcompra + ((Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())  * (cantidad));
                 }
 
                 else{
                     
                     if(this.robado==true){ 
-                        cantidad = (20-Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).verificarCantidadIngredientePorNombre(ingredienteNombre));
+                        cantidad = (20-this.panaderia.getInventario().verificarCantidadIngredientePorNombre(ingredienteNombre));
                     }
 
-                    valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())  * (20-Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).verificarCantidadIngredientePorNombre(ingredienteNombre));
+                    valorcompra =  valorcompra + ((Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra()) * (cantidad));
                 }
             }
                 
         listingredientes.put(ingredienteNombre, cantidad);
     }
 
+
     if(valorcompra<=this.panaderia.getDinero()){
         
         this.dineroEnMano+=valorcompra;
-        this.panaderia.setDinero(this.panaderia.getDinero()-valorcompra);
+        double dinero = this.panaderia.getDinero();
+        this.panaderia.setDinero((dinero-valorcompra));
         
         if(this.robado==true){
             
@@ -284,6 +289,7 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
             }
         }
         
+        this.dineroEnMano -= valorcompra;
         return false; //Devuelve que todo salio bien
     }
 
@@ -291,7 +297,8 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
 
         this.panaderia.conseguirPrestamo(valorcompra);
         this.dineroEnMano+=valorcompra;
-        this.panaderia.setDinero((this.panaderia.getDinero()-valorcompra));
+        double dinero = this.panaderia.getDinero();
+        this.panaderia.setDinero((dinero-valorcompra));
 
         if(this.robado==true){
 
@@ -314,6 +321,7 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
                 }
         }
         
+        this.dineroEnMano -= valorcompra;
         return false; //Devuelve que todo salio bien
     }
         

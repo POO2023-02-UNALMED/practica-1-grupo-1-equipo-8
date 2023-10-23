@@ -72,26 +72,30 @@ public class SerializationTest {
     Cliente.getSesion().setPresupuesto(30000);
     
     Domiciliario domiciliario1 = new Domiciliario("Nico",panaderia);
+    Domiciliario domiciliario2 = new Domiciliario("Sasha",panaderia);
+    domiciliario2.setHabilidad(9);
     Cocinero cocinero1 = new Cocinero("Samuel", "Decoracion",panaderia);
 
     HashMap<String, Integer> ingredientesCocinar = new HashMap<String, Integer>();
     ingredientesCocinar.put("13", 2);
-    ingredientesCocinar.put("14", 2);
+    ingredientesCocinar.put("14", 6);
     ingredientesCocinar.put("15", 4);
-    ingredientesCocinar.put("16", 1);
-    ingredientesCocinar.put("17", 1);
+    ingredientesCocinar.put("16", 5);
+    ingredientesCocinar.put("17", 3);
     panaderia.cocinar(ingredientesCocinar);
     */
 
+    
     Cliente cliente1= panaderia.inicioSesionId(202);
     panaderia.inicioSesionConstrasena(cliente1,"qwerty");
     System.out.println("cliente1 cargado");
     HashMap<String, Integer> ingredientesCocinar = new HashMap<String, Integer>();
-    ingredientesCocinar.put("13", 1);
+    ingredientesCocinar.put("14", 10);
     panaderia.cocinar(ingredientesCocinar);
 
     UI.mostrarOpciones(panaderia.getInventario());
-
+    System.out.println(panaderia.getDinero());
+    
 
     Serializador.guardarPanaderia(panaderia);
     System.out.println("panaderia guardada");

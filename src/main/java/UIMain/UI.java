@@ -241,7 +241,9 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
                                                     // mostrarCanasta
     continuar = true;
     mostrarOpciones(panaderia.getInventario());
-    GestionCompra.mostrarCanasta(Cliente.getSesion().getCanastaOrden());
+    if(Cliente.getSesion().getCanastaOrden()==null){
+      Cliente.getSesion().crearCanastaNueva();
+    }
 
     GestionCompra.gestionRecibirOrdenCanasta(Cliente.getSesion().getCanastaOrden());
     System.out.println("");

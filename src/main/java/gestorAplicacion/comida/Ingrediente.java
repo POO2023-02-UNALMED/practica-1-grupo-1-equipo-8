@@ -13,7 +13,6 @@ import UIMain.GestionCocinar;
 public class Ingrediente implements Serializable, ComidaDefault{
 	private static ArrayList<Ingrediente> baseDatosIngredientes = new ArrayList<Ingrediente>();
 	private static int cantidadIngredientesUnicos;
-	private double TARIFAGANANCIA = 2/3;
 	private String nombre;
 	private String id;
 	private double PrecioDeVenta;
@@ -30,9 +29,9 @@ public class Ingrediente implements Serializable, ComidaDefault{
 		this.nombre = nombre1;
 		Random aleatorio = new Random();
 		double numeroAleatorio = aleatorio.nextInt(2701) + 300; // Genera un entero entre 0 y 100 (ambos inclusive).
-		this.PrecioDeVenta = numeroAleatorio;
-		double numeroAleatorioCompra = numeroAleatorio*TARIFAGANANCIA;
-		this.PrecioDeCompra =  Math.ceil(numeroAleatorioCompra);
+		this.PrecioDeCompra = numeroAleatorio;
+		double numeroAleatorioCompra = numeroAleatorio*ComidaDefault.tarifaGanancias;
+		this.PrecioDeVenta =  Math.ceil(numeroAleatorioCompra);
 		cantidadIngredientesUnicos++;
 		this.id = String.valueOf(cantidadIngredientesUnicos+Producto.getCantidadProductosUnicos());
 		baseDatosIngredientes.add(this);
@@ -107,14 +106,6 @@ public class Ingrediente implements Serializable, ComidaDefault{
     public void setCaducado(boolean caducado) {
     	this.caducado = caducado;
     }
-
-	public double getTARIFAGANANCIA() {
-		return TARIFAGANANCIA;
-	}
-
-	public void setTARIFAGANANCIA(double tARIFAGANANCIA) {
-		TARIFAGANANCIA = tARIFAGANANCIA;
-	}
 
 	public Inventario getInventario() {
 		return inventario;

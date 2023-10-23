@@ -50,7 +50,7 @@ public class GestionCompra {
       if(tipoDeProducto.equalsIgnoreCase("1")){
         tipoDeProducto = "0";
         while(true){
-          System.out.println("Ingrese el id del elemento que quiere modificar de la orden(Escriba '0'para volver atrás): ");
+          System.out.println("Ingrese el id del elemento que quiere modificar de la orden(Escriba '0'para volver atras): ");
           try{
             objetoEntrante = scanner.nextLine();
             int numero = Integer.parseInt(objetoEntrante);
@@ -70,7 +70,7 @@ public class GestionCompra {
         }
 
         while(true){
-          System.out.println("Ingrese la cantidad (Número positivo para agregar a la orden, negativo para restar de la orden) (Escriba '0'para volver atrás) : ");
+          System.out.println("Ingrese la cantidad (Numero positivo para agregar a la orden, negativo para restar de la orden) (Escriba '0'para volver atras) : ");
           try{
             cantidad = scanner.nextLine();
             int numero = Integer.parseInt(cantidad);
@@ -120,7 +120,7 @@ public class GestionCompra {
         else {
           System.out.println(respuesta);
           if(respuesta.equals("No se ha podido realizar el proceso")){
-            System.out.println("No manejamos un producto con el id que ingresó");
+            System.out.println("No manejamos un producto con el id que ingreso");
             System.out.println("Si nos indica los ingredientes necesarios para su preparacion, se lo cocinaremos");
             
             while(true){
@@ -214,7 +214,7 @@ public class GestionCompra {
           }
         
         while(true){
-          System.out.println("Ingrese la cantidad (Número positivo para agregar a la orden, negativo para restar de la orden) (Escriba '0'para volver atrás) : ");
+          System.out.println("Ingrese la cantidad (Numero positivo para agregar a la orden, negativo para restar de la orden) (Escriba '0'para volver atras) : ");
           try{
             cantidad = scanner.nextLine();
             int numero = Integer.parseInt(cantidad);
@@ -222,11 +222,11 @@ public class GestionCompra {
               continuar = false;
             }
             else if(numero>19){
-              System.out.println("No puedes pedir más de 19 productos iguales");
+              System.out.println("No puedes pedir mas de 19 productos iguales");
               continue;
             }
             else if(numero < -19){
-              System.out.println("No puedes quitar más de 19 productos iguales");
+              System.out.println("No puedes quitar mas de 19 productos iguales");
               continue;
             }
             else{
@@ -263,6 +263,7 @@ public class GestionCompra {
           continue;
         }
       }
+      mostrarCanasta(canasta);
       System.out.println("Desea agregar otro producto o ingrediente a la canasta? (Escriba '0' para terminar - '1' para seguir):");
       try{
         String entrada;
@@ -281,6 +282,7 @@ public class GestionCompra {
       if(!continuar){
         break;
       }
+
     }
     scanner.close();
   }

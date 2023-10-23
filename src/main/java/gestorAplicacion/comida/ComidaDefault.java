@@ -4,7 +4,7 @@ import UIMain.Texto;
 
 public interface ComidaDefault {
     final int tarifaDomicilio = 2000;
-    final int tarifaGanancias = 3;
+    final double tarifaGanancias = 1.7;
     final double tarifaImputestos = 0.19;
 
     default public String getDescripcion(){

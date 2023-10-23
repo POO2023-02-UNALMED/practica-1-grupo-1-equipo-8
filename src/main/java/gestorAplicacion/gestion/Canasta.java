@@ -447,7 +447,7 @@ public class Canasta implements Serializable {
     double descuentoCanasta=0.0;
     if(productosEnLista!=null){
       for (Map.Entry<String, Integer> productoEntry : productosEnLista.entrySet()) {
-        Producto producto = Producto.obtenerObjetoPorNombre(productoEntry.getKey());
+        Producto producto = Producto.obtenerObjetoPorId(productoEntry.getKey());
         Integer cantidad = productoEntry.getValue();
         double descuento = cuponProductos(producto, cantidad);
         costoCanasta+= producto.getCosto() * cantidad * descuento;
@@ -456,7 +456,7 @@ public class Canasta implements Serializable {
     }
     if(ingredientesEnLista!=null){
       for (Map.Entry<String, Integer> ingredienteEntry : ingredientesEnLista.entrySet()) {
-        Ingrediente ingrediente = Ingrediente.obtenerObjetoPorNombre(ingredienteEntry.getKey());
+        Ingrediente ingrediente = Ingrediente.obtenerObjetoPorId(ingredienteEntry.getKey());
         Integer cantidad = ingredienteEntry.getValue();
         costoCanasta += ingrediente.getPrecioDeVenta() * cantidad;
       }
@@ -588,11 +588,11 @@ public class Canasta implements Serializable {
    * correspondientes.
    */
   public enum DescuentoProducto {
-    PRODUCTO_A("Producto A", 0.1),
-    PRODUCTO_B("Producto B", 0.1),
-    PRODUCTO_C("Producto C", 0.1),
-    PRODUCTO_D("Producto D", 0.1),
-    PRODUCTO_E("Producto E", 0.1);
+    PRODUCTO_A("rollos de canela", 0.1),
+    PRODUCTO_B("bunuelo", 0.1),
+    PRODUCTO_C("brownie", 0.1),
+    PRODUCTO_D("torta de milo", 0.1),
+    PRODUCTO_E("cheesecake", 0.1);
 
     private final String producto;
     private final double valor;
