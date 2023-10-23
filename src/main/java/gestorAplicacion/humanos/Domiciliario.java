@@ -20,6 +20,7 @@ public class Domiciliario extends Trabajador{
     Canasta canasta;
     private boolean empaqueFrio;
     private Panaderia panaderia;
+    private double costoDomicilio;
 
     public Domiciliario() {
         super();
@@ -136,6 +137,22 @@ public class Domiciliario extends Trabajador{
 	public Boolean getOcupado() {
 		return ocupado;
 	}
+
+    public double getCostoDomicilio() {
+        return costoDomicilio;
+    }
+
+    public void calcularCostoDomicilio(Cliente cliente, Canasta canasta){
+        ArrayList<Producto> productos = canasta.getProductos();
+        double costo = 0;
+        for (Producto producto : productos){
+            costo += producto.getCosto();
+        }
+        double longitud = productos.size();
+        if (longitud > 15){
+            costo = costo*0.7;
+        }
+    }
 
 	public boolean laborParticular(Canasta canasta){
         
