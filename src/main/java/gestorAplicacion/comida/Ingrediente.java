@@ -7,12 +7,13 @@ import java.util.Random;
 
 import gestorAplicacion.gestion.Inventario;
 import gestorAplicacion.gestion.Panaderia;
+import UIMain.GestionCocinar;
 
 //necesito un metodo o un atributo que me de los ingredientes disponibles en bodega!!! (Richard)
 public class Ingrediente implements Serializable, ComidaDefault{
 	private static ArrayList<Ingrediente> baseDatosIngredientes = new ArrayList<Ingrediente>();
 	private static int cantidadIngredientesUnicos;
-	private double TARIFAGANANCIA =2/3;
+	private double TARIFAGANANCIA = 2/3;
 	private String nombre;
 	private String id;
 	private double PrecioDeVenta;
@@ -223,7 +224,7 @@ public class Ingrediente implements Serializable, ComidaDefault{
 		if(vencido){
 		String ingredienteId = this.getId();
 		panaderia.getInventario().restarIngrediente(ingredienteId, cantidad);
-		
+		GestionCocinar.falloCaducado();
 		}	
 	}
 

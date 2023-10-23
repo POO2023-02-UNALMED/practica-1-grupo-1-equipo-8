@@ -246,4 +246,9 @@ public class GestionCocinar {
         System.out.println(Texto.centrar("X    X"));
         System.out.println(Texto.centrar("Fallo por falta de ingredientes"));
     }
+
+    public static void falloCaducado(){
+    System.out.println(Texto.centrar("Botamos algunos ingredientes caducados :/"));   
+    }
 }
+//Mateo MVP

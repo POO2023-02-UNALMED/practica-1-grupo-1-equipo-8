@@ -132,7 +132,7 @@ public class Inventario implements Serializable{
         return null;
     }
 
-    public Ingrediente buscarIngredientePorNombre(String nombre) {
+    public Ingrediente IngredientePorNombrebuscar(String nombre) {
         for(Ingrediente ingrediente: invIngredientes) {
             if (ingrediente.getNombre().equals(nombre)) {
                 return ingrediente;

@@ -12,6 +12,7 @@ import gestorAplicacion.gestion.Recibo;
 import UIMain.GestionCocinar;
 import UIMain.GestionDomicilioCliente;
 
+
 public class Cliente implements Serializable{
 
 	public void setId(int id) {
@@ -304,6 +305,11 @@ public class Cliente implements Serializable{
 		double calificacionVieja = cocinero.getCalificacion();
 		double calificacionNueva = (calificacionVieja + calificacion)/2;
 		cocinero.setCalificacion(calificacionNueva);
+		for (Cocinero calificarCocinero : this.panaderia.getCocineros()) {
+			if (cocinero.isTrabajo()) {
+				this.panaderia.reviewCocinero(calificarCocinero);
+			}
+		}
 	}
 
 public void notaCocineros() {
@@ -320,17 +326,10 @@ public void notaCocineros() {
 	}
 
 	public void enviarCanastasADomicilio(Canasta canastas){
-		enviarCanastasAFacturar(canastas);
 		this.panaderia.enviarDomicilio(canastas, this);
 		double calificacion = GestionDomicilioCliente.pedirCalificacion();
 		calificarDomiciliario(domiciliario, calificacion);
 		this.panaderia.reviewDomiciliario(domiciliario);
-		notaCocineros();
-		for (Cocinero cocinero : this.panaderia.getCocineros()) {
-		if (cocinero.isTrabajo()) {
-			this.panaderia.reviewCocinero(cocinero);
-		}
-	}
 }
 
 	//Métodos para agregar la informacion faltante del cliente

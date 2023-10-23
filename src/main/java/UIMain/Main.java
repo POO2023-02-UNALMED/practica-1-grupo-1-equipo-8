@@ -6,18 +6,22 @@ import gestorAplicacion.gestion.*;
 import gestorAplicacion.humanos.*;
 import baseDatos.Serializador;
 
-
 //Esta clase la he estado modificando yo (Richard), cualquier sugerencia me pueden escribir aqui
-public class Main { //preferiblemente colocar solo los metodos para que el codigo no quede todo disperso
-    static Scanner input = new Scanner(System.in);
+public class Main { // preferiblemente colocar solo los metodos para que el codigo no quede todo
+                    // disperso
     static boolean continuar = true;
     static boolean eleccionValida = true;
+
     public static void main(String[] args) {
         Panaderia panaderia=null;
         panaderia=Serializador.cargarPanaderia();
+        
         do{
-            continuar = GestionInicioCliente.sesionCliente(panaderia); //este metodo aun no esta listo
-            do{ //bucle del menu
+            continuar = GestionInicioCliente.sesionCliente(panaderia);
+            if(!continuar){
+                break;
+            }
+            while (eleccionValida == false || Cliente.getSesion() != null){ //bucle del menu
                 UI.titulo();
                 String strOpciones = "Escriba el numero correspondiente a la opcion que quiere elegir\n" +
                         "0. Cerrar sesion\n" +
@@ -25,13 +29,16 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
                         "2. Ver catalogo de productos y descripcion\n"+
                         "3. Lo mejor de nuestra panaderia\n" +
                         "4. Ver las facturas de mis compras pasadas\n" +
-                        "5. Cambiar contraseña\n" +
+                        "5. Cambiar contrasena\n" +
                         "6. Meter plata a mi cuenta\n" +
                         "7. validar tipo de cliente\n" +
                         "8. Historial de ordenes, pedir canastas otra vez";
         
                 System.out.println(strOpciones);
-                String eleccion = input.nextLine();
+                Scanner input = new Scanner(System.in);
+                String eleccion = "";
+                eleccion = input.nextLine();
+                input.close();
                 eleccionValida = true;
                 switch (eleccion) {
 
@@ -78,8 +85,9 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
                         eleccionValida = false;
                         break;
                 }
-            } while (eleccionValida == false | Cliente.getSesion() != null);
-        } while(continuar);
+
+            }
+        } while(true);
         Serializador.guardarPanaderia(panaderia);
         System.exit(0);
     }

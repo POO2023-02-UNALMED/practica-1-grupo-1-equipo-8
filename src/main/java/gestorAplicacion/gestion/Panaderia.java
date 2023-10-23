@@ -19,7 +19,7 @@ import gestorAplicacion.humanos.Trabajador;
 import java.util.Collections;
 
 public class Panaderia implements Serializable {
-	
+
     private ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
     private ArrayList<Cocinero> cocineros = new ArrayList<Cocinero>();
     private ArrayList<Domiciliario> domiciliarios = new ArrayList<Domiciliario>();
@@ -32,7 +32,7 @@ public class Panaderia implements Serializable {
     private static Canasta canastaDelDia;
     private ArrayList<Canasta> canastasPublicadas = new ArrayList<Canasta>();
     private Inventario inventario;
-    
+
     static {
         // Agregar lista de productos de la canasta del dia
         canastaDelDia = new Canasta();
@@ -44,92 +44,92 @@ public class Panaderia implements Serializable {
         this.enQuiebra = false;
         this.inventario = new Inventario();
     }
-    
-    //Métodos Get y Set
 
-	public ArrayList<Trabajador> getTrabajadores() {
-		return trabajadores;
-	}
+    // Métodos Get y Set
 
-	public void setTrabajadores(ArrayList<Trabajador> trabajadores) {
-		this.trabajadores = trabajadores;
-	}
+    public ArrayList<Trabajador> getTrabajadores() {
+        return trabajadores;
+    }
 
-	public ArrayList<Cocinero> getCocineros() {
-		return cocineros;
-	}
+    public void setTrabajadores(ArrayList<Trabajador> trabajadores) {
+        this.trabajadores = trabajadores;
+    }
 
-	public void setCocineros(ArrayList<Cocinero> cocineros) {
-		this.cocineros = cocineros;
-	}
+    public ArrayList<Cocinero> getCocineros() {
+        return cocineros;
+    }
 
-	public ArrayList<Domiciliario> getDomiciliarios() {
-		return domiciliarios;
-	}
+    public void setCocineros(ArrayList<Cocinero> cocineros) {
+        this.cocineros = cocineros;
+    }
 
-	public void setDomiciliarios(ArrayList<Domiciliario> domiciliarios) {
-		this.domiciliarios = domiciliarios;
-	}
+    public ArrayList<Domiciliario> getDomiciliarios() {
+        return domiciliarios;
+    }
 
-	public ArrayList<Cliente> getClientes() {
-		return clientes;
-	}
+    public void setDomiciliarios(ArrayList<Domiciliario> domiciliarios) {
+        this.domiciliarios = domiciliarios;
+    }
 
-	public void setClientes(ArrayList<Cliente> clientes) {
-		this.clientes = clientes;
-	}
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
 
-	public double getDinero() {
-		return dinero;
-	}
+    public void setClientes(ArrayList<Cliente> clientes) {
+        this.clientes = clientes;
+    }
 
-	public void setDinero(double dinero) {
-		this.dinero = dinero;
-	}
+    public double getDinero() {
+        return dinero;
+    }
 
-	public double getValorDeudas() {
-		return valorDeudas;
-	}
+    public void setDinero(double dinero) {
+        this.dinero = dinero;
+    }
 
-	public void setValorDeudas(double valorDeudas) {
-		this.valorDeudas = valorDeudas;
-	}
+    public double getValorDeudas() {
+        return valorDeudas;
+    }
 
-	public boolean isEnQuiebra() {
-		return enQuiebra;
-	}
+    public void setValorDeudas(double valorDeudas) {
+        this.valorDeudas = valorDeudas;
+    }
 
-	public void setEnQuiebra(boolean enQuiebra) {
-		this.enQuiebra = enQuiebra;
-	}
+    public boolean isEnQuiebra() {
+        return enQuiebra;
+    }
 
-	public static Canasta getCanastaDelDia() {
-		return canastaDelDia;
-	}
+    public void setEnQuiebra(boolean enQuiebra) {
+        this.enQuiebra = enQuiebra;
+    }
 
-	public static void setCanastaDelDia(Canasta canastaDelDia) {
-		Panaderia.canastaDelDia = canastaDelDia;
-	}
+    public static Canasta getCanastaDelDia() {
+        return canastaDelDia;
+    }
 
-	public ArrayList<Canasta> getCanastasPublicadas() {
-		return canastasPublicadas;
-	}
+    public static void setCanastaDelDia(Canasta canastaDelDia) {
+        Panaderia.canastaDelDia = canastaDelDia;
+    }
 
-	public void setCanastasPublicadas(ArrayList<Canasta> canastasPublicadas) {
-		this.canastasPublicadas = canastasPublicadas;
-	}
-	
+    public ArrayList<Canasta> getCanastasPublicadas() {
+        return canastasPublicadas;
+    }
+
+    public void setCanastasPublicadas(ArrayList<Canasta> canastasPublicadas) {
+        this.canastasPublicadas = canastasPublicadas;
+    }
+
     public Inventario getInventario() {
-		return inventario;
-	}
+        return inventario;
+    }
 
-	public void setInventario(Inventario inventario) {
-		this.inventario = inventario;
-	}
+    public void setInventario(Inventario inventario) {
+        this.inventario = inventario;
+    }
 
-	//Metodos para agregar elementos a las listas
+    // Metodos para agregar elementos a las listas
 
-	public void agregarTrabajador(Trabajador cocinero) {
+    public void agregarTrabajador(Trabajador cocinero) {
         this.trabajadores.add(cocinero);
     }
 
@@ -174,86 +174,93 @@ public class Panaderia implements Serializable {
     }
 
     /**
-     * Contrata un nuevo cocinero y lo agrega a la lista de cocineros de la panadería.
-     * @param nombre El nombre del cocinero a contratar.
-     * @param habilidad La habilidad del cocinero a contratar.
+     * Contrata un nuevo cocinero y lo agrega a la lista de cocineros de la
+     * panadería.
+     * 
+     * @param nombre       El nombre del cocinero a contratar.
+     * @param habilidad    La habilidad del cocinero a contratar.
      * @param calificacion La calificación del cocinero a contratar.
      * @param dineroEnMano La cantidad de dinero en mano del cocinero a contratar.
      * @param especialidad La especialidad del cocinero a contratar.
      * @return El objeto Cocinero recién contratado.
      */
-    public Cocinero contratarCocinero(String nombre, double habilidad,double calificacion, double dineroEnMano, String especialidad) {
-        Cocinero indicado = new Cocinero(nombre, habilidad,calificacion, dineroEnMano, especialidad, this);
+    public Cocinero contratarCocinero(String nombre, double habilidad, double calificacion, double dineroEnMano,
+            String especialidad) {
+        Cocinero indicado = new Cocinero(nombre, habilidad, calificacion, dineroEnMano, especialidad, this);
         this.cocineros.add(indicado);
         return indicado;
-        
+
     }
-    
 
-    //Métodos para saldar las deudas de la panadería
-    
-    //Este método se encarga de saldar las deudas de la panadería
-    //No tiene parámetros ya que trabaja con los atributos de esta
-    //Devuelve un booleano que será true si la panadería quebró y false si no lo hizo
-    //Este booleano quedará guardado en el atributo enQuiebra de la panadería 
-    //Para evitar el fin del programa, siempre que la panadería quiebre la comprará una franquicia más grande y le dará dinero 
-    
-    public boolean saldarDeudas(){
+    // Métodos para saldar las deudas de la panadería
 
-        if (this.valorDeudas < this.dinero){
+    // Este método se encarga de saldar las deudas de la panadería
+    // No tiene parámetros ya que trabaja con los atributos de esta
+    // Devuelve un booleano que será true si la panadería quebró y false si no lo
+    // hizo
+    // Este booleano quedará guardado en el atributo enQuiebra de la panadería
+    // Para evitar el fin del programa, siempre que la panadería quiebre la comprará
+    // una franquicia más grande y le dará dinero
 
-            this.dinero = this.dinero-this.valorDeudas;
+    public boolean saldarDeudas() {
+
+        if (this.valorDeudas < this.dinero) {
+
+            this.dinero = this.dinero - this.valorDeudas;
             this.valorDeudas = 0;
             this.enQuiebra = false;
             return this.enQuiebra;
         }
 
         else {
-            
+
             this.enQuiebra = true;
             this.dinero = 10000000;
             return this.enQuiebra;
         }
 
     }
-    
-  //Este método se encarga de pedir un prestamo cuando la panadería no tenga suficiente dinero para comprar ingredientes
-  //El parámetro double es el valor de la compra que necesita hacer la panadería
-  //No devolverá nada ya que agregará el dinero que necesite la panadería una vez se acepte el prestamo
-  //El prestamo será aceptado solamente si la panadería no tiene deudas
+
+    // Este método se encarga de pedir un prestamo cuando la panadería no tenga
+    // suficiente dinero para comprar ingredientes
+    // El parámetro double es el valor de la compra que necesita hacer la panadería
+    // No devolverá nada ya que agregará el dinero que necesite la panadería una vez
+    // se acepte el prestamo
+    // El prestamo será aceptado solamente si la panadería no tiene deudas
 
     public void conseguirPrestamo(double valorNecesitado) {
 
-        if (this.valorDeudas == 0){
+        if (this.valorDeudas == 0) {
 
             this.dinero += valorNecesitado;
             this.valorDeudas = valorNecesitado;
 
         }
 
-        else{
+        else {
 
             this.saldarDeudas();
-            
+
             while (this.enQuiebra == true) {
-            
+
                 GestionConseguirIngredientes.lecturaQuiebra(this.enQuiebra);
                 this.saldarDeudas();
-        
+
             }
-            
+
             this.dinero += valorNecesitado;
             this.valorDeudas = valorNecesitado;
 
         }
-        
+
         GestionConseguirIngredientes.lecturaQuiebra(this.enQuiebra);
 
     }
 
-    //TODO Desarrollar el metodo cobrarCliente que recibe una lista de canastas y un recibo y cobra al cliente, además actualiza la plata de la panaderia
+    // TODO Desarrollar el metodo cobrarCliente que recibe una lista de canastas y
+    // un recibo y cobra al cliente, además actualiza la plata de la panaderia
     public void cobrarCliente(List<Canasta> canastas, List<Recibo> recibo) {
-        
+
     }
 
     public void enviarDomicilio(Canasta canasta, Cliente cliente) {
@@ -277,6 +284,9 @@ public class Panaderia implements Serializable {
         domiciliario.setCanasta(canasta);
         domiciliario.setOcupado(true);
         cliente.setDomiciliario(domiciliario);
+        double costo = domiciliario.calcularCostoDomicilio(cliente, canasta);
+        domiciliario.setCostoDomicilio(costo);
+
         boolean logro = domiciliario.laborParticular(canasta);
         while (!logro){
             domiciliario.setHabilidad(domiciliario.getHabilidad()+1);
@@ -287,28 +297,30 @@ public class Panaderia implements Serializable {
         cliente.setDomiciliario(null);
     }
 
-    public void reviewDomiciliario(Domiciliario domiciliario){
+    public void reviewDomiciliario(Domiciliario domiciliario) {
         double calificacion = domiciliario.getCalificacion();
-        if (calificacion < 3){
-            domiciliario.setSalario(domiciliario.getSalario()*0.9);
-        } else if (calificacion == 5){
-            domiciliario.setSalario(domiciliario.getSalario()*1.1);
+        if (calificacion < 3) {
+            domiciliario.setSalario(domiciliario.getSalario() * 0.9);
+        } else if (calificacion == 5) {
+            domiciliario.setSalario(domiciliario.getSalario() * 1.1);
         }
     }
 
-    public void reviewCocinero(Cocinero cocinero){
+    public void reviewCocinero(Cocinero cocinero) {
         double calificacion = cocinero.getCalificacion();
-        if (calificacion < 3){
-            cocinero.setSalario(cocinero.getSalario()*0.9);
-        } else if (calificacion == 5){
-            cocinero.setSalario(cocinero.getSalario()*1.1);
+        if (calificacion < 3) {
+            cocinero.setSalario(cocinero.getSalario() * 0.9);
+        } else if (calificacion == 5) {
+            cocinero.setSalario(cocinero.getSalario() * 1.1);
         }
     }
-
 
     /**
-     * Método que permite cocinar una canasta de productos utilizando un cocinero aleatorio.
-     * @param productosParaCocinar HashMap que contiene los productos y su cantidad necesaria para cocinar.
+     * Método que permite cocinar una canasta de productos utilizando un cocinero
+     * aleatorio.
+     * 
+     * @param productosParaCocinar HashMap que contiene los productos y su cantidad
+     *                             necesaria para cocinar.
      */
     public void cocinar(HashMap<String, Integer> productosParaCocinar) {
         Canasta canastaDeProductosCocinar = new Canasta();
@@ -316,75 +328,86 @@ public class Panaderia implements Serializable {
         ArrayList<Canasta> canastaParaCocinar = new ArrayList<Canasta>();
         canastaParaCocinar.add(canastaDeProductosCocinar);
         Cocinero cocinero = cocineroAleatorio();
-        while(true){
-            if(cocinero.laborParticular(canastaDeProductosCocinar)){
+        while (true) {
+            if (cocinero.laborParticular(canastaDeProductosCocinar)) {
                 break;
             }
         }
     }
-    
+
     /**
-     * Agrega los productos especificados en una canasta y devuelve una lista de los productos agregados.
-     * Si algún producto no tiene suficiente cantidad en la panadería, se cocinará la cantidad faltante.
-     * @param productos un HashMap que contiene los IDs de los productos y la cantidad deseada de cada uno.
+     * Agrega los productos especificados en una canasta y devuelve una lista de los
+     * productos agregados.
+     * Si algún producto no tiene suficiente cantidad en la panadería, se cocinará
+     * la cantidad faltante.
+     * 
+     * @param productos un HashMap que contiene los IDs de los productos y la
+     *                  cantidad deseada de cada uno.
      * @return una ArrayList con los productos agregados a la canasta.
      */
-    
+
     public ArrayList<Producto> agregarProductosACanasta(HashMap<String, Integer> productos) {
         ArrayList<Producto> productosCanasta = new ArrayList<Producto>();
         HashMap<String, Integer> productosFaltantes = new HashMap<String, Integer>();
         for (Map.Entry<String, Integer> entry : productos.entrySet()) {
             int cantidadExistente = this.inventario.verificarCantidadIngredientePorId(entry.getKey());
-            if (cantidadExistente-entry.getValue()<0){
-                productosFaltantes.put(entry.getKey(),(cantidadExistente-entry.getValue())*(-2));
+            if (cantidadExistente - entry.getValue() < 0) {
+                productosFaltantes.put(entry.getKey(), (cantidadExistente - entry.getValue()) * (-2));
             }
         }
-        if(!productosFaltantes.isEmpty()){
+        if (!productosFaltantes.isEmpty()) {
             cocinar(productosFaltantes);
         }
         for (Map.Entry<String, Integer> entry : productos.entrySet()) {
-            for (int i=0;i<entry.getValue();i++){
+            for (int i = 0; i < entry.getValue(); i++) {
                 productosCanasta.add(this.inventario.buscarProductoPorId(entry.getKey()));
-                this.inventario.restarProducto(entry.getKey(),entry.getValue());
+                this.inventario.restarProducto(entry.getKey(), entry.getValue());
             }
         }
         return productosCanasta;
     }
 
-
     /**
-     * Agrega los ingredientes especificados en una canasta y devuelve una lista con los ingredientes agregados.
-     * Si algún ingrediente no tiene suficiente cantidad en la panadería, se comprará la cantidad faltante.
-     * @param ingredientes Un HashMap que contiene los ingredientes y la cantidad deseada de cada uno.
-     * @return Una lista de objetos Ingrediente que representa los ingredientes agregados a la canasta.
+     * Agrega los ingredientes especificados en una canasta y devuelve una lista con
+     * los ingredientes agregados.
+     * Si algún ingrediente no tiene suficiente cantidad en la panadería, se
+     * comprará la cantidad faltante.
+     * 
+     * @param ingredientes Un HashMap que contiene los ingredientes y la cantidad
+     *                     deseada de cada uno.
+     * @return Una lista de objetos Ingrediente que representa los ingredientes
+     *         agregados a la canasta.
      */
     public ArrayList<Ingrediente> agregarIngredientesACanasta(HashMap<String, Integer> ingredientes) {
         ArrayList<Ingrediente> ingredientesCanasta = new ArrayList<Ingrediente>();
         HashMap<String, Integer> ingredientesFaltantes = new HashMap<String, Integer>();
         for (Map.Entry<String, Integer> entry : ingredientes.entrySet()) {
             int cantidadExistente = this.inventario.verificarCantidadIngredientePorId(entry.getKey());
-            if (cantidadExistente-entry.getValue()<0){
-                ingredientesFaltantes.put(entry.getKey(),(cantidadExistente-entry.getValue())*(-2));
+            if (cantidadExistente - entry.getValue() < 0) {
+                ingredientesFaltantes.put(entry.getKey(), (cantidadExistente - entry.getValue()) * (-2));
             }
         }
-        if(!ingredientesFaltantes.isEmpty()){
+        if (!ingredientesFaltantes.isEmpty()) {
             comprarIngredientes(ingredientesFaltantes);
         }
         for (Map.Entry<String, Integer> entry : ingredientes.entrySet()) {
-            for (int i=0;i<entry.getValue();i++){
+            for (int i = 0; i < entry.getValue(); i++) {
                 ingredientesCanasta.add(this.inventario.buscarIngredientePorId(entry.getKey()));
-                this.inventario.restarIngrediente(entry.getKey(),entry.getValue());
+                this.inventario.restarIngrediente(entry.getKey(), entry.getValue());
             }
         }
         return ingredientesCanasta;
     }
 
-
     /**
-     * Agrega los kits de productos a la canasta y retorna una lista de kits de ingredientes.
+     * Agrega los kits de productos a la canasta y retorna una lista de kits de
+     * ingredientes.
      * Si no hay suficientes ingredientes para los kits, los compra automáticamente.
-     * @param kitsEnLista HashMap que contiene los ids de los kits y la cantidad de veces que se deben agregar a la canasta.
-     * @return ArrayList de ArrayLists de ingredientes que representan los kits agregados a la canasta.
+     * 
+     * @param kitsEnLista HashMap que contiene los ids de los kits y la cantidad de
+     *                    veces que se deben agregar a la canasta.
+     * @return ArrayList de ArrayLists de ingredientes que representan los kits
+     *         agregados a la canasta.
      */
     public ArrayList<ArrayList<Ingrediente>> agregarKitsACanasta(HashMap<String, Integer> kitsEnLista) {
         ArrayList<ArrayList<Ingrediente>> kitsCanasta = new ArrayList<ArrayList<Ingrediente>>();
@@ -393,32 +416,36 @@ public class Panaderia implements Serializable {
             String idKit = kit.getKey();
             Integer cantidad = kit.getValue();
             Map<String, Integer> ingredientesKit = Producto.obtenerObjetoPorId(idKit).getIngredientes();
-            ingredientesKit.forEach((ingrediente,cantidadIngrediente)-> ingredientesKit.put(ingrediente,cantidadIngrediente*cantidad));
-            for(Map.Entry<String, Integer> entry : ingredientesKit.entrySet()){
+            ingredientesKit.forEach((ingrediente, cantidadIngrediente) -> ingredientesKit.put(ingrediente,
+                    cantidadIngrediente * cantidad));
+            for (Map.Entry<String, Integer> entry : ingredientesKit.entrySet()) {
                 int cantidadExistente = this.inventario.verificarCantidadIngredientePorId(entry.getKey());
-                if (cantidadExistente-entry.getValue()<0){
-                    if(ingredientesFaltantes.containsKey(entry.getKey())) {
-                        ingredientesFaltantes.put(entry.getKey(), ingredientesFaltantes.get(entry.getKey()) + (cantidadExistente - entry.getValue()) * (-2));
-                    }else{
-                        ingredientesFaltantes.put(entry.getKey(),(cantidadExistente-entry.getValue())*(-2));
+                if (cantidadExistente - entry.getValue() < 0) {
+                    if (ingredientesFaltantes.containsKey(entry.getKey())) {
+                        ingredientesFaltantes.put(entry.getKey(), ingredientesFaltantes.get(entry.getKey())
+                                + (cantidadExistente - entry.getValue()) * (-2));
+                    } else {
+                        ingredientesFaltantes.put(entry.getKey(), (cantidadExistente - entry.getValue()) * (-2));
                     }
                 }
             }
         }
-        if(!ingredientesFaltantes.isEmpty()){
+        if (!ingredientesFaltantes.isEmpty()) {
             comprarIngredientes(ingredientesFaltantes);
         }
-        for(Map.Entry<String, Integer> kit : kitsEnLista.entrySet()){
+        for (Map.Entry<String, Integer> kit : kitsEnLista.entrySet()) {
             String idKit = kit.getKey();
             Integer cantidad = kit.getValue();
-            for (int i=0;i<cantidad;i++){
+            for (int i = 0; i < cantidad; i++) {
                 ArrayList<Ingrediente> kitCanasta = new ArrayList<Ingrediente>();
-                for (Map.Entry<String, Integer> entry : Producto.obtenerObjetoPorId(idKit).getIngredientes().entrySet()) {
-                    for (int j=0;j<entry.getValue();j++){
+                for (Map.Entry<String, Integer> entry : Producto.obtenerObjetoPorId(idKit).getIngredientes()
+                        .entrySet()) {
+                    for (int j = 0; j < entry.getValue(); j++) {
                         kitCanasta.add(this.inventario.buscarIngredientePorId(entry.getKey()));
-                        Ingrediente.obtenerObjetoPorId(entry.getKey()).setVecesVendido(Ingrediente.obtenerObjetoPorId(entry.getKey()).getVecesVendido()+1);
+                        Ingrediente.obtenerObjetoPorId(entry.getKey())
+                                .setVecesVendido(Ingrediente.obtenerObjetoPorId(entry.getKey()).getVecesVendido() + 1);
                         Ingrediente.organizarTopMasVendidos();
-                        this.inventario.restarIngrediente(entry.getKey(),1);
+                        this.inventario.restarIngrediente(entry.getKey(), 1);
                     }
                 }
                 kitsCanasta.add(kitCanasta);
@@ -427,18 +454,20 @@ public class Panaderia implements Serializable {
         return kitsCanasta;
     }
 
-    //Metodos para la gestion de cuentas de los clientes
+    // Metodos para la gestion de cuentas de los clientes
 
     /**
-     * Busca un cliente en la lista de clientes de la panadería que tenga el ID especificado.
+     * Busca un cliente en la lista de clientes de la panadería que tenga el ID
+     * especificado.
+     * 
      * @param id El ID del cliente a buscar.
      * @return El cliente con el ID especificado, o null si no se encuentra.
      */
-    public Cliente inicioSesionId(int id){
+    public Cliente inicioSesionId(int id) {
 
-        for (Cliente cliente : getClientes()){
+        for (Cliente cliente : getClientes()) {
 
-            if (cliente.getId() == id){
+            if (cliente.getId() == id) {
 
                 return cliente;
 
@@ -446,51 +475,54 @@ public class Panaderia implements Serializable {
 
         }
         return null;
-    
+
     }
 
     /**
      * Inicia sesión para un cliente con una contraseña dada.
-     * @param cliente El cliente que desea iniciar sesión.
+     * 
+     * @param cliente    El cliente que desea iniciar sesión.
      * @param contrasena La contraseña del cliente.
      * @return Un mensaje indicando si el inicio de sesión fue exitoso o no.
      */
-    public String inicioSesionConstrasena(Cliente cliente, String contrasena){
-            
-            if (cliente.getContrasena().equals(contrasena)){
-    
-                Cliente.setSesion(cliente);
-                return "Inicio de sesion exitoso";
-    
-            }
-    
-            else{
-                
-                return "Contrasena incorrecta";
-    
-            }
-    
+    public String inicioSesionConstrasena(Cliente cliente, String contrasena) {
+
+        if (cliente.getContrasena().equals(contrasena)) {
+
+            Cliente.setSesion(cliente);
+            return "Inicio de sesion exitoso";
+
+        }
+
+        else {
+
+            return "Contrasena incorrecta";
+
+        }
+
     }
 
     /**
-     * Crea una nueva cuenta de cliente con el nombre, id y contraseña proporcionados y la agrega a la lista de clientes de la panadería.
-     * @param nombre el nombre del cliente
-     * @param id el identificador único del cliente
+     * Crea una nueva cuenta de cliente con el nombre, id y contraseña
+     * proporcionados y la agrega a la lista de clientes de la panadería.
+     * 
+     * @param nombre     el nombre del cliente
+     * @param id         el identificador único del cliente
      * @param contrasena la contraseña de la cuenta del cliente
      * @return un mensaje que indica que la cuenta se ha creado con éxito
      */
-    public String crearCuenta(String nombre, int id, String contrasena){
+    public String crearCuenta(String nombre, int id, String contrasena) {
         Cliente cliente = new Cliente(nombre, id, contrasena);
         this.clientes.add(cliente);
         Cliente.setSesion(cliente);
-        
+
         return "Cuenta creada con exito";
     }
 
-    public Trabajador trabajadorAleatorio(){
+    public Trabajador trabajadorAleatorio() {
 
         ArrayList<Trabajador> x = (ArrayList<Trabajador>) this.trabajadores.clone();
-        
+
         Collections.shuffle(x);
 
         Trabajador elegido = x.get(0);
@@ -499,10 +531,10 @@ public class Panaderia implements Serializable {
 
     }
 
-    public Cocinero cocineroAleatorio(){
+    public Cocinero cocineroAleatorio() {
 
         ArrayList<Cocinero> x = (ArrayList<Cocinero>) this.cocineros.clone();
-        
+
         Collections.shuffle(x);
 
         Cocinero elegido = x.get(0);
@@ -511,10 +543,10 @@ public class Panaderia implements Serializable {
 
     }
 
-	public Domiciliario domiciliarioAleatorio(){
+    public Domiciliario domiciliarioAleatorio() {
 
         ArrayList<Domiciliario> x = (ArrayList<Domiciliario>) this.domiciliarios.clone();
-        
+
         Collections.shuffle(x);
 
         Domiciliario elegido = x.get(0);
@@ -522,40 +554,44 @@ public class Panaderia implements Serializable {
         return elegido;
 
     }
-    
-	//Este método se llama cuando en alguna parte del proceso de preparación de la compra hacen falta ingredientes 
-	//Escoge aleatoriamente un trabajador para ir a conseguir los ingredientes y tiene métodos de lectura que permiten las impresiones en la capa funcional
-	//Recibe un map de String y enteros para saber exactamente qué debe comprar y qué cantidad
-	
+
+    // Este método se llama cuando en alguna parte del proceso de preparación de la
+    // compra hacen falta ingredientes
+    // Escoge aleatoriamente un trabajador para ir a conseguir los ingredientes y
+    // tiene métodos de lectura que permiten las impresiones en la capa funcional
+    // Recibe un map de String y enteros para saber exactamente qué debe comprar y
+    // qué cantidad
+
     public void comprarIngredientes(Map<String, Integer> listingredientes) {
-        
-    	Domiciliario elegido = this.domiciliarioAleatorio();
-    	GestionConseguirIngredientes.lecturaCompra(elegido.isRobado());
+
+        Domiciliario elegido = this.domiciliarioAleatorio();
+        GestionConseguirIngredientes.lecturaCompra(elegido.isRobado());
 
         boolean x = elegido.conseguirIngredientes(listingredientes);
 
-            while (x == true){
-                elegido.setRobado(false);
-                x = elegido.conseguirIngredientes(listingredientes);
+        while (x == true) {
+            elegido.setRobado(false);
+            x = elegido.conseguirIngredientes(listingredientes);
         }
         elegido.setRobado(true);
     }
 
-        //METODOS DE FACTURACION
-    public boolean facturar(Recibo recibo){ //este metodo le resta el dinero del presupuesto al cliente y se lo pasa a la panaderia cuando el cliente elige pagar
-        if (Cliente.getSesion().getPresupuesto() >= recibo.getTotal()){
-            Cliente.getSesion().setPresupuesto(Cliente.getSesion().getPresupuesto()-recibo.getTotal());
+    // METODOS DE FACTURACION
+    public boolean facturar(Recibo recibo) { // este metodo le resta el dinero del presupuesto al cliente y se lo pasa a
+                                             // la panaderia cuando el cliente elige pagar
+        if (Cliente.getSesion().getPresupuesto() >= recibo.getTotal()) {
+            Cliente.getSesion().setPresupuesto(Cliente.getSesion().getPresupuesto() - recibo.getTotal());
             this.dinero += recibo.getTotal();
             recibo.setPagado(true);
             Cliente.getSesion().getRecibos().add(recibo);
             return true;
-        }
-        else{
+        } else {
             return false;
         }
-      }
+    }
 
-    public static Recibo generarRecibo(){ //forma rapida de construir el recibo
-       return new Recibo(Cliente.getSesion(), Cliente.getSesion().getCanastaOrden()); //puede que cambie parametros del constructor despues
+    public static Recibo generarRecibo() { // forma rapida de construir el recibo
+        return new Recibo(Cliente.getSesion(), Cliente.getSesion().getCanastaOrden()); // puede que cambie parametros
+                                                                                       // del constructor despues
     }
 }

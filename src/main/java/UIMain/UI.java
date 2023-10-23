@@ -334,6 +334,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   // En este metodo van a ir todas las notificaciones del pedido (catastrofes o si
   // la entrega fue exitosa)
   public static void concluirOrden() { // pendiente por terminar este metodo
+  Cliente.getSesion().notaCocineros();
 
     if (continuar == true) {
       System.out.println("Su pedido ha sido entregado con exito");

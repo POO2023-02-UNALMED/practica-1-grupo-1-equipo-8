@@ -5,21 +5,24 @@ import java.util.Random;
 import java.util.ArrayList;
 
 import UIMain.GestionDomicilioCliente;
+import gestorAplicacion.comida.ComidaDefault;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
+import gestorAplicacion.humanos.Cliente.Direccion;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.comida.ProductoFrio;
 import gestorAplicacion.gestion.Inventario;
 
 import java.io.Serializable;
 
-public class Domiciliario extends Trabajador{
+public class Domiciliario extends Trabajador implements ComidaDefault, Serializable {
     Boolean licencia;
     Boolean ocupado;
     Canasta canasta;
     private boolean empaqueFrio;
     private Panaderia panaderia;
+    private double costoDomicilio;
 
     public Domiciliario() {
         super();
@@ -137,6 +140,39 @@ public class Domiciliario extends Trabajador{
 		return ocupado;
 	}
 
+    public double getCostoDomicilio() {
+        return costoDomicilio;
+    }
+
+    public void setCostoDomicilio(double costoDomicilio) {
+        this.costoDomicilio = costoDomicilio;
+    }
+
+    public double calcularCostoDomicilio(Cliente cliente, Canasta canasta){
+        ArrayList<Producto> productos = canasta.getProductos();
+        double costo = 0;
+        for (Producto producto : productos){
+            costo += producto.getCosto();
+        }
+        double longitud = productos.size();
+        if (longitud > 15){
+            costo = costo*0.7;
+        }
+
+        Direccion direccion = cliente.getDireccion();
+        if (direccion.getDistancia() == "Medio"){
+            costo += 10000;
+        }
+        if (direccion.getDistancia() == "Lejos"){
+            costo += 20000;
+        }
+
+        costo+=tarifaDomicilio;
+        return costo;
+    }
+
+    
+
 	public boolean laborParticular(Canasta canasta){
         
         Catastrofe transito = new Catastrofe();
@@ -169,17 +205,25 @@ public class Domiciliario extends Trabajador{
                 int cantidad = ingrediente.getValue();
                 String ingredienteNombre = ingrediente.getKey();
                 boolean topp=false;
+
                 for(Ingrediente ingredientes: top){
 
                     if(ingredientes.getNombre().equals(ingredienteNombre)){
-                        if(this.robado==true){
+
+                    //if existentes + cantidad*2 < 40 
+                        if(this.robado==true){ 
                             cantidad= cantidad*2;
                         }
+                        
                         valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())  * (cantidad * 2);
-                        topp=true;       		
+                        topp=true;  
+
+                    //else, lo que se compre sea 40-existentes y eso mismo se poner en el if de this robado     		
                     }
                 }
-                if(!topp){
+                    if(!topp){
+
+                        //if de productos fuera del top
                         valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())  * (cantidad);
                 }
                 listingredientes.put(ingredienteNombre, cantidad);
@@ -207,7 +251,9 @@ public class Domiciliario extends Trabajador{
             }
             return false;
         }
+
         else{
+
             this.panaderia.conseguirPrestamo(valorcompra);
             this.dineroEnMano+=valorcompra;
             this.panaderia.setDinero((this.panaderia.getDinero()-valorcompra));
