@@ -34,6 +34,20 @@ public class Recibo implements Serializable{
         this.fecha = Date.from(Instant.now());
     }
 
+    
+
+    public Canasta getCanasta() {
+        return canasta;
+    }
+
+
+
+    public void setCanasta(Canasta canasta) {
+        this.canasta = canasta;
+    }
+
+
+
     public boolean isPagado() {
         return pagado;
     }

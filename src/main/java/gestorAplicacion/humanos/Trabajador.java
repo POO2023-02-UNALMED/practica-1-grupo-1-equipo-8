@@ -18,10 +18,39 @@ public abstract class Trabajador implements Serializable{
 
     public Trabajador() {
         this("John Doe", 0, 0, 1000);
+        panaderia.getTrabajadores().add(this);
     }
 
     public Trabajador(String nombre) {
         this(nombre, 0, 0, 1000);
+        panaderia.getTrabajadores().add(this);
+    }
+
+    public Trabajador(String nombre,boolean x){
+        this("Sergio",0,0,1000);
+    }
+
+    public Trabajador(String nombre, Panaderia panaderia){
+        Random rand = new Random();
+        this.nombre = nombre;
+        this.calificacion = 0;
+        this.habilidad = rand.nextInt(10) + 9; // 9 <= habilidad <= 19
+        this.dineroEnMano = 0;
+        this.salario = 1000;
+        this.robado = false;
+        this.panaderia = panaderia;
+        panaderia.getTrabajadores().add(this);
+    }
+
+    public Trabajador(String nombre,double calificacion, double dineroEnMano,double salario, Panaderia panaderia,boolean x){
+        Random rand=new Random();
+        this.nombre = nombre;
+        this.calificacion= 0;
+        this.habilidad = rand.nextInt(10) + 9;
+        this.dineroEnMano=0;
+        this.salario=1000;
+        this.panaderia = panaderia;
+        panaderia.getTrabajadores().add(this);
     }
 
     public Trabajador(String nombre, double calificacion, double dineroEnMano, double salario) {
@@ -33,6 +62,7 @@ public abstract class Trabajador implements Serializable{
         this.dineroEnMano = dineroEnMano;
         this.salario = salario;
         this.robado = false;
+        panaderia.getTrabajadores().add(this);
     }
 
     public String getNombre() {

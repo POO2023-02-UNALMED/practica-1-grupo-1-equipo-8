@@ -6,6 +6,7 @@ import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Panaderia;
 import gestorAplicacion.gestion.Recibo;
+import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Inventario;
 
 public class UI { // en esta clase estaran habran metodos en general de la interfaz de usuario
@@ -269,7 +270,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
   // Aqui se procesa todo lo que tiene que ver con el envio a domicilio del
   // cliente
-  public static void domicilio() { // pendiente por terminar este metodo
+  public static void domicilio(Cliente cliente) { // pendiente por terminar este metodo
     if (continuar = true) {
       System.out.println(
           "Desea que le enviemos su pedido a su domicilio? escriba s para si, n para no, escriba 0 para volver al menu");
@@ -277,6 +278,21 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
       switch (eleccion) {
         case "s": // Escriban todo lo de domicilio dentro de este caso
 
+        boolean suceso = cliente.verificarDireccion();
+
+        while (suceso = false){
+
+          String direccion = "";
+          String ciudad = "";
+
+          System.out.println("Por favor ingrese su direccion y su ciudad: ");
+
+          direccion = input.nextLine();
+          String ciudd = input.nextLine();;
+          
+          suceso = cliente.establecerDomicilioValido()
+
+        }
           break;
         case "n":
           break;
@@ -319,6 +335,20 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
   // Aqui se mostrara la informacion nutricional y otros
   public static void verCatalogoDescripcion(Panaderia panaderia) {
+    if(Cliente.getSesion().verificarPresupuesto() == false){
+      System.out.println("No tienes presupuesto agregado, para ver el catalogo agrega un presupuesto");
+      while(Cliente.getSesion().verificarPresupuesto() == false){
+        System.out.println("Ingrese su presupuesto: ");
+        try{
+          eleccion = input.nextLine();
+          double presupuesto = Double.parseDouble(eleccion);
+          Cliente.getSesion().setPresupuesto(presupuesto);
+        }
+        catch(Exception e){
+          System.out.println("Ingrese un presupuesto valido:");
+        }
+      }
+    }
     mostrarOpciones(panaderia.getInventario());
     GestionRankings.mostrarRankingProductos();
     GestionRankings.mostrarRankingIngredientes();
@@ -381,13 +411,54 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
   // Metodo para que el cliente valide el tipo de cliente que es para aplicar a
   // descuentos especiales
-  public static void validarTipoCliente() {
+  public static void validarTipoCliente(Cliente cliente) {
 
+    System.out.println("Los tipos de clientes a los cuales les damos un descuento especial son: ");
+    System.out.println("Estudiante");
+    System.out.println("Profesor");
+    System.out.println("Senior");
+    System.out.println("Empleado");
+    System.out.println("Si no hace parte de ninguno de estos escriba ninguno");
+    System.out.println("Por favor escriba su tipo de cliente: ");
+
+    eleccion = input.nextLine();
+
+    boolean suceso = cliente.establecerDescuentoPorTipoValido(eleccion);
+
+    if (suceso == true){
+
+      System.out.println("Su descuento ha sido validado exitosamente");
+    }
+
+    else{
+
+      System.out.println("El tipo de cliente que ingreso no tiene ningun descuento asignado");
+      cliente.establecerDescuentoPorTipoValido("NINGUNO")
+    }
   }
 
   // Aqui el cliente puede ver el historial de las cosas que ha pedido antes, para
   // pedirlas otra vez facilmente
-  public static void historialOrdenes() {
+  public static void historialOrdenes(Cliente cliente) {
+    System.out.println("Historial de ordenes:");
+    for (Canasta canasta : cliente.getHistorialOrdenes()) {
+      System.out.println("Canasta de la factura con id "+canasta.getIdentificador());
+      GestionCompra.mostrarCanasta(canasta);
+      System.out.println("");
+    }
+    System.out.println("Escriba el codigo de la canasta que quiere comprar despuess: ");
+    eleccion = input.nextLine();
+    cliente.setCanastaOrden(Cliente.crearCanastaPorHistorial(eleccion));
 
-  }
-}
+    } 
+ }
+
+          decision = cliente.establecerDomicilioValido(direccion, ciudad);{
+
+            System.out.println("Ha ingresado una ciudad invalida")
+          }
+
+          else{
+
+            System.out.println("Se ha introducido su direccion correctamente")
+          }

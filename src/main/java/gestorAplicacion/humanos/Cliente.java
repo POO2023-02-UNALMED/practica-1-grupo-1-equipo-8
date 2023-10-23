@@ -14,6 +14,14 @@ import UIMain.GestionDomicilioCliente;
 
 public class Cliente implements Serializable{
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setCanastaOrden(Canasta canastaOrden) {
+		this.canastaOrden = canastaOrden;
+	}
+
 	private String nombre;
 	private int id;
 	private String contrasena;
@@ -222,7 +230,7 @@ public class Cliente implements Serializable{
 		this.historialOrdenes.add(canasta);
 	}
 
-	public Canasta crearCanastaPorHistorial(String id){
+	public static Canasta crearCanastaPorHistorial(String id){
 		for (Canasta canasta: this.historialOrdenes){
 			if (canasta.getIdentificador().equals(id)){
 				Canasta newCanasta = canasta;
@@ -416,6 +424,19 @@ public void notaCocineros() {
 			return true;
 		}	
 	}
+
+		public boolean verificarPresupuesto() {
+		
+		if () {
+			
+			return false;
+		}
+		
+		else {
+			
+			return true;
+		}	
+	}
 	
 	/*
 	 * Esta función se encarga de verificar si el cliente que está en sesión tiene
@@ -475,7 +496,6 @@ public void notaCocineros() {
 		}
 		
 		return desicion;
-		//tengo que hacer un método que lea esto para decir si sí fue valido o no 
 	}
 	
 	/*

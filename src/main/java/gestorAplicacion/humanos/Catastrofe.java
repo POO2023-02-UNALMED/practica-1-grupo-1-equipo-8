@@ -11,13 +11,11 @@ public class Catastrofe {
     public static String[] fallosCocina = {"El producto se quemó","El cocinero se cortó un dedo","El producto se pudrió","Hubo un incendio","El cocinero está triste","Encontramos un pelo en la comida"};
 
     private int maldad;
-    private static ArrayList<Catastrofe> reponsables = new ArrayList<Catastrofe>();
     private double dineroRobado;
 
     public Catastrofe() {
         Random rand = new Random();
         this.maldad = rand.nextInt(10) + 1; // 1 <= maldad <= 10
-        Catastrofe.reponsables.add(this);
     }
 
     public Catastrofe(int maldad) {
@@ -52,13 +50,9 @@ public class Catastrofe {
     
     public static Catastrofe responsableAleatorio(){
 
-        ArrayList<Catastrofe> x = (ArrayList<Catastrofe>) Catastrofe.reponsables.clone();
-        
-        Collections.shuffle(x);
+        Catastrofe responsable = new Catastrofe();
 
-        Catastrofe elegido = x.get(0);
-
-        return elegido;
+        return responsable;
 
     }
     

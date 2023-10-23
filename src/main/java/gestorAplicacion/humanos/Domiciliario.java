@@ -26,10 +26,36 @@ public class Domiciliario extends Trabajador{
         this.ocupado = false;
         this.canasta = null;
         this.panaderia = null;
+        panaderia.getDomiciliarios().add(this);
     }
 
     public Domiciliario(String nombre) {
         super(nombre);
+        this.licencia = false;
+        this.ocupado = false;
+        this.canasta = null;
+        this.panaderia = null;
+        panaderia.getDomiciliarios().add(this);
+    }
+
+    public Domiciliario(String nombre, boolean x){
+        super(nombre,x);
+        this.licencia=false;
+        this.ocupado = false;
+        this.canasta=null;
+    }
+
+    public Domiciliario(String nombre, Panaderia panaderia){
+        super(nombre,panaderia);
+        this.licencia = false;
+        this.ocupado = false;
+        this.canasta = null;
+        this.panaderia = null;
+        panaderia.getDomiciliarios().add(this);
+    }
+
+    public Domiciliario(String nombre, Panaderia panaderia, boolean x){
+        super(nombre,panaderia);
         this.licencia = false;
         this.ocupado = false;
         this.canasta = null;
@@ -42,6 +68,14 @@ public class Domiciliario extends Trabajador{
         this.ocupado = false;
         this.canasta = null;
         this.panaderia = panaderia;
+        panaderia.getDomiciliarios().add(this);
+    }
+
+    public Domiciliario(String nombre, double habilidad, double calificacion, double dineroEnMano,Panaderia panaderia, boolean x){
+        super(nombre,habilidad,calificacion,dineroEnMano,panaderia,x);
+        this.licencia=false;
+        this.ocupado=false;
+        this.canasta=null;
     }
 
     public Domiciliario(String nombre, double habilidad, double calificacion, double dineroEnMano, Boolean licencia, Panaderia panaderia) {
@@ -50,6 +84,7 @@ public class Domiciliario extends Trabajador{
         this.ocupado = false;
         this.canasta = null;
         this.panaderia = panaderia;
+        panaderia.getDomiciliarios().add(this);
     }
 
     public Boolean isLicencia() {

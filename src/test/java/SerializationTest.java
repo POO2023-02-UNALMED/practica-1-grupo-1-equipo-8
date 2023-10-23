@@ -15,7 +15,7 @@ public class SerializationTest {
   public static void main(String[] args) {
     System.out.println("Test de serializacion");
     Panaderia panaderia = new Panaderia();
-    panaderia = Serializador.cargarPanaderia();
+    //panaderia = Serializador.cargarPanaderia();
     System.out.println("panaderia cargada");
 
     
@@ -80,9 +80,7 @@ public class SerializationTest {
     HashMap<String, Integer> ingredientesCocinar = new HashMap<String, Integer>();
     ingredientesCocinar.put("14", 2);
     ingredientesCocinar.put("15", 4);
-    Domiciliario domiciliario1 = new Domiciliario("Juan");
-    domiciliario1.setPanaderia(panaderia);
-    panaderia.agregarDomiciliario(domiciliario1);
+    Domiciliario domiciliario1 = new Domiciliario("Juan",panaderia);
     Cocinero cocinero1 = new Cocinero("Mateo", "Decoracion",panaderia);
     System.out.println("cocinero1 cargado");
     System.out.println("domiciliario1 cargado");

@@ -40,9 +40,9 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
 
                     case "1":
                         UI.compras(panaderia);
-                        UI.domicilio();
+                        UI.domicilio(Cliente.getSesion()); //NICOOOOOOOOOO
                         UI.facturacion();
-                        UI.concluirOrden();
+                        UI.concluirOrden();//NICOOOOOO
                         break;
 
                     case "2":
@@ -61,11 +61,11 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
                         break;
 
                     case "6":
-                        UI.validarTipoCliente();
+                        UI.validarTipoCliente(Cliente.getSesion());
                         break;
 
                     case "7":
-                        UI.historialOrdenes();
+                        UI.historialOrdenes(Cliente.getSesion());
                         break;
 
                     // caso donde el cliente elije una opcion no valida
