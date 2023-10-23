@@ -8,7 +8,6 @@ import UIMain.GestionDomicilioCliente;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
-import gestorAplicacion.humanos.Cliente.Direccion;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.comida.ProductoFrio;
 import gestorAplicacion.gestion.Inventario;
@@ -152,14 +151,6 @@ public class Domiciliario extends Trabajador{
         double longitud = productos.size();
         if (longitud > 15){
             costo = costo*0.7;
-        }
-
-        Direccion direccion = cliente.getDireccion();
-        if (direccion.getDistancia() == "Medio"){
-            costo += 10000;
-        }
-        if (direccion.getDistancia() == "Lejos"){
-            costo += 20000;
         }
     }
 
