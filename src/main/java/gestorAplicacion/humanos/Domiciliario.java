@@ -200,34 +200,62 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
         Ingrediente.organizarTopMasVendidos();
         ArrayList<Ingrediente> top = Ingrediente.getTopMasVendidos();
 
-            for(Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()){
+        for(Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()){
 
-                int cantidad = ingrediente.getValue();
-                String ingredienteNombre = ingrediente.getKey();
-                boolean topp=false;
+            int cantidad = ingrediente.getValue();
+            String ingredienteNombre = ingrediente.getKey();
+            boolean topp=false;
 
-                for(Ingrediente ingredientes: top){
+            for(Ingrediente ingredientes: top){
 
-                    if(ingredientes.getNombre().equals(ingredienteNombre)){
+                if(ingredientes.getNombre().equals(ingredienteNombre)){
 
                     //if existentes + cantidad*2 < 40 
+
+                    if (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).verificarCantidadIngredientePorNombre(ingredienteNombre) + (cantidad * 2) <= 40){
+                        
                         if(this.robado==true){ 
                             cantidad= cantidad*2;
                         }
                         
                         valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())  * (cantidad * 2);
-                        topp=true;  
-
-                    //else, lo que se compre sea 40-existentes y eso mismo se poner en el if de this robado     		
+                         topp=true;  
                     }
-                }
-                    if(!topp){
 
-                        //if de productos fuera del top
-                        valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())  * (cantidad);
+                    //else, lo que se compre sea 40-existentes y eso mismo se poner en el if de this robado 
+
+                    else{
+
+                        if(this.robado==true){ 
+                            cantidad = (40-Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).verificarCantidadIngredientePorNombre(ingredienteNombre));
+                        }
+                            
+                        valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())  * (40-Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).verificarCantidadIngredientePorNombre(ingredienteNombre));
+                        topp=true;
+                    }    		
                 }
-                listingredientes.put(ingredienteNombre, cantidad);
             }
+                
+            if(!topp){
+
+                //if de productos fuera del top
+                if (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).verificarCantidadIngredientePorNombre(ingredienteNombre) + (cantidad) <= 20){
+
+                    valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())  * (cantidad);
+                }
+
+                else{
+                    
+                    if(this.robado==true){ 
+                        cantidad = (20-Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).verificarCantidadIngredientePorNombre(ingredienteNombre));
+                    }
+
+                    valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())  * (20-Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).verificarCantidadIngredientePorNombre(ingredienteNombre));
+                }
+            }
+                
+        listingredientes.put(ingredienteNombre, cantidad);
+    }
 
         if(valorcompra<=this.panaderia.getDinero()){
             this.dineroEnMano+=valorcompra;
