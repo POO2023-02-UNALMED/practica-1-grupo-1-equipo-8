@@ -52,20 +52,20 @@ public class GestionCocinar {
     public static void barrasCocinando(List<String> procesoCook,int longitud){
         if (longitud==1){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(800);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             System.out.println(Texto.centrar("100%  [###############################] 100%"));
             String elemento = procesoCook.get(0);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(800);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             System.out.println(Texto.centrar("Proceso de " + elemento + " completado"));
             try {
-                Thread.sleep(1000);
+                Thread.sleep(800);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -75,14 +75,14 @@ public class GestionCocinar {
         if (longitud==2){
             if(zonas==0){
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 System.out.println(Texto.centrar("50%  [#############...................] 100%"));
                 String elemento = procesoCook.get(0);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -91,20 +91,20 @@ public class GestionCocinar {
             }
             else if(zonas==1){
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 System.out.println(Texto.centrar("100%  [###############################] 100%"));
                 String elemento2 = procesoCook.get(1);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 System.out.println(Texto.centrar("Proceso de " + elemento2 + " completado"));
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -115,14 +115,14 @@ public class GestionCocinar {
         if (longitud==3){
             if(zonas==0){
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 System.out.println(Texto.centrar("33%  [#########.......................] 100%"));
                 String elemento = procesoCook.get(0);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -131,14 +131,14 @@ public class GestionCocinar {
             }
             else if(zonas==1){
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 System.out.println(Texto.centrar("66%  [###################.............] 100%"));
                 String elemento2 = procesoCook.get(1);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -147,20 +147,20 @@ public class GestionCocinar {
             }
             else if(zonas==2){
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 System.out.println(Texto.centrar("100%  [###############################] 100%"));
                 String elemento3 = procesoCook.get(2);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 System.out.println(Texto.centrar("Proceso de " + elemento3 + " completado"));
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(800);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -188,6 +188,12 @@ public class GestionCocinar {
             String elemento = procesoCook.get(0);
             System.out.println(Texto.centrar("Fallo en el proceso de " + elemento));
             System.out.println(Texto.centrar(falloAleatorio));
+            System.out.println(Texto.centrar("Reiniciando..."));
+            try {
+                Thread.sleep(1000); // Pausa la ejecución por un segundo
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             zonas=0;
         }
         if (longitud == 2){
@@ -200,12 +206,24 @@ public class GestionCocinar {
             String elemento = procesoCook.get(0);
             System.out.println(Texto.centrar("Fallo en el proceso de " + elemento));
             System.out.println(Texto.centrar(falloAleatorio));
+            System.out.println(Texto.centrar("Reiniciando..."));
+            try {
+                Thread.sleep(1000); // Pausa la ejecución por un segundo
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             zonas=0;
         }
             if(zonas==1){
             String elemento2 = procesoCook.get(1);
             System.out.println(Texto.centrar("Fallo en el proceso de " + elemento2));
             System.out.println(Texto.centrar(falloAleatorio));
+            System.out.println(Texto.centrar("Reiniciando..."));
+            try {
+                Thread.sleep(1000); // Pausa la ejecución por un segundo
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             zonas=0;
         }
         }
@@ -219,18 +237,36 @@ public class GestionCocinar {
             String elemento = procesoCook.get(0);
             System.out.println(Texto.centrar("Fallo en el proceso de " + elemento));
             System.out.println(Texto.centrar(falloAleatorio));
+            System.out.println(Texto.centrar("Reiniciando..."));
+            try {
+                Thread.sleep(1000); // Pausa la ejecución por un segundo
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             zonas=0;
             }
             if(zonas==1){
             String elemento2 = procesoCook.get(1);
             System.out.println(Texto.centrar("Fallo en el proceso de " + elemento2));
             System.out.println(Texto.centrar(falloAleatorio));
+            System.out.println(Texto.centrar("Reiniciando..."));
+            try {
+                Thread.sleep(1000); // Pausa la ejecución por un segundo
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             zonas=0;
             }
             if(zonas==2){
             String elemento3 = procesoCook.get(2);
             System.out.println(Texto.centrar("Fallo en el proceso de " + elemento3));
             System.out.println(Texto.centrar(falloAleatorio));
+            System.out.println(Texto.centrar("Reiniciando..."));
+            try {
+                Thread.sleep(1000); // Pausa la ejecución por un segundo
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             zonas=0;
             }
         }

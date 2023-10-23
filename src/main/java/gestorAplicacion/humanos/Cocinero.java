@@ -158,6 +158,12 @@ public class Cocinero extends Domiciliario {
             this.panaderia.getInventario().restarIngrediente(ingredienteUsado, cantidad*cantidades);
         }
     }
+
+    public void repararCoccion(Producto producto){
+        Map<String, Integer> ingredientesUsados = producto.getIngredientes();
+        panaderia.comprarIngredientes(ingredientesUsados);
+        }
+
     public void detenerCoccion(Producto producto) {
         Map<String, Integer> ingredientesUsados = producto.getIngredientes();
         for (Map.Entry<String, Integer> usados : ingredientesUsados.entrySet()) {
@@ -214,6 +220,7 @@ public class Cocinero extends Domiciliario {
                 chefIdeal.setHabilidad(chefIdeal.getHabilidad() + 1);
                 GestionCocinar.fallosCocinando(procesoCook, longitud);
                 chefIdeal.detenerCoccion(producto);
+                chefIdeal.repararCoccion(producto);
                 i = -1;
                 continue;
             }

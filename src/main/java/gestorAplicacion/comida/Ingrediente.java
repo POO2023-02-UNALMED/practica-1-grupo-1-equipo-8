@@ -225,6 +225,7 @@ public class Ingrediente implements Serializable, ComidaDefault{
 		String ingredienteId = this.getId();
 		panaderia.getInventario().restarIngrediente(ingredienteId, cantidad);
 		GestionCocinar.falloCaducado();
+		this.setCaducado(false);
 		}	
 	}
 

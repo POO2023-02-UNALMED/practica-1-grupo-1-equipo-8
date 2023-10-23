@@ -253,7 +253,7 @@ public class Inventario implements Serializable{
             Integer cantidad = entry.getValue();
             int cantidadExistente = verificarCantidadIngredientePorNombre(ingredienteN);
             if (cantidadExistente-cantidad<0){
-                ingredientessFaltantes.put(ingredienteN,(cantidadExistente-cantidad)*(-2));
+                ingredientessFaltantes.put(ingredienteN,(cantidadExistente-cantidad)*(-1));
             }
         }
         return ingredientessFaltantes;
