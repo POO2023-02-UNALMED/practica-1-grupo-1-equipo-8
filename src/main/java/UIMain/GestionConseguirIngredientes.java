@@ -35,7 +35,7 @@ public class GestionConseguirIngredientes {
   
   public static void lecturaCompra(boolean suceso) {
 	  
-	  if (suceso == false) { 
+	  if (suceso == true) { 
 		  
 		  System.out.println("No tenemos suficientes ingredientes para realizar su compra, por favor espere unos minutos mientras nos encargamos de ello.");
 		  

@@ -268,7 +268,7 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
             Domiciliario postRobo = Ladron.robarComprador(this);
             
             if (postRobo.robado == false) {
-                    return true; //Devuelve que no fue robado
+                return true; //Devuelve que fue robado, se debe volver a iniciar el programa 
             }
         }
 
@@ -283,32 +283,39 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
                 this.panaderia.getInventario().agregarIngrediente(ingrdt);
             }
         }
-            return false;
+        
+        return false; //Devuelve que todo salio bien
     }
 
-        else{
+    else {
 
-            this.panaderia.conseguirPrestamo(valorcompra);
-            this.dineroEnMano+=valorcompra;
-            this.panaderia.setDinero((this.panaderia.getDinero()-valorcompra));
-            if(this.robado==true){
-                Catastrofe Ladron = Catastrofe.responsableAleatorio();
-                Domiciliario postRobo = Ladron.robarComprador(this);
-                if (postRobo.robado = true) {
+        this.panaderia.conseguirPrestamo(valorcompra);
+        this.dineroEnMano+=valorcompra;
+        this.panaderia.setDinero((this.panaderia.getDinero()-valorcompra));
 
-                    return true;
-                }
+        if(this.robado==true){
+
+            Catastrofe Ladron = Catastrofe.responsableAleatorio();
+            Domiciliario postRobo = Ladron.robarComprador(this);
+            
+            if (postRobo.robado == false) {
+                return true; //Devuelve que fue robado, se debe volver a iniciar el programa
             }
-            for(Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()){
+        }
+        for(Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()){
+                
                 int cantidad = ingrediente.getValue();
                 String ingredienteNombre = ingrediente.getKey();
+                
                 for(int i=0;i<cantidad;i++){
+                    
                     Ingrediente ingrdt = Ingrediente.crearIngrediente(ingredienteNombre);
                     this.panaderia.getInventario().agregarIngrediente(ingrdt);
                 }
-            }
-            return false;
         }
+        
+        return false; //Devuelve que todo salio bien
+    }
         
 
 /* 

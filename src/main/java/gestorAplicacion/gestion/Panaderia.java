@@ -576,10 +576,14 @@ public class Panaderia implements Serializable {
         GestionConseguirIngredientes.lecturaCompra(elegido.isRobado());
 
         boolean x = elegido.conseguirIngredientes(listingredientes);
+        GestionConseguirIngredientes.lecturaRobo(x);
 
         while (x == true) {
+
             elegido.setRobado(false);
+            GestionConseguirIngredientes.lecturaCompra(elegido.isRobado());
             x = elegido.conseguirIngredientes(listingredientes);
+            GestionConseguirIngredientes.lecturaRobo(x);
         }
         elegido.setRobado(true);
     }
