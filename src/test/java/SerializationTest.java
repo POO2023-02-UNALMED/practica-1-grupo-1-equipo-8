@@ -15,10 +15,10 @@ public class SerializationTest {
   public static void main(String[] args) {
     System.out.println("Test de serializacion");
     Panaderia panaderia = new Panaderia();
-    panaderia = Serializador.cargarPanaderia();
+    //panaderia = Serializador.cargarPanaderia();
     System.out.println("panaderia cargada");
 
-    /* 
+    
     Ingrediente.crearIngrediente("leche");
     Ingrediente.crearIngrediente("harina");
     Ingrediente.crearIngrediente("azucar");
@@ -83,9 +83,8 @@ public class SerializationTest {
     ingredientesCocinar.put("16", 5);
     ingredientesCocinar.put("17", 3);
     panaderia.cocinar(ingredientesCocinar);
-    */
 
-    
+    /* 
     Cliente cliente1= panaderia.inicioSesionId(202);
     panaderia.inicioSesionConstrasena(cliente1,"qwerty");
     System.out.println("cliente1 cargado");
@@ -95,7 +94,7 @@ public class SerializationTest {
 
     UI.mostrarOpciones(panaderia.getInventario());
     System.out.println(panaderia.getDinero());
-    
+    */
 
     Serializador.guardarPanaderia(panaderia);
     System.out.println("panaderia guardada");

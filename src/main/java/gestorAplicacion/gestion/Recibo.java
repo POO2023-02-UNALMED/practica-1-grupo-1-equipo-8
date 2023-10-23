@@ -2,6 +2,8 @@ package gestorAplicacion.gestion;
 
 import UIMain.Texto;
 import gestorAplicacion.humanos.Cliente;
+import gestorAplicacion.humanos.Domiciliario;
+
 import java.util.ArrayList; //Libreria para listas
 import java.util.Date; //Libreria para manejar fechas
 import java.io.Serializable;
@@ -37,10 +39,10 @@ public class Recibo implements Serializable {
     }
 
     //facturacion que tiene en cuenta el costo del domicilio
-    public Recibo(Cliente cliente, Canasta canasta, double costoDomicilio) {
+    public Recibo(Cliente cliente, Canasta canasta, Domiciliario domiciliario){
 
         totalFacturas++;
-        this.costoDomicilio = costoDomicilio;
+        this.costoDomicilio = domiciliario.getCostoDomicilio();
         this.canasta = canasta;
         this.cliente = cliente;
         this.idRecibo = totalFacturas;
@@ -49,7 +51,7 @@ public class Recibo implements Serializable {
         this.total = subtotal * (1 - descuento);
         this.fecha = Date.from(Instant.now());
     }
-
+//getter y setters
     public Canasta getCanasta() {
         return canasta;
     }

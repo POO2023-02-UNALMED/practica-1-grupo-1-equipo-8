@@ -21,9 +21,14 @@ public class Texto {
         textos.add(a3);
 
         for(int i = 0 ; i<3; i++){
-            s += textos.get(i)+" ".repeat(espaciados.get(i)-textos.get(i).length());
+            if(espaciados.get(i)-textos.get(i).length()>0){
+                s += textos.get(i)+" ".repeat(espaciados.get(i)-textos.get(i).length());
+            } else{
+                s += textos.get(i)+" ";
+            }
         }
         return s;
+
     }
 
     //Metodo alinear sobrecargado necesario para clase recibo
@@ -41,7 +46,12 @@ public class Texto {
         textos.add(s3);
 
         for(int i = 0 ; i<3; i++){
-            s += textos.get(i)+" ".repeat(espaciados.get(i)-textos.get(i).length());
+            if(espaciados.get(i)-textos.get(i).length()>0){
+                s += textos.get(i)+" ".repeat(espaciados.get(i)-textos.get(i).length());
+            } else{
+                s += textos.get(i)+" ";
+            }
+            
         }
         return s;
     }

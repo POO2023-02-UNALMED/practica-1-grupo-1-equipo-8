@@ -257,12 +257,18 @@ public class Panaderia implements Serializable {
 
     }
 
-    // TODO Desarrollar el metodo cobrarCliente que recibe una lista de canastas y
-    // un recibo y cobra al cliente, además actualiza la plata de la panaderia
-    public void cobrarCliente(List<Canasta> canastas, List<Recibo> recibo) {
 
-    }
-
+    /**
+     * Envía una canasta de productos a un cliente a través de un domiciliario aleatorio.
+     * Si la canasta contiene productos fríos, el domiciliario los empaca en un congelador.
+     * Luego, se simula una posible catástrofe en la que el domiciliario pincha una llanta.
+     * Si el domiciliario no tiene licencia, se le resta dinero y se le otorga la licencia.
+     * Se establece la canasta y el costo del domicilio en el domiciliario.
+     * Se verifica si el domiciliario puede realizar la entrega de la canasta, en caso contrario se aumenta su habilidad.
+     * Finalmente, se establece que el cliente ya no tiene un domiciliario asignado.
+     * @param canasta La canasta de productos que se enviará al cliente.
+     * @param cliente El cliente que recibirá la canasta de productos.
+     */
     public void enviarDomicilio(Canasta canasta, Cliente cliente) {
         Domiciliario domiciliario = domiciliarioAleatorio();
         ArrayList<Producto> producto = canasta.getProductos();
@@ -527,6 +533,10 @@ public class Panaderia implements Serializable {
         return "Cuenta creada con exito";
     }
 
+    /**
+     * Devuelve un trabajador aleatorio de la lista de trabajadores de la panadería.
+     * @return Trabajador elegido aleatoriamente.
+     */
     public Trabajador trabajadorAleatorio() {
 
         ArrayList<Trabajador> x = (ArrayList<Trabajador>) this.trabajadores.clone();
@@ -539,6 +549,10 @@ public class Panaderia implements Serializable {
 
     }
 
+    /**
+     * Devuelve un cocinero aleatorio de la lista de cocineros de la panadería.
+     * @return el cocinero elegido aleatoriamente.
+     */
     public Cocinero cocineroAleatorio() {
 
         ArrayList<Cocinero> x = (ArrayList<Cocinero>) this.cocineros.clone();
@@ -551,6 +565,10 @@ public class Panaderia implements Serializable {
 
     }
 
+    /**
+     * Retorna un objeto de tipo Domiciliario elegido aleatoriamente de la lista de domiciliarios de la panadería.
+     * @return Domiciliario elegido aleatoriamente.
+     */
     public Domiciliario domiciliarioAleatorio() {
 
         ArrayList<Domiciliario> x = (ArrayList<Domiciliario>) this.domiciliarios.clone();
@@ -589,6 +607,12 @@ public class Panaderia implements Serializable {
     }
 
     // METODOS DE FACTURACION
+    /**
+     * Este método resta el dinero del presupuesto al cliente y se lo pasa a la panadería cuando el cliente elige pagar.
+     * 
+     * @param recibo El recibo que se va a facturar.
+     * @return true si el recibo se pudo facturar exitosamente, false si el cliente no tiene suficiente presupuesto para pagar el recibo.
+     */
     public boolean facturar(Recibo recibo) { // este metodo le resta el dinero del presupuesto al cliente y se lo pasa a
                                              // la panaderia cuando el cliente elige pagar
         if (Cliente.getSesion().getPresupuesto() >= recibo.getTotal()) {

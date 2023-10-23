@@ -29,7 +29,7 @@ public class GestionCompra {
       continuar = true;
       if(tipoDeProducto.equals("0")){
         while(true){
-          System.out.println("Desea modificar un producto de nuestro catalogo o agregar un producto personalizado? (Escriba '0'=Volver atrás - '1'=Catalogo - '2'=Personalizado): ");
+          System.out.println("Desea modificar un producto de nuestro catalogo o agregar un producto personalizado? (Escriba '0'=Volver atras - '1'=Catalogo - '2'=Personalizado): ");
           tipoDeProducto = scanner.nextLine();
           if(tipoDeProducto.equalsIgnoreCase("0")||tipoDeProducto.equalsIgnoreCase("1")||tipoDeProducto.equalsIgnoreCase("2")){
             if(tipoDeProducto.equalsIgnoreCase("0")){
@@ -75,7 +75,8 @@ public class GestionCompra {
             cantidad = scanner.nextLine();
             int numero = Integer.parseInt(cantidad);
             if (numero == 0) {
-              continue;
+              continuar=false;
+              break;
             }
             else if(numero>19){
               System.out.println("No puedes pedir más de 19 productos iguales");
@@ -92,6 +93,10 @@ public class GestionCompra {
           catch(Exception e){
             System.out.println("Debes ingresar un numero adecuado");
           }
+        }
+
+        if(!continuar){
+          continue;
         }
 
         while(true){
@@ -284,7 +289,6 @@ public class GestionCompra {
       }
 
     }
-    scanner.close();
   }
   
   /**
@@ -292,6 +296,7 @@ public class GestionCompra {
    */
   //Esto se va a mostrar antes de pagar, mientras el cliente agrega sus productos, y tambien en la factura
   public static void mostrarCanasta(Canasta canasta) {
+    System.out.println("_".repeat(55));
     System.out.println(Texto.centrar("PRODUCTOS"));
     System.out.println("_".repeat(55));
     System.out.println(Texto.alinear("Descripcion", "Cantidad", "Costo"));
@@ -300,7 +305,7 @@ public class GestionCompra {
     for (Map.Entry<String, Integer> entry : canasta.getProductosEnLista().entrySet()) {
       String producto = entry.getKey();
       Integer cantidad = entry.getValue();
-      System.out.println(Texto.alinear(Producto.obtenerObjetoPorId(producto).getNombre(), cantidad, Producto.obtenerObjetoPorId(producto).getCosto()));
+      System.out.println(Texto.alinear(Producto.obtenerObjetoPorId(producto).getNombre(), cantidad, Producto.obtenerObjetoPorId(producto).getCosto()*cantidad));
     }
 
     System.out.println("_".repeat(55));
@@ -313,7 +318,7 @@ public class GestionCompra {
     for (Map.Entry<String, Integer> entry : canasta.getIngredientesEnLista().entrySet()) {
       String ingrediente = entry.getKey();
       Integer cantidad2 = entry.getValue();
-      System.out.println(Texto.alinear(Ingrediente.obtenerObjetoPorId(ingrediente).getNombre(), cantidad2, Ingrediente.obtenerObjetoPorId(ingrediente).getPrecioDeCompra()));
+      System.out.println(Texto.alinear(Ingrediente.obtenerObjetoPorId(ingrediente).getNombre(), cantidad2, Ingrediente.obtenerObjetoPorId(ingrediente).getPrecioDeCompra()*cantidad2));
     }
 
     System.out.println("_".repeat(55));
@@ -326,13 +331,13 @@ public class GestionCompra {
     for (Map.Entry<String, Integer> entry : canasta.getKitsEnLista().entrySet()) {
       String kit = entry.getKey();
       Integer cantidad2 = entry.getValue();
-      System.out.println(Texto.alinear(Producto.obtenerObjetoPorId(kit).getNombre(), cantidad2, Producto.obtenerObjetoPorId(kit).getCosto()));
+      System.out.println(Texto.alinear(Producto.obtenerObjetoPorId(kit).getNombre(), cantidad2, Producto.obtenerObjetoPorId(kit).getCosto()*cantidad2));
     }
 
 
     System.out.println("_".repeat(55));
     System.out.println(" ");
-    System.out.println(Texto.alinear("Descuento efectuado: ",canasta.getDescuentoEnLista()));
+    System.out.println(Texto.alinear("Descuento efectuado:", " ",String.valueOf(canasta.getDescuentoEnLista())));//String.valueOf(canasta.getDescuentoEnLista())
     System.out.println(Texto.alinear("subtotal",canasta.getCostoTotalEnLista())); //el valor para i1 sera el total de productos comprados
   }
   

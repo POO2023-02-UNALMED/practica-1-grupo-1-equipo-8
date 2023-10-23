@@ -41,10 +41,15 @@ public class Inventario implements Serializable{
 		this.invProductos = invProductos;
 	}
     
-	 public int getMaxCantidad() {
+	public int getMaxCantidad() {
 		return maxCantidad;
 	}
 
+    /**
+     * Verifica la cantidad de ingredientes en el inventario que tienen el nombre especificado.
+     * @param ingrd el nombre del ingrediente a buscar
+     * @return la cantidad de ingredientes con el nombre especificado en el inventario
+     */
     public int verificarCantidadIngredientePorNombre(String ingrd) {
         int contador=0;
         for(Ingrediente ingredientes : invIngredientes) {
@@ -70,6 +75,11 @@ public class Inventario implements Serializable{
         return contador;
     }
 
+    /**
+     * Verifica la cantidad de productos en el inventario que tienen un nombre específico.
+     * @param prdct El nombre del producto a buscar.
+     * @return La cantidad de productos en el inventario que tienen el nombre especificado.
+     */
     public int verificarCantidadProductoPorNombre(String prdct) {
         int contador=0;
         for(Producto productos : invProductos) {
@@ -109,6 +119,11 @@ public class Inventario implements Serializable{
         return null;
     }
 
+    /**
+     * Busca un producto en el inventario por su nombre.
+     * @param nombre el nombre del producto a buscar
+     * @return el producto encontrado o null si no se encuentra
+     */
     public Producto buscarProductoPorNombre(String nombre) {
         for(Producto producto: invProductos) {
             if (producto.getNombre().equals(nombre)) {
@@ -132,6 +147,11 @@ public class Inventario implements Serializable{
         return null;
     }
 
+    /**
+     * Busca un ingrediente en el inventario por su nombre.
+     * @param nombre El nombre del ingrediente a buscar.
+     * @return El objeto Ingrediente si se encuentra en el inventario, de lo contrario retorna null.
+     */
     public Ingrediente IngredientePorNombrebuscar(String nombre) {
         for(Ingrediente ingrediente: invIngredientes) {
             if (ingrediente.getNombre().equals(nombre)) {

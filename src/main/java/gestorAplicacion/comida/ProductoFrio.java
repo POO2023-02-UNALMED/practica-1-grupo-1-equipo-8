@@ -11,6 +11,7 @@ public class ProductoFrio extends Producto{
   private boolean congelador=false;
   private int tiempoDeCongelamiento;
 
+//constructores 
   public ProductoFrio(String nombre, String ids, HashMap<String,Integer> ingredientes, double costo, int vecesVendido, int tiempoDeCongelamiento) {
     super(nombre, ids, ingredientes, costo, vecesVendido);
     this.tiempoDeCongelamiento = tiempoDeCongelamiento;
@@ -20,7 +21,7 @@ public class ProductoFrio extends Producto{
     super(nombre, ingredientes);
     this.tiempoDeCongelamiento = calcularCongelamiento();
   }
-
+//getters y setters
   public boolean getcongelador() {
     return congelador;
   }

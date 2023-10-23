@@ -13,6 +13,7 @@ public class Catastrofe {
     private int maldad;
     private double dineroRobado;
 
+//construcores
     public Catastrofe() {
         Random rand = new Random();
         this.maldad = rand.nextInt(10) + 1; // 1 <= maldad <= 10
@@ -22,6 +23,7 @@ public class Catastrofe {
         this.maldad = maldad;
     }
 
+//getters y setters
     public int getMaldad() {
         return maldad;
     }
@@ -30,6 +32,12 @@ public class Catastrofe {
         this.maldad = maldad;
     }
 
+    /**
+     * Método que simula el acto de pinchar la llanta de un domiciliario.
+     * Si la habilidad del domiciliario es menor que la maldad de la catástrofe, se le revoca la licencia.
+     * @param domiciliario El domiciliario al que se le va a pinchar la llanta.
+     * @return El domiciliario con o sin licencia dependiendo de si su habilidad es menor que la maldad de la catástrofe.
+     */
     public Domiciliario pincharLLanta(Domiciliario domiciliario){
         if (domiciliario.habilidad < this.maldad){
             domiciliario.setLicencia(false);
@@ -38,6 +46,13 @@ public class Catastrofe {
         return domiciliario;
     }
 
+    /**
+     * Comprueba si la habilidad del cocinero es menor que la maldad de la catástrofe.
+     * Si es así, el cocinero no falla y se devuelve true.
+     * Si no, el cocinero falla y se devuelve false.
+     * @param cocinero el cocinero a comprobar su habilidad
+     * @return true si el cocinero no falla, false si falla
+     */
     public boolean dificultadProducto(Cocinero cocinero){
         if (cocinero.habilidad < this.maldad){
             cocinero.setFallado(false);
@@ -72,6 +87,12 @@ public class Catastrofe {
     	return rival;	
     }
 
+    /**
+     * Verifica si un domiciliario puede pasar por una calle bloqueada debido a una catástrofe.
+     * Si la habilidad del domiciliario es menor que un número aleatorio entre 1 y 5, se le revoca la licencia.
+     * @param domiciliario El domiciliario que intenta pasar por la calle bloqueada.
+     * @return true si el domiciliario puede pasar, false si se le revocó la licencia.
+     */
     public boolean paradaTransito(Domiciliario domiciliario){
         Random rand = new Random();
         int chance = rand.nextInt(5) + 1; // 1 <= chance <= 5

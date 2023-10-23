@@ -114,6 +114,11 @@ public class Producto implements Serializable, ComidaDefault{
 
 	//Métodos
 
+	/**
+	 * Verifica si existe un producto en la base de datos con el nombre especificado.
+	 * @param nombre El nombre del producto a buscar.
+	 * @return true si existe un producto con el nombre especificado, false en caso contrario.
+	 */
 	public static boolean verificacionExistenciaPorNombre(String nombre) {
 		boolean existe = false;
 		for (int i = 0; i < baseDatosProductos.size(); i++) {
@@ -124,6 +129,11 @@ public class Producto implements Serializable, ComidaDefault{
 		return existe;
 	}
 
+	/**
+	 * Verifica si existe un producto en la base de datos a partir de su ID.
+	 * @param id El ID del producto a buscar.
+	 * @return true si el producto existe en la base de datos, false en caso contrario.
+	 */
 	public static boolean verificacionExistenciaPorId(String id) {
 		boolean existe = false;
 		for (int i = 0; i < baseDatosProductos.size(); i++) {
@@ -134,6 +144,11 @@ public class Producto implements Serializable, ComidaDefault{
 		return existe;
 	}
 
+	/**
+	 * Busca y devuelve un objeto Producto de la base de datos por su nombre.
+	 * @param nombre El nombre del producto a buscar.
+	 * @return El objeto Producto correspondiente al nombre dado, o null si no se encuentra.
+	 */
 	public static Producto obtenerObjetoPorNombre(String nombre) {
 		Producto producto = null;
 		for (int i = 0; i < baseDatosProductos.size(); i++) {
@@ -144,6 +159,11 @@ public class Producto implements Serializable, ComidaDefault{
 		return producto;
 	}
 
+	/**
+	 * Devuelve el objeto Producto correspondiente al id proporcionado.
+	 * @param id el id del Producto a buscar
+	 * @return el objeto Producto correspondiente al id proporcionado, o null si no se encuentra
+	 */
 	public static Producto obtenerObjetoPorId(String id) {
 		Producto producto = null;
 		for (int i = 0; i < baseDatosProductos.size(); i++) {
@@ -154,11 +174,23 @@ public class Producto implements Serializable, ComidaDefault{
 		return producto;
 	}
 
+	/**
+	 * Crea un nuevo objeto Producto con los mismos atributos que el objeto con el nombre especificado.
+	 * @param Nnombre el nombre del objeto Producto a crear.
+	 * @return el nuevo objeto Producto creado.
+	 */
 	public static Producto crearProducto(String Nnombre) {
 		Producto newProducto = obtenerObjetoPorId(Nnombre);
 		return new Producto(newProducto.getNombre(), newProducto.getId(), newProducto.getIngredientes(), newProducto.getCosto(), newProducto.getVecesVendido());
 	}
 
+	/**
+	 * Crea un nuevo producto personalizado con el nombre y los ingredientes especificados.
+	 * Si un ingrediente no existe, se crea uno nuevo.
+	 * @param Nnombre El nombre del producto personalizado.
+	 * @param ingredientes Un HashMap que contiene los ingredientes y sus cantidades.
+	 * @return El nuevo producto personalizado creado.
+	 */
 	public static Producto crearProductoPersonalizado(String Nnombre, HashMap<String,Integer> ingredientes) {
 		for (HashMap.Entry<String, Integer> entry : ingredientes.entrySet()) {
 			if (!Ingrediente.verificacionExistenciaPorNombre(entry.getKey())) {
@@ -168,6 +200,10 @@ public class Producto implements Serializable, ComidaDefault{
 		return new Producto(Nnombre, ingredientes);
 	}
 
+	/**
+	 * Calcula el costo del producto tomando en cuenta los ingredientes y la tarifa de ganancias.
+	 * @return el costo del producto
+	 */
 	public double calcularCosto() {
 		double costo = 0;
 		for (HashMap.Entry<String, Integer> entry : ingredientes.entrySet()) {
@@ -210,6 +246,11 @@ public class Producto implements Serializable, ComidaDefault{
 	return procesosFinales;
 	}
 
+	/**
+	 * Método que organiza los productos más vendidos en orden descendente y los almacena en una lista.
+	 * Se utiliza la variable estática baseDatosProductos para obtener los productos y su número de ventas.
+	 * Se utiliza la variable estática topMasVendidos para almacenar los 5 productos más vendidos.
+	 */
 	public static void organizarTopMasVendidos(){
 		topMasVendidos.clear();
 		for(int i=0; i<baseDatosProductos.size(); i++){

@@ -1,7 +1,6 @@
 package gestorAplicacion.humanos;
 
 import java.util.Random;
-import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.gestion.Canasta;
 import java.io.Serializable;
 import java.util.Map;

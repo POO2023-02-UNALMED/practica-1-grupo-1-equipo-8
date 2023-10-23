@@ -9,12 +9,12 @@ import gestorAplicacion.humanos.Cocinero;
 public class ProductoCaliente extends Producto{
 	private boolean horno=false;
 
-
+//constructores
 	public ProductoCaliente(String nombre, String ids, HashMap<String,Integer> ingredientes, double costo, int vecesVendido) {
 		super(nombre, ids, ingredientes, costo, vecesVendido);
 }
 
-
+//getters y setters
 public boolean isHorno() {
 	return horno;
 }
@@ -34,11 +34,6 @@ public void setHorno(boolean horno) {
 	}
 
 	/**
-	 * Creates a custom product with the given name and ingredients.
-	 * If an ingredient does not exist, it creates a new one.
-	 * @param Nnombre the name of the custom product
-	 * @param ingredientes a HashMap containing the name and quantity of each ingredient
-	 * @return the newly created custom product
 	 * Crea un nuevo producto personalizado con el nombre y los ingredientes especificados.
 	 * Si alguno de los ingredientes no existe en la lista de ingredientes, se crea uno nuevo.
 	 * @param Nnombre el nombre del producto personalizado
@@ -49,10 +44,10 @@ public void setHorno(boolean horno) {
     for (HashMap.Entry<String, Integer> entry : ingredientes.entrySet()) {
     if (!Ingrediente.verificacionExistenciaPorNombre(entry.getKey())) {
         new Ingrediente(entry.getKey());
-      }
+    }
     }
     return new Producto(Nnombre, ingredientes);
-  }
+}
 
 	/**
 	 * Proceso de horneado de un producto caliente por parte de un cocinero.

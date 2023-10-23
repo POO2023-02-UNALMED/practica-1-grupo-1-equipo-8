@@ -95,6 +95,7 @@ public class Cliente implements Serializable{
 		this.contrasena = "1234";
 	}
 
+//getters y setters
 	public String getNombre() {
 		return nombre;
 	}
@@ -220,6 +221,10 @@ public class Cliente implements Serializable{
 		this.panaderia = panaderia;
 	}
 
+	/**
+	 * Método que guarda una canasta en el historial de órdenes del cliente.
+	 * @param canasta La canasta a guardar en el historial.
+	 */
 	public void guardarCanastaEnHistorial(Canasta canasta){
 		ArrayList<Producto> listaVacia = new ArrayList<Producto>();
 		ArrayList<Ingrediente> listaVacia2 = new ArrayList<Ingrediente>();
@@ -231,6 +236,11 @@ public class Cliente implements Serializable{
 		this.historialOrdenes.add(canasta);
 	}
 
+	/**
+	 * Crea una nueva canasta a partir del historial de órdenes del cliente, utilizando el identificador especificado.
+	 * @param id el identificador de la canasta a crear
+	 * @return la nueva canasta creada a partir del historial de órdenes del cliente
+	 */
 	public Canasta crearCanastaPorHistorial(String id){
 		for (Canasta canasta: this.historialOrdenes){
 			if (canasta.getIdentificador().equals(id)){
@@ -243,6 +253,12 @@ public class Cliente implements Serializable{
 		return this.canastaOrden;
 	}
 
+	/**
+	 * Crea una nueva canasta del día para el cliente y la devuelve.
+	 * La canasta se obtiene de la panadería y se copian sus productos, ingredientes, kits, productos en lista, ingredientes en lista, kits en lista, identificador, items totales en canasta, items totales en lista, costo total en lista, costo tras descuento en lista, descuento en lista, calificación, comentario y estado de pago.
+	 * Se incrementa la cantidad de órdenes del cliente y se asigna un identificador único a la canasta.
+	 * @return La nueva canasta del día creada para el cliente.
+	 */
 	public Canasta crearCanastaDelDia(){
 		Canasta newCanasta = Panaderia.getCanastaDelDia();
 		canastaOrden = new Canasta(newCanasta.getProductos(), newCanasta.getIngredientes(), newCanasta.getKits(),newCanasta.getProductosEnLista(), newCanasta.getIngredientesEnLista(), newCanasta.getKitsEnLista(),newCanasta.getIdentificador(), newCanasta.getItemsTotalesEnCanasta(), newCanasta.getItemsTotalesEnLista(),newCanasta.getCostoTotalEnLista(), newCanasta.getCostoTrasDescuentoEnLista(),newCanasta.getDescuentoEnLista(), newCanasta.getCalificacion(), newCanasta.getComentario(),newCanasta.isPagada());
@@ -251,6 +267,11 @@ public class Cliente implements Serializable{
 		return this.canastaOrden;
 	}
 
+	/**
+	 * Crea una nueva canasta para el cliente y la asigna como su canasta actual.
+	 * También incrementa la cantidad de órdenes del cliente y establece un identificador único para la canasta.
+	 * @return La nueva canasta creada.
+	 */
 	public Canasta crearCanastaNueva() {
 		Canasta canasta = new Canasta();
 		this.canastaOrden = canasta;
@@ -259,6 +280,12 @@ public class Cliente implements Serializable{
 		return this.canastaOrden;
 	}
 
+	/**
+	 * Publica una canasta y la agrega a la lista de canastas publicadas de la panadería.
+	 * @param canasta La canasta a publicar.
+	 * @param calificacion La calificación que el cliente le da a la canasta.
+	 * @param comentario El comentario que el cliente deja sobre la canasta.
+	 */
 	public void publicarCanasta(Canasta canasta, int calificacion, String comentario){
 		ArrayList<Producto> listaVacia = new ArrayList<Producto>();
 		ArrayList<Ingrediente> listaVacia2 = new ArrayList<Ingrediente>();
@@ -272,6 +299,10 @@ public class Cliente implements Serializable{
 		this.panaderia.agregarCanastasPublicadas(canasta);
 	}
 
+	/**
+	 * Publica una canasta vacía en la panadería y la agrega a la lista de canastas publicadas.
+	 * @param canasta La canasta a publicar.
+	 */
 	public void publicarCanasta(Canasta canasta){
 		ArrayList<Producto> listaVacia = new ArrayList<Producto>();
 		ArrayList<Ingrediente> listaVacia2 = new ArrayList<Ingrediente>();
@@ -283,6 +314,11 @@ public class Cliente implements Serializable{
 		this.panaderia.agregarCanastasPublicadas(canasta);
 	}
 
+	/**
+	 * Publica una canasta y la agrega a la lista de canastas publicadas de la panadería.
+	 * @param canasta La canasta a publicar.
+	 * @param calificacion La calificación que se le asigna a la canasta.
+	 */
 	public void publicarCanasta(Canasta canasta, int calificacion){
 		ArrayList<Producto> listaVacia = new ArrayList<Producto>();
 		ArrayList<Ingrediente> listaVacia2 = new ArrayList<Ingrediente>();
@@ -295,12 +331,23 @@ public class Cliente implements Serializable{
 		this.panaderia.agregarCanastasPublicadas(canasta);
 	}
 
+	/**
+	 * Método que permite a un cliente calificar a un domiciliario y actualizar su calificación promedio.
+	 * @param domiciliario El domiciliario que se va a calificar.
+	 * @param calificacion La calificación que se le va a dar al domiciliario.
+	 */
 	public void calificarDomiciliario(Domiciliario domiciliario, double calificacion){
 		double calificacionVieja = domiciliario.getCalificacion();
 		double calificacionNueva = (calificacionVieja + calificacion)/2;
 		domiciliario.setCalificacion(calificacionNueva);
 	}
 
+	/**
+	 * Método que permite a un cliente calificar la cocina de un cocinero y actualizar su calificación.
+	 * Además, revisa la calificación de todos los cocineros de la panadería que estén trabajando.
+	 * @param cocinero El cocinero a calificar.
+	 * @param calificacion La calificación que el cliente le da al cocinero.
+	 */
 	public void calificarCocina(Cocinero cocinero, double calificacion){
 		double calificacionVieja = cocinero.getCalificacion();
 		double calificacionNueva = (calificacionVieja + calificacion)/2;
@@ -312,19 +359,24 @@ public class Cliente implements Serializable{
 		}
 	}
 
-public void notaCocineros() {
-	for (Cocinero cocinero : this.panaderia.getCocineros()) {
-		if (cocinero.isTrabajo()) {
-			double calificacion = GestionCocinar.gestionCocina();
-			calificarCocina(cocinero, calificacion);
+	/**
+	 * Este método recorre la lista de cocineros de la panadería y, si el cocinero está trabajando, 
+	 * llama al método "gestionCocina" de la clase "GestionCocinar" para obtener una calificación 
+	 * y luego llama al método "calificarCocina" para asignar la calificación al cocinero.
+	 */
+	public void notaCocineros() {
+		for (Cocinero cocinero : this.panaderia.getCocineros()) {
+			if (cocinero.isTrabajo()) {
+				double calificacion = GestionCocinar.gestionCocina();
+				calificarCocina(cocinero, calificacion);
+			}
 		}
 	}
-}
-	//TODO trabajar para enviar la canasta a pagar - Lo de abajo es solo una plantilla
-	public void enviarCanastasAFacturar(Canasta canastas) {
-		
-	}
 
+	/**
+	 * Envía una canasta a domicilio y califica al domiciliario.
+	 * @param canastas La canasta a enviar.
+	 */
 	public void enviarCanastasADomicilio(Canasta canastas){
 		this.panaderia.enviarDomicilio(canastas, this);
 		double calificacion = GestionDomicilioCliente.pedirCalificacion();
@@ -543,18 +595,30 @@ public void notaCocineros() {
 		}
 	}
 
+	/**
+	 * Enumeración que representa las posibles direcciones de un cliente.
+	 * Cada dirección tiene una distancia asociada.
+	 */
 	public enum Direccion {
 		MEDELLIN("Cerca"),
 		BOGOTA("Lejos"),
 		ENVIGADO("Medio"),
 		ITAGUI("Cerca");
-	
+
 		private final String distancia;
-	
+
+		/**
+		 * Constructor de la enumeración Direccion.
+		 * @param distancia La distancia asociada a la dirección.
+		 */
 		Direccion(String distancia) {
 			this.distancia = distancia;
 		}
-	
+
+		/**
+		 * Método que devuelve la distancia asociada a la dirección.
+		 * @return La distancia asociada a la dirección.
+		 */
 		public String getDistancia() {
 			return distancia;
 		}

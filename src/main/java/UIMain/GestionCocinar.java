@@ -36,7 +36,6 @@ public class GestionCocinar {
             }
             num = sc.nextInt();
         } while (num < 0 || num > 5);
-        sc.close();
         return num;
         
     }
@@ -79,7 +78,7 @@ public class GestionCocinar {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(Texto.centrar("50%  [#############...................] 100%"));
+                System.out.println(Texto.centrar("50%  [###################.............] 100%"));
                 String elemento = procesoCook.get(0);
                 try {
                     Thread.sleep(800);
@@ -135,7 +134,7 @@ public class GestionCocinar {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(Texto.centrar("66%  [###################.............] 100%"));
+                System.out.println(Texto.centrar("66%  [########################........] 100%"));
                 String elemento2 = procesoCook.get(1);
                 try {
                     Thread.sleep(800);

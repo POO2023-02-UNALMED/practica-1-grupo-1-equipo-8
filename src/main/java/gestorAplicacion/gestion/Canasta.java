@@ -238,6 +238,10 @@ public class Canasta implements Serializable {
   // agregarlo, en el caso de que si, simplemente agrega la cantidad indicada a la que ya había
 
   //Para productos
+  /**
+   * Agrega una lista de productos a la canasta.
+   * @param productos la lista de productos a agregar.
+   */
   private void gestionAgregarP(ArrayList<Producto> productos) {
     for (Producto p : productos) {
       if (p != null) {
@@ -248,6 +252,12 @@ public class Canasta implements Serializable {
   }
 
   //Para ingredientes
+  /**
+   * Agrega los ingredientes de la lista dada a la canasta actual.
+   * Si un ingrediente es nulo, no se agrega a la canasta.
+   * Finalmente, recalcula el número de elementos en la canasta.
+   * @param ingredientes La lista de ingredientes a agregar a la canasta.
+   */
   private void gestionAgregarI(ArrayList<Ingrediente> ingredientes) {
     for (Ingrediente i : ingredientes) {
       if (i != null) {
@@ -258,6 +268,10 @@ public class Canasta implements Serializable {
   }
 
   //Para kits
+  /**
+   * Agrega los kits de ingredientes a la canasta.
+   * @param kits Lista de kits de ingredientes a agregar.
+   */
   private void gestionAgregarK(ArrayList<ArrayList<Ingrediente>> kits) {
     for (ArrayList<Ingrediente> kit : kits) {
       if (kit != null) {
@@ -268,6 +282,12 @@ public class Canasta implements Serializable {
   }
 
   //Para productos en lista
+  /**
+   * Agrega un producto a la lista de la canasta y actualiza la cantidad de elementos y el costo total de la orden.
+   * @param prdct el nombre del producto a agregar.
+   * @param elementNum la cantidad de elementos del producto a agregar.
+   * @param iD el identificador del producto a agregar.
+   */
   private void gestionAgregar(String prdct, int elementNum,String iD) {
     if ((prdct != null) && (!productosEnLista.containsKey(prdct))) {
       productosEnLista.put(prdct, elementNum);
@@ -279,6 +299,12 @@ public class Canasta implements Serializable {
   }
 
   //Para ingredientes en lista
+  /**
+   * Agrega un ingrediente a la lista de ingredientes de la canasta y actualiza la cantidad de elementos y el costo total de la orden.
+   * @param ingrd el nombre del ingrediente a agregar.
+   * @param elementNum la cantidad de elementos del ingrediente a agregar.
+   * @param iD el identificador del ingrediente a agregar.
+   */
   private void gestionAgregar(String ingrd, int elementNum,int iD) {
     if ((ingrd != null) && (!ingredientesEnLista.containsKey(ingrd))) {
       ingredientesEnLista.put(ingrd, elementNum);
@@ -290,6 +316,12 @@ public class Canasta implements Serializable {
   }
 
   //Para kits en lista
+  /**
+   * Agrega un kit a la lista de kits en la canasta y actualiza la cantidad de elementos y el costo de la orden.
+   * @param kit el nombre del kit a agregar.
+   * @param elementNum la cantidad de elementos del kit a agregar.
+   * @param iD un booleano que indica si el kit ya está en la lista o no.
+   */
   private void gestionAgregar(String kit, int elementNum, boolean iD) {
     if ((kit != null) && (!kitsEnLista.containsKey(kit))) {
       kitsEnLista.put(kit, elementNum);
@@ -301,6 +333,14 @@ public class Canasta implements Serializable {
   }
 
   //Para agregar strings a una lista enviada
+  /**
+   * Agrega un ingrediente a la lista de la canasta y su cantidad correspondiente.
+   * Si el ingrediente ya existe en la lista, se suma la cantidad nueva a la existente.
+   * @param ingrd el nombre del ingrediente a agregar
+   * @param elementNum la cantidad del ingrediente a agregar
+   * @param lista la lista de ingredientes de la canasta
+   * @return la lista actualizada de ingredientes de la canasta
+   */
   public HashMap<String, Integer> gestionAgregar(String ingrd, int elementNum,HashMap<String, Integer> lista) {
     if ((ingrd != null) && (!lista.containsKey(ingrd))) {
       lista.put(ingrd, elementNum);
@@ -311,6 +351,13 @@ public class Canasta implements Serializable {
   }
 
   //Para productos en lista
+  /**
+   * Método privado que gestiona la eliminación de un producto de la canasta.
+   * @param prdct el nombre del producto a eliminar.
+   * @param cantidad la cantidad del producto a eliminar.
+   * @param iD el identificador del usuario que realiza la eliminación.
+   * @return true si se eliminó el producto correctamente, false en caso contrario.
+   */
   private boolean gestionEliminar(String prdct, int cantidad, String iD) {
     if ((prdct != null) && (productosEnLista.containsKey(prdct))) {
       if(productosEnLista.get(prdct)+cantidad>0){
@@ -333,6 +380,13 @@ public class Canasta implements Serializable {
   }
 
   //Para ingredientes en lista
+  /**
+   * Método privado que gestiona la eliminación de un ingrediente de la canasta.
+   * @param ingrd el nombre del ingrediente a eliminar.
+   * @param cantidad la cantidad del ingrediente a eliminar.
+   * @param iD el ID del ingrediente a eliminar.
+   * @return true si se eliminó el ingrediente correctamente, false si no se pudo eliminar.
+   */
   private boolean gestionEliminar(String ingrd, int cantidad, int iD) {
     if ((ingrd != null) && (ingredientesEnLista.containsKey(ingrd))) {
       if(ingredientesEnLista.get(ingrd)+cantidad>0){
@@ -355,6 +409,13 @@ public class Canasta implements Serializable {
   }
 
   //Para kits en lista
+  /**
+   * Método privado que se encarga de gestionar la eliminación de un kit de la canasta.
+   * @param kit El nombre del kit a eliminar.
+   * @param cantidad La cantidad de elementos del kit a eliminar.
+   * @param iD Un booleano que indica si se debe eliminar el kit por completo o solo disminuir su cantidad.
+   * @return true si se pudo eliminar el kit o disminuir su cantidad, false en caso contrario.
+   */
   private boolean gestionEliminar(String kit, int cantidad, boolean iD) {
     if ((kit != null) && (kitsEnLista.containsKey(kit))) {
       if(kitsEnLista.get(kit)+cantidad>0){

@@ -23,6 +23,7 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                 break;
             }
             while (eleccionValida == false || Cliente.getSesion() != null){ //bucle del menu
+                
                 UI.titulo();
                 String strOpciones = "Escriba el numero correspondiente a la opcion que quiere elegir\n" +
                         "0. Cerrar sesion\n" +
@@ -46,14 +47,16 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                         break;
 
                     case "1":
-                        UI.compras(panaderia);
+                        if(!UI.compras(panaderia)){
+                            break;
+                        }
                         UI.domicilio(Cliente.getSesion()); //NICOOOOOOOOOO
                         UI.facturacion();
                         UI.concluirOrden();//NICOOOOOO y el resto
                         break;
 
                     case "2":
-                        UI.verCatalogoDescripcion(panaderia); //buena (pero no pasa el nombre del producto y crashea cuando se ingresa una letra)
+                        UI.verCatalogoDescripcion(panaderia); //buena 
                         break;
 
                     case "3":

@@ -23,6 +23,7 @@ public class Cocinero extends Domiciliario {
     private boolean horno;
     private Panaderia panaderia;
 
+// constructores
     public Cocinero() {
         super();
         panaderia.getCocineros().add(this);
@@ -48,6 +49,7 @@ public class Cocinero extends Domiciliario {
         panaderia.getCocineros().add(this);
     }
 
+//getters y setters
     public String getEspecialidad() {
         return especialidad;
     }
