@@ -61,12 +61,12 @@ public class Catastrofe {
     	if (this.getMaldad() > rival.getHabilidad()) {
     		
     		rival.setDineroEnMano(0);
-            rival.setRobado(true);
+            rival.setRobado(false);
             this.dineroRobado += rival.getDineroEnMano();
     	}
 
         else {
-            rival.setRobado(false);
+            rival.setRobado(true);
         }
     	
     	return rival;	

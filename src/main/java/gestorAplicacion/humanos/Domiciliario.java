@@ -257,28 +257,34 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
         listingredientes.put(ingredienteNombre, cantidad);
     }
 
-        if(valorcompra<=this.panaderia.getDinero()){
-            this.dineroEnMano+=valorcompra;
-            this.panaderia.setDinero(this.panaderia.getDinero()-valorcompra);
-            if(this.robado==true){
-                Catastrofe Ladron = Catastrofe.responsableAleatorio();
-                Domiciliario postRobo = Ladron.robarComprador(this);
-                if (postRobo.robado = true) {
-
-                    return true;
-                }
+    if(valorcompra<=this.panaderia.getDinero()){
+        
+        this.dineroEnMano+=valorcompra;
+        this.panaderia.setDinero(this.panaderia.getDinero()-valorcompra);
+        
+        if(this.robado==true){
+            
+            Catastrofe Ladron = Catastrofe.responsableAleatorio();
+            Domiciliario postRobo = Ladron.robarComprador(this);
+            
+            if (postRobo.robado == false) {
+                    return true; //Devuelve que no fue robado
             }
-
-            for(Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()){
-                int cantidad = ingrediente.getValue();
-                String ingredienteNombre = ingrediente.getKey();
-                for(int i=0;i<cantidad;i++){
-                    Ingrediente ingrdt = Ingrediente.crearIngrediente(ingredienteNombre);
-                    this.panaderia.getInventario().agregarIngrediente(ingrdt);
-                }
-            }
-            return false;
         }
+
+        for(Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()){
+
+            int cantidad = ingrediente.getValue();
+            String ingredienteNombre = ingrediente.getKey();
+            
+            for(int i=0;i<cantidad;i++){
+                    
+                Ingrediente ingrdt = Ingrediente.crearIngrediente(ingredienteNombre);
+                this.panaderia.getInventario().agregarIngrediente(ingrdt);
+            }
+        }
+            return false;
+    }
 
         else{
 
