@@ -15,8 +15,9 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
     public static void main(String[] args) {
         Panaderia panaderia=null;
         panaderia=Serializador.cargarPanaderia();
-        
-        do{
+        Scanner input = new Scanner(System.in);
+
+        while(true){
             continuar = GestionInicioCliente.sesionCliente(panaderia);
             if(!continuar){
                 break;
@@ -32,18 +33,16 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                         "5. Cambiar contrasena\n" +
                         "6. Meter plata a mi cuenta\n" +
                         "7. validar tipo de cliente\n" +
-                        "8. Historial de ordenes, pedir canastas otra vez";
+                        "8. Modificar direccion\n" +
+                        "9. Historial de ordenes, pedir canastas otra vez";
         
                 System.out.println(strOpciones);
-                Scanner input = new Scanner(System.in);
-                String eleccion = "";
-                eleccion = input.nextLine();
-                input.close();
+                String eleccion = input.nextLine();
                 eleccionValida = true;
                 switch (eleccion) {
 
                     case "0": //cerrar sesion
-                        UI.cerrarSesion();
+                        UI.cerrarSesion(); //buena 
                         break;
 
                     case "1":
@@ -54,28 +53,33 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                         break;
 
                     case "2":
-                        UI.verCatalogoDescripcion(panaderia);
+                        UI.verCatalogoDescripcion(panaderia); //buena (pero no pasa el nombre del producto y crashea cuando se ingresa una letra)
                         break;
 
                     case "3":
-                        UI.verRanking(panaderia, Cliente.getSesion());
+                        UI.verRanking(panaderia, Cliente.getSesion()); //Crash
+                        break;
 
                     case "4":
-                        UI.historialRecibos(Cliente.getSesion());
+                        UI.historialRecibos(Cliente.getSesion()); //(Creemos que bien)
                         break;
                     case "5":
-                        UI.cambiarClave(Cliente.getSesion());
+                        UI.cambiarClave(Cliente.getSesion()); //buena
                         break;
 
                     case "6":
-                        UI.meterPlata(Cliente.getSesion());
+                        UI.meterPlata(Cliente.getSesion()); //buena
                         break;
 
                     case "7":
-                        UI.validarTipoCliente(Cliente.getSesion());
+                        UI.validarTipoCliente(Cliente.getSesion()); //buena
+                        break;
+                    
+                    case "8":
+                        UI.modificarDireccion(Cliente.getSesion()); //buena
                         break;
 
-                    case "8":
+                    case "9":
                         UI.historialOrdenes(Cliente.getSesion());
                         break;
 
@@ -85,9 +89,8 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                         eleccionValida = false;
                         break;
                 }
-
             }
-        } while(true);
+        }
         Serializador.guardarPanaderia(panaderia);
         System.exit(0);
     }

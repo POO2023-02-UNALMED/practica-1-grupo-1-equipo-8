@@ -472,29 +472,17 @@ public void notaCocineros() {
 	 */
 
 	public boolean establecerDomicilioValido(String direccion, String ciudad) {
-		
-		boolean desicion = false; 
-		Direccion necesaria = null;
-		
-		Direccion[] DireccionesValidas = Direccion.values();
-		
-		for (Direccion i: DireccionesValidas) {
-			
-			if (ciudad.toUpperCase() == i.name()) {
-				
-				desicion = true;
-				necesaria = i;
-				break;
-			}		
+		try{
+			ciudad = ciudad.toUpperCase();
+			Direccion ciudadvalida = Direccion.valueOf(ciudad);
+			this.direccion = ciudadvalida;
 		}
-		
-		if (desicion == true) {
-			
-			this.direccionTXT = direccion;
-			this.direccion = necesaria;
+		catch(Exception e){
+			return false;
 		}
-		
-		return desicion;
+
+		this.direccionTXT = direccion;
+		return true;
 	}
 	
 	/*

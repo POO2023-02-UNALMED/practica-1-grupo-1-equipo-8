@@ -15,11 +15,11 @@ public interface ComidaDefault {
         String m = String.format(""+
         " _______________________________________________________ \n"+
         "|"+Texto.centrar(String.format("Producto: ", nombre))+" |\n"+
-        "| Porción: 30 g                                         |\n"+
+        "| Porcion: 30 g                                         |\n"+
         "|_______________________________________________________| \n"+
-        "| Información nutricional por porción                   |\n"+
+        "| Informacion nutricional por porcion                   |\n"+
         "|______________________ ________ _______________________| \n"+
-        "| Energía              | 140 kcal| 7%% del valor diario  |\n"+
+        "| Energia              | 140 kcal| 7%% del valor diario  |\n"+
         "|______________________ ________ _______________________|\n"+
         "| Grasa total          | 6 g     | 9%% del valor diario  |\n"+
         "| _ Grasa saturada     | 3 g     | 15%% del valor diario |\n"+
@@ -30,10 +30,10 @@ public interface ComidaDefault {
         "| Sodio                | 75 mg   | 3%% del valor diario  |\n"+
         "|______________________ ________ _______________________| \n"+
         "| Carbohidratos totales| 20 g    | 7%% del valor diario  |\n"+
-        "| _ Fibra dietética    | 1 g     | 4%% del valor diario  |\n"+
-        "| _ Azúcares           | 10 g    |                      |\n"+
+        "| _ Fibra dietetica    | 1 g     | 4%% del valor diario  |\n"+
+        "| _ Azucares           | 10 g    |                      |\n"+
         "|______________________ ________ _______________________| \n"+
-        "| Proteína             | 2 g     |                      |\n"+
+        "| Proteina             | 2 g     |                      |\n"+
         "|______________________ ________ _______________________| \n"+
         "| Vitamina A           | 0%% del valor diario            |\n"+
         "| Vitamina C           | 0%% del valor diario            |\n"+
@@ -41,7 +41,7 @@ public interface ComidaDefault {
         "| Hierro               | 6%% del valor diario            |\n"+
         "|_______________________________________________________| \n"+
         "");
-        return "";
+        return m;
     }
 
 }

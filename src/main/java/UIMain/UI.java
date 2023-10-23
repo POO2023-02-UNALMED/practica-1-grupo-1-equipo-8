@@ -1,6 +1,8 @@
 package UIMain;
 
 import java.util.Scanner;
+import java.lang.Thread;
+
 import gestorAplicacion.humanos.Cliente;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
@@ -213,6 +215,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
   // cerrar sesion del usuario
   public static void cerrarSesion() { // Este metodo esta listo
+    System.out.println("");
     System.out.println("Seguro de que quiere cerrar su sesion?");
     System.out.println("Escriba 1 para si, escriba 0 para cancelar");
     eleccion = input.nextLine();
@@ -222,9 +225,13 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
       case "1":
         Cliente.setSesion(null);
         System.out.println("Su sesion ha sido finalizada");
+        try {
+          Thread.sleep(500);
+        } catch (Exception e) {
+        }
         break;
       default:
-        System.out.println("Usted escogio una opción que no estaba en la lista");
+        System.out.println("Usted escogio una opcion que no estaba en la lista");
         break;
     }
   }
@@ -380,14 +387,17 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   // Aqui se mostrara la informacion nutricional y otros
   public static void verCatalogoDescripcion(Panaderia panaderia) {
     if (Cliente.getSesion().verificarPresupuesto() == false) {
+      System.out.println("");
       System.out.println("No tienes presupuesto agregado, para ver el catalogo agrega un presupuesto");
       while (Cliente.getSesion().verificarPresupuesto() == false) {
+        System.out.println("");
         System.out.println("Ingrese su presupuesto: ");
         try {
           eleccion = input.nextLine();
           double presupuesto = Double.parseDouble(eleccion);
           Cliente.getSesion().setPresupuesto(presupuesto);
         } catch (Exception e) {
+          System.out.println("");
           System.out.println("Ingrese un presupuesto valido:");
         }
       }
@@ -395,17 +405,31 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     mostrarOpciones(panaderia.getInventario());
     // sugerencias
 
-    do {
+    while (true){
+      System.out.println("");
       System.out.println("Escriba el numero de id de un producto para ver su informacion, o escriba 0 para salir ");
       eleccion = input.nextLine();
-      if (eleccion != "0") {
+      
+      if (eleccion == "0") {      
         break;
-      } else {
-        System.out.println(
-            Producto.obtenerObjetoPorId(eleccion).getNutrientes(Producto.obtenerObjetoPorId(eleccion).getNombre()));
+      } 
+      
+      else if (Integer.parseInt(eleccion) <= Producto.getBaseDatosProductos().size()+Ingrediente.getBaseDatosIngredientes().size()) {
+        System.out.println("");
+        if(Producto.verificacionExistenciaPorId(eleccion)){
+        System.out.println(Producto.obtenerObjetoPorId(eleccion).getNutrientes(Producto.obtenerObjetoPorId(eleccion).getNombre()));
+        break;
+        }
+        else if(Ingrediente.verificacionExistenciaPorId(eleccion)){
+          System.out.println(Ingrediente.obtenerObjetoPorId(eleccion).getNutrientes(Ingrediente.obtenerObjetoPorId(eleccion).getNombre()));
+          break;
+        }
       }
-      break;
-    } while (true);
+      
+      else{
+          System.out.println("Escriba un id valido");
+        }
+    }
   }
 
   public static void verRanking(Panaderia panaderia, Cliente cliente) {
@@ -414,6 +438,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     GestionRankings.mostrarRankingDomiciliarios(panaderia);
     GestionRankings.mostrarRankingCocineros(panaderia);
     GestionRankings.mostrarRankingCanastas(panaderia);
+    System.out.println("");
     System.out.println("Has encontrado lo mejor de PooBakery");
     System.out.println("Puedes agregar estos productos en el menu opcion 1");
     System.out.println("Puedes clonar nuestras canastas de compras mejor valoradas ingresando su respectivo id");
@@ -435,20 +460,29 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   // Este metodo imprime todos los recibos que se le haya entregado antes al
   // cliente
   public static void historialRecibos(Cliente cliente) {
-    for (Recibo recibo : cliente.getRecibos()) {
-      imprimirFactura(recibo);
+    if(cliente.getRecibos().size() == 0){
       System.out.println(" ");
-      System.out.println(" ");
-      System.out.println(" ");
-      System.out.println(" ");
+      System.out.println("No tienes recibos");
+    }
+    else{
+      for (Recibo recibo : cliente.getRecibos()) {
+        imprimirFactura(recibo);
+        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println(" ");
+      }
     }
   }
 
   // Metodo para que el cliente cambie su contraseña
   public static void cambiarClave(Cliente cliente) {
+    System.out.println("");
     System.out.println("Ingrese su nueva clave: ");
     eleccion = input.nextLine();
     cliente.setContrasena(eleccion);
+    System.out.println("");
+    System.out.println("Clave cambiada con exito :D");
   }
 
   // Metodo para que el cliente pueda ingresar dinero a su cuenta (Aumentar el
@@ -458,9 +492,11 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     double cantidad = 0;
 
     while (true) {
+      System.out.println("");
       System.out.println("Por favor ingrese la cantidad de dinero que desea ingresar:");
       try {
         cantidad = input.nextDouble();
+        System.out.println("Dinero actualizado con exito");
         break;
       } catch (Exception e) {
         System.out.println("Por favor ingrese un id valido (solo numeros)");
@@ -474,12 +510,15 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   // Metodo para que el cliente valide el tipo de cliente que es para aplicar a
   // descuentos especiales
   public static void validarTipoCliente(Cliente cliente) {
-
+    
+    System.out.println("");
     System.out.println("Los tipos de clientes a los cuales les damos un descuento especial son: ");
+    System.out.println("");
     System.out.println("Estudiante");
     System.out.println("Profesor");
     System.out.println("Senior");
     System.out.println("Empleado");
+    System.out.println("");
     System.out.println("Si no hace parte de ninguno de estos escriba ninguno");
     System.out.println("Por favor escriba su tipo de cliente: ");
 
@@ -506,12 +545,14 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   // Aqui el cliente puede ver el historial de las cosas que ha pedido antes, para
   // pedirlas otra vez facilmente
   public static void historialOrdenes(Cliente cliente) {
+    System.out.println("");
     System.out.println("Historial de ordenes:");
     for (Canasta canasta : cliente.getHistorialOrdenes()) {
       System.out.println("Canasta de la factura con id " + canasta.getIdentificador());
       GestionCompra.mostrarCanasta(canasta);
       System.out.println("");
     }
+    System.out.println("");
     System.out.println("Escriba el codigo de la canasta que quiere comprar despues: ");
     eleccion = input.nextLine();
     if (cliente.crearCanastaPorHistorial(eleccion) != null) {
@@ -519,5 +560,43 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     {
       cliente.setCanastaOrden(cliente.crearCanastaPorHistorial(eleccion));
     }
+  }
+
+  public static void modificarDireccion(Cliente cliente){
+
+    Scanner input = new Scanner(System.in);
+    boolean suceso = false;
+
+    System.out.println("Por favor ingrese su direccion y la ciudad en la que esta ubicado");
+    System.out.println("Tenga en cuenta que las ciudades para las cuales tenemos domicilio son: ");
+    System.out.println("");
+    System.out.println("Bogota");
+    System.out.println("Medellin");
+    System.out.println("Envigado");
+    System.out.println("Itagui");
+    System.out.println("");
+    
+    String direccion = input.nextLine();
+    String ciudad = input.nextLine();
+
+    suceso = cliente.establecerDomicilioValido(direccion,ciudad);
+   
+   while(true){
+
+    if (suceso == false){
+
+      System.out.println("Por favor ingrese una ciudad valida");
+      ciudad = input.nextLine();
+      suceso = cliente.establecerDomicilioValido(direccion,ciudad);
+
+    }
+
+    else{
+
+      System.out.println("Direccion validada con exito");
+      break;
+    }
+
+   }
   }
 }
