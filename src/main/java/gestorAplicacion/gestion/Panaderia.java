@@ -528,18 +528,17 @@ public class Panaderia implements Serializable {
 	//Recibe un map de String y enteros para saber exactamente qué debe comprar y qué cantidad
 	
     public void comprarIngredientes(Map<String, Integer> listingredientes) {
-    	
+        
     	Domiciliario elegido = this.domiciliarioAleatorio();
     	GestionConseguirIngredientes.lecturaCompra(elegido.isRobado());
 
         boolean x = elegido.conseguirIngredientes(listingredientes);
 
             while (x == true){
-        	
-        	GestionConseguirIngredientes.lecturaRobo(x);
-            comprarIngredientes(listingredientes);
-            
+                elegido.setRobado(false);
+                x = elegido.conseguirIngredientes(listingredientes);
         }
+        elegido.setRobado(true);
     }
 
         //METODOS DE FACTURACION

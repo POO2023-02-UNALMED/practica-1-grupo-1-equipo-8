@@ -142,8 +142,8 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     System.out.println("");
     System.out.println("");
     System.out.println("=".repeat(55));
-    System.out.println(Texto.alinear("Domicilio",String.valueOf(recibo.getCostoDomicilio())));
-    System.out.println(Texto.alinear("Descuento",, ))
+    //System.out.println(Texto.alinear("Domicilio",String.valueOf(recibo.getCostoDomicilio())));
+    System.out.println(Texto.alinear("Descuento"," ","-"+String.valueOf(recibo.getSubtotal()*recibo.getDescuento())));
     System.out.println(Texto.alinear("****TOTAL*****", recibo.getTotal()));
     // System.out.println(Texto.alinear("Domicilio", ))
     System.out.println("");
@@ -496,6 +496,10 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
       System.out.println("El tipo de cliente que ingreso no tiene ningun descuento asignado");
       cliente.establecerDescuentoPorTipoValido("NINGUNO");
     }
+  }
+
+  public static void seleccionCanastasExistentes(){
+    
   }
 
   // Aqui el cliente puede ver el historial de las cosas que ha pedido antes, para

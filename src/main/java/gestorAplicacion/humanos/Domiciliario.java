@@ -154,38 +154,81 @@ public class Domiciliario extends Trabajador{
         }
     }
 
-    //Este método se ejecuta cuando se llama el método comprarIngredientes de Panadería, basicamnete se encarga de comprar ingedientes cuando falta y añadirlos al inventario
-    //Recibe una diccionario de Strings y enteros paea saber exactamente qué se debe comprar y cuánta cantidad
-    //Cuando se "compran" nuevos ingredientes realmente se están creando objetos y añandiendose al inventario
+    //Este metodo se ejecuta cuando se llama el metodo comprarIngredientes de Panaderia, basicamnete se encarga de comprar ingedientes cuando falta y anadirlos al inventario
+    //Recibe una diccionario de Strings y enteros paea saber exactamente que se debe comprar y cuanta cantidad
+    //Cuando se "compran" nuevos ingredientes realmente se estan creando objetos y anandiendose al inventario
     
     public boolean conseguirIngredientes(Map<String, Integer> listingredientes) {
-
         double valorcompra = 0;
-        this.robado = false;
-        Inventario inv = this.panaderia.getInventario();
 
         Ingrediente.organizarTopMasVendidos();
         ArrayList<Ingrediente> top = Ingrediente.getTopMasVendidos();
 
-        for(Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()){
+            for(Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()){
 
-            int cantidad = ingrediente.getValue();
-            String ingredienteNombre = ingrediente.getKey();
-            boolean topp=false;
-            for(Ingrediente ingredientes: top){
+                int cantidad = ingrediente.getValue();
+                String ingredienteNombre = ingrediente.getKey();
+                boolean topp=false;
+                for(Ingrediente ingredientes: top){
 
-                if(ingredientes.getNombre().equals(ingredienteNombre)){
-                    cantidad= cantidad*2;
-            		valorcompra += (Ingrediente.obtenerObjetoPorId(ingredienteNombre).getPrecioDeCompra())  * (cantidad * 2);
-                    topp=true;       		
+                    if(ingredientes.getNombre().equals(ingredienteNombre)){
+                        if(this.robado==true){
+                            cantidad= cantidad*2;
+                        }
+                        valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())  * (cantidad * 2);
+                        topp=true;       		
+                    }
+                }
+                if(!topp){
+                        valorcompra += (Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())  * (cantidad);
+                }
+                listingredientes.put(ingredienteNombre, cantidad);
+            }
+
+        if(valorcompra<=this.panaderia.getDinero()){
+            this.dineroEnMano+=valorcompra;
+            this.panaderia.setDinero(this.panaderia.getDinero()-valorcompra);
+            if(this.robado==true){
+                Catastrofe Ladron = Catastrofe.responsableAleatorio();
+                Domiciliario postRobo = Ladron.robarComprador(this);
+                if (postRobo.robado = true) {
+
+                    return true;
                 }
             }
-            if(!topp){
-                	valorcompra += (Ingrediente.obtenerObjetoPorId(ingredienteNombre).getPrecioDeCompra())  * (cantidad);
-            }
-            listingredientes.put(ingredienteNombre, cantidad);
-        }
 
+            for(Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()){
+                int cantidad = ingrediente.getValue();
+                String ingredienteNombre = ingrediente.getKey();
+                for(int i=0;i<cantidad;i++){
+                    Ingrediente ingrdt = Ingrediente.crearIngrediente(ingredienteNombre);
+                    this.panaderia.getInventario().agregarIngrediente(ingrdt);
+                }
+            }
+            return false;
+        }
+        else{
+            this.panaderia.conseguirPrestamo(valorcompra);
+            this.dineroEnMano+=valorcompra;
+            this.panaderia.setDinero((this.panaderia.getDinero()-valorcompra));
+            if(this.robado==true){
+                Catastrofe Ladron = Catastrofe.responsableAleatorio();
+                Domiciliario postRobo = Ladron.robarComprador(this);
+                if (postRobo.robado = true) {
+
+                    return true;
+                }
+            }
+            for(Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()){
+                int cantidad = ingrediente.getValue();
+                String ingredienteNombre = ingrediente.getKey();
+                for(int i=0;i<cantidad;i++){
+                    Ingrediente ingrdt = Ingrediente.crearIngrediente(ingredienteNombre);
+                    this.panaderia.getInventario().agregarIngrediente(ingrdt);
+                }
+            }
+            return false;
+        }
         
 
 /* 

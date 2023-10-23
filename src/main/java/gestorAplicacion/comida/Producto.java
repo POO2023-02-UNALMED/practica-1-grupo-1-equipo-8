@@ -155,7 +155,7 @@ public class Producto implements Serializable, ComidaDefault{
 	}
 
 	public static Producto crearProducto(String Nnombre) {
-		Producto newProducto = obtenerObjetoPorNombre(Nnombre);
+		Producto newProducto = obtenerObjetoPorId(Nnombre);
 		return new Producto(newProducto.getNombre(), newProducto.getId(), newProducto.getIngredientes(), newProducto.getCosto(), newProducto.getVecesVendido());
 	}
 

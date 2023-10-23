@@ -8,7 +8,7 @@ import gestorAplicacion.gestion.Panaderia;
 
 public class Catastrofe {
 
-    public static String[] fallosCocina = {"El producto se quemó","El cocinero se cortó un dedo","El producto se pudrió","Hubo un incendio","El cocinero está triste","Encontramos un pelo en la comida"};
+    public static String[] fallosCocina = {"El producto se quemo","El cocinero se corto un dedo","El producto se pudrio","Hubo un incendio","El cocinero esta triste","Encontramos un pelo en la comida"};
 
     private int maldad;
     private double dineroRobado;
@@ -64,6 +64,10 @@ public class Catastrofe {
             rival.setRobado(true);
             this.dineroRobado += rival.getDineroEnMano();
     	}
+
+        else {
+            rival.setRobado(false);
+        }
     	
     	return rival;	
     }

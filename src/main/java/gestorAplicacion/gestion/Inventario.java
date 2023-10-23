@@ -45,6 +45,16 @@ public class Inventario implements Serializable{
 		return maxCantidad;
 	}
 
+    public int verificarCantidadIngredientePorNombre(String ingrd) {
+        int contador=0;
+        for(Ingrediente ingredientes : invIngredientes) {
+            if (ingredientes.getNombre().equals(ingrd)) {
+                contador++;
+            }
+        }
+        return contador;
+    }
+
 	/**
      * Verifica la cantidad de un producto en el inventario de la panadería por su ID.
      * @param prdct el ID del producto a verificar.
@@ -54,6 +64,16 @@ public class Inventario implements Serializable{
         int contador=0;
         for(Producto productos : invProductos) {
             if (productos.getId().equals(prdct)) {
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+    public int verificarCantidadProductoPorNombre(String prdct) {
+        int contador=0;
+        for(Producto productos : invProductos) {
+            if (productos.getNombre().equals(prdct)) {
                 contador++;
             }
         }
@@ -89,6 +109,15 @@ public class Inventario implements Serializable{
         return null;
     }
 
+    public Producto buscarProductoPorNombre(String nombre) {
+        for(Producto producto: invProductos) {
+            if (producto.getNombre().equals(nombre)) {
+                return producto;
+            }
+        }
+        return null;
+    }
+
     /**
      * Busca un ingrediente en el inventario de ingredientes de la panadería por su ID.
      * @param id el ID del ingrediente a buscar
@@ -97,6 +126,15 @@ public class Inventario implements Serializable{
     public Ingrediente buscarIngredientePorId(String id) {
         for(Ingrediente ingrediente: invIngredientes) {
             if (ingrediente.getId().equals(id)) {
+                return ingrediente;
+            }
+        }
+        return null;
+    }
+
+    public Ingrediente buscarIngredientePorNombre(String nombre) {
+        for(Ingrediente ingrediente: invIngredientes) {
+            if (ingrediente.getNombre().equals(nombre)) {
                 return ingrediente;
             }
         }
@@ -211,11 +249,11 @@ public class Inventario implements Serializable{
     public Map<String, Integer> revisarCantidadIngredientes(Map<String, Integer> ingredientesNecesarios){
         HashMap<String, Integer> ingredientessFaltantes = new HashMap<String, Integer>();
         for (Map.Entry<String, Integer> entry : ingredientesNecesarios.entrySet()) {
-            String ingredienteId = entry.getKey();
+            String ingredienteN = entry.getKey();
             Integer cantidad = entry.getValue();
-            int cantidadExistente = verificarCantidadIngredientePorId(ingredienteId);
+            int cantidadExistente = verificarCantidadIngredientePorNombre(ingredienteN);
             if (cantidadExistente-cantidad<0){
-                ingredientessFaltantes.put(ingredienteId,(cantidadExistente-cantidad)*(-2));
+                ingredientessFaltantes.put(ingredienteN,(cantidadExistente-cantidad)*(-2));
             }
         }
         return ingredientessFaltantes;

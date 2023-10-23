@@ -204,10 +204,11 @@ public class Ingrediente implements Serializable, ComidaDefault{
 	 * @param ingrediente El ingrediente al que se le establecerá la caducidad.
 	 */
 	public void caducidad(Ingrediente ingrediente){
+		ingrediente.setCaducado(false);
 		Random numAleatorio = new Random();
 		int caducidad = numAleatorio.nextInt(20);
 		if(caducidad == probabilidadConstante){
-			ingrediente.setCaducado(true);;
+			ingrediente.setCaducado(true);
 		}
 	}
 
@@ -215,13 +216,13 @@ public class Ingrediente implements Serializable, ComidaDefault{
 	 * Revisa la caducidad del ingrediente y resta la cantidad especificada del inventario si está vencido.
 	 * @param cantidad La cantidad de ingrediente a revisar y restar del inventario si está vencido.
 	 */
-	public void revisarCaducidad(int cantidad){
+	public void revisarCaducidad(int cantidad, Panaderia panaderia){
 		
 		this.caducidad(this);
 		boolean vencido = this.isCaducado();
 		if(vencido){
 		String ingredienteId = this.getId();
-		this.inventario.restarIngrediente(ingredienteId, cantidad);
+		panaderia.getInventario().restarIngrediente(ingredienteId, cantidad);
 		
 		}	
 	}

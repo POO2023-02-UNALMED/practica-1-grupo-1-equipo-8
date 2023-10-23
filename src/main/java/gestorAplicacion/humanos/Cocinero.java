@@ -43,6 +43,7 @@ public class Cocinero extends Domiciliario {
 
     public Cocinero(String nombre, double habilidad,double calificacion, double dineroEnMano, String especialidad, Panaderia panaderia) {
         super(nombre, habilidad, calificacion,dineroEnMano, panaderia, true);
+        this.panaderia = panaderia;
         this.especialidad = especialidad;
         panaderia.getCocineros().add(this);
     }
@@ -267,6 +268,19 @@ public class Cocinero extends Domiciliario {
         HashMap<String, Integer> productos = canastaTrabajar.getProductosEnLista();
         List<Map<String, Integer>> listaDeMapas = new ArrayList<>();
 
+        // Verificar caducidad de ingredientes
+        for (Map.Entry<String, Integer> product : productos.entrySet()) {
+            String productoId = product.getKey();
+            Producto producto = Producto.obtenerObjetoPorId(productoId);
+            Map<String, Integer> ingredientesAUsar = producto.getIngredientes();
+            for (Map.Entry<String, Integer> verificar : ingredientesAUsar.entrySet()) {
+                String ingIdVerificar = verificar.getKey();
+                Ingrediente ingVerificar = Ingrediente.obtenerObjetoPorNombre(ingIdVerificar);
+                Integer cantidad = verificar.getValue();
+                ingVerificar.revisarCaducidad(cantidad,this.panaderia);
+            }
+        }
+
         // Preparación de ingredientes necesarios
         for (Map.Entry<String, Integer> product : productos.entrySet()) {
             String productoID = product.getKey();
@@ -289,20 +303,8 @@ public class Cocinero extends Domiciliario {
             panaderia.comprarIngredientes(ingrFaltantes);
             // Retorna falso, indicando que no se puede realizar la labor debido a la falta
             // de ingredientes.
+            ingrFaltantes.clear();
             return false;
-        }
-
-        // Verificar caducidad de ingredientes
-        for (Map.Entry<String, Integer> product : productos.entrySet()) {
-            String productoId = product.getKey();
-            Producto producto = this.panaderia.getInventario().buscarProductoPorId(productoId);
-            Map<String, Integer> ingredientesAUsar = producto.getIngredientes();
-            for (Map.Entry<String, Integer> verificar : ingredientesAUsar.entrySet()) {
-                String ingIdVerificar = verificar.getKey();
-                Ingrediente ingVerificar = this.panaderia.getInventario().buscarIngredientePorId(ingIdVerificar);
-                Integer cantidad = verificar.getValue();
-                ingVerificar.revisarCaducidad(cantidad);
-            }
         }
 
         // Itera a través de los productos en la canasta nuevamente.

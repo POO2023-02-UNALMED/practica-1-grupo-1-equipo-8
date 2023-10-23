@@ -18,8 +18,7 @@ public class SerializationTest {
     //panaderia = Serializador.cargarPanaderia();
     System.out.println("panaderia cargada");
 
-    
-    
+    /*
     Ingrediente.crearIngrediente("leche");
     Ingrediente.crearIngrediente("harina");
     Ingrediente.crearIngrediente("azucar");
@@ -72,26 +71,26 @@ public class SerializationTest {
     panaderia.crearCuenta("Richard", 202, "qwerty");
     Cliente.getSesion().setPresupuesto(30000);
     
+    Domiciliario domiciliario1 = new Domiciliario("Juan",panaderia);
+    Cocinero cocinero1 = new Cocinero("Mateo", "Decoracion",panaderia);
 
+    HashMap<String, Integer> ingredientesCocinar = new HashMap<String, Integer>();
+    ingredientesCocinar.put("14", 2);
+    ingredientesCocinar.put("15", 4);
+    ingredientesCocinar.put("16", 1);
+    ingredientesCocinar.put("17", 1);
+    panaderia.cocinar(ingredientesCocinar);
+    */
     
     Cliente cliente1= panaderia.inicioSesionId(202);
     panaderia.inicioSesionConstrasena(cliente1,"qwerty");
     System.out.println("cliente1 cargado");
-    HashMap<String, Integer> ingredientesCocinar = new HashMap<String, Integer>();
-    ingredientesCocinar.put("14", 2);
-    ingredientesCocinar.put("15", 4);
-    Domiciliario domiciliario1 = new Domiciliario("Juan",panaderia);
-    Cocinero cocinero1 = new Cocinero("Mateo", "Decoracion",panaderia);
+    
+    
     System.out.println("cocinero1 cargado");
     System.out.println("domiciliario1 cargado");
 
-    for(Ingrediente ingrediente: Ingrediente.getBaseDatosIngredientes()){
-      System.out.println(ingrediente.getNombre());
-    }
 
-    Ingrediente.getBaseDatosIngredientes();
-    System.out.println("ingredientes cargados");
-    panaderia.cocinar(ingredientesCocinar);
 
     UI.mostrarOpciones(panaderia.getInventario());
     

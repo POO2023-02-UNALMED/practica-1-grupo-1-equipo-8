@@ -37,7 +37,7 @@ public abstract class Trabajador implements Serializable{
         this.habilidad = rand.nextInt(10) + 9; // 9 <= habilidad <= 19
         this.dineroEnMano = 0;
         this.salario = 1000;
-        this.robado = false;
+        this.robado = true;
         this.panaderia = panaderia;
         panaderia.getTrabajadores().add(this);
     }
@@ -61,7 +61,7 @@ public abstract class Trabajador implements Serializable{
         this.habilidad = rand.nextInt(10) + 9; // 9 <= habilidad <= 19
         this.dineroEnMano = dineroEnMano;
         this.salario = salario;
-        this.robado = false;
+        this.robado = true;
         panaderia.getTrabajadores().add(this);
     }
 
