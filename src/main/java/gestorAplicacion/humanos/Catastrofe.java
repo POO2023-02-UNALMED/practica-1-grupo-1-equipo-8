@@ -60,7 +60,7 @@ public class Catastrofe {
     	
     	if (this.getMaldad() > rival.getHabilidad()) {
     		
-    		rival.setDineroEnMano(0);;
+    		rival.setDineroEnMano(0);
             rival.setRobado(true);
             this.dineroRobado += rival.getDineroEnMano();
     	}

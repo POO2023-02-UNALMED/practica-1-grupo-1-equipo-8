@@ -286,7 +286,7 @@ public class Cocinero extends Domiciliario {
         if (!ingrFaltantes.isEmpty()) {
             GestionCocinar.fallosCocinando();
             // Compra los ingredientes faltantes en la Panadería.
-            this.panaderia.comprarIngredientes(ingrFaltantes);
+            panaderia.comprarIngredientes(ingrFaltantes);
             // Retorna falso, indicando que no se puede realizar la labor debido a la falta
             // de ingredientes.
             return false;

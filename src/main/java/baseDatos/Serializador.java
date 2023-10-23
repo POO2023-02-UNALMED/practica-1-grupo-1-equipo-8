@@ -54,7 +54,6 @@ public class Serializador {
         stream.writeInt(Producto.getCantidadProductosUnicos());
         stream.writeObject(Producto.getTopMasVendidos());
         stream.writeInt(Recibo.getTotalFacturas());
-        stream.writeInt(Cliente.getCantidadOrdenes());
     }
 
     public static void cargarValoresEstaticos(ObjectInputStream stream) throws IOException {
@@ -67,7 +66,6 @@ public class Serializador {
             Producto.setCantidadProductosUnicos(stream.readInt());
             Producto.setTopMasVendidos((ArrayList<Producto>) stream.readObject());
             Recibo.setTotalFacturas(stream.readInt());
-            Cliente.setCantidadOrdenes(stream.readInt());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

@@ -10,6 +10,7 @@ import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.comida.ProductoFrio;
+import gestorAplicacion.gestion.Inventario;
 
 import java.io.Serializable;
 
@@ -50,7 +51,7 @@ public class Domiciliario extends Trabajador{
         this.licencia = false;
         this.ocupado = false;
         this.canasta = null;
-        this.panaderia = null;
+        this.panaderia = panaderia;
         panaderia.getDomiciliarios().add(this);
     }
 
@@ -59,7 +60,7 @@ public class Domiciliario extends Trabajador{
         this.licencia = false;
         this.ocupado = false;
         this.canasta = null;
-        this.panaderia = null;
+        this.panaderia = panaderia;
     }
 
     public Domiciliario(String nombre, double habilidad, double calificacion, double dineroEnMano, Panaderia panaderia) {
@@ -76,6 +77,7 @@ public class Domiciliario extends Trabajador{
         this.licencia=false;
         this.ocupado=false;
         this.canasta=null;
+        this.panaderia = panaderia;
     }
 
     public Domiciliario(String nombre, double habilidad, double calificacion, double dineroEnMano, Boolean licencia, Panaderia panaderia) {
@@ -160,6 +162,35 @@ public class Domiciliario extends Trabajador{
 
         double valorcompra = 0;
         this.robado = false;
+        Inventario inv = this.panaderia.getInventario();
+
+        Ingrediente.organizarTopMasVendidos();
+        ArrayList<Ingrediente> top = Ingrediente.getTopMasVendidos();
+
+        for(Map.Entry<String, Integer> ingrediente : listingredientes.entrySet()){
+
+            int cantidad = ingrediente.getValue();
+            String ingredienteNombre = ingrediente.getKey();
+            boolean topp=false;
+            for(Ingrediente ingredientes: top){
+
+                if(ingredientes.getNombre().equals(ingredienteNombre)){
+                    cantidad= cantidad*2;
+            		valorcompra += (Ingrediente.obtenerObjetoPorId(ingredienteNombre).getPrecioDeCompra())  * (cantidad * 2);
+                    topp=true;       		
+                }
+            }
+            if(!topp){
+                	valorcompra += (Ingrediente.obtenerObjetoPorId(ingredienteNombre).getPrecioDeCompra())  * (cantidad);
+            }
+            listingredientes.put(ingredienteNombre, cantidad);
+        }
+
+        
+
+/* 
+        double valorcompra = 0;
+        this.robado = false;
         
         Ingrediente.organizarTopMasVendidos();
         ArrayList<Ingrediente> top = Ingrediente.getTopMasVendidos();
@@ -210,7 +241,7 @@ public class Domiciliario extends Trabajador{
         if (valorcompra <= this.panaderia.getDinero()) {
 
             this.dineroEnMano += valorcompra;
-            this.panaderia.setDinero((double) (this.panaderia.getDinero() - valorcompra));
+            this.panaderia.setDinero(this.panaderia.getDinero() - valorcompra);
 
         }
 
@@ -221,13 +252,13 @@ public class Domiciliario extends Trabajador{
             this.panaderia.setDinero((double) (this.panaderia.getDinero() - valorcompra));
 
         } 
-        
+        /* 
         Catastrofe Ladron = Catastrofe.responsableAleatorio();
-        Domiciliario postRobo = Ladron.robarComprador((Cocinero) this);
+        Domiciliario postRobo = Ladron.robarComprador(this);
 
         if (postRobo.robado = true) {
 
-        	 return this.robado;
+        	return this.robado;
         }
 
         else {
@@ -238,7 +269,7 @@ public class Domiciliario extends Trabajador{
 
                 int cantidad = compras.getValue();
                 String ingrediente = compras.getKey();
-                Ingrediente necesitado = Ingrediente.obtenerObjetoPorNombre(ingrediente);
+                Ingrediente necesitado = Ingrediente.obtenerObjetoPorId(ingrediente);
                 int cantidadexistente = this.getPanaderia().getInventario().verificarCantidadIngredientePorId(necesitado.getId());
                 
                 if (top.contains(necesitado) & ((cantidad * 2) + cantidadexistente) < 40) {
@@ -290,7 +321,7 @@ public class Domiciliario extends Trabajador{
             }
 
             return this.robado;
-       }
+       
     }
-
+*/}
  }

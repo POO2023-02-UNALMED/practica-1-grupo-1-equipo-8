@@ -22,12 +22,13 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
                 String strOpciones = "Escriba el numero correspondiente a la opcion que quiere elegir\n" +
                         "0. Cerrar sesion\n" +
                         "1. Agregar productos a la canasta de compras\n" +
-                        "2. Ver catalogo de productos, descripciones y productos mas vendidos\n"+
-                        "3. Ver las facturas de mis compras pasadas\n" +
-                        "4. Cambiar contraseña\n" +
-                        "5. Meter plata a mi cuenta\n" +
-                        "6. validar tipo de cliente\n" +
-                        "7. Historial de ordenes, pedir canastas otra vez";
+                        "2. Ver catalogo de productos y descripcion\n"+
+                        "3. Lo mejor de nuestra panaderia\n" +
+                        "4. Ver las facturas de mis compras pasadas\n" +
+                        "5. Cambiar contraseña\n" +
+                        "6. Meter plata a mi cuenta\n" +
+                        "7. validar tipo de cliente\n" +
+                        "8. Historial de ordenes, pedir canastas otra vez";
         
                 System.out.println(strOpciones);
                 String eleccion = input.nextLine();
@@ -42,7 +43,7 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
                         UI.compras(panaderia);
                         UI.domicilio(Cliente.getSesion()); //NICOOOOOOOOOO
                         UI.facturacion();
-                        UI.concluirOrden();//NICOOOOOO
+                        UI.concluirOrden();//NICOOOOOO y el resto
                         break;
 
                     case "2":
@@ -50,21 +51,24 @@ public class Main { //preferiblemente colocar solo los metodos para que el codig
                         break;
 
                     case "3":
+                        UI.verRanking(panaderia, Cliente.getSesion());
+
+                    case "4":
                         UI.historialRecibos(Cliente.getSesion());
                         break;
-                    case "4":
+                    case "5":
                         UI.cambiarClave(Cliente.getSesion());
                         break;
 
-                    case "5":
+                    case "6":
                         UI.meterPlata(Cliente.getSesion());
                         break;
 
-                    case "6":
+                    case "7":
                         UI.validarTipoCliente(Cliente.getSesion());
                         break;
 
-                    case "7":
+                    case "8":
                         UI.historialOrdenes(Cliente.getSesion());
                         break;
 

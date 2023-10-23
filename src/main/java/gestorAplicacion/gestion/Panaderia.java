@@ -529,40 +529,18 @@ public class Panaderia implements Serializable {
 	
     public void comprarIngredientes(Map<String, Integer> listingredientes) {
     	
-    	Trabajador elegido = this.trabajadorAleatorio();
-    	
+    	Domiciliario elegido = this.domiciliarioAleatorio();
     	GestionConseguirIngredientes.lecturaCompra(elegido.isRobado());
 
-        if ((elegido instanceof Domiciliario) & !(elegido instanceof Cocinero)){
-            
-            Domiciliario elegido2 = (Domiciliario) elegido;
-            boolean x = elegido2.conseguirIngredientes(listingredientes);
+        boolean x = elegido.conseguirIngredientes(listingredientes);
 
             while (x == true){
         	
         	GestionConseguirIngredientes.lecturaRobo(x);
-            this.comprarIngredientes(listingredientes);
+            comprarIngredientes(listingredientes);
             
         }
-        
-        GestionConseguirIngredientes.lecturaRobo(x);
     }
-
-        else{
-            
-            Cocinero elegido2 = (Cocinero) elegido;
-            boolean x = elegido2.conseguirIngredientes(listingredientes);
-
-            while (x == true){
-        	
-        	GestionConseguirIngredientes.lecturaRobo(x);
-            this.comprarIngredientes(listingredientes);
-            
-        }
-        
-        GestionConseguirIngredientes.lecturaRobo(x);
-    }
-}
 
         //METODOS DE FACTURACION
     public boolean facturar(Recibo recibo){ //este metodo le resta el dinero del presupuesto al cliente y se lo pasa a la panaderia cuando el cliente elige pagar

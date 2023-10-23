@@ -33,7 +33,7 @@ public class Cliente implements Serializable{
 	private Canasta canastaOrden;
 	private Canasta canastaEnMano;
 	private ArrayList<Canasta> historialOrdenes = new ArrayList<Canasta>();
-	private static int cantidadOrdenes;
+	private int cantidadOrdenes;
 	private Panaderia panaderia;
 
 	private List<Recibo> recibos = new ArrayList<Recibo>();
@@ -203,12 +203,12 @@ public class Cliente implements Serializable{
 		this.historialOrdenes = historialOrdenes;
 	}
 
-	public static int getCantidadOrdenes() {
+	public int getCantidadOrdenes() {
 		return cantidadOrdenes;
 	}
 
-	public static void setCantidadOrdenes(int cantidadOrdenes) {
-		Cliente.cantidadOrdenes = cantidadOrdenes;
+	public void setCantidadOrdenes(int cantidadOrdenes) {
+		this.cantidadOrdenes = cantidadOrdenes;
 	}
 
 	public Panaderia getPanaderia() {
@@ -230,11 +230,11 @@ public class Cliente implements Serializable{
 		this.historialOrdenes.add(canasta);
 	}
 
-	public static Canasta crearCanastaPorHistorial(String id){
+	public Canasta crearCanastaPorHistorial(String id){
 		for (Canasta canasta: this.historialOrdenes){
 			if (canasta.getIdentificador().equals(id)){
 				Canasta newCanasta = canasta;
-				this.canastaOrden = new Canasta(newCanasta.getProductos(), newCanasta.getIngredientes(), newCanasta.getKits(),newCanasta.getProductosEnLista(), newCanasta.getIngredientesEnLista(), newCanasta.getKitsEnLista(),newCanasta.getIdentificador(), newCanasta.getItemsTotalesEnCanasta(), newCanasta.getItemsTotalesEnLista(),newCanasta.getCostoTotalEnLista(), newCanasta.getCostoTrasDescuentoEnLista(),newCanasta.getDescuentoEnLista(), newCanasta.getCalificacion(), newCanasta.getComentario(),newCanasta.isPagada());
+				this.canastaOrden = new Canasta(newCanasta.getProductosEnLista(), newCanasta.getIngredientesEnLista(), newCanasta.getKitsEnLista(), newCanasta.getItemsTotalesEnCanasta(), newCanasta.getItemsTotalesEnLista(),newCanasta.getCostoTotalEnLista(), newCanasta.getCostoTrasDescuentoEnLista(),newCanasta.getDescuentoEnLista());
 				cantidadOrdenes++;
 				this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));}
 				break;
@@ -427,7 +427,7 @@ public void notaCocineros() {
 
 		public boolean verificarPresupuesto() {
 		
-		if () {
+		if (this.presupuesto == 0) {
 			
 			return false;
 		}

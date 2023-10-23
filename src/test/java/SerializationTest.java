@@ -85,6 +85,12 @@ public class SerializationTest {
     System.out.println("cocinero1 cargado");
     System.out.println("domiciliario1 cargado");
 
+    for(Ingrediente ingrediente: Ingrediente.getBaseDatosIngredientes()){
+      System.out.println(ingrediente.getNombre());
+    }
+
+    Ingrediente.getBaseDatosIngredientes();
+    System.out.println("ingredientes cargados");
     panaderia.cocinar(ingredientesCocinar);
 
     UI.mostrarOpciones(panaderia.getInventario());

@@ -329,9 +329,9 @@ public class GestionCompra {
 
 
     System.out.println("_".repeat(55));
+    System.out.println(" ");
     System.out.println(Texto.alinear("Descuento efectuado: ",canasta.getDescuentoEnLista()));
-    System.out.println(Texto.alinear("**** SUBTOTAL/TOTAL *****",canasta.getCostoTotalEnLista())); //el valor para i1 sera el total de productos comprados
-    System.out.println("_".repeat(55));
+    System.out.println(Texto.alinear("subtotal",canasta.getCostoTotalEnLista())); //el valor para i1 sera el total de productos comprados
   }
   
   //Este método se encarga de indicar si robaron al trabajador al ir a comprar los ingredientes

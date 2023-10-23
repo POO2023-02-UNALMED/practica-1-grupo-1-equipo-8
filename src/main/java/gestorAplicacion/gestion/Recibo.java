@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.Instant; //Libreria para obterer la fecha actual
 
-public class Recibo implements Serializable{
+public class Recibo implements Serializable {
     private Cliente cliente;
     private int idRecibo;
     private static int totalFacturas;
@@ -18,35 +18,45 @@ public class Recibo implements Serializable{
     private Date fecha = new Date();
     private boolean pagado = false;
     private Canasta canasta;
+    private double costoDomicilio;
     public static SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     ArrayList<String> factura = new ArrayList<String>();
 
-    //ESTE PRIMER CONSTRUCTOR ES EL UNICO QUE USARA LA CLASE RECIBO, LOS DEMAS CREO QUE SON PARA PRUEBAS DE NICOLAS
-    public Recibo(Cliente cliente, Canasta canasta) { //el subtotal de recibo es el total de canasta
+    //facturacion para cuando el cliente no elige domicilio
+    public Recibo(Cliente cliente, Canasta canasta) { // el subtotal de recibo es el total de canasta
 
         totalFacturas++;
+        this.costoDomicilio = 0;
         this.canasta = canasta;
         this.cliente = cliente;
         this.idRecibo = totalFacturas;
         this.subtotal = canasta.getCostoTrasDescuentoEnLista();
         this.descuento = cliente.getTipoDescuento().getValor();
-        this.total = subtotal * (1 - descuento); 
+        this.total = subtotal * (1 - descuento) * costoDomicilio;
         this.fecha = Date.from(Instant.now());
     }
 
-    
+    //facturacion que tiene en cuenta el costo del domicilio
+    public Recibo(Cliente cliente, Canasta canasta, double costoDomicilio) {
+
+        totalFacturas++;
+        this.costoDomicilio = costoDomicilio;
+        this.canasta = canasta;
+        this.cliente = cliente;
+        this.idRecibo = totalFacturas;
+        this.subtotal = canasta.getCostoTrasDescuentoEnLista();
+        this.descuento = cliente.getTipoDescuento().getValor();
+        this.total = subtotal * (1 - descuento);
+        this.fecha = Date.from(Instant.now());
+    }
 
     public Canasta getCanasta() {
         return canasta;
     }
 
-
-
     public void setCanasta(Canasta canasta) {
         this.canasta = canasta;
     }
-
-
 
     public boolean isPagado() {
         return pagado;
@@ -161,40 +171,44 @@ public class Recibo implements Serializable{
         factura.add(Texto.centrar(String.format("")));
         factura.add(Texto.centrar(String.format(Texto.centrar("DETALLE DE VENTA"))));
         factura.add(" ");
-        /*factura.add(Texto.alinear("Descripcion", "Cantidad", "Precio")); //Reutilizar aqui la funcion de mateo
-        factura.add("-".repeat(111));
-
-        int contador = 0; //aqui tendre que reutilizar el codigo de mateo en gestionCompraMain
-        for(Canasta canasta: cliente.getCanastas()){
-            for(Map.Entry<Producto,Integer> item: canasta.getProductos().entrySet()){
-                contador ++;
-                factura.add(Texto.alinear(item.getKey().getNombre(), item.getValue(), item.getKey().getCosto()*item.getValue()));
-        }*/
-        factura.add(Texto.centrar(String.format(Texto.centrar("DETALLE DE IMPUESTOS"))));//DESPUES TRABAJARE EN LA DEDUCCION DE IMPUESTOS
+        /*
+         * factura.add(Texto.alinear("Descripcion", "Cantidad", "Precio")); //Reutilizar
+         * aqui la funcion de mateo
+         * factura.add("-".repeat(111));
+         * 
+         * int contador = 0; //aqui tendre que reutilizar el codigo de mateo en
+         * gestionCompraMain
+         * for(Canasta canasta: cliente.getCanastas()){
+         * for(Map.Entry<Producto,Integer> item: canasta.getProductos().entrySet()){
+         * contador ++;
+         * factura.add(Texto.alinear(item.getKey().getNombre(), item.getValue(),
+         * item.getKey().getCosto()*item.getValue()));
+         * }
+         */
+        factura.add(Texto.centrar(String.format(Texto.centrar("DETALLE DE IMPUESTOS"))));// DESPUES TRABAJARE EN LA
+                                                                                         // DEDUCCION DE IMPUESTOS
         factura.add(Texto.centrar(String.format(Texto.centrar(""))));
         factura.add(Texto.centrar(String.format("Total articulos comprados: %s", idRecibo)));
         factura.add(Texto.centrar("EN POO BAKERY SOMOS EXPERTOS EN AHORRO:"));
-        factura.add(Texto.centrar(String.format("TU AHORRO HOY FUE DEL %s%", (descuento*100))));
-        //factura.add(Texto.centrar(String.format("EQUIVALENTE A: "))); //colocar el total ahorrado aqui cuando este todo listo
+        factura.add(Texto.centrar(String.format("TU AHORRO HOY FUE DEL %s%", (descuento * 100))));
+        // factura.add(Texto.centrar(String.format("EQUIVALENTE A: "))); //colocar el
+        // total ahorrado aqui cuando este todo listo
         factura.add(Texto.centrar("POO Bakery"));
         factura.add(Texto.centrar("solo calidad"));
         factura.add(Texto.centrar("Gracias por elegirnos"));
         factura.add(String.format(""));
-        factura.add(Texto.centrar("▄▄▄▄▄▄▄  ▄ ▄▄ ▄▄▄▄▄▄▄")); 
-        factura.add(Texto.centrar("█ ▄▄▄ █ ██ ▀▄ █ ▄▄▄ █")); 
-        factura.add(Texto.centrar("█ ███ █ ▄▀ ▀▄ █ ███ █")); 
-        factura.add(Texto.centrar("█▄▄▄▄▄█ █ ▄▀█ █▄▄▄▄▄█")); 
-        factura.add(Texto.centrar("▄▄ ▄  ▄▄▀██▀▀ ▄▄▄ ▄▄ ")); 
-        factura.add(Texto.centrar("▄   ▀█▄▀ ▄█ ▄▄▀▀ █▄ █")); 
-        factura.add(Texto.centrar("██▄ █▄▄ ▄██▀▄ ▄▀ █ ▄█")); 
-        factura.add(Texto.centrar("▄▄▄▄▄▄▄ █▄▀▀ ▄  ▄ ▄▄▀")); 
-        factura.add(Texto.centrar("█ ▄▄▄ █   ██▀▀▄▄█   █")); 
-        factura.add(Texto.centrar("█ ███ █ ▀▄ ▀▄  ██▄█▀█")); 
+        factura.add(Texto.centrar("▄▄▄▄▄▄▄  ▄ ▄▄ ▄▄▄▄▄▄▄"));
+        factura.add(Texto.centrar("█ ▄▄▄ █ ██ ▀▄ █ ▄▄▄ █"));
+        factura.add(Texto.centrar("█ ███ █ ▄▀ ▀▄ █ ███ █"));
+        factura.add(Texto.centrar("█▄▄▄▄▄█ █ ▄▀█ █▄▄▄▄▄█"));
+        factura.add(Texto.centrar("▄▄ ▄  ▄▄▀██▀▀ ▄▄▄ ▄▄ "));
+        factura.add(Texto.centrar("▄   ▀█▄▀ ▄█ ▄▄▀▀ █▄ █"));
+        factura.add(Texto.centrar("██▄ █▄▄ ▄██▀▄ ▄▀ █ ▄█"));
+        factura.add(Texto.centrar("▄▄▄▄▄▄▄ █▄▀▀ ▄  ▄ ▄▄▀"));
+        factura.add(Texto.centrar("█ ▄▄▄ █   ██▀▀▄▄█   █"));
+        factura.add(Texto.centrar("█ ███ █ ▀▄ ▀▄  ██▄█▀█"));
         factura.add(Texto.centrar("█▄▄▄▄▄█ █▀▀▄▄▀▀▀█  ▄ "));
         factura.add(String.format(""));
-        }
-
     }
 
-
-
+}
