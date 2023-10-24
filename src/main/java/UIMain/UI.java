@@ -3,7 +3,7 @@ package UIMain;
 import java.util.Scanner;
 import java.lang.Thread;
 import java.util.ArrayList;
-import java.lang.Thread;
+import java.lang.Thread; //
 import gestorAplicacion.humanos.Cliente;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
