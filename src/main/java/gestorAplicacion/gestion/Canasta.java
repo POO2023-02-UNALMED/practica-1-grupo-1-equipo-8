@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Además, también puede funcionar como una lista de compras, realizando un seguimiento de los elementos a comprar.
  * La clase proporciona métodos para agregar elementos a la canasta y lista, así como getters y setters para sus atributos.
 **/
-public class Canasta implements Serializable {
+public class Canasta implements Serializable, Cloneable {
 
   private ArrayList<Producto> productos = new ArrayList<Producto>();
   private ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
@@ -262,6 +262,11 @@ public class Canasta implements Serializable {
       }
     }
     calcularElementosCanasta();
+  }
+
+  @Override
+  public Object clone() throws CloneNotSupportedException {
+    return super.clone();
   }
 
   //Para ingredientes

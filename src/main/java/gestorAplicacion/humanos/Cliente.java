@@ -19,7 +19,7 @@ import UIMain.GestionDomicilioCliente;
  * La clase Cliente representa a un cliente de la panadería. Contiene información como el nombre, ID, contraseña, dirección, descuento, presupuesto, canastas de orden y recibos.
  * También tiene métodos para obtener y establecer los atributos, así como para guardar una canasta en el historial de órdenes del cliente.
  */
-public class Cliente implements Serializable, Cloneable{
+public class Cliente implements Serializable{
 
 	public void setId(int id) {
 		this.id = id;
@@ -237,9 +237,16 @@ public class Cliente implements Serializable, Cloneable{
 	 * @param canasta La canasta a guardar en el historial.
 	 */
 	public void guardarCanastaEnHistorial(Canasta canasta){
-
-		Canasta canasta2 = (Canasta) canasta.clone();
-		this.historialOrdenes.add(canasta2);
+		try {
+			Canasta canasta2 = (Canasta) canasta.clone();
+			canasta2.getProductos().clear();
+			canasta2.getIngredientes().clear();
+			canasta2.getKits().clear();
+			canasta2.setPagada(false);
+			this.historialOrdenes.add(canasta2);
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -250,11 +257,17 @@ public class Cliente implements Serializable, Cloneable{
 	public Canasta crearCanastaPorHistorial(String id){
 		for (Canasta canasta: this.historialOrdenes){
 			if (canasta.getIdentificador().equals(id)){
-				Canasta newCanasta = canasta;
-				this.canastaOrden = new Canasta(newCanasta.getProductosEnLista(), newCanasta.getIngredientesEnLista(), newCanasta.getKitsEnLista(), newCanasta.getItemsTotalesEnCanasta(), newCanasta.getItemsTotalesEnLista(),newCanasta.getCostoTotalEnLista(), newCanasta.getCostoTrasDescuentoEnLista(),newCanasta.getDescuentoEnLista());
-				cantidadOrdenes++;
-				this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));}
-				break;
+				try{
+					Canasta newCanasta = canasta;
+					this.canastaOrden = (Canasta) newCanasta.clone();
+					cantidadOrdenes++;
+					this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));
+					break;
+				} catch (CloneNotSupportedException e) {
+					e.printStackTrace();
+					break;
+				}
+				}
 		}
 		return this.canastaOrden;
 	}
@@ -270,11 +283,15 @@ public class Cliente implements Serializable, Cloneable{
 			return null;
 		}
 		else{
-			Canasta canasta = panaderia.obtenerCanastaPorId(id);
-			Canasta newCanasta = new Canasta(canasta.getProductosEnLista(), canasta.getIngredientesEnLista(), canasta.getKitsEnLista(),canasta.getItemsTotalesEnCanasta(), canasta.getItemsTotalesEnLista(),canasta.getCostoTotalEnLista(), canasta.getCostoTrasDescuentoEnLista(),canasta.getDescuentoEnLista());
-			this.canastaOrden = newCanasta;
-			cantidadOrdenes++;
-			this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));
+			try{
+				Canasta canasta = panaderia.obtenerCanastaPorId(id);
+				Canasta newCanasta = (Canasta) canasta.clone();
+				this.canastaOrden = newCanasta;
+				cantidadOrdenes++;
+				this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));
+				} catch (CloneNotSupportedException e) {
+					e.printStackTrace();
+				}
 			return this.canastaOrden;
 		}
 	}

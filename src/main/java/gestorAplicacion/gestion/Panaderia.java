@@ -472,10 +472,6 @@ public class Panaderia implements Serializable {
             }
         }
         if (!ingredientesFaltantes.isEmpty()) {
-            for(Map.Entry<String, Integer> entry : ingredientesFaltantes.entrySet()){
-                ingredientesFaltantes.put(Ingrediente.obtenerObjetoPorId(entry.getKey()).getNombre(), entry.getValue());
-                ingredientesFaltantes.remove(entry.getKey());
-            }
             comprarIngredientes(ingredientesFaltantes);
         }
         for (Map.Entry<String, Integer> kit : kitsEnLista.entrySet()) {
@@ -487,7 +483,7 @@ public class Panaderia implements Serializable {
                         .entrySet()) {
                     for (int j = 0; j < entry.getValue(); j++) {
                         kitCanasta.add(this.inventario.buscarIngredientePorId(entry.getKey()));
-                        Ingrediente.obtenerObjetoPorId(entry.getKey()).setVecesVendido(Ingrediente.obtenerObjetoPorId(entry.getKey()).getVecesVendido() + 1);
+                        Ingrediente.obtenerObjetoPorNombre(entry.getKey()).setVecesVendido(Ingrediente.obtenerObjetoPorNombre(entry.getKey()).getVecesVendido() + 1);
                         Ingrediente.organizarTopMasVendidos();
                         this.inventario.restarIngrediente(entry.getKey(), 1);
                     }
