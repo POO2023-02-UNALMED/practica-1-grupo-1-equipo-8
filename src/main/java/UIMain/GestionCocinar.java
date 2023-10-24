@@ -274,12 +274,17 @@ public class GestionCocinar {
      * Método que imprime un patrón de X's y un mensaje de error indicando que ha habido un fallo en el proceso de cocinado por falta de ingredientes.
      */
     public static void fallosCocinando(){
-        System.out.println(Texto.centrar("X    X"));
-        System.out.println(Texto.centrar(" X  X "));
-        System.out.println(Texto.centrar("  XX  "));
-        System.out.println(Texto.centrar(" X  X "));
-        System.out.println(Texto.centrar("X    X"));
-        System.out.println(Texto.centrar("Fallo por falta de ingredientes"));
+        try {
+            Thread.sleep(1000); // Agregar un segundo de espera
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+            System.out.println(Texto.centrar("X    X"));
+            System.out.println(Texto.centrar(" X  X "));
+            System.out.println(Texto.centrar("  XX  "));
+            System.out.println(Texto.centrar(" X  X "));
+            System.out.println(Texto.centrar("X    X"));
+            System.out.println(Texto.centrar("Fallo por falta de ingredientes"));
     }
 
     /**

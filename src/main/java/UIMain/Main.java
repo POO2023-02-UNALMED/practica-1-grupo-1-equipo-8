@@ -60,13 +60,13 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                         if(!UI.compras(panaderia)){
                             break;
                         }
-                        UI.domicilio(Cliente.getSesion()); //NICOOOOOOOOOO
+                        UI.domicilio(Cliente.getSesion()); 
                         if(!Cliente.getSesion().verificarDescuentoPorTipo()){
                             UI.validarTipoCliente(Cliente.getSesion());
                         }
 
                         UI.facturacion(Cliente.getSesion(),panaderia);
-                        UI.concluirOrden();//NICOOOOOO y el resto
+                        UI.concluirOrden(Cliente.getSesion());
                         break;
 
                     case "2":

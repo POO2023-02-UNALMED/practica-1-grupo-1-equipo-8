@@ -245,7 +245,7 @@ public class Canasta implements Serializable {
   private void gestionAgregarP(ArrayList<Producto> productos) {
     for (Producto p : productos) {
       if (p != null) {
-        productos.add(p);
+        this.productos.add(p);
       }
     }
     calcularElementosCanasta();
@@ -261,7 +261,7 @@ public class Canasta implements Serializable {
   private void gestionAgregarI(ArrayList<Ingrediente> ingredientes) {
     for (Ingrediente i : ingredientes) {
       if (i != null) {
-        ingredientes.add(i);
+        this.ingredientes.add(i);
       }
     }
     calcularElementosCanasta();
@@ -275,7 +275,7 @@ public class Canasta implements Serializable {
   private void gestionAgregarK(ArrayList<ArrayList<Ingrediente>> kits) {
     for (ArrayList<Ingrediente> kit : kits) {
       if (kit != null) {
-        kits.add(kit);
+        this.kits.add(kit);
       }
     }
     calcularElementosCanasta();

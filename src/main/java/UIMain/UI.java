@@ -109,25 +109,25 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   }
 
   public static void imprimirFactura(Recibo recibo) {
-    System.out.println(Texto.centrar("                      ██████            "));
-    System.out.println(Texto.centrar("          ████████████░░░░░░██          "));
-    System.out.println(Texto.centrar("        ██░░░░░░░░░░░░██░░░░░░██████    "));
-    System.out.println(Texto.centrar("      ██░░░░░░░░░░░░░░██░░░░░░██░░░░██  "));
-    System.out.println(Texto.centrar("    ██░░░░░░░░░░░░░░░░░░██░░░░██░░░░░░██"));
-    System.out.println(Texto.centrar("    ██░░░░░░░░░░░░░░░░░░░░██░░██░░░░░░██"));
-    System.out.println(Texto.centrar("    ██░░░░░░░░░░░░░░░░░░░░██░░████████  "));
-    System.out.println(Texto.centrar("  ██░░████░░░░░░░░░░░░░░░░██░░██        "));
-    System.out.println(Texto.centrar("  ██░░░░░░████░░░░░░░░░░░░████          "));
-    System.out.println(Texto.centrar("██░░░░░░░░░░░░████░░░░░░░░██            "));
-    System.out.println(Texto.centrar("██░░░░░░░░░░░░░░░░██░░░░██              "));
-    System.out.println(Texto.centrar("  ██░░░░░░░░░░░░░░██████                "));
-    System.out.println(Texto.centrar("██░░████████░░░░░░██                    "));
-    System.out.println(Texto.centrar("██░░░░░░░░░░██████                      "));
-    System.out.println(Texto.centrar("  ██░░░░░░░░░░██                        "));
-    System.out.println(Texto.centrar("██░░██████████                          "));
-    System.out.println(Texto.centrar("██░░░░░░░░██                            "));
-    System.out.println(Texto.centrar("  ██░░░░██                              "));
-    System.out.println(Texto.centrar("    ████                                "));
+    System.out.println("                                     ██████            ");
+    System.out.println("                         ████████████░░░░░░██          ");
+    System.out.println("                       ██░░░░░░░░░░░░██░░░░░░██████    ");
+    System.out.println("                     ██░░░░░░░░░░░░░░██░░░░░░██░░░░██  ");
+    System.out.println("                   ██░░░░░░░░░░░░░░░░░░██░░░░██░░░░░░██");
+    System.out.println("                   ██░░░░░░░░░░░░░░░░░░░░██░░██░░░░░░██");
+    System.out.println("                   ██░░░░░░░░░░░░░░░░░░░░██░░████████  ");
+    System.out.println("                 ██░░████░░░░░░░░░░░░░░░░██░░██        ");
+    System.out.println("                 ██░░░░░░████░░░░░░░░░░░░████          ");
+    System.out.println("               ██░░░░░░░░░░░░████░░░░░░░░██            ");
+    System.out.println("               ██░░░░░░░░░░░░░░░░██░░░░██              ");
+    System.out.println("                 ██░░░░░░░░░░░░░░██████                ");
+    System.out.println("               ██░░████████░░░░░░██                    ");
+    System.out.println("               ██░░░░░░░░░░██████                      ");
+    System.out.println("                 ██░░░░░░░░░░██                        ");
+    System.out.println("               ██░░██████████                          ");
+    System.out.println("               ██░░░░░░░░██                            ");
+    System.out.println("                 ██░░░░██                              ");
+    System.out.println("                   ████                                ");
     System.out.println("");
     System.out.println(String.format(""));
     System.out.println(String.format(Texto.centrar("POO Bakery")));
@@ -145,23 +145,23 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     GestionCompra.mostrarCanasta(recibo.getCanasta());
     System.out.println("");
     System.out.println("");
-    System.out.println("=".repeat(55));
+    System.out.println("_".repeat(55));
     // System.out.println(Texto.alinear("Domicilio",String.valueOf(recibo.getCostoDomicilio())));
     System.out
-        .println(Texto.alinear("Descuento", " ", "-" + String.valueOf(recibo.getSubtotal() * recibo.getDescuento())));
+        .println(Texto.alinear("Descuento", " ", " " + String.valueOf(recibo.getSubtotal() * recibo.getDescuento())));
     System.out.println(Texto.alinear("****TOTAL*****", recibo.getTotal()));
     // System.out.println(Texto.alinear("Domicilio", ))
     System.out.println("");
-    System.out.println("-".repeat(55));
+    System.out.println("_".repeat(55));
     System.out.println(Texto.centrar(String.format(Texto.centrar("DETALLE DE IMPUESTOS"))));
-    System.out.println("-".repeat(55));
-    System.out.println(Texto.alinear("IVA", recibo.getTotal()));
-    System.out.println("-".repeat(55));
+    System.out.println("_".repeat(55));
+    System.out.println(Texto.alinear("IVA", recibo.getTotal()*0.19));
+    System.out.println("_".repeat(55));
     System.out.println("");
     System.out.println(Texto.centrar(String.format(Texto.centrar(""))));
     System.out.println(Texto.centrar(String.format("Total articulos comprados: %s", recibo.getIdRecibo())));
     System.out.println(Texto.centrar("EN POO BAKERY SOMOS EXPERTOS EN AHORRO:"));
-    System.out.println(Texto.centrar(String.format("TU AHORRO HOY FUE DEL %s%", (recibo.getDescuento() * 100))));
+    System.out.println(Texto.centrar("TU AHORRO HOY FUE DEL "+ (recibo.getDescuento() * 100)+"%"));
     // System.out.println(Texto.centrar(String.format("EQUIVALENTE A: ")));
     // //colocar el total ahorrado aqui cuando este todo listo
     System.out.println(Texto.centrar("POO Bakery"));
@@ -355,7 +355,6 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
               }
             }
           }
-          cliente.enviarCanastasADomicilio(cliente.getCanastaEnMano());
           break;
 
         case "n":
@@ -369,8 +368,12 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
   // En este metodo van a ir todas las notificaciones del pedido (catastrofes o si
   // la entrega fue exitosa)
-  public static void concluirOrden() { // pendiente por terminar este metodo
-    Cliente.getSesion().notaCocineros();
+  public static void concluirOrden(Cliente cliente) { 
+    cliente.getSesion().getCanastaOrden().enviarOrdenCanasta();
+    cliente.getSesion().notaCocineros();
+    
+    System.out.println("Su pedido ha sido enviado a su domicilio");
+    cliente.enviarCanastasADomicilio(cliente.getCanastaEnMano());
 
     if (continuar == true) {
       System.out.println("Su pedido ha sido entregado con exito");
@@ -384,19 +387,31 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     if (eleccion.equals("s")) {
 
       System.out.println(
-          "Si desea solo calificar la canasta escriba 1, si desea solo dejar una descripción escriba 2, si desea dejar las dos escriba 3 y si solo desea publicarla escriba 0");
+          "Si desea calificar y comentar la canasta escriba 1, si desea solo dejar una calificar escriba 2, si desea dejar las dos escriba 3 y para salir escriba 0");
 
       String decision = input.nextLine();
 
       switch (decision) {
 
         case "1":
+          System.out.println("Ingrese la calificacion que le quiere dar a la canasta: ");
+          int calificacion = input.nextInt();
+          System.out.println("Ingrese una descripcion de la canasta: ");
+          String descripcion = input.nextLine();
+          Canasta canasta = cliente.getCanastaEnMano();
+          cliente.publicarCanasta(canasta, calificacion, descripcion);
           break;
 
         case "2":
+          System.out.println("Ingrese una descripcion de la canasta: ");
+          int calf = input.nextInt();
+          Canasta canastaa = cliente.getCanastaEnMano();
+          cliente.publicarCanasta(canastaa, calf);
           break;
 
         case "3":
+          Canasta canastaaa = cliente.getCanastaEnMano();
+          cliente.publicarCanasta(canastaaa);
           break;
 
         case "0":

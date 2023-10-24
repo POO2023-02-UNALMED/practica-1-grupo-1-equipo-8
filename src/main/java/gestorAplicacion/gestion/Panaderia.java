@@ -302,11 +302,10 @@ public class Panaderia implements Serializable {
         boolean logro = domiciliario.laborParticular(canasta);
         while (!logro){
             domiciliario.setHabilidad(domiciliario.getHabilidad()+1);
-            logro = domiciliario.laborParticular(canasta);
             this.restarDinero(10000);
             domiciliario.setLicencia(true);
+            logro = domiciliario.laborParticular(canasta);
         }
-        cliente.setDomiciliario(null);
     }
 
     public void reviewDomiciliario(Domiciliario domiciliario) {

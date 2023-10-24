@@ -62,10 +62,10 @@ public class GestionRankings {
     ArrayList<Ingrediente> ingredientes = Ingrediente.getTopMasVendidos();
     System.out.println(Texto.centrar("INGREDIENTES MAS VENDIDOS"));
     System.out.println("_".repeat(55));
-    System.out.println(Texto.alinear("INGREDIENTE"," ", "VECES VENDIDO"));
+    System.out.println(Texto.alinear("INGREDIENTE","", "VECES VENDIDO"));
     System.out.println("_".repeat(55));
     for (Ingrediente ingrediente : ingredientes){
-      System.out.println(ingrediente.getNombre() + " " + ingrediente.getVecesVendido());
+      System.out.println(Texto.alinear(ingrediente.getNombre()," ","s" ));//String.valueOf(ingrediente.getVecesVendido())
     }
     System.out.println("_".repeat(55));
   }

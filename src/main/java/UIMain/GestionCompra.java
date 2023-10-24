@@ -1,5 +1,6 @@
 package UIMain;
 
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -168,7 +169,7 @@ public class GestionCompra {
         HashMap<String, Integer> ingredientesNecesarios = new HashMap<String, Integer>();
 
         while(true){
-          System.out.println("Ingrese el nombre del producto personalizado (Escriba '0'para volver atrás): ");
+          System.out.println("Ingrese el nombre del producto personalizado (Escriba '0'para volver atras): ");
           objetoEntrante = scanner.nextLine();
           if(objetoEntrante.equalsIgnoreCase("0")){
             continuar = false;
@@ -183,8 +184,13 @@ public class GestionCompra {
         System.out.println("Ingrese los ingrediente (Escriba '0' cuando termine con el listado): ");
         while (true) {
           while (true) {
-            System.out.println("Ingresa el nombre del ingrediente (Escriba '0' si ya terminó con el listado):");
-            entrada = scanner.nextLine();
+
+            Scanner input = new Scanner(System.in);
+            
+            System.out.println("Ingresa el nombre del ingrediente (Escriba '0' si ya termino con el listado):");
+
+              entrada = scanner.nextLine();
+
             if (entrada.equalsIgnoreCase("0") & ingredientesNecesarios.isEmpty()) {
               System.out.println("Necesitas al menos un ingrediente");
             } 
@@ -200,9 +206,9 @@ public class GestionCompra {
           }
 
           while (true) {
-            System.out.println("Ingrese la cantidad: ");
+            System.out.println("Ingrese la cantidad del ingrediente: ");
             try {
-              cantidadIngrediente = scanner.nextInt();
+              cantidadIngrediente = Integer.parseInt(scanner.nextLine());
               if (cantidadIngrediente <= 0) {
                 System.out.println("La cantidad debe ser mayor a 0");
               } 
@@ -212,7 +218,7 @@ public class GestionCompra {
               else {
                 break;
               }
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
               System.out.println("Debes ingresar un numero");
             }
           }
@@ -221,7 +227,7 @@ public class GestionCompra {
           }
         
         while(true){
-          System.out.println("Ingrese la cantidad (Numero positivo para agregar a la orden, negativo para restar de la orden) (Escriba '0'para volver atras) : ");
+          System.out.println("Ingrese la cantidad deseada del producto (Numero positivo para agregar a la orden, negativo para restar de la orden) (Escriba '0'para volver atras) : ");
           try{
             cantidad = scanner.nextLine();
             int numero = Integer.parseInt(cantidad);
