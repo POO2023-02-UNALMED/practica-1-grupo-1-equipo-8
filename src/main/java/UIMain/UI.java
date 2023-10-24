@@ -385,6 +385,21 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     Cliente.getSesion().getCanastaOrden().enviarOrdenCanasta();
 
     System.out.println("Su pedido ha sido enviado a su domicilio");
+    try {
+      Thread.sleep(4000); 
+  } catch (InterruptedException e) {
+  }
+  System.out.println(Texto.centrar("33%  [#########.......................] 100%"));
+  try {
+      Thread.sleep(4000); 
+  } catch (InterruptedException e) {
+  }
+  System.out.println(Texto.centrar("66%  [#######################.........] 100%"));
+  try {
+      Thread.sleep(4000); 
+  } catch (InterruptedException e) {
+  }
+  System.out.println(Texto.centrar("100% [#################################] 100%"));
     cliente.enviarCanastasADomicilio(cliente.getCanastaOrden());
     System.out.println("Su pedido ha sido entregado con exito");
 

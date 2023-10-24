@@ -406,6 +406,7 @@ public class Cliente implements Serializable{
 		for (Cocinero calificarCocinero : this.panaderia.getCocineros()) {
 			if (cocinero.isTrabajo()) {
 				this.panaderia.reviewCocinero(calificarCocinero);
+				cocinero.setTrabajo(false);
 			}
 		}
 	}
