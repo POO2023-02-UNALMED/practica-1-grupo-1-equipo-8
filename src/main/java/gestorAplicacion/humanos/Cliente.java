@@ -237,16 +237,8 @@ public class Cliente implements Serializable{
 	 * @param canasta La canasta a guardar en el historial.
 	 */
 	public void guardarCanastaEnHistorial(Canasta canasta){
-		try {
-			Canasta canasta2 = (Canasta) canasta.clone();
-			canasta2.getProductos().clear();
-			canasta2.getIngredientes().clear();
-			canasta2.getKits().clear();
-			canasta2.setPagada(false);
-			this.historialOrdenes.add(canasta2);
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}
+		Canasta newCanasta = new Canasta();
+		 
 	}
 
 	/**

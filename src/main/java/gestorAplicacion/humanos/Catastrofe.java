@@ -23,7 +23,7 @@ public class Catastrofe {
 //construcores
     public Catastrofe() {
         Random rand = new Random();
-        this.maldad = rand.nextInt(4) + 1; // 1 <= maldad <= 4
+        this.maldad = rand.nextInt(10) + 1; // 1 <= maldad <= 10
     }
 
     public Catastrofe(int maldad) {
