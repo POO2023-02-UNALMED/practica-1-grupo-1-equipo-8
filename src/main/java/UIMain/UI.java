@@ -247,7 +247,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     if (Cliente.getSesion().getCanastaOrden() == null) {
       Cliente.getSesion().crearCanastaNueva();
     }
-
+    //GestionCompra.mostrarCanasta(Cliente.getSesion().getCanastaOrden());
     GestionCompra.gestionRecibirOrdenCanasta(Cliente.getSesion().getCanastaOrden(), panaderia);
     System.out.println("");
     System.out.println("Asi queda su canasta:");
@@ -389,15 +389,13 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     System.out.println("Su pedido ha sido entregado con exito");
 
     cliente.guardarCanastaEnHistorial(cliente.getCanastaOrden());
-    System.out.println(
-        "Esperamos que haya disfrutado su pedido, desea publicar su canasta para que otros usuarios puedan verla? escriba s para si y n para no");
+    System.out.println("Esperamos que haya disfrutado su pedido, desea publicar su canasta para que otros usuarios puedan verla? escriba s para si y n para no");
 
     eleccion = input.nextLine();
 
     if (eleccion.equals("s")) {
 
-      System.out.println(
-          "Si desea calificar y comentar la canasta escriba 1, si desea solo dejar una calificar escriba 2, si no desea dejar ninguna escriba 3 y para salir escriba 0");
+      System.out.println("Si desea calificar y comentar la canasta escriba 1, si desea solo dejar una calificar escriba 2, si no desea dejar ninguna escriba 3 y para salir escriba 0");
 
       String decision = input.nextLine();
 
@@ -433,7 +431,6 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
       }
     }
     else {
-      Cliente.getSesion().notaCocineros();
       System.out.println("Muchas  gracias por comprar a Poo Bakery");
     }
     Cliente.getSesion().setCanastaOrden(null);
@@ -503,14 +500,14 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     System.out.println("Puedes clonar nuestras canastas de compras mejor valoradas ingresando su respectivo id");
     System.out.println("Escriba 0 para salir");
     eleccion = input.nextLine();
-    if (eleccion.equals("0")) {
-    } else {
+    if (!eleccion.equals("0")) {
       while (true) {
-        if (cliente.crearCanastaPorHistorial(eleccion) != null) {
-          cliente.setCanastaOrden(cliente.crearCanastaPorHistorial(eleccion));
-          System.out.println("La canasta ha sido clonada con exito, aqui esta su orden actual:");
-          GestionCompra.mostrarCanasta(cliente.getCanastaOrden());
-
+        if(cliente.crearCanastaPublicada(eleccion)!=null){
+          System.out.println("Canasta creada con exito, revisa la opcion 1 para verla");
+          break;
+      }else{
+          System.out.println("Id invalido, vuelva a intentar o escriba 0");
+          eleccion = input.nextLine();
         }
       }
     }

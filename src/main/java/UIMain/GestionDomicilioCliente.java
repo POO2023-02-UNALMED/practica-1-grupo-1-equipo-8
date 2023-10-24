@@ -105,10 +105,22 @@ public class GestionDomicilioCliente {
      * @return la calificación ingresada por el usuario.
      */
     public static double pedirCalificacion(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Ingrese la calificacion del domiciliario (1-5): ");
-        double calificacion = sc.nextDouble();
-        return calificacion;
+        String eleccion;
+        Scanner scanner = new Scanner(System.in);
+        int numero;
+        System.out.println("Ingrese un numero del 0 al 5 para calificar a su domiciliario");
+        while (true) {
+            eleccion = scanner.nextLine();
+            if (eleccion.equals("0") || eleccion.equals("1") || eleccion.equals("2") || eleccion.equals("3")
+                    || eleccion.equals("4") || eleccion.equals("5")) {
+                numero = Integer.parseInt(eleccion);
+                break;
+            } else {
+                System.out.println("Ingrese un valor valido");
+            }
+        }
+
+        return numero;
     }
 
     /**

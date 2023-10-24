@@ -232,7 +232,7 @@ public class Cliente implements Serializable{
 	 */
 	public void guardarCanastaEnHistorial(Canasta canasta){
 
-		Canasta canasta2 = new Canasta(canasta.getProductosEnLista(), canasta.getIngredientesEnLista(), canasta.getKitsEnLista(), canasta.getItemsTotalesEnCanasta(), canasta.getItemsTotalesEnLista(),canasta.getCostoTotalEnLista(), canasta.getCostoTrasDescuentoEnLista(),canasta.getDescuentoEnLista(), canasta.getIdentificador());
+		Canasta canasta2 = (Canasta) canasta.clone();
 		this.historialOrdenes.add(canasta2);
 	}
 
@@ -410,6 +410,7 @@ public class Cliente implements Serializable{
 		double calificacion = GestionDomicilioCliente.pedirCalificacion();
 		calificarDomiciliario(domiciliario, calificacion);
 		this.panaderia.reviewDomiciliario(domiciliario);
+		notaCocineros();
 }
 
 	
