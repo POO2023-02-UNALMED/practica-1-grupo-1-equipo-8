@@ -5,11 +5,16 @@ import java.util.Scanner;
 import gestorAplicacion.gestion.Panaderia;
 import gestorAplicacion.humanos.Cliente;
 
+/**
+ * Clase que se encarga de la gestión de inicio de sesión del cliente, ya sea para crear una cuenta o para ingresar a una existente.
+ */
 public class GestionInicioCliente {
 
-  //Este método se encarga de la sesion del cliente, bien sea para crear una cuenta o para ingresar a una existente
-  //este método 
-
+  /**
+   * Este método se encarga de la sesión del cliente, bien sea para crear una cuenta o para ingresar a una existente.
+   * @param panaderia objeto de la clase Panaderia que contiene la información de la panadería.
+   * @return true si la sesión del cliente fue exitosa, false si el cliente decidió salir.
+   */
   public static boolean sesionCliente(Panaderia panaderia) { // IMPORTANTE CAMBIAR EL ATRIBUTO ESTATICO CLIENTE.SESION
 
     Scanner input2 = new Scanner(System.in);
@@ -20,9 +25,11 @@ public class GestionInicioCliente {
       switch(eleccion){
         case "1":
           GestionInicioCliente.iniciarSesion(panaderia);
+          Cliente.getSesion().setPanaderia(panaderia);
           return true;
         case "2":
           GestionInicioCliente.registroCliente(panaderia);
+          Cliente.getSesion().setPanaderia(panaderia);
           return true;
         case "0":
           return false;
@@ -33,6 +40,10 @@ public class GestionInicioCliente {
     }
   }
 
+  /**
+   * Este método se encarga de registrar un nuevo cliente en la panadería.
+   * @param panaderia objeto de la clase Panaderia que contiene la información de la panadería.
+   */
   public static void registroCliente(Panaderia panaderia) {
     Scanner input3 = new Scanner(System.in);
     String id = "";
@@ -66,6 +77,10 @@ public class GestionInicioCliente {
     }
   }
 
+  /**
+   * Este método se encarga de iniciar sesión de un cliente existente en la panadería.
+   * @param panaderia objeto de la clase Panaderia que contiene la información de la panadería.
+   */
   public static void iniciarSesion(Panaderia panaderia){
     Scanner input4 = new Scanner(System.in);
     while(true){

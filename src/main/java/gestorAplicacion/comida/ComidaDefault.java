@@ -2,15 +2,36 @@ package gestorAplicacion.comida;
 
 import UIMain.Texto;
 
+/**
+ * Interfaz que define las tarifas y métodos por defecto para una comida.
+ */
 public interface ComidaDefault {
+    /**
+     * Tarifa por defecto para el servicio a domicilio.
+     */
     final int tarifaDomicilio = 2000;
+    /**
+     * Tarifa por defecto para las ganancias.
+     */
     final double tarifaGanancias = 1.7;
+    /**
+     * Tarifa por defecto para los impuestos.
+     */
     final double tarifaImputestos = 0.19;
 
+    /**
+     * Obtiene la descripción por defecto de la comida.
+     * @return La descripción por defecto de la comida.
+     */
     default public String getDescripcion(){
         return "Ahora mismo no tenemos una descripcion para este producto, pero te invitamos a probarlo.";
     }
 
+    /**
+     * Obtiene la información nutricional por porción de la comida.
+     * @param nombre El nombre de la comida.
+     * @return La información nutricional por porción de la comida.
+     */
     default public String getNutrientes(String nombre){
         String m = String.format(""+
         " _______________________________________________________ \n"+

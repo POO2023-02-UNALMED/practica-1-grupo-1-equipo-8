@@ -64,8 +64,11 @@ public class Texto {
     public static String centrar(String a1){
         String s = "";
         int espaciado = 55;
-        s += " ".repeat((espaciado - a1.length())/2)+a1+" ".repeat((espaciado - a1.length())/2);
-        return s;
+        if(((espaciado - a1.length())/2)>0){
+            s += " ".repeat((espaciado - a1.length())/2)+a1+" ".repeat((espaciado - a1.length())/2);
+            return s;
+        } else{
+            return a1;
+        }
     }
-
 }

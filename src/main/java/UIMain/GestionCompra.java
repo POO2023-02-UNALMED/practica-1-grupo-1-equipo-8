@@ -8,6 +8,7 @@ import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Inventario;
+import gestorAplicacion.gestion.Panaderia;
 
 public class GestionCompra {
   
@@ -17,18 +18,19 @@ public class GestionCompra {
    * Permite al usuario agregar o modificar productos de un catálogo o agregar un producto personalizado.
    * @param canasta La canasta a la que se le agregará la orden.
    */
-  public static void gestionRecibirOrdenCanasta(Canasta canasta){
+  public static void gestionRecibirOrdenCanasta(Canasta canasta, Panaderia panaderia){
     Scanner scanner = new Scanner(System.in);
     String tipoDeProducto="0"; //1=Catalogo, 2=Personalizado
     String objetoEntrante;
     String cantidad;
     String kit;
     boolean continuar = true;
-
+    
     while (true) {
       continuar = true;
       if(tipoDeProducto.equals("0")){
         while(true){
+          UI.mostrarOpciones(panaderia.getInventario());
           System.out.println("Desea modificar un producto de nuestro catalogo o agregar un producto personalizado? (Escriba '0'=Volver atras - '1'=Catalogo - '2'=Personalizado): ");
           tipoDeProducto = scanner.nextLine();
           if(tipoDeProducto.equalsIgnoreCase("0")||tipoDeProducto.equalsIgnoreCase("1")||tipoDeProducto.equalsIgnoreCase("2")){
@@ -295,8 +297,13 @@ public class GestionCompra {
    * Muestra el contenido de la cesta de la compra, incluidos productos, ingredientes y coste total.
    */
   //Esto se va a mostrar antes de pagar, mientras el cliente agrega sus productos, y tambien en la factura
+  /**
+   * Muestra la información de la canasta de compra en la consola.
+   * @param canasta La canasta de compra a mostrar.
+   */
   public static void mostrarCanasta(Canasta canasta) {
     System.out.println("_".repeat(55));
+    System.out.println("");
     System.out.println(Texto.centrar("PRODUCTOS"));
     System.out.println("_".repeat(55));
     System.out.println(Texto.alinear("Descripcion", "Cantidad", "Costo"));
@@ -318,7 +325,7 @@ public class GestionCompra {
     for (Map.Entry<String, Integer> entry : canasta.getIngredientesEnLista().entrySet()) {
       String ingrediente = entry.getKey();
       Integer cantidad2 = entry.getValue();
-      System.out.println(Texto.alinear(Ingrediente.obtenerObjetoPorId(ingrediente).getNombre(), cantidad2, Ingrediente.obtenerObjetoPorId(ingrediente).getPrecioDeCompra()*cantidad2));
+      System.out.println(Texto.alinear(Ingrediente.obtenerObjetoPorId(ingrediente).getNombre(), cantidad2, Ingrediente.obtenerObjetoPorId(ingrediente).getPrecioDeVenta()*cantidad2));
     }
 
     System.out.println("_".repeat(55));

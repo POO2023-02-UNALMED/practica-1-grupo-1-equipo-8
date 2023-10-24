@@ -18,6 +18,12 @@ import gestorAplicacion.humanos.Trabajador;
 
 import java.util.Collections;
 
+/**
+ * La clase Panaderia representa una panadería que cuenta con trabajadores, clientes, domiciliarios, un inventario y una canasta del día.
+ * Además, tiene un atributo de dinero que indica la cantidad de dinero que tiene la panadería, un atributo de valorDeudas que indica la cantidad de deudas que tiene la panadería y un atributo enQuiebra que indica si la panadería está en quiebra o no.
+ * La panadería puede contratar cocineros, agregar y eliminar trabajadores, clientes y domiciliarios, agregar y restar dinero, publicar canastas y saldar sus deudas.
+ * También cuenta con métodos para obtener las listas de trabajadores, cocineros, domiciliarios y clientes, la canasta del día y las canastas publicadas.
+ */
 public class Panaderia implements Serializable {
 
     private ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
@@ -270,7 +276,7 @@ public class Panaderia implements Serializable {
      * @param cliente El cliente que recibirá la canasta de productos.
      */
     public void enviarDomicilio(Canasta canasta, Cliente cliente) {
-        Domiciliario domiciliario = domiciliarioAleatorio();
+        Domiciliario domiciliario = cliente.getDomiciliario();
         ArrayList<Producto> producto = canasta.getProductos();
 
         for (Producto p : producto){
@@ -613,8 +619,7 @@ public class Panaderia implements Serializable {
      * @param recibo El recibo que se va a facturar.
      * @return true si el recibo se pudo facturar exitosamente, false si el cliente no tiene suficiente presupuesto para pagar el recibo.
      */
-    public boolean facturar(Recibo recibo) { // este metodo le resta el dinero del presupuesto al cliente y se lo pasa a
-                                             // la panaderia cuando el cliente elige pagar
+    public boolean facturar(Recibo recibo) { // este metodo le resta el dinero del presupuesto al cliente y se lo pasa a                                            // la panaderia cuando el cliente elige pagar
         if (Cliente.getSesion().getPresupuesto() >= recibo.getTotal()) {
             Cliente.getSesion().setPresupuesto(Cliente.getSesion().getPresupuesto() - recibo.getTotal());
             this.dinero += recibo.getTotal();
@@ -626,7 +631,7 @@ public class Panaderia implements Serializable {
         }
     }
 
-    public static Recibo generarRecibo() { // forma rapida de construir el recibo
+    public Recibo generarRecibo() { // forma rapida de construir el recibo
         return new Recibo(Cliente.getSesion(), Cliente.getSesion().getCanastaOrden()); // puede que cambie parametros
                                                                                        // del constructor despues
     }

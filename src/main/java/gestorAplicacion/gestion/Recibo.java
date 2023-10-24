@@ -10,6 +10,11 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.Instant; //Libreria para obterer la fecha actual
 
+/**
+ * La clase Recibo representa un recibo de compra generado para un cliente.
+ * Contiene información sobre el cliente, el número de recibo, el subtotal, el total, el descuento, la fecha, si ha sido pagado o no, la canasta de productos comprados y el costo de domicilio (si aplica).
+ * Además, tiene métodos para obtener y establecer los valores de sus atributos, así como para imprimir la factura correspondiente.
+ */
 public class Recibo implements Serializable {
     private Cliente cliente;
     private int idRecibo;
@@ -47,7 +52,11 @@ public class Recibo implements Serializable {
         this.cliente = cliente;
         this.idRecibo = totalFacturas;
         this.subtotal = canasta.getCostoTrasDescuentoEnLista();
-        this.descuento = cliente.getTipoDescuento().getValor();
+        if(cliente.getTipoDescuento() == null){
+            this.descuento = 0;
+        } else{
+            this.descuento = cliente.getTipoDescuento().getValor();
+        }
         this.total = subtotal * (1 - descuento);
         this.fecha = Date.from(Instant.now());
     }

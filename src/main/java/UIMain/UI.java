@@ -11,6 +11,7 @@ import gestorAplicacion.gestion.Panaderia;
 import gestorAplicacion.gestion.Recibo;
 import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Inventario;
+import gestorAplicacion.humanos.Domiciliario;
 
 public class UI { // en esta clase estaran habran metodos en general de la interfaz de usuario
   public static final String BLACK = "\u001B[30m";
@@ -242,13 +243,13 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   public static boolean compras(Panaderia panaderia) { // este metodo esta listo, falta corregir mostrarOpciones y
     // mostrarCanasta
     continuar = true;
-    Scanner input8 = new Scanner(System.in);
-    mostrarOpciones(panaderia.getInventario());
+    Scanner input8 = new Scanner(System.in); //NO TOCAR
+    
     if (Cliente.getSesion().getCanastaOrden() == null) {
       Cliente.getSesion().crearCanastaNueva();
     }
 
-    GestionCompra.gestionRecibirOrdenCanasta(Cliente.getSesion().getCanastaOrden());
+    GestionCompra.gestionRecibirOrdenCanasta(Cliente.getSesion().getCanastaOrden(), panaderia);
     System.out.println("");
     System.out.println("Asi queda su canasta:");
     GestionCompra.mostrarCanasta(Cliente.getSesion().getCanastaOrden());
@@ -282,6 +283,8 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   // Aqui se procesa todo lo que tiene que ver con el envio a domicilio del
   // cliente
   public static void domicilio(Cliente cliente) { // pendiente por terminar este metodo
+    Domiciliario domiciliario = cliente.getPanaderia().domiciliarioAleatorio();
+    cliente.setDomiciliario(domiciliario);
     if (continuar = true) {
       System.out.println(
           "Desea que le enviemos su pedido a su domicilio? escriba s para si, n para no, escriba 0 para volver al menu");
@@ -332,15 +335,26 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     }
   }
 
-  public static void facturacion() { // pendiente por terminar este metodo
+  public static void facturacion(Cliente cliente, Panaderia panaderia) { // pendiente por terminar este metodo
     if (continuar == true) {
-      Recibo recibo = new Recibo(Cliente.getSesion(), Cliente.getSesion().getCanastaOrden());
+      Recibo recibo = new Recibo(cliente, cliente.getCanastaOrden(), cliente.getDomiciliario());
       imprimirFactura(recibo);
-      System.out.println("Desea continuar con el pago? s/n");
+      System.out.println("Desea pagar la factura de su pedido? escriba s para si, escriba n para no");
       eleccion = input.nextLine();
       switch (eleccion) {
         case "s":
-          Cliente cliente = Cliente.getSesion();
+          if(panaderia.facturar(recibo)){
+            System.out.println("Su pago ha sido efectuado con exito");
+            System.out.println("El nuevo saldo de su cuenta es: "+cliente.getPresupuesto());
+          } else{
+            while(true){
+              System.out.println("No tienes suficiente dinero, escriba la cantidad de dinero que desea ingresar a su cuenta:");
+              meterPlata(cliente);
+              if(panaderia.facturar(recibo)){
+                break;
+              }
+            }
+          }
           cliente.enviarCanastasADomicilio(cliente.getCanastaEnMano());
           break;
 

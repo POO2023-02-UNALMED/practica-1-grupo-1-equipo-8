@@ -7,6 +7,12 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * La clase ProductoFrio es una subclase de Producto que representa un producto frío en el sistema de gestión de comida.
+ * Un producto frío es un tipo de producto que puede ser almacenado en el congelador y requiere un tiempo de congelamiento.
+ * Esta clase proporciona métodos para crear productos fríos personalizados, seleccionar procesos de cocina aleatorios,
+ * empaquetar el producto frío en un contenedor de frío y congelar el producto frío si el cocinero tiene una nevera disponible.
+ */
 public class ProductoFrio extends Producto{
   private boolean congelador=false;
   private int tiempoDeCongelamiento;

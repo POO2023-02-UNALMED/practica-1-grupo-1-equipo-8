@@ -1,8 +1,17 @@
 package UIMain;
 
+/**
+ * La clase GestionConseguirIngredientes contiene métodos para manejar diferentes situaciones relacionadas con la adquisición de ingredientes para los pedidos de la panadería.
+ */
 public class GestionConseguirIngredientes {
 
-  public static void lecturaRobo(boolean suceso) {
+	/**
+	 * Imprime un mensaje en la consola dependiendo del valor del parámetro suceso.
+	 * Si suceso es verdadero, significa que el trabajador que iba por los ingredientes ha sido robado y se enviará a alguien más por la compra.
+	 * Si suceso es falso, significa que el trabajador ha regresado con los ingredientes y se procederá a preparar el pedido.
+	 * @param suceso un valor booleano que indica si ha ocurrido un robo al trabajador o no.
+	 */
+	public static void lecturaRobo(boolean suceso) {
 	  
 	  if (suceso == true) {
 		  
@@ -15,9 +24,15 @@ public class GestionConseguirIngredientes {
 		  System.out.println("El trabajador ha regresado con los ingredientes con su pedido, por favor espere a que preparemos su pedido");
 		  
 	  } 
-  }
-  
-  public static void lecturaQuiebra(boolean suceso) {
+	}
+	
+	/**
+	 * Imprime un mensaje en la consola dependiendo del valor del parámetro suceso.
+	 * Si suceso es verdadero, significa que la panadería no tenía dinero para realizar el pedido y ha entrado en quiebra, pero una franquicia más grande la ha comprado y se podrá proseguir con el pedido.
+	 * Si suceso es falso, significa que la panadería no tenía dinero para realizar el pedido, pero ha pedido un préstamo y ya puede comprar lo que necesita para preparar el pedido.
+	 * @param suceso un valor booleano que indica si la panadería ha entrado en quiebra o no.
+	 */
+	public static void lecturaQuiebra(boolean suceso) {
 	  
 	  if (suceso == true) {
 		  
@@ -29,11 +44,17 @@ public class GestionConseguirIngredientes {
 		  
 		  System.out.println("La panadería no tenía dinero para realizar su pedido :( , pero ha pedido un prestamo y ya puede comprar lo que necesita para preparar su pedido :D");
 		  
-    } 
+		} 
 	  
-  }
-  
-  public static void lecturaCompra(boolean suceso) {
+	}
+	
+	/**
+	 * Imprime un mensaje en la consola dependiendo del valor del parámetro suceso.
+	 * Si suceso es verdadero, significa que no hay suficientes ingredientes para realizar el pedido y se le pide al cliente que espere unos minutos mientras se consiguen.
+	 * Si suceso es falso, significa que se están consiguiendo los ingredientes para el pedido y se lamentan los inconvenientes.
+	 * @param suceso un valor booleano que indica si hay suficientes ingredientes para el pedido o no.
+	 */
+	public static void lecturaCompra(boolean suceso) {
 	  
 	  if (suceso == true) { 
 		  
@@ -47,6 +68,6 @@ public class GestionConseguirIngredientes {
 		  
 	  }
 		 
-   }
-  
+	 }
+	
 }

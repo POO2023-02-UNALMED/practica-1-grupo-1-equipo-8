@@ -282,6 +282,9 @@ public class GestionCocinar {
         System.out.println(Texto.centrar("Fallo por falta de ingredientes"));
     }
 
+    /**
+     * Método estático que imprime un mensaje indicando que se han botado algunos ingredientes caducados.
+     */
     public static void falloCaducado(){
     System.out.println(Texto.centrar("Botamos algunos ingredientes caducados :/"));   
     }

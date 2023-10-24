@@ -15,6 +15,11 @@ import gestorAplicacion.gestion.Canasta;
 import gestorAplicacion.gestion.Panaderia;
 import UIMain.GestionCocinar;
 
+/**
+ * La clase Cocinero representa a un trabajador de la panadería que se encarga de la preparación de los productos. 
+ * Hereda de la clase Domiciliario y tiene atributos como especialidad, estado de falla, estado de trabajo, nevera, horno y panadería. 
+ * Además, tiene métodos para calcular la cantidad de ingredientes faltantes para preparar un plato, buscar el cocinero ideal para un proceso de cocina, detener la cocción de un producto y reparar la cocción de un producto comprando los ingredientes necesarios en la panadería.
+ */
 public class Cocinero extends Domiciliario {
     private String especialidad;
     private boolean fallado = false;
@@ -161,11 +166,19 @@ public class Cocinero extends Domiciliario {
         }
     }
 
+    /**
+     * Repara la cocción de un producto comprando los ingredientes necesarios en la panadería.
+     * @param producto El producto cuya cocción se va a reparar.
+     */
     public void repararCoccion(Producto producto){
         Map<String, Integer> ingredientesUsados = producto.getIngredientes();
         panaderia.comprarIngredientes(ingredientesUsados);
         }
 
+    /**
+     * Detiene la cocción del producto especificado y resta los ingredientes utilizados del inventario de la panadería.
+     * @param producto el producto cuya cocción se detendrá y cuyos ingredientes se restarán del inventario
+     */
     public void detenerCoccion(Producto producto) {
         Map<String, Integer> ingredientesUsados = producto.getIngredientes();
         for (Map.Entry<String, Integer> usados : ingredientesUsados.entrySet()) {

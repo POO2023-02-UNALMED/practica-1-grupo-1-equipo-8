@@ -16,6 +16,14 @@ import gestorAplicacion.gestion.Inventario;
 
 import java.io.Serializable;
 
+/**
+ * La clase Domiciliario representa a un trabajador encargado de realizar entregas de productos a los clientes de una panadería.
+ * Esta clase hereda de la clase Trabajador y también implementa la interfaz ComidaDefault y Serializable.
+ * Un Domiciliario tiene una licencia de conducción, una canasta de productos para entregar, un estado de ocupado y un estado de empaque frío.
+ * Además, tiene una referencia a la panadería a la que pertenece y un costo de domicilio que se calcula según la distancia del cliente y el número de productos en la canasta.
+ * Esta clase tiene varios constructores para crear instancias de Domiciliario con diferentes atributos.
+ * También tiene métodos para obtener y establecer los atributos, así como para calcular el costo del domicilio y simular la entrega de una canasta a un cliente.
+ */
 public class Domiciliario extends Trabajador implements ComidaDefault, Serializable {
     Boolean licencia;
     Boolean ocupado;
@@ -24,6 +32,7 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
     private Panaderia panaderia;
     private double costoDomicilio;
 
+//constructores
     public Domiciliario() {
         super();
         this.licencia = false;
@@ -92,6 +101,7 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
         panaderia.getDomiciliarios().add(this);
     }
 
+//getters y setters
     public Boolean isLicencia() {
         return licencia;
     }
@@ -148,6 +158,16 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
         this.costoDomicilio = costoDomicilio;
     }
 
+    /**
+     * Calcula el costo del domicilio para un cliente y una canasta dada.
+     * El costo se calcula sumando el costo de cada producto en la canasta.
+     * Si la canasta tiene más de 15 productos, se aplica un descuento del 30%.
+     * Luego se agrega un costo adicional según la distancia de la dirección del cliente.
+     * Finalmente, se agrega la tarifa de domicilio y se multiplica por la tarifa de ganancias.
+     * @param cliente El cliente que realiza el pedido.
+     * @param canasta La canasta de productos que se va a entregar.
+     * @return El costo total del domicilio.
+     */
     public double calcularCostoDomicilio(Cliente cliente, Canasta canasta){
         ArrayList<Producto> productos = canasta.getProductos();
         double costo = 0;
@@ -174,6 +194,13 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
 
     
 
+/**
+ * Método que simula la entrega de una canasta por parte del domiciliario a un cliente en particular.
+ * Si hay una parada de tránsito, el domiciliario no puede realizar la entrega y el estado del domicilio del cliente no cambia.
+ * Si la entrega se realiza con éxito, el domiciliario deja de estar ocupado y el estado del domicilio del cliente cambia a entregado.
+ * @param canasta La canasta que se va a entregar al cliente.
+ * @return true si la entrega se realizó con éxito, false si no se pudo realizar debido a una parada de tránsito.
+ */
 	public boolean laborParticular(Canasta canasta){
         
         Catastrofe transito = new Catastrofe();

@@ -6,6 +6,13 @@ import java.util.Random;
 
 import gestorAplicacion.gestion.Panaderia;
 
+/**
+ * La clase Catastrofe representa un evento desafortunado que puede ocurrir en la aplicación de delivery.
+ * Contiene métodos para simular diferentes tipos de catástrofes, como pinchar la llanta de un domiciliario, 
+ * dificultar la preparación de un producto por parte de un cocinero, robar a un comprador, bloquear una calle 
+ * y revocar la licencia de un domiciliario. También tiene un método para seleccionar aleatoriamente una 
+ * catástrofe y un atributo para llevar un registro del dinero robado en caso de robo a un comprador.
+ */
 public class Catastrofe {
 
     public static String[] fallosCocina = {"El producto se quemo","El cocinero se corto un dedo","El producto se pudrio","Hubo un incendio","El cocinero esta triste","Encontramos un pelo en la comida"};

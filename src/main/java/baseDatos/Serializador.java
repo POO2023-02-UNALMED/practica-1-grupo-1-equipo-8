@@ -20,8 +20,16 @@ import gestorAplicacion.humanos.Cocinero;
 import gestorAplicacion.humanos.Domiciliario;
 
 
+/**
+ * La clase Serializador se encarga de guardar y cargar la información de la panadería en un archivo serializado.
+ * También se encarga de guardar y cargar los valores estáticos de las clases Panaderia, Ingrediente, Producto y Recibo.
+ */
 public class Serializador {
-        public static void guardarPanaderia(Panaderia panaderia) {
+    /**
+     * Guarda la información de la panadería en un archivo serializado.
+     * @param panaderia La panadería a guardar.
+     */
+    public static void guardarPanaderia(Panaderia panaderia) {
         try (FileOutputStream fileOut = new FileOutputStream("src/main/java/baseDatos/temp/panaderia.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(panaderia);
@@ -32,6 +40,10 @@ public class Serializador {
         }
     }
 
+    /**
+     * Carga la información de la panadería desde un archivo serializado.
+     * @return La panadería cargada.
+     */
     public static Panaderia cargarPanaderia() {
         Panaderia panaderia = null;
         try (FileInputStream fileIn = new FileInputStream("src/main/java/baseDatos/temp/panaderia.ser");
@@ -45,6 +57,11 @@ public class Serializador {
         return panaderia;
     }
 
+    /**
+     * Guarda los valores estáticos de las clases Panaderia, Ingrediente, Producto y Recibo en un ObjectOutputStream.
+     * @param stream El ObjectOutputStream donde se guardarán los valores estáticos.
+     * @throws IOException Si ocurre un error al escribir en el ObjectOutputStream.
+     */
     public static void guardarValoresEstaticos(ObjectOutputStream stream) throws IOException {
         stream.writeObject(Panaderia.getCanastaDelDia());
         stream.writeObject(Ingrediente.getBaseDatosIngredientes());
@@ -56,6 +73,11 @@ public class Serializador {
         stream.writeInt(Recibo.getTotalFacturas());
     }
 
+    /**
+     * Carga los valores estáticos de las clases Panaderia, Ingrediente, Producto y Recibo desde un ObjectInputStream.
+     * @param stream El ObjectInputStream donde se cargarán los valores estáticos.
+     * @throws IOException Si ocurre un error al leer del ObjectInputStream.
+     */
     public static void cargarValoresEstaticos(ObjectInputStream stream) throws IOException {
         try {
             Panaderia.setCanastaDelDia((Canasta) stream.readObject());

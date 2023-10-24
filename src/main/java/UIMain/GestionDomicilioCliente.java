@@ -7,9 +7,21 @@ import gestorAplicacion.gestion.Panaderia;
 import gestorAplicacion.humanos.Domiciliario;
 import gestorAplicacion.humanos.Cliente;
 
+/**
+ * La clase GestionDomicilioCliente se encarga de manejar la sección de domicilios de un cliente.
+ * Contiene métodos para realizar un domicilio, calificar al domiciliario, mostrar el progreso de la entrega y el estado del domicilio.
+ */
 public class GestionDomicilioCliente {
+    
+    /**
+     * La variable estática zonas representa el número de zonas disponibles para realizar domicilios.
+     */
     public static int zonas = 0;
     
+    /**
+     * El método menuDomicilioCliente muestra el menú de opciones para la sección de domicilios y ejecuta la opción seleccionada por el cliente.
+     * @param cliente el cliente que está realizando la acción.
+     */
     public static void menuDomicilioCliente(Cliente cliente){
         Scanner sc = new Scanner(System.in);
         System.out.println("Bienvenido a la seccion de domicilios");
@@ -33,6 +45,9 @@ public class GestionDomicilioCliente {
         }
     }
     
+    /**
+     * El método barrasDomicilio muestra el progreso de la entrega de un domicilio en tres etapas: recibiendo pedido, en camino y entrega completada.
+     */
     public static void barrasDomicilio(){
         ArrayList<String> procesoEntrega = new ArrayList<>();
         procesoEntrega.add("Recibiendo pedido");
@@ -69,6 +84,11 @@ public class GestionDomicilioCliente {
         }
     }
 
+    /**
+     * El método enviarCanastasAFacturar pregunta al usuario si desea enviar una canasta a facturar.
+     * @param canastaTrabajar la canasta que se desea facturar.
+     * @return true si el usuario desea enviar la canasta a facturar, false en caso contrario.
+     */
     public boolean enviarCanastasAFacturar(Canasta canastaTrabajar){
         Scanner sc = new Scanner(System.in);
         System.out.println("¿Desea enviar la canasta a facturar? (S/N)");
@@ -79,6 +99,10 @@ public class GestionDomicilioCliente {
         return true;
     }
 
+    /**
+     * El método pedirCalificacion solicita al usuario que ingrese una calificación del 1 al 5 para el domiciliario.
+     * @return la calificación ingresada por el usuario.
+     */
     public static double pedirCalificacion(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Ingrese la calificacion del domiciliario (1-5): ");
@@ -86,10 +110,14 @@ public class GestionDomicilioCliente {
         return calificacion;
     }
 
+    /**
+     * El método estadoDomicilio muestra el estado del domicilio según el valor booleano que se le pase como parámetro.
+     * @param estado true si el domicilio se realizó con éxito, false en caso contrario.
+     */
     public static void estadoDomicilio(boolean estado){
         if (estado){
             System.out.println("El domicilio se ha realizado con exito");
-    }
+        }
         else{
             System.out.println("El domicilio no se ha podido realizar \n Ya te enviaremos tu domiclio");
         }

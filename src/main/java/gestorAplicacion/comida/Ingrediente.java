@@ -10,6 +10,13 @@ import gestorAplicacion.gestion.Panaderia;
 import UIMain.GestionCocinar;
 
 //necesito un metodo o un atributo que me de los ingredientes disponibles en bodega!!! (Richard)
+/**
+ * La clase Ingrediente representa un ingrediente que puede ser utilizado en la preparación de comidas.
+ * Cada ingrediente tiene un nombre, un identificador único, un precio de venta, un precio de compra, 
+ * un número de veces vendido, una probabilidad constante, un estado de caducidad y un inventario asociado.
+ * Además, la clase mantiene una base de datos de todos los ingredientes creados y una lista de los ingredientes más vendidos.
+ * La clase proporciona métodos para crear, buscar y verificar la existencia de ingredientes en la base de datos.
+ */
 public class Ingrediente implements Serializable, ComidaDefault {
 	private static ArrayList<Ingrediente> baseDatosIngredientes = new ArrayList<Ingrediente>();
 	private static int cantidadIngredientesUnicos;

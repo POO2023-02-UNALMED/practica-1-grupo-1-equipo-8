@@ -6,6 +6,11 @@ import java.io.Serializable;
 import java.util.Map;
 import gestorAplicacion.gestion.Panaderia;
 
+/**
+ * Clase abstracta que representa a un trabajador en la panadería.
+ * Contiene atributos como nombre, habilidad, calificación, dinero en mano, salario, y si ha sido robado o no.
+ * También tiene una referencia a la panadería en la que trabaja y métodos abstractos para realizar labores particulares y conseguir ingredientes para una receta.
+ */
 public abstract class Trabajador implements Serializable{
     protected String nombre;
     protected double habilidad;
@@ -15,6 +20,7 @@ public abstract class Trabajador implements Serializable{
     protected boolean robado;
     protected Panaderia panaderia;
 
+//constructores
     public Trabajador() {
         this("John Doe", 0, 0, 1000);
         panaderia.getTrabajadores().add(this);
@@ -64,6 +70,7 @@ public abstract class Trabajador implements Serializable{
         panaderia.getTrabajadores().add(this);
     }
 
+//getters y setters
     public String getNombre() {
         return nombre;
     }
@@ -112,8 +119,18 @@ public abstract class Trabajador implements Serializable{
 		this.robado = robado;
 	}
 
+/**
+ * Método abstracto que indica si el trabajador puede realizar una labor particular con una canasta dada.
+ * @param canasta La canasta que se va a utilizar para la labor.
+ * @return true si el trabajador puede realizar la labor con la canasta dada, false en caso contrario.
+ */
 	public abstract boolean laborParticular(Canasta canasta);
 
+/**
+ * Método abstracto que representa la acción de conseguir ingredientes para una receta.
+ * @param listingredientes un mapa que contiene los ingredientes necesarios para la receta y su cantidad requerida.
+ * @return true si se logran conseguir todos los ingredientes, false en caso contrario.
+ */
 	public abstract boolean conseguirIngredientes(Map<String, Integer> listingredientes);
 
 }

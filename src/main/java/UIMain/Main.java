@@ -1,4 +1,14 @@
 package UIMain;
+/*
+    Encomendamos este código a la sabiduría divina, 
+    confiando en que la luz de la comprensión guíe cada línea de este programa. 
+    Que cada variable y función se vean bendecidas con la gracia del funcionamiento perfecto. 
+    En la tradición de la paciencia y la perseverancia, trabajamos en este proyecto, 
+    recordando que incluso los mayores logros comienzan con un solo paso. 
+    Que esta obra sea un reflejo de la labor y el esfuerzo de quienes la crearon, 
+    y que sirva para el bienestar y la armonía de todos aquellos que lo utilicen. Amén.
+*/
+
 
 import java.util.Scanner;
 import gestorAplicacion.comida.*;
@@ -51,7 +61,11 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                             break;
                         }
                         UI.domicilio(Cliente.getSesion()); //NICOOOOOOOOOO
-                        UI.facturacion();
+                        if(!Cliente.getSesion().verificarDescuentoPorTipo()){
+                            UI.validarTipoCliente(Cliente.getSesion());
+                        }
+
+                        UI.facturacion(Cliente.getSesion(),panaderia);
                         UI.concluirOrden();//NICOOOOOO y el resto
                         break;
 

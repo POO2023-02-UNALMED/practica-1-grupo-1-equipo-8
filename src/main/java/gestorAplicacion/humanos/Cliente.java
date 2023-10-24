@@ -13,6 +13,10 @@ import UIMain.GestionCocinar;
 import UIMain.GestionDomicilioCliente;
 
 
+/**
+ * La clase Cliente representa a un cliente de la panadería. Contiene información como el nombre, ID, contraseña, dirección, descuento, presupuesto, canastas de orden y recibos.
+ * También tiene métodos para obtener y establecer los atributos, así como para guardar una canasta en el historial de órdenes del cliente.
+ */
 public class Cliente implements Serializable{
 
 	public void setId(int id) {

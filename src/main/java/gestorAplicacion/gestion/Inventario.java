@@ -8,6 +8,10 @@ import java.util.Map;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
 
+/**
+ * La clase Inventario representa el inventario de una panadería, el cual contiene una lista de ingredientes y una lista de productos.
+ * También tiene métodos para agregar ingredientes y productos al inventario, buscar ingredientes y productos por su ID o nombre, y verificar la cantidad de ingredientes y productos en el inventario.
+ */
 public class Inventario implements Serializable{
 	
 	private Panaderia panaderia;

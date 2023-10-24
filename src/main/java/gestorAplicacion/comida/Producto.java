@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 
+/**
+ * La clase Producto representa un producto de comida que se puede vender en un restaurante.
+ * Cada producto tiene un nombre, un identificador único, un costo, una lista de ingredientes y un proceso de cocina.
+ * También se mantiene un registro de cuántas veces se ha vendido cada producto y cuáles son los productos más vendidos.
+ * La clase proporciona métodos para crear, buscar y actualizar productos en la base de datos.
+ */
 public class Producto implements Serializable, ComidaDefault{
 	
 	protected static ArrayList<Producto> baseDatosProductos = new ArrayList<Producto>();

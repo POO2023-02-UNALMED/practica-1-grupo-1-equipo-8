@@ -6,6 +6,12 @@ import java.util.Random;
 
 import gestorAplicacion.humanos.Cocinero;
 
+/**
+ * La clase ProductoCaliente es una subclase de Producto que representa un producto de comida caliente.
+ * Esta clase tiene un atributo adicional llamado "horno" que indica si el producto ha sido horneado o no.
+ * La clase tiene métodos para crear un nuevo objeto ProductoCaliente a partir de su nombre, crear un nuevo producto personalizado con ingredientes especificados,
+ * realizar el proceso de horneado de un producto caliente por parte de un cocinero y seleccionar procesos de cocina aleatorios para el producto caliente.
+ */
 public class ProductoCaliente extends Producto{
 	private boolean horno=false;
 
