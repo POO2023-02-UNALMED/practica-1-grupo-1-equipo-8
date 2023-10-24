@@ -8,7 +8,7 @@ package UIMain;
     Que esta obra sea un reflejo de la labor y el esfuerzo de quienes la crearon, 
     y que sirva para el bienestar y la armonía de todos aquellos que lo utilicen. Amén.
 */
-//amen
+//amen a
 
 import java.util.Scanner;
 import gestorAplicacion.comida.*;
