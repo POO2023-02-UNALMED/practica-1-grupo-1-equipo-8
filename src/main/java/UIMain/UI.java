@@ -625,6 +625,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
         System.out.println("");
       }
     }
+    
     System.out.println("");
     System.out.println(
         "Te recomendamos la canasta del dia con ID " + cliente.getPanaderia().getCanastaDelDia().getIdentificador());
