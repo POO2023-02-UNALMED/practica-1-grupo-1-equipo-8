@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
 
 
 import gestorAplicacion.comida.Producto;
@@ -237,8 +239,28 @@ public class Cliente implements Serializable{
 	 * @param canasta La canasta a guardar en el historial.
 	 */
 	public void guardarCanastaEnHistorial(Canasta canasta){
-		Canasta newCanasta = new Canasta();
-		 
+		HashMap<String, Integer> productosEnLista = new HashMap<String, Integer>();
+		HashMap<String, Integer> ingredientesEnLista = new HashMap<String, Integer>();
+		HashMap<String, Integer> kitsEnLista = new HashMap<String, Integer>();
+
+		if(canasta.getProductosEnLista() != null){
+			productosEnLista.putAll(canasta.getProductosEnLista());
+			}
+		if(canasta.getIngredientesEnLista() != null){
+			ingredientesEnLista.putAll(canasta.getIngredientesEnLista());
+			}
+		if(canasta.getKitsEnLista() != null){
+			kitsEnLista.putAll(canasta.getKitsEnLista());
+			}
+
+		String identificador = canasta.getIdentificador();
+		int itemsTotalesEnCanasta = canasta.getItemsTotalesEnCanasta();
+		int itemsTotalesEnLista = canasta.getItemsTotalesEnLista();
+		double costoTotalEnLista = canasta.getCostoTotalEnLista(); //subtotal 
+		double costoTrasDescuentoEnLista = canasta.getCostoTrasDescuentoEnLista(); //total // total de canasta seria subtotal de factura
+		double descuentoEnLista = canasta.getDescuentoEnLista(); //total ahorrado
+		Canasta newCanasta = new Canasta(productosEnLista, ingredientesEnLista, kitsEnLista, itemsTotalesEnCanasta, itemsTotalesEnLista, costoTotalEnLista, costoTrasDescuentoEnLista, descuentoEnLista, identificador);
+		this.historialOrdenes.add(newCanasta);
 	}
 
 	/**
@@ -249,17 +271,32 @@ public class Cliente implements Serializable{
 	public Canasta crearCanastaPorHistorial(String id){
 		for (Canasta canasta: this.historialOrdenes){
 			if (canasta.getIdentificador().equals(id)){
-				try{
-					Canasta newCanasta = canasta;
-					this.canastaOrden = (Canasta) newCanasta.clone();
-					cantidadOrdenes++;
-					this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));
-					break;
-				} catch (CloneNotSupportedException e) {
-					e.printStackTrace();
-					break;
+			HashMap<String, Integer> productosEnLista = new HashMap<String, Integer>();
+			HashMap<String, Integer> ingredientesEnLista = new HashMap<String, Integer>();
+			HashMap<String, Integer> kitsEnLista = new HashMap<String, Integer>();
+
+			if(canasta.getProductosEnLista() != null){
+				productosEnLista.putAll(canasta.getProductosEnLista());
 				}
+			if(canasta.getIngredientesEnLista() != null){
+				ingredientesEnLista.putAll(canasta.getIngredientesEnLista());
 				}
+			if(canasta.getKitsEnLista() != null){
+				kitsEnLista.putAll(canasta.getKitsEnLista());
+				}
+
+			String identificador = canasta.getIdentificador();
+			int itemsTotalesEnCanasta = canasta.getItemsTotalesEnCanasta();
+			int itemsTotalesEnLista = canasta.getItemsTotalesEnLista();
+			double costoTotalEnLista = canasta.getCostoTotalEnLista(); //subtotal 
+			double costoTrasDescuentoEnLista = canasta.getCostoTrasDescuentoEnLista(); //total // total de canasta seria subtotal de factura
+			double descuentoEnLista = canasta.getDescuentoEnLista(); //total ahorrado
+			Canasta newCanasta = new Canasta(productosEnLista, ingredientesEnLista, kitsEnLista, itemsTotalesEnCanasta, itemsTotalesEnLista, costoTotalEnLista, costoTrasDescuentoEnLista, descuentoEnLista, identificador);
+			cantidadOrdenes++;
+			this.canastaOrden = newCanasta;
+			this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));
+			break;
+			}
 		}
 		return this.canastaOrden;
 	}
@@ -275,18 +312,34 @@ public class Cliente implements Serializable{
 			return null;
 		}
 		else{
-			try{
-				Canasta canasta = panaderia.obtenerCanastaPorId(id);
-				Canasta newCanasta = (Canasta) canasta.clone();
-				this.canastaOrden = newCanasta;
-				cantidadOrdenes++;
-				this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));
-				} catch (CloneNotSupportedException e) {
-					e.printStackTrace();
+			Canasta canasta = panaderia.obtenerCanastaPorId(id);
+		HashMap<String, Integer> productosEnLista = new HashMap<String, Integer>();
+		HashMap<String, Integer> ingredientesEnLista = new HashMap<String, Integer>();
+		HashMap<String, Integer> kitsEnLista = new HashMap<String, Integer>();
+
+		if(canasta.getProductosEnLista() != null){
+			productosEnLista.putAll(canasta.getProductosEnLista());
+			}
+		if(canasta.getIngredientesEnLista() != null){
+			ingredientesEnLista.putAll(canasta.getIngredientesEnLista());
+			}
+		if(canasta.getKitsEnLista() != null){
+			kitsEnLista.putAll(canasta.getKitsEnLista());
+			}
+
+		String identificador = canasta.getIdentificador();
+		int itemsTotalesEnCanasta = canasta.getItemsTotalesEnCanasta();
+		int itemsTotalesEnLista = canasta.getItemsTotalesEnLista();
+		double costoTotalEnLista = canasta.getCostoTotalEnLista(); //subtotal 
+		double costoTrasDescuentoEnLista = canasta.getCostoTrasDescuentoEnLista(); //total // total de canasta seria subtotal de factura
+		double descuentoEnLista = canasta.getDescuentoEnLista(); //total ahorrado
+		Canasta newCanasta = new Canasta(productosEnLista, ingredientesEnLista, kitsEnLista, itemsTotalesEnCanasta, itemsTotalesEnLista, costoTotalEnLista, costoTrasDescuentoEnLista, descuentoEnLista, identificador);
+		cantidadOrdenes++;
+		this.canastaOrden = newCanasta;
+		this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));
 				}
 			return this.canastaOrden;
 		}
-	}
 
 	/**
 	 * Publica una canasta vacía en la panadería y la agrega a la lista de canastas publicadas.
@@ -300,7 +353,6 @@ public class Cliente implements Serializable{
 		canasta.setIngredientes(listaVacia2);
 		canasta.setKits(listaVacia3);
 		canasta.setPagada(false);
-		System.out.print("entró a publicar canasta");
 		this.panaderia.agregarCanastasPublicadas(canasta);
 	}
 
@@ -311,9 +363,30 @@ public class Cliente implements Serializable{
 	 * @return La nueva canasta del día creada para el cliente.
 	 */
 	public Canasta crearCanastaDelDia(){
-		Canasta newCanasta = Panaderia.getCanastaDelDia();
-		canastaOrden = new Canasta(newCanasta.getProductosEnLista(), newCanasta.getIngredientesEnLista(), newCanasta.getKitsEnLista(), newCanasta.getItemsTotalesEnCanasta(), newCanasta.getItemsTotalesEnLista(),newCanasta.getCostoTotalEnLista(), newCanasta.getCostoTrasDescuentoEnLista(),newCanasta.getDescuentoEnLista(),newCanasta.getIdentificador());
+		Canasta canasta = Panaderia.getCanastaDelDia();
+		HashMap<String, Integer> productosEnLista = new HashMap<String, Integer>();
+		HashMap<String, Integer> ingredientesEnLista = new HashMap<String, Integer>();
+		HashMap<String, Integer> kitsEnLista = new HashMap<String, Integer>();
+
+		if(canasta.getProductosEnLista() != null){
+			productosEnLista.putAll(canasta.getProductosEnLista());
+			}
+		if(canasta.getIngredientesEnLista() != null){
+			ingredientesEnLista.putAll(canasta.getIngredientesEnLista());
+			}
+		if(canasta.getKitsEnLista() != null){
+			kitsEnLista.putAll(canasta.getKitsEnLista());
+			}
+
+		String identificador = canasta.getIdentificador();
+		int itemsTotalesEnCanasta = canasta.getItemsTotalesEnCanasta();
+		int itemsTotalesEnLista = canasta.getItemsTotalesEnLista();
+		double costoTotalEnLista = canasta.getCostoTotalEnLista(); //subtotal 
+		double costoTrasDescuentoEnLista = canasta.getCostoTrasDescuentoEnLista(); //total // total de canasta seria subtotal de factura
+		double descuentoEnLista = canasta.getDescuentoEnLista(); //total ahorrado
+		Canasta newCanasta = new Canasta(productosEnLista, ingredientesEnLista, kitsEnLista, itemsTotalesEnCanasta, itemsTotalesEnLista, costoTotalEnLista, costoTrasDescuentoEnLista, descuentoEnLista, identificador);
 		cantidadOrdenes++;
+		this.canastaOrden = newCanasta;
 		this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));
 		return this.canastaOrden;
 	}

@@ -216,7 +216,7 @@ public class Cocinero extends Domiciliario {
         int longitud = procesoCook.size();
 
         // Itera a través de los procesos de cocina.
-        for (int i = 0; i < longitud/2; i++) {
+        for (int i = 0; i < longitud; i++) {
             // Encuentra al cocinero ideal para el proceso actual.
             Cocinero chefIdeal = cocineroIdeal(procesoCook.get(i));
 

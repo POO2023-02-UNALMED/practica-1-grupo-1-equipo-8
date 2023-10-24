@@ -19,7 +19,7 @@ public class SerializationTest {
     //panaderia = Serializador.cargarPanaderia();
     System.out.println("panaderia cargada");
 
-    /* 
+    
       Ingrediente.crearIngrediente("leche");
       Ingrediente.crearIngrediente("harina");
       Ingrediente.crearIngrediente("azucar");
@@ -91,7 +91,7 @@ public class SerializationTest {
       ingredientesCocinar.put("16", 5);
       ingredientesCocinar.put("17", 3);
       panaderia.cocinar(ingredientesCocinar);
-    */
+    
 
     /*
      * Cliente cliente1= panaderia.inicioSesionId(202);
@@ -106,9 +106,9 @@ public class SerializationTest {
      * System.out.println(panaderia.getDinero());
      */
     
-    panaderia.getClientes().get(0);
-    Panaderia.setCanastaDelDia(panaderia.getClientes().get(0).getHistorialOrdenes().get(0));
-    GestionCompra.mostrarCanasta(panaderia.getCanastaDelDia());
+    //panaderia.getClientes().get(0);
+    //Panaderia.setCanastaDelDia(panaderia.getClientes().get(0).getHistorialOrdenes().get(0));
+    //GestionCompra.mostrarCanasta(panaderia.getCanastaDelDia());
     
     /* 
     HashMap<String, Integer> ingredientesCocinar = new HashMap<String, Integer>();
