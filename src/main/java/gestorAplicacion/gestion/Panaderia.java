@@ -38,11 +38,6 @@ public class Panaderia implements Serializable {
     private ArrayList<Canasta> canastasPublicadas = new ArrayList<Canasta>();
     private Inventario inventario;
 
-    static {
-        // Agregar lista de productos de la canasta del dia
-        canastaDelDia = new Canasta();
-    }
-
     public Panaderia() {
         this.dinero = 1000000;
         this.valorDeudas = 0;

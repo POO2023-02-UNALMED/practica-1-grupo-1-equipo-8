@@ -7,6 +7,7 @@ import gestorAplicacion.humanos.Trabajador;
 import gestorAplicacion.humanos.Cocinero;
 import gestorAplicacion.humanos.Domiciliario;
 import baseDatos.Serializador;
+import UIMain.GestionCompra;
 import UIMain.UI;
 
 import java.util.HashMap;
@@ -18,7 +19,7 @@ public class SerializationTest {
     //panaderia = Serializador.cargarPanaderia();
     System.out.println("panaderia cargada");
 
-    
+    /* 
       Ingrediente.crearIngrediente("leche");
       Ingrediente.crearIngrediente("harina");
       Ingrediente.crearIngrediente("azucar");
@@ -90,7 +91,7 @@ public class SerializationTest {
       ingredientesCocinar.put("16", 5);
       ingredientesCocinar.put("17", 3);
       panaderia.cocinar(ingredientesCocinar);
-    
+    */
 
     /*
      * Cliente cliente1= panaderia.inicioSesionId(202);
@@ -104,7 +105,11 @@ public class SerializationTest {
      * UI.mostrarOpciones(panaderia.getInventario());
      * System.out.println(panaderia.getDinero());
      */
-
+    
+    panaderia.getClientes().get(0);
+    Panaderia.setCanastaDelDia(panaderia.getClientes().get(0).getHistorialOrdenes().get(0));
+    GestionCompra.mostrarCanasta(panaderia.getCanastaDelDia());
+    
     /* 
     HashMap<String, Integer> ingredientesCocinar = new HashMap<String, Integer>();
     

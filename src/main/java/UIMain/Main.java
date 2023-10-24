@@ -64,7 +64,6 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                         if(!Cliente.getSesion().verificarDescuentoPorTipo()){
                             UI.validarTipoCliente(Cliente.getSesion());
                         }
-
                         UI.facturacion(Cliente.getSesion(),panaderia);
                         UI.concluirOrden(Cliente.getSesion());
                         break;

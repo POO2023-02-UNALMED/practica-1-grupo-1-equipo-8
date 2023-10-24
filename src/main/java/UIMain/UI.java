@@ -390,8 +390,12 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
     cliente.guardarCanastaEnHistorial(cliente.getCanastaOrden());
     System.out.println("Esperamos que haya disfrutado su pedido, desea publicar su canasta para que otros usuarios puedan verla? escriba s para si y n para no");
-
-    eleccion = input.nextLine();
+    do{
+      eleccion = input.nextLine();
+      if(eleccion.equals("s") || eleccion.equals("n")){
+        break;}
+    }while(true);
+    
 
     if (eleccion.equals("s")) {
 
@@ -607,17 +611,15 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
       System.out.println("No tienes historial de ordenes");
       return;
     }
-
-    if (historial.size() < 5) {
+    else if (historial.size() < 5) {
       for (Canasta canasta : historial) {
         System.out.println("Canasta de la factura con ID " + canasta.getIdentificador());
         GestionCompra.mostrarCanasta(canasta);
         System.out.println("");
       }
     }
-
     else {
-      int startIndex = Math.max(historial.size() - 5, 0);
+      int startIndex = historial.size()-5;
       for (int i = startIndex; i < historial.size(); i++) {
         Canasta canasta = historial.get(i);
         System.out.println("Canasta de la factura con ID " + canasta.getIdentificador());
@@ -625,14 +627,16 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
         System.out.println("");
       }
     }
-    
+
+    System.out.println("");
     System.out.println("");
     System.out.println(
         "Te recomendamos la canasta del dia con ID " + cliente.getPanaderia().getCanastaDelDia().getIdentificador());
-
+    GestionCompra.mostrarCanasta(cliente.getPanaderia().getCanastaDelDia());
     System.out.println("");
     System.out.println("Escriba el ID de la canasta que quiere agregar: ");
-    eleccion = input.nextLine();
+    String eleccion = input.nextLine();
+
     int limitebajo = cliente.getCantidadOrdenes() - 5;
     int idEleccion;
 
@@ -645,10 +649,14 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
     if (idEleccion >= limitebajo && idEleccion < cliente.getCantidadOrdenes() && idEleccion >= 0) {
     // El ID de la canasta está dentro de los últimos 5 registros
-    Canasta canasta = cliente.getHistorialOrdenes().get(idEleccion);
-    cliente.setCanastaOrden(canasta);
+      Cliente.getSesion().crearCanastaPorHistorial(eleccion);
+      System.out.println("Canasta agregada con exito");
 
-    } else {
+    }else if(eleccion.equals("0")){
+      Cliente.getSesion().crearCanastaDelDia();
+      System.out.println("Canasta agregada con exito");
+    } 
+    else {
     System.out.println("La canasta que escogió no está en su historial o el ID no es válido.");
     }
 
