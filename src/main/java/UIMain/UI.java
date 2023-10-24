@@ -462,7 +462,6 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     System.out.println("");
     System.out.println("Escriba el numero de ID de un producto para ver su informacion, o escriba 0 para salir: ");
     eleccion = input.nextLine();
-
     if (eleccion.equals("0")) {
         break;
     }

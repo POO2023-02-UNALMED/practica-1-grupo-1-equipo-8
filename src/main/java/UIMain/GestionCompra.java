@@ -31,8 +31,9 @@ public class GestionCompra {
       continuar = true;
       if(tipoDeProducto.equals("0")){
         while(true){
-          UI.mostrarOpciones(panaderia.getInventario());
+          System.out.println("Esta es su canasta actual:");
           mostrarCanasta(canasta);
+          UI.mostrarOpciones(panaderia.getInventario());
           System.out.println("Desea modificar un producto de nuestro catalogo o agregar un producto personalizado? (Escriba '0'=Volver atras - '1'=Catalogo - '2'=Personalizado): ");
           tipoDeProducto = scanner.nextLine();
           if(tipoDeProducto.equalsIgnoreCase("0")||tipoDeProducto.equalsIgnoreCase("1")||tipoDeProducto.equalsIgnoreCase("2")){

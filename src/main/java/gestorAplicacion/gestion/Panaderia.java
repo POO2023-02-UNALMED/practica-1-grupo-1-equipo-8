@@ -2,7 +2,6 @@ package gestorAplicacion.gestion;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
 import java.io.Serializable;
 import java.util.ArrayList;
 
