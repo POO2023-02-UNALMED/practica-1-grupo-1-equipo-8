@@ -182,26 +182,22 @@ public class GestionCompra {
         }
 
         System.out.println("Ingrese los ingrediente (Escriba '0' cuando termine con el listado): ");
-        while (continuar) {
+        while (true) {
           while (true) {
-
-            Scanner input = new Scanner(System.in);
-            
+            continuar = true;
             System.out.println("Ingresa el nombre del ingrediente (Escriba '0' si ya termino con el listado):");
-
-              entrada = input.nextLine();
-
+            entrada = scanner.nextLine();
             if (entrada.equals("0") & ingredientesNecesarios.isEmpty()) {
               System.out.println("Necesitas al menos un ingrediente");
-            } 
-
-            else {
+            } else if (entrada.equals("0")) {
               continuar = false;
               break;
+            } else {
+              break;
             }
+            System.out.println();
           }
-
-          if  (continuar == false){
+          if (!continuar) {
             break;
           }
 
@@ -211,18 +207,15 @@ public class GestionCompra {
               cantidadIngrediente = Integer.parseInt(scanner.nextLine());
               if (cantidadIngrediente <= 0) {
                 System.out.println("La cantidad debe ser mayor a 0");
-              } 
-              else if(cantidadIngrediente>19){
+              } else if (cantidadIngrediente > 19) {
                 System.out.println("No puedes pedir más de 19 ingredientes iguales");
-              }
-              else {
+              } else {
                 break;
               }
             } catch (NumberFormatException e) {
               System.out.println("Debes ingresar un numero");
             }
           }
-
           ingredientesNecesarios = canasta.gestionAgregar(entrada, cantidadIngrediente, ingredientesNecesarios);
         }
         

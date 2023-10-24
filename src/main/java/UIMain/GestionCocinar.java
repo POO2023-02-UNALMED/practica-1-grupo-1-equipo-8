@@ -26,28 +26,24 @@ public class GestionCocinar {
      * @return El valor entero ingresado por el usuario.
      */
     public static int gestionCocina() {
-    Scanner sc = new Scanner(System.in);
-    int num;
-
-    System.out.print("Ingrese un numero entre 0 y 5: "); // Mover esta línea aquí
-
-    do {
-        String input = sc.nextLine();
-        try {
-            num = Integer.parseInt(input);
-            if (num < 0 || num > 5) {
-                System.out.println("El numero ingresado debe estar entre 0 y 5.");
-                System.out.print("Ingrese un numero entre 0 y 5: "); // Mover esta línea aquí
+        String eleccion;
+        Scanner scanner = new Scanner(System.in);
+        int numero;
+        System.out.println("ingrese un numero del 0 al 5 aaaaaaaaa");
+        while(true){
+            eleccion = scanner.nextLine();
+            if(eleccion.equals("0") || eleccion.equals("1") || eleccion.equals("2") || eleccion.equals("3") || eleccion.equals("4") ||eleccion.equals("5")){
+                numero = Integer.parseInt(eleccion);
+                break;
+            }else{
+                System.out.println("Ingrese un valor valido");
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Debe ingresar un numero valido.");
-            num = -1;
-            System.out.print("Ingrese un numero entre 0 y 5: "); // Mover esta línea aquí
         }
-    } while (num < 0 || num > 5);
+        
 
-    return num;
-}
+        return numero;
+    }
+
 
     /**
      * Este método imprime el progreso de un proceso de cocción en función del número de elementos en el proceso.

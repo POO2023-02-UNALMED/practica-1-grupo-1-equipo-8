@@ -392,9 +392,9 @@ public class Cliente implements Serializable{
 	 * y luego llama al método "calificarCocina" para asignar la calificación al cocinero.
 	 */
 	public void notaCocineros() {
+		double calificacion = GestionCocinar.gestionCocina();
 		for (Cocinero cocinero : this.panaderia.getCocineros()) {
 			if (cocinero.isTrabajo()) {
-				double calificacion = GestionCocinar.gestionCocina();
 				calificarCocina(cocinero, calificacion);
 			}
 		}

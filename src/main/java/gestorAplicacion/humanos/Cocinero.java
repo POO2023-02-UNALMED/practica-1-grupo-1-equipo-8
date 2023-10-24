@@ -28,6 +28,8 @@ public class Cocinero extends Domiciliario {
     private boolean horno;
     private Panaderia panaderia;
 
+    public String[] nombres = {"Sergio","Jaime","David","Juancho","Will","Kevin"};
+
 // constructores
     public Cocinero() {
         super();
@@ -132,6 +134,9 @@ public class Cocinero extends Domiciliario {
      * @return el cocinero ideal para el proceso de cocina dado
      */
     public Cocinero cocineroIdeal(String proceso) {
+        Random nombreRandom = new Random();
+        int numeroAleatorio = nombreRandom.nextInt(6);
+        String chefRandom = nombres[numeroAleatorio];
         Cocinero ideal = null;
         List<Cocinero> listaCocineros = this.panaderia.getCocineros();
         // Itera a través de la lista de cocineros para encontrar el cocinero con la
@@ -145,7 +150,7 @@ public class Cocinero extends Domiciliario {
                 // Se detiene la búsqueda una vez que se encuentra el cocinero ideal.
             }
         }
-        Cocinero idealNew = this.panaderia.contratarCocinero(nombre, habilidad, calificacion, dineroEnMano, proceso);
+        Cocinero idealNew = this.panaderia.contratarCocinero(chefRandom, habilidad, calificacion, dineroEnMano, proceso);
         return idealNew;
     }
 

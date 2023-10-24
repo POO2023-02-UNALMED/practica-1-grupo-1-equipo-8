@@ -48,6 +48,14 @@ public class Recibo implements Serializable {
         this.fecha = Date.from(Instant.now());
     }
 //getter y setters
+    public double getCostoDomicilio(){
+        return this.costoDomicilio;
+    }
+
+    public void setCostoDomicilio(double costoDomicilio){
+        this.costoDomicilio = costoDomicilio;
+    }
+
     public Domiciliario getDomiciliario(){
         return this.domiciliario;
     }

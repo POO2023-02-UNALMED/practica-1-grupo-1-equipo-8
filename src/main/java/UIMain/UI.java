@@ -146,9 +146,8 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     System.out.println("");
     System.out.println("");
     System.out.println("_".repeat(55));
-    // System.out.println(Texto.alinear("Domicilio",String.valueOf(recibo.getCostoDomicilio())));
-    System.out
-        .println(Texto.alinear("Descuento", " ", " " + String.valueOf(recibo.getSubtotal() * recibo.getDescuento())));
+    System.out.println(Texto.alinear("Domicilio","",String.valueOf(recibo.getCostoDomicilio())));
+    System.out.println(Texto.alinear("Descuento", " ", " " + String.valueOf(recibo.getSubtotal() * recibo.getDescuento())));
     System.out.println(Texto.alinear("****TOTAL*****", recibo.getTotal()));
     // System.out.println(Texto.alinear("Domicilio", ))
     System.out.println("");
