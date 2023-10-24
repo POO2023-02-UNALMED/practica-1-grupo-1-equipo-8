@@ -35,7 +35,7 @@ public interface ComidaDefault {
     default public String getNutrientes(String nombre){
         String m = String.format(""+
         " _______________________________________________________ \n"+
-        "|"+Texto.centrar(String.format("Producto: ", nombre))+" |\n"+
+        "|"+Texto.centrar(String.format("Producto: %s", nombre))+" |\n"+
         "| Porcion: 30 g                                         |\n"+
         "|_______________________________________________________| \n"+
         "| Informacion nutricional por porcion                   |\n"+

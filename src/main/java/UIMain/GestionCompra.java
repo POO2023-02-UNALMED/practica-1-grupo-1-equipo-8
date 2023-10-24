@@ -34,9 +34,9 @@ public class GestionCompra {
           System.out.println("Esta es su canasta actual:");
           mostrarCanasta(canasta);
           UI.mostrarOpciones(panaderia.getInventario());
-          System.out.println("Desea modificar un producto de nuestro catalogo o agregar un producto personalizado? (Escriba '0'=Volver atras - '1'=Catalogo - '2'=Personalizado): ");
+          System.out.println("Desea comprar un producto de nuestro catalogo o agregar un producto personalizado? (Escriba '0'=Volver atras - '1'=Catalogo - '2'=Personalizado): '3'=Ir a pagar");
           tipoDeProducto = scanner.nextLine();
-          if(tipoDeProducto.equalsIgnoreCase("0")||tipoDeProducto.equalsIgnoreCase("1")||tipoDeProducto.equalsIgnoreCase("2")){
+          if(tipoDeProducto.equalsIgnoreCase("0")||tipoDeProducto.equalsIgnoreCase("1")||tipoDeProducto.equalsIgnoreCase("2")||tipoDeProducto.equalsIgnoreCase("3")){
             if(tipoDeProducto.equalsIgnoreCase("0")){
               continuar = false;
             }
@@ -270,6 +270,8 @@ public class GestionCompra {
           System.out.println("No se ha podido realizar el proceso, vuelva a intentarlo");
           continue;
         }
+      } else if(tipoDeProducto.equalsIgnoreCase("3")){
+      break;
       }
       System.out.println("Desea agregar otro producto o ingrediente a la canasta? (Escriba '0' para terminar - '1' para seguir):");
       try{
@@ -285,12 +287,12 @@ public class GestionCompra {
       }
       catch(Exception e){
         System.out.println("Debes ingresar un numero adecuado");
-      }
+      } 
       if(!continuar){
         break;
-      }
-
+      } 
     }
+
   }
   
   /**

@@ -37,10 +37,10 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                 UI.titulo();
                 String strOpciones = "Escriba el numero correspondiente a la opcion que quiere elegir\n" +
                         "0. Cerrar sesion\n" +
-                        "1. Agregar productos a la canasta de compras\n" +
+                        "1. Ir a comprar\n" +
                         "2. Ver catalogo de productos y descripcion\n"+
                         "3. Lo mejor de nuestra panaderia\n" +
-                        "4. Ver las facturas de mis compras pasadas\n" +
+                        "4. Ver las facturas de mis compras pasadas (Recuerde desplazar hacia arriba despues de seleccionar)\n" + 
                         "5. Cambiar contrasena\n" +
                         "6. Meter plata a mi cuenta\n" +
                         "7. Validar tipo de cliente\n" +
@@ -56,7 +56,7 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                         UI.cerrarSesion(); //buena 
                         break;
 
-                    case "1":
+                    case "1": //AGREGAR OPCION DE IR A FACTURAR DIRECTAMENTE
                         if(!UI.compras(panaderia)){
                             break;
                         }
@@ -69,7 +69,7 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                         break;
 
                     case "2":
-                        UI.verCatalogoDescripcion(panaderia); //buena 
+                        UI.verCatalogoDescripcion(panaderia); //buena
                         break;
 
                     case "3":
@@ -77,7 +77,7 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                         break;
 
                     case "4":
-                        UI.historialRecibos(Cliente.getSesion()); //(Creemos que bien)
+                        UI.historialRecibos(Cliente.getSesion()); //buena
                         break;
                     case "5":
                         UI.cambiarClave(Cliente.getSesion()); //buena
@@ -95,7 +95,7 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                         UI.modificarDireccion(Cliente.getSesion()); //buena
                         break;
 
-                    case "9":
+                    case "9": //ARREGLAR, NO CLONA
                         UI.historialOrdenes(Cliente.getSesion());
                         break;
 

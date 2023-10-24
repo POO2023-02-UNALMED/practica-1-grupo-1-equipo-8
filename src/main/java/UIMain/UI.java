@@ -3,7 +3,7 @@ package UIMain;
 import java.util.Scanner;
 import java.lang.Thread;
 import java.util.ArrayList;
-
+import java.lang.Thread;
 import gestorAplicacion.humanos.Cliente;
 import gestorAplicacion.comida.Ingrediente;
 import gestorAplicacion.comida.Producto;
@@ -108,7 +108,12 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
   }
 
-  public static void imprimirFactura(Recibo recibo) {
+  public static void imprimirFactura(Recibo recibo){
+    try {
+      Thread.sleep(500);
+  } catch (InterruptedException e) {
+      e.printStackTrace();
+  }
     //System.out.println("                                     ██████            ");
     //System.out.println("                         ████████████░░░░░░██          ");
     //System.out.println("                       ██░░░░░░░░░░░░██░░░░░░██████    ");
@@ -158,9 +163,10 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     System.out.println("_".repeat(55));
     System.out.println("");
     System.out.println(Texto.centrar(String.format(Texto.centrar(""))));
-    System.out.println(Texto.centrar(String.format("Total articulos comprados: %s", recibo.getIdRecibo())));
+    //System.out.println(Texto.centrar(String.format("Total articulos comprados: %s", recibo.getIdRecibo())));
     System.out.println(Texto.centrar("EN POO BAKERY SOMOS EXPERTOS EN AHORRO:"));
     System.out.println(Texto.centrar("TU AHORRO HOY FUE DEL "+ (recibo.getDescuento() * 100)+"%"));
+    System.out.println(Texto.centrar("EQUIVALENTE A "+ (recibo.getDescuento() * 100)*recibo.getSubtotal()));
     // System.out.println(Texto.centrar(String.format("EQUIVALENTE A: ")));
     // //colocar el total ahorrado aqui cuando este todo listo
     System.out.println(Texto.centrar("POO Bakery"));
@@ -352,6 +358,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     if (continuar == true) {
       Recibo recibo = new Recibo(cliente, cliente.getCanastaOrden(), cliente.getDomiciliario());
       imprimirFactura(recibo);
+      System.out.println("El saldo de su cuenta es: "+cliente.getPresupuesto());
       System.out.println("Desea pagar la factura de su pedido? escriba s para si, escriba n para no");
       eleccion = input.nextLine();
       switch (eleccion) {
@@ -371,6 +378,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
           break;
 
         case "n":
+          continuar = false;
           break;
 
         default:
@@ -382,78 +390,79 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   // En este metodo van a ir todas las notificaciones del pedido (catastrofes o si
   // la entrega fue exitosa)
   public static void concluirOrden(Cliente cliente) { 
-    Cliente.getSesion().getCanastaOrden().enviarOrdenCanasta();
+  if(continuar == true){
+      Cliente.getSesion().getCanastaOrden().enviarOrdenCanasta();
 
-    System.out.println("Su pedido ha sido enviado a su domicilio");
+      System.out.println("Su pedido ha sido enviado a su domicilio");
+      try {
+        Thread.sleep(4000); 
+    } catch (InterruptedException e) {
+    }
+    System.out.println(Texto.centrar("33%  [#########.......................] 100%"));
     try {
-      Thread.sleep(4000); 
-  } catch (InterruptedException e) {
-  }
-  System.out.println(Texto.centrar("33%  [#########.......................] 100%"));
-  try {
-      Thread.sleep(4000); 
-  } catch (InterruptedException e) {
-  }
-  System.out.println(Texto.centrar("66%  [#######################.........] 100%"));
-  try {
-      Thread.sleep(4000); 
-  } catch (InterruptedException e) {
-  }
-  System.out.println(Texto.centrar("100% [#################################] 100%"));
-    cliente.enviarCanastasADomicilio(cliente.getCanastaOrden());
-    System.out.println("Su pedido ha sido entregado con exito");
+        Thread.sleep(4000); 
+    } catch (InterruptedException e) {
+    }
+    System.out.println(Texto.centrar("66%  [#######################.........] 100%"));
+    try {
+        Thread.sleep(4000); 
+    } catch (InterruptedException e) {
+    }
+    System.out.println(Texto.centrar("100% [#################################] 100%"));
+      cliente.enviarCanastasADomicilio(cliente.getCanastaOrden());
+      System.out.println("Su pedido ha sido entregado con exito");
 
-    cliente.guardarCanastaEnHistorial(cliente.getCanastaOrden());
-    System.out.println("Esperamos que haya disfrutado su pedido, desea publicar su canasta para que otros usuarios puedan verla? escriba s para si y n para no");
-    do{
-      eleccion = input.nextLine();
-      if(eleccion.equals("s") || eleccion.equals("n")){
-        break;}
-    }while(true);
-    
+      cliente.guardarCanastaEnHistorial(cliente.getCanastaOrden());
+      System.out.println("Esperamos que haya disfrutado su pedido, desea publicar su canasta para que otros usuarios puedan verla? escriba s para si y n para no");
+      do{
+        eleccion = input.nextLine();
+        if(eleccion.equals("s") || eleccion.equals("n")){
+          break;}
+      }while(true);
+      
 
-    if (eleccion.equals("s")) {
+      if (eleccion.equals("s")) {
 
-      System.out.println("Si desea calificar y comentar la canasta escriba 1, si desea solo dejar una calificar escriba 2, si no desea dejar ninguna escriba 3 y para salir escriba 0");
+        System.out.println("Si desea calificar y comentar la canasta escriba 1, si desea solo dejar una calificar escriba 2, si no desea dejar ninguna escriba 3 y para salir escriba 0");
 
-      String decision = input.nextLine();
+        String decision = input.nextLine();
 
-      switch (decision) {
+        switch (decision) {
 
-        case "1":
-          System.out.println("entro a case 1");
-          System.out.println("Ingrese la calificacion que le quiere dar a la canasta: ");
-          int calificacion = Integer.parseInt(input.nextLine());
-          System.out.println("Ingrese una descripcion de la canasta: ");
-          String descripcion = input.nextLine();
-          Canasta canasta = cliente.getCanastaOrden();
-          cliente.publicarCanasta(canasta, calificacion, descripcion);
-          break;
+          case "1":
+            System.out.println("entro a case 1");
+            System.out.println("Ingrese la calificacion que le quiere dar a la canasta: ");
+            int calificacion = Integer.parseInt(input.nextLine());
+            System.out.println("Ingrese una descripcion de la canasta: ");
+            String descripcion = input.nextLine();
+            Canasta canasta = cliente.getCanastaOrden();
+            cliente.publicarCanasta(canasta, calificacion, descripcion);
+            break;
 
-        case "2":
-          System.out.println("Ingrese una calificacion de la canasta: ");
-          int calificacion2 = Integer.parseInt(input.nextLine());
-          Canasta canastaa = cliente.getCanastaOrden();
-          cliente.publicarCanasta(canastaa, calificacion2);
-          break;
+          case "2":
+            System.out.println("Ingrese una calificacion de la canasta: ");
+            int calificacion2 = Integer.parseInt(input.nextLine());
+            Canasta canastaa = cliente.getCanastaOrden();
+            cliente.publicarCanasta(canastaa, calificacion2);
+            break;
 
-        case "3":
-          Canasta canastaaa = cliente.getCanastaOrden();
-          cliente.publicarCanasta(canastaaa);
-          break;
+          case "3":
+            Canasta canastaaa = cliente.getCanastaOrden();
+            cliente.publicarCanasta(canastaaa);
+            break;
 
-        case "0":
-          break;
+          case "0":
+            break;
 
-        default:
-          break;
+          default:
+            break;
+        }
       }
-    }
-    else {
-      System.out.println("Muchas  gracias por comprar a Poo Bakery");
-    }
-    Cliente.getSesion().setCanastaOrden(null);
-    
+      else {
+        System.out.println("Muchas  gracias por comprar a Poo Bakery");
+      }
+      Cliente.getSesion().setCanastaOrden(null);
+  }  
   }
 
   // Aqui se mostrara la informacion nutricional y otros
