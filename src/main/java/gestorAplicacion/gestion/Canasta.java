@@ -96,6 +96,19 @@ public class Canasta implements Serializable {
 
   }
 
+  public Canasta(HashMap<String, Integer> productosEnLista, HashMap<String, Integer> ingredientesEnLista, HashMap<String, Integer> kitsEnLista, int itemsTotalesEnCanasta, int itemsTotalesEnLista, double costoTotalEnLista, double costoTrasDescuentoEnLista, double descuentoEnLista, String identificador) {
+
+    this.productosEnLista = productosEnLista;
+    this.ingredientesEnLista = ingredientesEnLista;
+    this.kitsEnLista = kitsEnLista;
+    this.identificador = identificador;
+    this.itemsTotalesEnCanasta = itemsTotalesEnCanasta;
+    this.itemsTotalesEnLista = itemsTotalesEnLista;
+    this.costoTotalEnLista = costoTotalEnLista;
+    this.costoTrasDescuentoEnLista = costoTrasDescuentoEnLista;
+    this.descuentoEnLista = descuentoEnLista;
+  }
+
   // getters y setters de los atributos
   public ArrayList<Producto> getProductos() {
     return productos;

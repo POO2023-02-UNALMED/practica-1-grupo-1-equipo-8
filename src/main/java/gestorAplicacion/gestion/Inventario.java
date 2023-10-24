@@ -194,8 +194,6 @@ public class Inventario implements Serializable{
                 for(Ingrediente ingrediente1 : invIngredientes) {
                     if(ingrediente1.getId().equals(ingrediente)) {
                         invIngredientes.remove(ingrediente1);
-                        Ingrediente.obtenerObjetoPorId(ingrediente).setVecesVendido(Ingrediente.obtenerObjetoPorId(ingrediente).getVecesVendido() + 1);
-                        Ingrediente.organizarTopMasVendidos();
                         break;
                     }
                 }
@@ -214,8 +212,6 @@ public class Inventario implements Serializable{
                 for(Ingrediente ingrediente1 : invIngredientes) {
                     if(ingrediente1.getId().equals(ingrediente.getId())) {
                         invIngredientes.remove(ingrediente1);
-                        Ingrediente.obtenerObjetoPorId(ingrediente.getId()).setVecesVendido(Ingrediente.obtenerObjetoPorId(ingrediente.getId()).getVecesVendido() + 1);
-                        Ingrediente.organizarTopMasVendidos();
                         break;
                     }
                 }
@@ -277,7 +273,7 @@ public class Inventario implements Serializable{
             Integer cantidad = entry.getValue();
             int cantidadExistente = verificarCantidadIngredientePorNombre(ingredienteN);
             if (cantidadExistente-cantidad<0){
-                ingredientessFaltantes.put(ingredienteN,(cantidadExistente-cantidad)*(-1));
+                ingredientessFaltantes.put(ingredienteN,(cantidadExistente-cantidad)*(-2));
             }
         }
         return ingredientessFaltantes;

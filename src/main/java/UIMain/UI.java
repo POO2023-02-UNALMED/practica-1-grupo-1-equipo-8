@@ -109,25 +109,25 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   }
 
   public static void imprimirFactura(Recibo recibo) {
-    System.out.println("                                     ██████            ");
-    System.out.println("                         ████████████░░░░░░██          ");
-    System.out.println("                       ██░░░░░░░░░░░░██░░░░░░██████    ");
-    System.out.println("                     ██░░░░░░░░░░░░░░██░░░░░░██░░░░██  ");
-    System.out.println("                   ██░░░░░░░░░░░░░░░░░░██░░░░██░░░░░░██");
-    System.out.println("                   ██░░░░░░░░░░░░░░░░░░░░██░░██░░░░░░██");
-    System.out.println("                   ██░░░░░░░░░░░░░░░░░░░░██░░████████  ");
-    System.out.println("                 ██░░████░░░░░░░░░░░░░░░░██░░██        ");
-    System.out.println("                 ██░░░░░░████░░░░░░░░░░░░████          ");
-    System.out.println("               ██░░░░░░░░░░░░████░░░░░░░░██            ");
-    System.out.println("               ██░░░░░░░░░░░░░░░░██░░░░██              ");
-    System.out.println("                 ██░░░░░░░░░░░░░░██████                ");
-    System.out.println("               ██░░████████░░░░░░██                    ");
-    System.out.println("               ██░░░░░░░░░░██████                      ");
-    System.out.println("                 ██░░░░░░░░░░██                        ");
-    System.out.println("               ██░░██████████                          ");
-    System.out.println("               ██░░░░░░░░██                            ");
-    System.out.println("                 ██░░░░██                              ");
-    System.out.println("                   ████                                ");
+    //System.out.println("                                     ██████            ");
+    //System.out.println("                         ████████████░░░░░░██          ");
+    //System.out.println("                       ██░░░░░░░░░░░░██░░░░░░██████    ");
+    //System.out.println("                     ██░░░░░░░░░░░░░░██░░░░░░██░░░░██  ");
+    //System.out.println("                   ██░░░░░░░░░░░░░░░░░░██░░░░██░░░░░░██");
+    //System.out.println("                   ██░░░░░░░░░░░░░░░░░░░░██░░██░░░░░░██");
+    //System.out.println("                   ██░░░░░░░░░░░░░░░░░░░░██░░████████  ");
+    //System.out.println("                 ██░░████░░░░░░░░░░░░░░░░██░░██        ");
+    //System.out.println("                 ██░░░░░░████░░░░░░░░░░░░████          ");
+    //System.out.println("               ██░░░░░░░░░░░░████░░░░░░░░██            ");
+    //System.out.println("               ██░░░░░░░░░░░░░░░░██░░░░██              ");
+    //System.out.println("                 ██░░░░░░░░░░░░░░██████                ");
+    //System.out.println("               ██░░████████░░░░░░██                    ");
+    //System.out.println("               ██░░░░░░░░░░██████                      ");
+    //System.out.println("                 ██░░░░░░░░░░██                        ");
+    //System.out.println("               ██░░██████████                          ");
+    //System.out.println("               ██░░░░░░░░██                            ");
+    //System.out.println("                 ██░░░░██                              ");
+    //System.out.println("                   ████                                ");
     System.out.println("");
     System.out.println(String.format(""));
     System.out.println(String.format(Texto.centrar("POO Bakery")));
@@ -135,7 +135,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     System.out.println(String.format(""));
     System.out.println(Texto.centrar(String.format("Factura Nro: %s", recibo.getIdRecibo())));
     System.out.println(Texto.centrar(String.format("Fecha y hora: %s", Recibo.formato.format(recibo.getFecha()))));
-    System.out.println(Texto.centrar(String.format("Panadero que atendio su pedido: Mateo")));
+    System.out.println(Texto.centrar(String.format("Empleado que atendio su orden: %s",recibo.getDomiciliario().getNombre())));
     System.out.println(Texto.centrar(String.format("Ciudad: Medellin")));
     System.out.println(Texto.centrar(String.format("Cliente: %s", recibo.getCliente().getNombre())));
     System.out.println(Texto.centrar(String.format("Identificacion: %s", recibo.getCliente().getId())));
@@ -169,18 +169,18 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
     System.out.println(Texto.centrar("Gracias por tu compra"));
     System.out.println(Texto.centrar("No se permiten devoluciones"));
     System.out.println(String.format(""));
-    System.out.println(Texto.centrar("▄▄▄▄▄▄▄  ▄ ▄▄ ▄▄▄▄▄▄▄"));
-    System.out.println(Texto.centrar("█ ▄▄▄ █ ██ ▀▄ █ ▄▄▄ █"));
-    System.out.println(Texto.centrar("█ ███ █ ▄▀ ▀▄ █ ███ █"));
-    System.out.println(Texto.centrar("█▄▄▄▄▄█ █ ▄▀█ █▄▄▄▄▄█"));
-    System.out.println(Texto.centrar("▄▄ ▄  ▄▄▀██▀▀ ▄▄▄ ▄▄ "));
-    System.out.println(Texto.centrar("▄   ▀█▄▀ ▄█ ▄▄▀▀ █▄ █"));
-    System.out.println(Texto.centrar("██▄ █▄▄ ▄██▀▄ ▄▀ █ ▄█"));
-    System.out.println(Texto.centrar("▄▄▄▄▄▄▄ █▄▀▀ ▄  ▄ ▄▄▀"));
-    System.out.println(Texto.centrar("█ ▄▄▄ █   ██▀▀▄▄█   █"));
-    System.out.println(Texto.centrar("█ ███ █ ▀▄ ▀▄  ██▄█▀█"));
-    System.out.println(Texto.centrar("█▄▄▄▄▄█ █▀▀▄▄▀▀▀█  ▄ "));
-    System.out.println(String.format(""));
+    //System.out.println(Texto.centrar("▄▄▄▄▄▄▄  ▄ ▄▄ ▄▄▄▄▄▄▄"));
+    //System.out.println(Texto.centrar("█ ▄▄▄ █ ██ ▀▄ █ ▄▄▄ █"));
+    //System.out.println(Texto.centrar("█ ███ █ ▄▀ ▀▄ █ ███ █"));
+    //System.out.println(Texto.centrar("█▄▄▄▄▄█ █ ▄▀█ █▄▄▄▄▄█"));
+    //System.out.println(Texto.centrar("▄▄ ▄  ▄▄▀██▀▀ ▄▄▄ ▄▄ "));
+    //System.out.println(Texto.centrar("▄   ▀█▄▀ ▄█ ▄▄▀▀ █▄ █"));
+    //System.out.println(Texto.centrar("██▄ █▄▄ ▄██▀▄ ▄▀ █ ▄█"));
+    //System.out.println(Texto.centrar("▄▄▄▄▄▄▄ █▄▀▀ ▄  ▄ ▄▄▀"));
+    //System.out.println(Texto.centrar("█ ▄▄▄ █   ██▀▀▄▄█   █"));
+    //System.out.println(Texto.centrar("█ ███ █ ▀▄ ▀▄  ██▄█▀█"));
+    //System.out.println(Texto.centrar("█▄▄▄▄▄█ █▀▀▄▄▀▀▀█  ▄ "));
+    //System.out.println(String.format(""));
   }
 
   public static void menu() { // Ignorar este metodo, esto ira en main
@@ -282,6 +282,14 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
 
   // Aqui se procesa todo lo que tiene que ver con el envio a domicilio del
   // cliente
+  /**
+   * This method allows the user to choose whether they want their order to be delivered to their home or not. 
+   * If the user chooses to have their order delivered, they will be prompted to enter their address and city. 
+   * The method will then verify if the address and city are valid and assign a delivery person to the order. 
+   * If the user chooses not to have their order delivered, the method will exit. 
+   * If the user enters "0", the method will return to the main menu. 
+   * @param cliente The customer who is placing the order.
+   */
   public static void domicilio(Cliente cliente) { // pendiente por terminar este metodo
     Domiciliario domiciliario = cliente.getPanaderia().domiciliarioAleatorio();
     cliente.setDomiciliario(domiciliario);

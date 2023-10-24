@@ -28,22 +28,8 @@ public class Recibo implements Serializable {
     private double costoDomicilio;
     public static SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     ArrayList<String> factura = new ArrayList<String>();
+		private Domiciliario domiciliario;
 
-    //facturacion para cuando el cliente no elige domicilio
-    public Recibo(Cliente cliente, Canasta canasta) { // el subtotal de recibo es el total de canasta
-
-        totalFacturas++;
-        this.costoDomicilio = 0;
-        this.canasta = canasta;
-        this.cliente = cliente;
-        this.idRecibo = totalFacturas;
-        this.subtotal = canasta.getCostoTrasDescuentoEnLista();
-        this.descuento = cliente.getTipoDescuento().getValor();
-        this.total = subtotal * (1 - descuento) * costoDomicilio;
-        this.fecha = Date.from(Instant.now());
-    }
-
-    //facturacion que tiene en cuenta el costo del domicilio
     public Recibo(Cliente cliente, Canasta canasta, Domiciliario domiciliario){
 
         totalFacturas++;
@@ -52,6 +38,7 @@ public class Recibo implements Serializable {
         this.cliente = cliente;
         this.idRecibo = totalFacturas;
         this.subtotal = canasta.getCostoTrasDescuentoEnLista();
+        this.domiciliario = domiciliario;
         if(cliente.getTipoDescuento() == null){
             this.descuento = 0;
         } else{
@@ -61,6 +48,14 @@ public class Recibo implements Serializable {
         this.fecha = Date.from(Instant.now());
     }
 //getter y setters
+    public Domiciliario getDomiciliario(){
+        return this.domiciliario;
+    }
+
+    public void setDomiciliario(Domiciliario domiciliario){
+        this.domiciliario = domiciliario;
+    }
+
     public Canasta getCanasta() {
         return canasta;
     }

@@ -182,26 +182,26 @@ public class GestionCompra {
         }
 
         System.out.println("Ingrese los ingrediente (Escriba '0' cuando termine con el listado): ");
-        while (true) {
+        while (continuar) {
           while (true) {
 
             Scanner input = new Scanner(System.in);
             
             System.out.println("Ingresa el nombre del ingrediente (Escriba '0' si ya termino con el listado):");
 
-              entrada = scanner.nextLine();
+              entrada = input.nextLine();
 
-            if (entrada.equalsIgnoreCase("0") & ingredientesNecesarios.isEmpty()) {
+            if (entrada.equals("0") & ingredientesNecesarios.isEmpty()) {
               System.out.println("Necesitas al menos un ingrediente");
             } 
-            else if(entrada.equalsIgnoreCase("0")){
+
+            else {
               continuar = false;
-            }
-            else{
               break;
             }
           }
-          if(!continuar){
+
+          if  (continuar == false){
             break;
           }
 
@@ -224,7 +224,7 @@ public class GestionCompra {
           }
 
           ingredientesNecesarios = canasta.gestionAgregar(entrada, cantidadIngrediente, ingredientesNecesarios);
-          }
+        }
         
         while(true){
           System.out.println("Ingrese la cantidad deseada del producto (Numero positivo para agregar a la orden, negativo para restar de la orden) (Escriba '0'para volver atras) : ");

@@ -3,6 +3,7 @@ package gestorAplicacion.humanos;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import gestorAplicacion.comida.Producto;
 import gestorAplicacion.comida.Ingrediente;
@@ -230,14 +231,9 @@ public class Cliente implements Serializable{
 	 * @param canasta La canasta a guardar en el historial.
 	 */
 	public void guardarCanastaEnHistorial(Canasta canasta){
-		ArrayList<Producto> listaVacia = new ArrayList<Producto>();
-		ArrayList<Ingrediente> listaVacia2 = new ArrayList<Ingrediente>();
-		ArrayList<ArrayList<Ingrediente>> listaVacia3 = new ArrayList<ArrayList<Ingrediente>>();
-		canasta.setProductos(listaVacia);
-		canasta.setIngredientes(listaVacia2);
-		canasta.setKits(listaVacia3);
-		canasta.setPagada(false);
-		this.historialOrdenes.add(canasta);
+
+		Canasta canasta2 = new Canasta(canasta.getProductosEnLista(), canasta.getIngredientesEnLista(), canasta.getKitsEnLista(), canasta.getItemsTotalesEnCanasta(), canasta.getItemsTotalesEnLista(),canasta.getCostoTotalEnLista(), canasta.getCostoTrasDescuentoEnLista(),canasta.getDescuentoEnLista(), canasta.getIdentificador());
+		this.historialOrdenes.add(canasta2);
 	}
 
 	/**
@@ -258,6 +254,41 @@ public class Cliente implements Serializable{
 	}
 
 	/**
+	 * Crea una nueva canasta publicada a partir de una canasta existente en la panadería.
+	 * 
+	 * @param id el identificador de la canasta existente en la panadería.
+	 * @return la nueva canasta publicada creada a partir de la canasta existente, o null si la canasta no existe.
+	 */
+	public Canasta crearCanastaPublicada(String id){
+		if(panaderia.obtenerCanastaPorId(id)==null){
+			return null;
+		}
+		else{
+			Canasta canasta = panaderia.obtenerCanastaPorId(id);
+			Canasta newCanasta = new Canasta(canasta.getProductosEnLista(), canasta.getIngredientesEnLista(), canasta.getKitsEnLista(),canasta.getItemsTotalesEnCanasta(), canasta.getItemsTotalesEnLista(),canasta.getCostoTotalEnLista(), canasta.getCostoTrasDescuentoEnLista(),canasta.getDescuentoEnLista());
+			this.canastaOrden = newCanasta;
+			cantidadOrdenes++;
+			this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));
+			return this.canastaOrden;
+		}
+	}
+
+	/**
+	 * Publica una canasta vacía en la panadería y la agrega a la lista de canastas publicadas.
+	 * @param canasta La canasta a publicar.
+	 */
+	public void publicarCanasta(Canasta canasta){
+		ArrayList<Producto> listaVacia = new ArrayList<Producto>();
+		ArrayList<Ingrediente> listaVacia2 = new ArrayList<Ingrediente>();
+		ArrayList<ArrayList<Ingrediente>> listaVacia3 = new ArrayList<ArrayList<Ingrediente>>();
+		canasta.setProductos(listaVacia);
+		canasta.setIngredientes(listaVacia2);
+		canasta.setKits(listaVacia3);
+		canasta.setPagada(false);
+		this.panaderia.agregarCanastasPublicadas(canasta);
+	}
+
+	/**
 	 * Crea una nueva canasta del día para el cliente y la devuelve.
 	 * La canasta se obtiene de la panadería y se copian sus productos, ingredientes, kits, productos en lista, ingredientes en lista, kits en lista, identificador, items totales en canasta, items totales en lista, costo total en lista, costo tras descuento en lista, descuento en lista, calificación, comentario y estado de pago.
 	 * Se incrementa la cantidad de órdenes del cliente y se asigna un identificador único a la canasta.
@@ -265,7 +296,7 @@ public class Cliente implements Serializable{
 	 */
 	public Canasta crearCanastaDelDia(){
 		Canasta newCanasta = Panaderia.getCanastaDelDia();
-		canastaOrden = new Canasta(newCanasta.getProductos(), newCanasta.getIngredientes(), newCanasta.getKits(),newCanasta.getProductosEnLista(), newCanasta.getIngredientesEnLista(), newCanasta.getKitsEnLista(),newCanasta.getIdentificador(), newCanasta.getItemsTotalesEnCanasta(), newCanasta.getItemsTotalesEnLista(),newCanasta.getCostoTotalEnLista(), newCanasta.getCostoTrasDescuentoEnLista(),newCanasta.getDescuentoEnLista(), newCanasta.getCalificacion(), newCanasta.getComentario(),newCanasta.isPagada());
+		canastaOrden = new Canasta(newCanasta.getProductosEnLista(), newCanasta.getIngredientesEnLista(), newCanasta.getKitsEnLista(), newCanasta.getItemsTotalesEnCanasta(), newCanasta.getItemsTotalesEnLista(),newCanasta.getCostoTotalEnLista(), newCanasta.getCostoTrasDescuentoEnLista(),newCanasta.getDescuentoEnLista(),newCanasta.getIdentificador());
 		cantidadOrdenes++;
 		this.canastaOrden.setIdentificador(String.valueOf(cantidadOrdenes));
 		return this.canastaOrden;
@@ -294,27 +325,19 @@ public class Cliente implements Serializable{
 		ArrayList<Producto> listaVacia = new ArrayList<Producto>();
 		ArrayList<Ingrediente> listaVacia2 = new ArrayList<Ingrediente>();
 		ArrayList<ArrayList<Ingrediente>> listaVacia3 = new ArrayList<ArrayList<Ingrediente>>();
+		
+		int identificadorActual = Integer.parseInt(canasta.getIdentificador());
+		int randomNum = new Random().nextInt(1000);
+		int nuevoIdentificador = identificadorActual + randomNum;
+		
+		canasta.setIdentificador(String.valueOf(nuevoIdentificador));
+
 		canasta.setProductos(listaVacia);
 		canasta.setIngredientes(listaVacia2);
 		canasta.setKits(listaVacia3);
 		canasta.setPagada(false);
 		canasta.setCalificacion(calificacion);
 		canasta.setComentario(comentario);
-		this.panaderia.agregarCanastasPublicadas(canasta);
-	}
-
-	/**
-	 * Publica una canasta vacía en la panadería y la agrega a la lista de canastas publicadas.
-	 * @param canasta La canasta a publicar.
-	 */
-	public void publicarCanasta(Canasta canasta){
-		ArrayList<Producto> listaVacia = new ArrayList<Producto>();
-		ArrayList<Ingrediente> listaVacia2 = new ArrayList<Ingrediente>();
-		ArrayList<ArrayList<Ingrediente>> listaVacia3 = new ArrayList<ArrayList<Ingrediente>>();
-		canasta.setProductos(listaVacia);
-		canasta.setIngredientes(listaVacia2);
-		canasta.setKits(listaVacia3);
-		canasta.setPagada(false);
 		this.panaderia.agregarCanastasPublicadas(canasta);
 	}
 
@@ -388,8 +411,6 @@ public class Cliente implements Serializable{
 		this.panaderia.reviewDomiciliario(domiciliario);
 }
 
-	//Métodos para agregar la informacion faltante del cliente
-	//TODO trabajar los metodos de abajo(Sahely)
 	
 	/*
 	 * Esta función se encarga de gestionar los datos faltantes del cliente

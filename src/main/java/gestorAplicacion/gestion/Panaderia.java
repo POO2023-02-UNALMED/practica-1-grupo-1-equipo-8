@@ -277,6 +277,8 @@ public class Panaderia implements Serializable {
      */
     public void enviarDomicilio(Canasta canasta, Cliente cliente) {
         Domiciliario domiciliario = cliente.getDomiciliario();
+        
+        cliente.setDomiciliario(domiciliario);
         ArrayList<Producto> producto = canasta.getProductos();
 
         for (Producto p : producto){
@@ -295,7 +297,6 @@ public class Panaderia implements Serializable {
 
         domiciliario.setCanasta(canasta);
         domiciliario.setOcupado(true);
-        cliente.setDomiciliario(domiciliario);
         double costo = domiciliario.calcularCostoDomicilio(cliente, canasta);
         domiciliario.setCostoDomicilio(costo);
 
@@ -324,6 +325,20 @@ public class Panaderia implements Serializable {
         } else if (calificacion == 5) {
             cocinero.setSalario(cocinero.getSalario() * 1.1);
         }
+    }
+
+    /**
+     * Busca y devuelve la canasta con el identificador especificado.
+     * @param id el identificador de la canasta a buscar
+     * @return la canasta con el identificador especificado, o null si no se encuentra ninguna canasta con ese identificador
+     */
+    public Canasta obtenerCanastaPorId(String id){
+        for (Canasta canasta : canastasPublicadas){
+            if (canasta.getIdentificador().equals(id)){
+                return canasta;
+            }
+        }
+        return null;
     }
 
     /**
@@ -409,6 +424,8 @@ public class Panaderia implements Serializable {
             for (int i = 0; i < entry.getValue(); i++) {
                 ingredientesCanasta.add(this.inventario.buscarIngredientePorId(entry.getKey()));
                 this.inventario.restarIngrediente(entry.getKey(), entry.getValue());
+                Ingrediente.obtenerObjetoPorId(entry.getKey()).setVecesVendido(Ingrediente.obtenerObjetoPorId(entry.getKey()).getVecesVendido() + 1);
+                Ingrediente.organizarTopMasVendidos();
             }
         }
         return ingredientesCanasta;
@@ -461,8 +478,7 @@ public class Panaderia implements Serializable {
                         .entrySet()) {
                     for (int j = 0; j < entry.getValue(); j++) {
                         kitCanasta.add(this.inventario.buscarIngredientePorId(entry.getKey()));
-                        Ingrediente.obtenerObjetoPorId(entry.getKey())
-                                .setVecesVendido(Ingrediente.obtenerObjetoPorId(entry.getKey()).getVecesVendido() + 1);
+                        Ingrediente.obtenerObjetoPorId(entry.getKey()).setVecesVendido(Ingrediente.obtenerObjetoPorId(entry.getKey()).getVecesVendido() + 1);
                         Ingrediente.organizarTopMasVendidos();
                         this.inventario.restarIngrediente(entry.getKey(), 1);
                     }

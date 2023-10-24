@@ -259,78 +259,47 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
                 if (ingredientes.getNombre().equals(ingredienteNombre)) {
 
                     // if existentes + cantidad*2 < 40
-                    int capacidadTop = 40;
-                    while (topp == false) {
 
-                        if (this.panaderia.getInventario().verificarCantidadIngredientePorNombre(ingredienteNombre) + (cantidad * 2) <= capacidadTop) {
+                    if (this.panaderia.getInventario().verificarCantidadIngredientePorNombre(ingredienteNombre) + (cantidad * 2) <= 10000) {
 
-                            if (this.robado == true) {
-
-                                cantidad = cantidad * 2;
-                            }
-
-                            valorcompra = valorcompra+ ((Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra()) * (cantidad));
-                            topp = true;
-
+                        if (this.robado == true) {
+                        cantidad = cantidad * 2;
                         }
+                        valorcompra = valorcompra+ ((Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra()) * (cantidad));
+                        topp = true;
+
+                    }
 
                         // else, lo que se compre sea 40-existentes y eso mismo se poner en el if de
                         // this robado
 
-                        else if (capacidadTop - this.panaderia.getInventario().verificarCantidadIngredientePorNombre(ingredienteNombre) != 0) {
+                    else {
 
-                            if (this.robado == true) {
-
-                                cantidad = (capacidadTop - this.panaderia.getInventario()
-                                        .verificarCantidadIngredientePorNombre(ingredienteNombre));
-                            }
-
-                            valorcompra = valorcompra
-                                    + ((Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra())
-                                            * (cantidad));
-                            topp = true;
+                        if (this.robado == true) {
+                        cantidad = (10000 - this.panaderia.getInventario() .verificarCantidadIngredientePorNombre(ingredienteNombre));
                         }
 
-                        else {
-
-                            capacidadTop += 20;
-                            valorcompra += 100000;
-                        }
+                        valorcompra = valorcompra+ ((Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra()) * (cantidad));
+                        topp = true;
                     }
                 }
             }
 
             if (!topp) {
-
-                int capacidadN = 20;
-                boolean salto = false;
                 
-                while(salto == false){
                 // if de productos fuera del top
-                    if (this.panaderia.getInventario().verificarCantidadIngredientePorNombre(ingredienteNombre) + (cantidad) <= capacidadN) {
+                if (this.panaderia.getInventario().verificarCantidadIngredientePorNombre(ingredienteNombre) + (cantidad) <= 8000) {
+                    valorcompra = valorcompra + ((Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra()) * (cantidad));
+                }
 
-                        valorcompra = valorcompra + ((Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra()) * (cantidad));
-                        salto = true;
+                else {
+                    if (this.robado == true) {
+                        cantidad = (8000 - this.panaderia.getInventario().verificarCantidadIngredientePorNombre(ingredienteNombre));
                     }
 
-                    else if (capacidadN - this.panaderia.getInventario().verificarCantidadIngredientePorNombre(ingredienteNombre) != 0) {
-
-                        if (this.robado == true) {
-                            cantidad = (capacidadN - this.panaderia.getInventario().verificarCantidadIngredientePorNombre(ingredienteNombre));
-                        }
-
-                        valorcompra = valorcompra + ((Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra()) * (cantidad));
-                        salto = true;
-                    }
-
-                    else{
-
-                        capacidadN += 10;
-                        valorcompra += 50000;
-                    }
+                    valorcompra = valorcompra + ((Ingrediente.obtenerObjetoPorNombre(ingredienteNombre).getPrecioDeCompra()) * (cantidad));
                 }
             }
-
             listingredientes.put(ingredienteNombre, cantidad);
         }
 

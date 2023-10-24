@@ -31,6 +31,7 @@ public class GestionDomicilioCliente {
         int opcion = sc.nextInt();
         switch(opcion){
             case 1:
+                
                 cliente.enviarCanastasADomicilio(cliente.getCanastaEnMano());
                 
                 break;
