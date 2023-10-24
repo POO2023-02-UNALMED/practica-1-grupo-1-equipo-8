@@ -221,7 +221,7 @@ public class Domiciliario extends Trabajador implements ComidaDefault, Serializa
     public boolean laborParticular(Canasta canasta) {
 
         Catastrofe transito = new Catastrofe();
-        if (transito.paradaTransito(this)) {
+        if (!transito.paradaTransito(this)) {
             boolean x = false;
             GestionDomicilioCliente.estadoDomicilio(x);
             return x;

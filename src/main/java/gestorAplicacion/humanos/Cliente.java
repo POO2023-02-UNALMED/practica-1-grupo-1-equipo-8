@@ -285,6 +285,7 @@ public class Cliente implements Serializable{
 		canasta.setIngredientes(listaVacia2);
 		canasta.setKits(listaVacia3);
 		canasta.setPagada(false);
+		System.out.print("entró a publicar canasta");
 		this.panaderia.agregarCanastasPublicadas(canasta);
 	}
 

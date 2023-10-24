@@ -43,7 +43,7 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                         "4. Ver las facturas de mis compras pasadas\n" +
                         "5. Cambiar contrasena\n" +
                         "6. Meter plata a mi cuenta\n" +
-                        "7. validar tipo de cliente\n" +
+                        "7. Validar tipo de cliente\n" +
                         "8. Modificar direccion\n" +
                         "9. Historial de ordenes, pedir canastas otra vez";
         
@@ -74,7 +74,7 @@ public class Main { // preferiblemente colocar solo los metodos para que el codi
                         break;
 
                     case "3":
-                        UI.verRanking(panaderia, Cliente.getSesion()); //Crash
+                        UI.verRanking(panaderia, Cliente.getSesion()); //buena (revisar que funcione con las canastas)
                         break;
 
                     case "4":

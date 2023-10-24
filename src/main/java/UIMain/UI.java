@@ -292,16 +292,15 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   public static void domicilio(Cliente cliente) { // pendiente por terminar este metodo
     Domiciliario domiciliario = cliente.getPanaderia().domiciliarioAleatorio();
     cliente.setDomiciliario(domiciliario);
-    if (continuar = true) {
+    boolean continuar = true;
+    while(true) {
       System.out.println(
           "Desea que le enviemos su pedido a su domicilio? escriba s para si, n para no, escriba 0 para volver al menu");
       eleccion = input.nextLine();
       switch (eleccion) {
         case "s": // Terminar de ver esto
 
-          boolean suceso = cliente.verificarDireccion();
-
-          while (suceso = false) {
+          while (!cliente.verificarDireccion()) {
 
             String direccion = "";
             String ciudad = "";
@@ -316,7 +315,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
             direccion = input.nextLine();
             ciudad = input.nextLine();
 
-            suceso = cliente.establecerDomicilioValido(direccion, ciudad);
+            boolean suceso = cliente.establecerDomicilioValido(direccion, ciudad);
 
             if (suceso == false) {
 
@@ -329,15 +328,22 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
             }
 
           }
+          continuar = false;
           break;
         case "n":
-          break;
-        case "0":
+          System.out.println("Su pedido estara listo en 15 minutos, puede pasar a recogerlo por la panaderia");
+          try {
+            Thread.sleep(500);
+          } catch (Exception e) {
+          }
           continuar = false;
           break;
         default:
           System.out.println("Escriba una opcion valida");
           break;
+      }
+      if (continuar == false) {
+        break;
       }
     }
   }
@@ -376,48 +382,46 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
   // En este metodo van a ir todas las notificaciones del pedido (catastrofes o si
   // la entrega fue exitosa)
   public static void concluirOrden(Cliente cliente) { 
-    cliente.getSesion().getCanastaOrden().enviarOrdenCanasta();
-    cliente.getSesion().notaCocineros();
-    
+    Cliente.getSesion().getCanastaOrden().enviarOrdenCanasta();
+
     System.out.println("Su pedido ha sido enviado a su domicilio");
-    cliente.enviarCanastasADomicilio(cliente.getCanastaEnMano());
+    cliente.enviarCanastasADomicilio(cliente.getCanastaOrden());
+    System.out.println("Su pedido ha sido entregado con exito");
 
-    if (continuar == true) {
-      System.out.println("Su pedido ha sido entregado con exito");
-    }
-
+    cliente.guardarCanastaEnHistorial(cliente.getCanastaOrden());
     System.out.println(
-        "Esperamos que haya disfrutado su odren, desea publicar su canasta para que otros usuarios puedan verla? escriba s para si y n para no");
+        "Esperamos que haya disfrutado su pedido, desea publicar su canasta para que otros usuarios puedan verla? escriba s para si y n para no");
 
     eleccion = input.nextLine();
 
     if (eleccion.equals("s")) {
 
       System.out.println(
-          "Si desea calificar y comentar la canasta escriba 1, si desea solo dejar una calificar escriba 2, si desea dejar las dos escriba 3 y para salir escriba 0");
+          "Si desea calificar y comentar la canasta escriba 1, si desea solo dejar una calificar escriba 2, si no desea dejar ninguna escriba 3 y para salir escriba 0");
 
       String decision = input.nextLine();
 
       switch (decision) {
 
         case "1":
+          System.out.println("entro a case 1");
           System.out.println("Ingrese la calificacion que le quiere dar a la canasta: ");
-          int calificacion = input.nextInt();
+          int calificacion = Integer.parseInt(input.nextLine());
           System.out.println("Ingrese una descripcion de la canasta: ");
           String descripcion = input.nextLine();
-          Canasta canasta = cliente.getCanastaEnMano();
+          Canasta canasta = cliente.getCanastaOrden();
           cliente.publicarCanasta(canasta, calificacion, descripcion);
           break;
 
         case "2":
-          System.out.println("Ingrese una descripcion de la canasta: ");
-          int calf = input.nextInt();
-          Canasta canastaa = cliente.getCanastaEnMano();
-          cliente.publicarCanasta(canastaa, calf);
+          System.out.println("Ingrese una calificacion de la canasta: ");
+          int calificacion2 = Integer.parseInt(input.nextLine());
+          Canasta canastaa = cliente.getCanastaOrden();
+          cliente.publicarCanasta(canastaa, calificacion2);
           break;
 
         case "3":
-          Canasta canastaaa = cliente.getCanastaEnMano();
+          Canasta canastaaa = cliente.getCanastaOrden();
           cliente.publicarCanasta(canastaaa);
           break;
 
@@ -428,11 +432,12 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
           break;
       }
     }
-
     else {
-
+      Cliente.getSesion().notaCocineros();
       System.out.println("Muchas  gracias por comprar a Poo Bakery");
     }
+    Cliente.getSesion().setCanastaOrden(null);
+    
   }
 
   // Aqui se mostrara la informacion nutricional y otros
@@ -552,7 +557,7 @@ public class UI { // en esta clase estaran habran metodos en general de la inter
         System.out.println("Dinero actualizado con exito");
         break;
       } catch (Exception e) {
-        System.out.println("Por favor ingrese un id valido (solo numeros)");
+        System.out.println("Por favor ingrese un valor valido (solo numeros)");
       }
     }
 

@@ -20,8 +20,10 @@ public class GestionCocinar {
     public static int zonas = 0;
 
     /**
-     * Este método gestiona el proceso de cocción solicitando al usuario que ingrese un número entre 0 y 5.
-     * Continuará solicitando al usuario hasta que se ingrese un número válido y luego devolverá ese número.
+     * Este método gestiona el proceso de cocción solicitando al usuario que ingrese
+     * un número entre 0 y 5.
+     * Continuará solicitando al usuario hasta que se ingrese un número válido y
+     * luego devolverá ese número.
      *
      * @return El valor entero ingresado por el usuario.
      */
@@ -29,32 +31,39 @@ public class GestionCocinar {
         String eleccion;
         Scanner scanner = new Scanner(System.in);
         int numero;
-        System.out.println("ingrese un numero del 0 al 5 aaaaaaaaa");
-        while(true){
+        System.out.println("Ingrese un numero del 0 al 5 para calificar la calidad de la comida");
+        while (true) {
             eleccion = scanner.nextLine();
-            if(eleccion.equals("0") || eleccion.equals("1") || eleccion.equals("2") || eleccion.equals("3") || eleccion.equals("4") ||eleccion.equals("5")){
+            if (eleccion.equals("0") || eleccion.equals("1") || eleccion.equals("2") || eleccion.equals("3")
+                    || eleccion.equals("4") || eleccion.equals("5")) {
                 numero = Integer.parseInt(eleccion);
                 break;
-            }else{
+            } else {
                 System.out.println("Ingrese un valor valido");
             }
         }
-        
 
         return numero;
     }
 
-
     /**
-     * Este método imprime el progreso de un proceso de cocción en función del número de elementos en el proceso.
-     * Si solo hay un elemento, imprime un progreso del 100% y la finalización del proceso.
-     * Si hay dos elementos, imprime un progreso del 50% para el primer elemento y un progreso del 100% para el segundo elemento, y luego imprime la finalización del proceso.
-     * Si hay tres elementos, imprime un progreso del 33% para el primer elemento, un progreso del 66% para el segundo elemento y un progreso del 100% para el tercer elemento, y luego imprime la finalización del proceso.
+     * Este método imprime el progreso de un proceso de cocción en función del
+     * número de elementos en el proceso.
+     * Si solo hay un elemento, imprime un progreso del 100% y la finalización del
+     * proceso.
+     * Si hay dos elementos, imprime un progreso del 50% para el primer elemento y
+     * un progreso del 100% para el segundo elemento, y luego imprime la
+     * finalización del proceso.
+     * Si hay tres elementos, imprime un progreso del 33% para el primer elemento,
+     * un progreso del 66% para el segundo elemento y un progreso del 100% para el
+     * tercer elemento, y luego imprime la finalización del proceso.
+     * 
      * @param procesoCook Una lista de cadenas que representa el proceso de cocción.
-     * @param longitud Un entero que representa el número de elementos en el proceso de cocción.
+     * @param longitud    Un entero que representa el número de elementos en el
+     *                    proceso de cocción.
      */
-    public static void barrasCocinando(List<String> procesoCook,int longitud){
-        if (longitud==1){
+    public static void barrasCocinando(List<String> procesoCook, int longitud) {
+        if (longitud == 1) {
             try {
                 Thread.sleep(800);
             } catch (InterruptedException e) {
@@ -74,10 +83,10 @@ public class GestionCocinar {
                 e.printStackTrace();
             }
             System.out.println(Texto.centrar("Producto Cocinado"));
-            zonas=0;
+            zonas = 0;
         }
-        if (longitud==2){
-            if(zonas==0){
+        if (longitud == 2) {
+            if (zonas == 0) {
                 try {
                     Thread.sleep(800);
                 } catch (InterruptedException e) {
@@ -92,8 +101,7 @@ public class GestionCocinar {
                 }
                 System.out.println(Texto.centrar("Proceso de " + elemento + " completado"));
                 zonas++;
-            }
-            else if(zonas==1){
+            } else if (zonas == 1) {
                 try {
                     Thread.sleep(800);
                 } catch (InterruptedException e) {
@@ -113,11 +121,11 @@ public class GestionCocinar {
                     e.printStackTrace();
                 }
                 System.out.println(Texto.centrar("Producto Cocinado"));
-                zonas=0;
+                zonas = 0;
             }
         }
-        if (longitud==3){
-            if(zonas==0){
+        if (longitud == 3) {
+            if (zonas == 0) {
                 try {
                     Thread.sleep(800);
                 } catch (InterruptedException e) {
@@ -132,8 +140,7 @@ public class GestionCocinar {
                 }
                 System.out.println(Texto.centrar("Proceso de " + elemento + " completado"));
                 zonas++;
-            }
-            else if(zonas==1){
+            } else if (zonas == 1) {
                 try {
                     Thread.sleep(800);
                 } catch (InterruptedException e) {
@@ -148,8 +155,7 @@ public class GestionCocinar {
                 }
                 System.out.println(Texto.centrar("Proceso de " + elemento2 + " completado"));
                 zonas++;
-            }
-            else if(zonas==2){
+            } else if (zonas == 2) {
                 try {
                     Thread.sleep(800);
                 } catch (InterruptedException e) {
@@ -169,21 +175,24 @@ public class GestionCocinar {
                     e.printStackTrace();
                 }
                 System.out.println(Texto.centrar("Producto Cocinado"));
-                zonas=0;
+                zonas = 0;
             }
         }
     }
 
     /**
-     * Método que imprime una representación gráfica de una X y muestra el elemento del proceso de cocinado que ha fallado.
-     * @param procesoCook Lista de Strings que contiene los elementos del proceso de cocinado.
-     * @param longitud Entero que indica la longitud de la lista procesoCook.
+     * Método que imprime una representación gráfica de una X y muestra el elemento
+     * del proceso de cocinado que ha fallado.
+     * 
+     * @param procesoCook Lista de Strings que contiene los elementos del proceso de
+     *                    cocinado.
+     * @param longitud    Entero que indica la longitud de la lista procesoCook.
      */
-    public static void fallosCocinando(List<String> procesoCook,int longitud){
+    public static void fallosCocinando(List<String> procesoCook, int longitud) {
         Random falloRandom = new Random();
         int numeroAleatorio = falloRandom.nextInt(6);
         String falloAleatorio = Catastrofe.fallosCocina[numeroAleatorio];
-        if (longitud == 1){
+        if (longitud == 1) {
             System.out.println(Texto.centrar("X    X"));
             System.out.println(Texto.centrar(" X  X "));
             System.out.println(Texto.centrar("  XX  "));
@@ -198,105 +207,108 @@ public class GestionCocinar {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            zonas=0;
+            zonas = 0;
         }
-        if (longitud == 2){
+        if (longitud == 2) {
             System.out.println(Texto.centrar("X    X"));
             System.out.println(Texto.centrar(" X  X "));
             System.out.println(Texto.centrar("  XX  "));
             System.out.println(Texto.centrar(" X  X "));
             System.out.println(Texto.centrar("X    X"));
-            if(zonas==0){
-            String elemento = procesoCook.get(0);
-            System.out.println(Texto.centrar("Fallo en el proceso de " + elemento));
-            System.out.println(Texto.centrar(falloAleatorio));
-            System.out.println(Texto.centrar("Reiniciando..."));
-            try {
-                Thread.sleep(1000); // Pausa la ejecución por un segundo
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (zonas == 0) {
+                String elemento = procesoCook.get(0);
+                System.out.println(Texto.centrar("Fallo en el proceso de " + elemento));
+                System.out.println(Texto.centrar(falloAleatorio));
+                System.out.println(Texto.centrar("Reiniciando..."));
+                try {
+                    Thread.sleep(1000); // Pausa la ejecución por un segundo
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                zonas = 0;
             }
-            zonas=0;
-        }
-            if(zonas==1){
-            String elemento2 = procesoCook.get(1);
-            System.out.println(Texto.centrar("Fallo en el proceso de " + elemento2));
-            System.out.println(Texto.centrar(falloAleatorio));
-            System.out.println(Texto.centrar("Reiniciando..."));
-            try {
-                Thread.sleep(1000); // Pausa la ejecución por un segundo
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (zonas == 1) {
+                String elemento2 = procesoCook.get(1);
+                System.out.println(Texto.centrar("Fallo en el proceso de " + elemento2));
+                System.out.println(Texto.centrar(falloAleatorio));
+                System.out.println(Texto.centrar("Reiniciando..."));
+                try {
+                    Thread.sleep(1000); // Pausa la ejecución por un segundo
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                zonas = 0;
             }
-            zonas=0;
         }
-        }
-        if (longitud==3){
+        if (longitud == 3) {
             System.out.println(Texto.centrar("X    X"));
             System.out.println(Texto.centrar(" X  X "));
             System.out.println(Texto.centrar("  XX  "));
             System.out.println(Texto.centrar(" X  X "));
             System.out.println(Texto.centrar("X    X"));
-            if(zonas==0){
-            String elemento = procesoCook.get(0);
-            System.out.println(Texto.centrar("Fallo en el proceso de " + elemento));
-            System.out.println(Texto.centrar(falloAleatorio));
-            System.out.println(Texto.centrar("Reiniciando..."));
-            try {
-                Thread.sleep(1000); // Pausa la ejecución por un segundo
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (zonas == 0) {
+                String elemento = procesoCook.get(0);
+                System.out.println(Texto.centrar("Fallo en el proceso de " + elemento));
+                System.out.println(Texto.centrar(falloAleatorio));
+                System.out.println(Texto.centrar("Reiniciando..."));
+                try {
+                    Thread.sleep(1000); // Pausa la ejecución por un segundo
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                zonas = 0;
             }
-            zonas=0;
+            if (zonas == 1) {
+                String elemento2 = procesoCook.get(1);
+                System.out.println(Texto.centrar("Fallo en el proceso de " + elemento2));
+                System.out.println(Texto.centrar(falloAleatorio));
+                System.out.println(Texto.centrar("Reiniciando..."));
+                try {
+                    Thread.sleep(1000); // Pausa la ejecución por un segundo
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                zonas = 0;
             }
-            if(zonas==1){
-            String elemento2 = procesoCook.get(1);
-            System.out.println(Texto.centrar("Fallo en el proceso de " + elemento2));
-            System.out.println(Texto.centrar(falloAleatorio));
-            System.out.println(Texto.centrar("Reiniciando..."));
-            try {
-                Thread.sleep(1000); // Pausa la ejecución por un segundo
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            zonas=0;
-            }
-            if(zonas==2){
-            String elemento3 = procesoCook.get(2);
-            System.out.println(Texto.centrar("Fallo en el proceso de " + elemento3));
-            System.out.println(Texto.centrar(falloAleatorio));
-            System.out.println(Texto.centrar("Reiniciando..."));
-            try {
-                Thread.sleep(1000); // Pausa la ejecución por un segundo
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            zonas=0;
+            if (zonas == 2) {
+                String elemento3 = procesoCook.get(2);
+                System.out.println(Texto.centrar("Fallo en el proceso de " + elemento3));
+                System.out.println(Texto.centrar(falloAleatorio));
+                System.out.println(Texto.centrar("Reiniciando..."));
+                try {
+                    Thread.sleep(1000); // Pausa la ejecución por un segundo
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                zonas = 0;
             }
         }
     }
+
     /**
-     * Método que imprime un patrón de X's y un mensaje de error indicando que ha habido un fallo en el proceso de cocinado por falta de ingredientes.
+     * Método que imprime un patrón de X's y un mensaje de error indicando que ha
+     * habido un fallo en el proceso de cocinado por falta de ingredientes.
      */
-    public static void fallosCocinando(){
+    public static void fallosCocinando() {
         try {
             Thread.sleep(1000); // Agregar un segundo de espera
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-            System.out.println(Texto.centrar("X    X"));
-            System.out.println(Texto.centrar(" X  X "));
-            System.out.println(Texto.centrar("  XX  "));
-            System.out.println(Texto.centrar(" X  X "));
-            System.out.println(Texto.centrar("X    X"));
-            System.out.println(Texto.centrar("Fallo por falta de ingredientes"));
+        System.out.println(Texto.centrar("X    X"));
+        System.out.println(Texto.centrar(" X  X "));
+        System.out.println(Texto.centrar("  XX  "));
+        System.out.println(Texto.centrar(" X  X "));
+        System.out.println(Texto.centrar("X    X"));
+        System.out.println(Texto.centrar("Fallo por falta de ingredientes"));
     }
 
     /**
-     * Método estático que imprime un mensaje indicando que se han botado algunos ingredientes caducados.
+     * Método estático que imprime un mensaje indicando que se han botado algunos
+     * ingredientes caducados.
      */
-    public static void falloCaducado(){
-    System.out.println(Texto.centrar("Botamos algunos ingredientes caducados :/"));   
+    public static void falloCaducado() {
+        System.out.println(Texto.centrar("Botamos algunos ingredientes caducados :/"));
     }
 }
-//Mateo MVP
+// Mateo MVP

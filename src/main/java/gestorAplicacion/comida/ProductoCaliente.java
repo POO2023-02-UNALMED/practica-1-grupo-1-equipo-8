@@ -87,11 +87,17 @@ public void setHorno(boolean horno) {
 	Random numAleatorio = new Random();
   	int cuantosProcesos = numAleatorio.nextInt(3)+1;
 			ArrayList <Integer> numerosIndices = new ArrayList<Integer>();
-	for(int i=0;i<cuantosProcesos;i++){
-		Random random = new Random();
-  	int numerosDelProceso = random.nextInt(6);
-		numerosIndices.add(numerosDelProceso);
-	}
+	for (int i = 0; i < cuantosProcesos; i++) {
+        int numerosDelProceso;
+        boolean repetido;
+        do {
+            Random random = new Random();
+            numerosDelProceso = random.nextInt(6); // Usamos 6, ya que hay 6 procesos en la lista
+            repetido = numerosIndices.contains(numerosDelProceso);
+        } while (repetido);
+
+        numerosIndices.add(numerosDelProceso);
+    }
 	ArrayList <String> procesosFinales = new ArrayList<String>();
 	for (int numero : numerosIndices){
 		String procesoRandom = procesos.get(numero);

@@ -225,32 +225,42 @@ public class Producto implements Serializable, ComidaDefault{
 	 * El número de procesos seleccionados es aleatorio y varía entre 1 y 3.
 	 * @return una lista de procesos de cocina seleccionados aleatoriamente.
 	 */
-	public ArrayList<String> seleccionProcesosDeCocina (){
-	ArrayList <String> procesos = new ArrayList<String>();
-	procesos.add("Hornear");
-	procesos.add("Gelatinificar");
-	procesos.add("Amasar");
-	procesos.add("Mezclar");
-	procesos.add("Fritar");
-	procesos.add("Asar");
-	procesos.add("Congelar");
-	procesos.add("Licuar");
-	procesos.add("Decoracion");
-	Random numAleatorio = new Random();
-	int cuantosProcesos = numAleatorio.nextInt(3)+1;
-			ArrayList <Integer> numerosIndices = new ArrayList<Integer>();
-	for(int i=0;i<cuantosProcesos;i++){
-		Random random = new Random();
-	int numerosDelProceso = random.nextInt(6);
-		numerosIndices.add(numerosDelProceso);
-	}
-	ArrayList <String> procesosFinales = new ArrayList<String>();
-	for (int numero : numerosIndices){
-		String procesoRandom = procesos.get(numero);
-		procesosFinales.add(procesoRandom);
-	}
-	return procesosFinales;
-	}
+	public ArrayList<String> seleccionProcesosDeCocina() {
+    ArrayList<String> procesos = new ArrayList<String>();
+    procesos.add("Hornear");
+    procesos.add("Gelatinificar");
+    procesos.add("Amasar");
+    procesos.add("Mezclar");
+    procesos.add("Fritar");
+    procesos.add("Asar");
+    procesos.add("Congelar");
+    procesos.add("Licuar");
+    procesos.add("Decoracion");
+
+    Random numAleatorio = new Random();
+    int cuantosProcesos = numAleatorio.nextInt(3) + 1;
+
+    ArrayList<Integer> numerosIndices = new ArrayList<Integer>();
+    for (int i = 0; i < cuantosProcesos; i++) {
+        int numerosDelProceso;
+        boolean repetido;
+        do {
+            Random random = new Random();
+            numerosDelProceso = random.nextInt(9); // Usamos 9, ya que hay 9 procesos en la lista
+            repetido = numerosIndices.contains(numerosDelProceso);
+        } while (repetido);
+
+        numerosIndices.add(numerosDelProceso);
+    }
+
+    ArrayList<String> procesosFinales = new ArrayList<String>();
+    for (int numero : numerosIndices) {
+        String procesoRandom = procesos.get(numero);
+        procesosFinales.add(procesoRandom);
+    }
+
+    return procesosFinales;
+}
 
 	/**
 	 * Método que organiza los productos más vendidos en orden descendente y los almacena en una lista.

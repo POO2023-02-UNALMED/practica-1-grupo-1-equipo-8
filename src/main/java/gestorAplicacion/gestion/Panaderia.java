@@ -299,16 +299,21 @@ public class Panaderia implements Serializable {
         domiciliario.setOcupado(true);
         double costo = domiciliario.calcularCostoDomicilio(cliente, canasta);
         domiciliario.setCostoDomicilio(costo);
-
-        boolean logro = domiciliario.laborParticular(canasta);
-        while (!logro){
-            domiciliario.setHabilidad(domiciliario.getHabilidad()+1);
+        while (!domiciliario.laborParticular(canasta)){
+            domiciliario.setHabilidad(domiciliario.getHabilidad()+10);
             this.restarDinero(10000);
             domiciliario.setLicencia(true);
-            logro = domiciliario.laborParticular(canasta);
         }
+        cliente.setCanastaEnMano(domiciliario.getCanasta());
+        domiciliario.setCanasta(null);
     }
 
+    /**
+     * Revisa la calificación de un domiciliario y ajusta su salario en consecuencia.
+     * Si la calificación es menor a 3, se reduce su salario en un 10%.
+     * Si la calificación es igual a 5, se aumenta su salario en un 10%.
+     * @param domiciliario el domiciliario cuyo salario se va a ajustar
+     */
     public void reviewDomiciliario(Domiciliario domiciliario) {
         double calificacion = domiciliario.getCalificacion();
         if (calificacion < 3) {
@@ -318,6 +323,12 @@ public class Panaderia implements Serializable {
         }
     }
 
+    /**
+     * Revisa la calificación de un cocinero y ajusta su salario en consecuencia.
+     * Si la calificación es menor a 3, se reduce su salario en un 10%.
+     * Si la calificación es igual a 5, se aumenta su salario en un 10%.
+     * @param cocinero El cocinero cuyo salario se va a ajustar.
+     */
     public void reviewCocinero(Cocinero cocinero) {
         double calificacion = cocinero.getCalificacion();
         if (calificacion < 3) {

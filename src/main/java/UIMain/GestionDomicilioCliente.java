@@ -32,7 +32,7 @@ public class GestionDomicilioCliente {
         switch(opcion){
             case 1:
                 
-                cliente.enviarCanastasADomicilio(cliente.getCanastaEnMano());
+                cliente.enviarCanastasADomicilio(cliente.getCanastaOrden());
                 
                 break;
             case 2:

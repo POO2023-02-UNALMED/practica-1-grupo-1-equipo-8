@@ -23,7 +23,7 @@ public class Catastrofe {
 //construcores
     public Catastrofe() {
         Random rand = new Random();
-        this.maldad = rand.nextInt(10) + 1; // 1 <= maldad <= 10
+        this.maldad = rand.nextInt(4) + 1; // 1 <= maldad <= 4
     }
 
     public Catastrofe(int maldad) {
@@ -101,18 +101,11 @@ public class Catastrofe {
      * @return true si el domiciliario puede pasar, false si se le revocó la licencia.
      */
     public boolean paradaTransito(Domiciliario domiciliario){
-        Random rand = new Random();
-        int chance = rand.nextInt(5) + 1; // 1 <= chance <= 5
-        if (domiciliario.habilidad < chance){
+        int chance = this.maldad;
+        if (domiciliario.getHabilidad() < chance){
             domiciliario.setLicencia(false);
             return false;
         }
-
         return true;
     }
-
-    //TODO: la idea es que se implementen las otras catastrofes para las otras funcionalidades
-
-    //TODO cambiar a panaderia lo siguiente apenas se puede
-    
 }
